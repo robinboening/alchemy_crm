@@ -1,0 +1,44 @@
+<%- alchemy_assets_set(:default) -%>
+
+<%- content_for(:stylesheets) do -%>
+	<%= stylesheet_link_tag('mailings', :plugin => 'mailings') %>
+<%- end -%>
+
+<%- content_for :toolbar do -%>
+<div id="toolbar">
+    <div id="toolbar_buttons">
+        <div class="button_with_label">
+            <%= link_to_overlay_window(
+                content_tag('span', '', :class => 'icon mailing_add'),
+                new_admin_mailing_path(),
+                {
+                    :title => 'Neues Mailing anlegen',
+                    :size => '400x280'
+                },
+                {
+                    :title => 'Neues Mailing anlegen',
+                    :class => 'icon_button'
+                }
+            ) -%><br />
+            <label>Neues Mailing</label>
+        </div>
+    </div>
+    <%= render :partial => 'admin/partials/search_form' %>
+</div>
+<%- end -%>
+
+<div id="archive_all">
+    <table class="list">
+        <%- unless @mailings.blank? -%>
+        <tr class="legend">
+            <th class="icon"></th>
+            <th class="name">Name</th>
+            <th class="name">Betreff</th>
+            <th style="width: 120px">Newsletter</th>
+            <th class="size" style="width: 120px">Kontakte</th>
+            <th class="tools" style="width: 88px"></th>
+        </tr>
+        <%- end -%>
+        <%= render @mailings %>
+    </table>
+</div>

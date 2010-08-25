@@ -1,0 +1,11 @@
+<% form_for [:admin, @tag] do |form| %>
+<table class="with_padding">
+	<tr>
+		<td class="label"><%= form.label :name %></td>
+		<td class="input"><%= form.text_field :name, :class => 'input_field' %></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="submit"><%= form.submit _('save'), :name => nil, :class => 'button' %></td>
+	</tr>
+</table>
+<% end %>

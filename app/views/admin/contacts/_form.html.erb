@@ -1,0 +1,60 @@
+<div id="errors" style="display:none"></div>
+<% remote_form_for [:admin, @contact], :html => {:class => "with_padding"} do |f| %>
+
+<table border="0" cellspacing="4" cellpadding="0">
+	<tr>
+		<td class="label"><%= f.label :salutation, ("Anrede") %></td>
+		<td colspan="3"><%= f.select :salutation, ["Herr","Frau"] %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :title, ("Titel") %></td>
+		<td colspan="3"><%= f.text_field :title, :class => "thin_border long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :firstname, ("Vorname") %></td>
+		<td colspan="3"><%= f.text_field :firstname, :class => "thin_border long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :lastname, ("Nachname") %></td>
+		<td colspan="3"><%= f.text_field :lastname, :class => "thin_border long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :organisation, ("Firma") %></td>
+		<td colspan="3"><%= f.text_field :organisation, :class => "thin_border long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :email, ("E-Mail") %></td>
+		<td colspan="3"><%= f.text_field :email, :class => "thin_border long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :phone, ("Telefon") %></td>
+		<td colspan="3"><%= f.text_field :phone, :class => "thin_border long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :mobile, ("Mobil") %></td>
+		<td colspan="3"><%= f.text_field :mobile, :class => "thin_border long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :address, ("Adresse") %></td>
+		<td colspan="3"><%= f.text_field :address, :class => "thin_border long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :zip, ("PLZ") %></td>
+		<td><%= f.text_field :zip, :class => "thin_border short" %></td>
+		<td class="label right"><%= f.label :city, ("Stadt") %></td>
+		<td><%= f.text_field :city, :class => "thin_border medium_long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :country, ("Land") %></td>
+		<td colspan="3"><%= f.text_field :country, :class => "thin_border long" %></td>
+	</tr>
+	<tr>
+		<td class="label"><%= f.label :tag_list, ("Tags") %></td>
+		<td colspan="3"><%= text_field_with_auto_complete 'contact', 'tag_list', { :size => 40, :class => "thin_border long"}, {:tokens => ','} %></td>
+	</tr>
+	<tr>
+		<td class="submit" colspan="4"><%= submit_tag "Speichern", :class => "button" %></td>
+	</tr>
+</table>
+
+<% end %>

@@ -1,0 +1,42 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td class="icon">
+		<%= content_tag('span', '', :class => 'icon contact') %>
+	</td>
+	<td class="name" style="width: 180px">
+		<%= contact.lastname %>
+	</td>
+	<td class="name" style="width: 180px">
+		<%= contact.firstname %>
+	</td>
+	<td class="name"><%= contact.organisation %></td>
+	<td class="email"><%= contact.email %></td>
+	<td class="tools">
+		<%= link_to_confirmation_window(
+			"",
+			"Wollen Sie diesen Kontakt wirklich löschen?",
+			admin_contact_path(contact),
+			:title => 'Kontakt löschen',
+			:class => 'icon contact_delete'
+		) %>
+		<%= link_to_overlay_window(
+			'',
+			edit_admin_contact_path(contact),
+			{
+				:title => 'Kontakt bearbeiten',
+				:size => '330x400'
+			},
+			{
+				:title => 'Kontakt bearbeiten',
+				:class => 'icon contact_edit'
+			}
+		) -%>
+		<%= link_to(
+			'',
+			export_admin_contact_path(contact),
+			{
+				:title => 'Kontakt exportieren',
+				:class => 'icon contact_export'
+			}
+		) -%>
+	</td>
+</tr>

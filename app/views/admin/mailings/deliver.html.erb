@@ -1,0 +1,63 @@
+<div class="with_padding">
+	<div id="please_wait" style="display: none">
+		<p>
+			<%= image_tag('alchemy/ajax_loader.gif', :plugin => 'alchemy') %>
+			Bitte warten...
+		</p>
+	</div>
+	<div id="errors" style="display:none"></div>
+	<%- if @mailing.page.elements.collect(&:public?).include?(false) -%>
+		<strong>
+			In diesem Mailing befinden sich unveröffentlichte Elemente.
+			Die Empfänger des Mailings werden diese Elemente nicht sehen.
+			Möchten Sie wirklich fortfahren?
+		</strong>
+	<%- end -%>
+	<div class="emulate_table">
+		<p>
+			<label>Name:</label>
+			<span class="value_with_top_padding"><%= @mailing.name %></span>
+		</p>
+		<p>
+			<label>Betreff:</label>
+			<span class="value_with_top_padding"><%= @mailing.subject %></span>
+		</p>
+		<p>
+			<label>Empfänger:</label>
+			<span class="value_with_top_padding"><%= @mailing.recipients_count %></span>
+		</p>
+		<div>
+			&raquo;&nbsp;<%= link_to_function "Alle Empfänger anzeigen", "$('all_contacts').toggle();toggle_label(this, 'Alle Empfänger ausblenden', 'Alle Empfänger anzeigen')" ,:class => "" %>
+			<div id="all_contacts" style="display: none; padding-top: 4px">
+			<% @mailing.all_email_addresses.each do |email_address| %>
+				<p><%= email_address %></p>
+			<% end %>
+			</div>
+		</div>
+		<% form_tag(deliver_admin_mailing_path(@mailing), :class => "send_mailing_form", :onsubmit => "$('please_wait').show()") do %>
+			<h2>Der Versand der eMails wird nur vorgenommen, wenn Sie dafür die folgende Checkbox aktivieren.</h2>
+			<p style="font-style: italic">
+				<%= check_box_tag "confirm_to_send", "send", false, :onclick => "$('send').disabled = !$('send').disabled" %>
+				Mit dem Aktivieren dieser Checkbox bestätige ich, dass ich den folgenden Text gelesen habe und diesem zustimme.
+			</p>
+			<p>
+				Für den Versand der eMails übernehme ich die persönliche Verantwortung.
+				Für alle ausgewählten Empfänger liegt ein ausdrückliches oder konkludentes Einverständnis vor.
+				Mir ist bewusst, dass bereits die einmalige Übersendung einer unerwünschten eMail einen
+				unterlassungsrelevanten Eingriff in den eingerichteten und ausgeübten Gewerbebetrieb darstellt,
+				bzw. die Privatsphäre einer Person beeinträchtigen kann. Beides kann rechtliche Folgen für den
+				Versender und/oder seinen Erfüllungsgehilfen bedeuten.
+			</p>
+			<p style="font-size:10px">
+				Hinweis: Gewerbetreibende und Unternehmer sollten beim Versand von eMails besonders darauf achten, dass der Versand vom Empfänger auch gewollt ist. Ist dem nicht der Fall, drohen kostenintensive Abmahnungen.
+			</p>
+			<%#= hidden_field_tag(:id, @mailing) %>
+			<%= submit_tag(
+				"versenden",
+				:id => "send",
+				:disabled => true,
+				:class => "button"
+			) %>
+		<% end %>
+	</div>
+</div>

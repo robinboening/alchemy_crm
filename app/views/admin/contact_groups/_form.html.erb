@@ -1,0 +1,53 @@
+<div id="errors" style="display:none"></div>
+<% remote_form_for [:admin, @contact_group] do |f| %>
+    <table border="0" cellspacing="5" cellpadding="0" style="width: 100%">
+        <tr>
+            <td class="label medium">
+                <%= f.label :name, "Name" %>
+            </td>
+            <td class="input">
+                <%= f.text_field :name, :class => "thin_border long", :style => 'width: 350px' %>
+            </td>
+        </tr>
+        <tr>
+            <td class="label medium">
+                <label>Tags</label>
+            </td>
+            <td class="input">
+                <%= render :partial => "tag", :collection => @old_tags, :locals => {:tags => @contact_group.tags, :name => "contact_group" } unless @old_tags.blank? %>
+            </td>
+        </tr>
+        <tr>
+            <td class="label medium">
+                <label>neue Tags*</label>
+            </td>
+            <td class="input">
+                <%= render :partial => "tag", :collection => @new_tags, :locals => {:tags => @contact_group.tags, :name => "contact_group" } unless @new_tags.blank? %>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <small>* Tags, die nach der Gruppenbildung erstellt worden.</small>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div id="filter_container">
+                    <h2>Verfeinerungs-Filter</h2>
+                    <%= hidden_field_tag "counter", @contact_group.filters.length %>
+                    <%- @contact_group.filters.each_with_index do |filter, i| -%>
+                    <%= render :partial => "filter", :object => filter, :locals => {:filter_count => i} %>
+                    <%- end -%>
+                </div>
+                <p>
+                    <a onclick="url = '/admin/contact_groups/add_filter/'; counter = parseInt($('counter').value) + 1; $('counter').value = counter; new Ajax.Request(url + counter, {asynchronous:true, evalScripts:true}); return false;" href="#">
+                        + Filter hinzufügen
+                    </a>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" colspan="2"><%= f.submit "speichern", :class => "button" %></td>
+        </tr>
+    </table>
+<% end %>

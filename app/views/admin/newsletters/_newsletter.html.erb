@@ -1,0 +1,33 @@
+<tr class="<%= cycle('odd', 'even') %>">
+    <td class="icon">
+        <%= render_icon('format') -%>
+    </td>
+    <td class="name">
+        <%= newsletter.name -%>
+    </td>
+    <td style="width: 120px">
+        <%= newsletter.layout %>
+    </td>
+    <td class="size" style="width: 120px">
+        <%= newsletter.contacts_count -%>
+    </td>
+    <td class="tools">
+        <%= link_to_overlay_window(
+            content_tag('span', '', :class => 'icon format_edit'),
+            edit_admin_newsletter_path(newsletter),
+            {
+                :title => 'Liste bearbeiten',
+                :size => '380x280'
+            },
+            {
+                :title => 'Mailing Format bearbeiten'
+            }
+        ) -%>
+        <%= link_to_confirmation_window(
+            content_tag('span', '', :class => 'icon format_delete'),
+            "Wollen Sie diese Mailingliste wirklich löschen?",
+            admin_newsletter_path(newsletter),
+            :title => 'Mailing Format löschen'
+        ) -%>
+    </td>
+</tr>

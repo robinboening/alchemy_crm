@@ -1,0 +1,6 @@
+<span class="tag_with_radio_button">
+    <%= check_box_tag "newsletter[contact_group_ids][]", tag_with_radiobutton.id, newsletter_contact_groups.include?(tag_with_radiobutton), :id => tag_with_radiobutton.name.downcase + "_contact_group" %>
+    <label for="<%= tag_with_radiobutton.name.downcase + "_contact_group" %>" class="tag">
+        <%= tag_with_radiobutton.name + "&nbsp;<small>(#{tag_with_radiobutton.contacts.length})</small>" %>
+    </label>
+</span>

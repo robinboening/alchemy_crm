@@ -1,0 +1,8 @@
+<div id="filter_<%= filter_count %>" number="<%= filter_count %>">
+    <%= select_tag "filters[#{filter_count}][column]", options_for_select(Contact.filterable_column_names, filter.column) %>
+    <%= select_tag "filters[#{filter_count}][operator]", options_for_select(ContactGroupFilter.operators, filter.operator) %>
+    <%= text_field_tag "filters[#{filter_count}][value]", (filter.value rescue ""), :class => 'thin_border long' %>
+    <span style="float: right">
+        <%= link_to_function "", "$('filter_#{filter_count}').remove()", :class => 'remove_filter_link', :title => 'Filter entfernen' %>
+    </span>
+</div>

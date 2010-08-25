@@ -1,0 +1,5 @@
+<html>
+	<body>
+	<%= @element.contents.find_by_name("email_text").essence.body % {:link => link_to(verify_mailing_url(@contact.email_sha1, :host => @server, :newsletter_ids => @newsletter_ids), verify_mailing_url(@contact.email_sha1, :host => @server, :newsletter_ids => @newsletter_ids)), :name => @contact.fullname} %>
+	</body>
+</html>

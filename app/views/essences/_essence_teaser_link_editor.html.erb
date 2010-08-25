@@ -1,0 +1,17 @@
+<div class="essence_teaser_link_editor"<%= " style=\"float: left;\"" if options[:css_class] == "text_short" %>>
+	<%= text_field(
+			"content",
+			"text",
+			:value => content.essence.text,
+			:name => "contents[content_#{content.id}]",
+			:id => "content_#{content.id}",
+			:class => options[:css_class]
+		) %>
+		<%= prototype_window(
+			url_for(:controller => :elements, :action => :fill, :id => content.element.id),
+			'fill_from_element_button',
+			'Artikel in den Mailing übernehmen',
+			'550',
+			'500'
+		) -%>
+</div>

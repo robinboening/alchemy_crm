@@ -1,0 +1,10 @@
+<html>
+	<body>
+		<%= @element.contents.find_by_name("email_text").essence.body % {:name => @contact.fullname} %>
+		<% @contact.all_newsletters.each do |newsletter| %>
+		<p>
+		<%= newsletter.name %>&nbsp;<%= link_to @element.contents.find_by_name("mailing_abbestellen").essence.body, url_for(:host => @server, :controller => 'contact', :action => 'signout', :id => @contact, :h => (@contact.email_sha1 rescue nil), :format_id => newsletter.id) %>
+		</p>
+		<% end %>
+	</body>
+</html>

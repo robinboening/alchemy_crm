@@ -1,0 +1,8 @@
+<p>Aus datenschutzrechtlichen Gründen schicken wir Ihnen eine Liste mit Ihren bestellten Mailingn an Ihre Emailadresse.</p>
+<p>Dort finden Sie weiter Anweisungen zum Austragen der einzelnen Mailing.</p>
+<% form_tag signout_mailings_path, :method => "post" do %>
+	<p><label>Ihre Email Adresse</label>
+	<%= text_field "contact", "email" %>
+	<%= submit_tag "Mailingliste zusenden" %></p>
+<% end %>
+<p><%= flash[:frontend_notice] %></p>

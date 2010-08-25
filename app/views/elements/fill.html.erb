@@ -1,0 +1,47 @@
+<div class="with_padding">
+	<p style="margin-bottom:8px">Alle Artikel der Seite: <%= select_tag "pages",
+		options_for_select([["Bitte wählen", ""]]) + option_groups_from_collection_for_select(
+			@collection,
+			"at(1)",
+			:first,
+			:id,
+			:name
+		),
+		:include_blank => true,
+		:onchange => "$('elements_for_mailing_content').childElements().invoke('hide');$$('.page_id_' + this.value).invoke('show');" %>
+	&nbsp;anzeigen.
+	</p>
+	<div id="elements_for_mailing_content">
+	<% @elements.each_with_index do |element, i| %>
+		<div class='page_id_<%= element.page_id %>' style="padding:8px;display:none;background-color: white;margin-bottom:8px">
+			<div id="element_content_<%= element.id %>" url="<%= full_url_for_element(element) %>">
+				<%= element.all_contents_by_type("EssenceRichtext").first.essence.body %>
+			</div>
+			<div style="margin-top:4px;padding-top:4px;border-top: 1px solid #ededed">
+				<%= link_to_remote("&laquo; in den Mailing übernehmen",
+							:url => {
+								:controller => "elements",
+								:action => "update_from_element",
+								:id => @element.id,
+								:source_element_id => element.id
+							},
+							:method => 'put',
+							:complete => "alchemy_window.close()"
+						) %>
+				<%= link_to_remote(" nur Link setzen &raquo;",
+							:url => {
+								:controller => "elements",
+								:action => "update_from_element",
+								:id => @element.id,
+								:source_element_id => element.id,
+								:link_only => true
+							},
+							:method => 'put',
+							:complete => "alchemy_window.close()",
+							:html => {:class => "link_only"}
+						) %>
+			</div>
+		</div>
+	<% end %>
+	</div>
+</div>

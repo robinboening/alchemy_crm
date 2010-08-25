@@ -1,0 +1,7 @@
+<%- if @sent_mailings.blank? -%>
+	<p class="with_padding">Dieser Mailing wurde noch nicht versendet!</p>
+<%- else -%>
+<div class="sent_mailings">
+	<%= render @sent_mailings %>
+</div>
+<%- end -%>

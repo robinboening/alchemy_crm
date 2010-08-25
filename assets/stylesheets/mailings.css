@@ -1,0 +1,355 @@
+/* @override http://0.0.0.0:3000/stylesheets/mailings.css */
+
+div.sent_mailings {
+	clear: both;
+	float: left;
+	font-size: 10px;
+	padding: 8px;
+	background-color: #dedede;
+}
+
+div.sent_mailings div.sent_mailing table tbody tr td {
+	text-align: center;
+}
+
+span.icon.mailing_add {
+	background: url(../images/mailing-icons.png) -48px 0;
+}
+
+span.icon.mailing {
+	background: url(../images/mailing-icons.png) 0 0;
+}
+
+span.icon.mailing_copy {
+	background: url(../images/mailing-icons.png) -80px 0;
+}
+
+span.icon.mailing_edit {
+	background: url(../images/mailing-icons.png) -32px 0;
+}
+
+span.icon.mailing_delete {
+	background: url(../images/mailing-icons.png) -16px 0;
+}
+
+span.icon.mailing_sent {
+	background: url(../images/mailing-icons.png) -64px 0;
+}
+
+span.icon.group_add {
+	background: url(../images/group-icons.png) -48px 0;
+}
+
+span.icon.send_mailing {
+	background: url(../images/mailing-icons.png) -96px 0;
+}
+
+span.icon.group {
+	background: url(../images/group-icons.png) 0 0;
+}
+
+a.icon.group_edit {
+	background: url(../images/group-icons.png) -32px 0;
+}
+
+a.icon.group_delete {
+	background: url(../images/group-icons.png) -16px 0;
+}
+
+span.icon.tag_add {
+	background: url(../images/tag-icons.png) -48px 0;
+}
+
+span.icon.tag {
+	background: url(../images/tag-icons.png) 0 0;
+	margin-right: 0;
+}
+
+a.icon.tag_edit {
+	background: url(../images/tag-icons.png) -32px 0;
+}
+
+a.icon.tag_delete {
+	background: url(../images/tag-icons.png) -16px 0;
+}
+
+span.icon.contact_add {
+	background: url(../images/contact-icons.png) -48px 0;
+}
+
+span.icon.contact {
+	background: url(../images/contact-icons.png) 0 0;
+}
+
+a.icon.contact_export {
+	background: url(../images/contact-icons.png) -64px 0;
+}
+
+span.icon.contact_import {
+	background: url(../images/contact-icons.png) -80px 0;
+}
+
+a.icon.contact_delete {
+	background: url(../images/contact-icons.png) -16px 0;
+}
+
+a.icon.contact_edit {
+	background: url(../images/contact-icons.png) -32px 0;
+}
+
+span.icon.format_add {
+	background: url(../images/newsletter-icons.png) -48px 0;
+}
+
+span.icon.format {
+	background: url(../images/newsletter-icons.png) 0 0;
+}
+
+span.icon.format_delete {
+	background: url(../images/newsletter-icons.png) -16px 0;
+}
+
+span.icon.format_edit {
+	background: url(../images/newsletter-icons.png) -32px 0;
+}
+
+div.sent_mailing {
+	clear: both;
+	margin-bottom: 8px;
+	background-color: #dedede;
+	width: 368px;
+	float: left;
+}
+
+span.sent_mailing_text {
+	float: left;
+	position: relative;
+	top: 4px;
+}
+
+#main_content ul.mailing.list li div.list_row span.list_3rdcol {
+	width: 130px;
+}
+
+#main_content ul.mailing.list li div.list_row span.list_4thcol {
+	width: 64px;
+}
+
+div#tag_links {
+	clear: both;
+	margin-bottom: 5px;
+	background-color: rgba(58,255,63,0.35);
+}
+
+div#tag_links a {
+	font-style: italic;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+
+div#other_links {
+	float: left;
+	background-color: rgba(249,12,21,0.5);
+}
+
+div#other_links a {
+	font-style: italic;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+
+div#tag_container {
+	float: left;
+}
+
+#main_content ul.contacts.list li div.list_row span.list_1stcol img {
+	position: relative;
+	right: 1px;
+}
+
+div.tag_and_radio_list {
+	float: left;
+	clear: both;
+	width: 100%;
+	margin-bottom: 8px;
+}
+
+span.tag_with_radio_button {
+	margin-right: 12px;
+	float: left;
+}
+
+div.tag_list {
+	padding-bottom: 8px;
+	overflow: auto;
+}
+
+.tag_with_radio_button input, .tag_with_radio_button label.tag {
+	padding: 0;
+	width: auto;
+}
+
+div#all_contacts {
+	padding: 3px;
+	overflow: auto;
+	background-color: white;
+}
+
+form.send_mailing_form {
+	float: left;
+	clear: both;
+	width: 100%;
+	margin-top: 20px;
+}
+
+a.sent_mailing_pdf_link {
+	float: right;
+	position: relative;
+	top: 4px;
+	right: 4px;
+}
+
+img.unverified_contact {
+	position: absolute;
+	left: 2px;
+	z-index: 1;
+	top: 1px;
+}
+
+#contact_list li div.list_row span.list_1stcol {
+	position: relative;
+}
+
+#contact_list li div.list_row span.list_4thcol {
+	margin-left: 4px;
+	width: 42px;
+}
+
+.contact_details {
+	float: left;
+	clear: both;
+	width: 367px;
+	background-color: #ddd;
+	padding: 4px 4px 2px;
+}
+
+.contact_details div {
+	margin-bottom: 2px;
+}
+
+#contact_list li div span.user_edit_tools {
+	width: 41px;
+}
+
+ul.mailing.list span.list_1stcol img {
+	position: relative;
+	right: 1px;
+}
+
+a.delete_mailing_button:hover {
+	background-position: right;
+	text-decoration: none;
+}
+
+.with_padding {
+	padding: 4px;
+	position: relative;
+}
+
+div#please_wait {
+	position: absolute;
+	width: 99%;
+	height: 99%;
+	text-align: center;
+	background-color: #ededed;
+	z-index: 1;
+	opacity: 0.85;
+}
+
+#please_wait p {
+	margin-top: 30%;
+}
+
+#please_wait p img {
+	position: relative;
+	top: 12px;
+}
+
+.full_width {
+	width: 100% !important;
+}
+
+div.emulate_table span.value_with_top_padding {
+	padding-top: 2px;
+	float: left;
+}
+
+a.send_mailing_button {
+	width: 19px;
+	height: 19px;
+	display: block;
+	background: url(../images/mailing_send.gif) no-repeat left center;
+	float: right;
+}
+
+#elements_for_mailing_content a.link_only {
+	float: right;
+}
+
+a.send_mailing_button:hover {
+	background-position: right;
+	text-decoration: none;
+}
+
+.send_mailing_button_disabled {
+	width: 19px;
+	height: 19px;
+	display: block;
+	background: url(../images/mailing_send.gif) no-repeat left center;
+	float: right;
+	background-position: right;
+	text-decoration: none;
+}
+
+a.show_statistic_button {
+	float: right;
+	width: 19px;
+	height: 19px;
+	background-image: url(../images/statistic.png);
+}
+
+a.show_statistic_button:hover {
+	text-decoration: none;
+	background-position: right;
+}
+
+.medium_long {
+	width: 343px;
+	margin-bottom: 6px;
+}
+
+div.sent_mailing_stats_heading {
+	height: 20px;
+	padding: 4px;
+}
+
+a.remove_filter_link {
+	background: url(../../alchemy/images/icons/cross.png) no-repeat;
+	width: 16px;
+	height: 16px;
+	display: block;
+	margin-top: 2px;
+}
+
+span.tag {
+	margin-right: 12px;
+	float: left;
+}
+
+#filter_container {
+	margin-bottom: 8px;
+}
+
+input#contact_city {
+	width: 123px;
+}
