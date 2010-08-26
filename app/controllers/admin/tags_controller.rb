@@ -62,7 +62,7 @@ class Admin::TagsController < ApplicationController
 protected
   
   def set_gettext_domain
-    FastGettext.text_domain = 'mailings'
+    FastGettext.text_domain = 'alchemy-mailings'
   end
   
 end

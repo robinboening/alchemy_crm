@@ -1,11 +1,11 @@
 <%- alchemy_assets_set(:default) -%>
 
 <%- content_for(:stylesheets) do -%>
-	<%= stylesheet_link_tag('mailings', :plugin => 'mailings') %>
+	<%= stylesheet_link_tag('alchemy-mailings/base') %>
 <%- end -%>
 
 <%- content_for(:javascript_includes) do -%>
-	<%= javascript_include_tag('controls', :plugin => 'alchemy') %>
+	<%= javascript_include_tag('alchemy/controls') %>
 <%- end -%>
 
 <%- content_for :toolbar do -%>

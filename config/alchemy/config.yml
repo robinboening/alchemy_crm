@@ -1,10 +1,10 @@
-name: mailings
+name: alchemy-mailings
 
 navigation:
   name: 'Mailings'
   controller: admin/mailings
   action: index
-  image: /plugin_assets/mailings/images/mailings.png
+  image: /images/alchemy-mailings/mailings.png
   sub_navigation:
     - name: Mailings
       controller: admin/mailings
