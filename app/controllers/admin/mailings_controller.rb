@@ -78,7 +78,7 @@ class Admin::MailingsController < ApplicationController
       all_contacts = @mailing.all_contacts + additional_email_addresses
       all_contacts.each do |contact|
         recipient             = Recipient.create(:email => contact.email, :contact => contact, :sent_mailing => sent_mailing)
-        mail                  = MailingsMailer.create_my_mail(@mailing, mailing_elements, contact, recipient, :mail_from => plugin_conf("mailings")[:mail_from], :server => get_server.gsub(/http:\/\//, ''))
+        mail                  = MailingsMailer.create_my_mail(@mailing, mailing_elements, contact, recipient, :mail_from => plugin_conf("alchemy-mailings")[:mail_from], :server => get_server.gsub(/http:\/\//, ''))
         send_mail             = MailingsMailer.deliver(mail)
         recipient.message_id  = send_mail.message_id
         recipient.save!

@@ -13,7 +13,7 @@
 			<%= f.label :subject, ("Betreff"), :class => "medium_long" %>
 			<%= f.text_field :subject, :class => "thin_border long" %>
 		</div>
-		<%- if plugin_conf("mailings")[:enable_workflow] -%>
+		<%- if plugin_conf("alchemy-mailings")[:enable_workflow] -%>
 		<%- if action == "update" -%>
 		<div class="emulated_table_row">
 			<%= f.label :status, ("Status"), :class => "medium_long" %>
