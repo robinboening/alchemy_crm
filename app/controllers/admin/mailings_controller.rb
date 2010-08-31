@@ -81,9 +81,9 @@ class Admin::MailingsController < ApplicationController
         mail                  = MailingsMailer.create_my_mail(@mailing, mailing_elements, contact, recipient, :mail_from => plugin_conf("alchemy-mailings")[:mail_from], :server => get_server.gsub(/http:\/\//, ''))
         send_mail             = MailingsMailer.deliver(mail)
         recipient.message_id  = send_mail.message_id
-        recipient.save!
+        recipient.save
       end
-      sent_mailing.save!
+      sent_mailing.save
       a = Time.now - a
       logger.info("§§§ rendered mailing in #{a} s")
       flash[:notice] = "Das Mailing wird nun versendet"
