@@ -1,7 +1,5 @@
 class RecipientsController < ApplicationController
   
-  before_filter :auto_logout?
-  
   def reads
     recipient = Recipient.find_by_id(params[:id])
     recipient.update_attributes(:read => true, :read_at => Time.now) unless recipient.nil?

@@ -1,6 +1,6 @@
 class Admin::ContactsController < ApplicationController
   
-  layout "admin"
+  layout "alchemy"
   
   filter_access_to :all
   

@@ -1,6 +1,6 @@
 class Admin::TagsController < ApplicationController
   
-  layout "admin"
+  layout "alchemy"
   helper :tags
   
   filter_access_to :all

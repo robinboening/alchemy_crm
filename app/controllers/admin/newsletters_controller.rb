@@ -1,6 +1,6 @@
 class Admin::NewslettersController < ApplicationController
   
-  layout "admin"
+  layout "alchemy"
   
   filter_access_to :all
   

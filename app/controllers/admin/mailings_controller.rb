@@ -1,6 +1,6 @@
 class Admin::MailingsController < ApplicationController
   
-  layout 'admin'
+  layout 'alchemy'
   
   def index
     if params[:query].blank?

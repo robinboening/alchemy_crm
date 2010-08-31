@@ -1,5 +1,5 @@
 class StatisticsController < ApplicationController
   
-  layout "admin"
+  layout "alchemy"
   
 end
