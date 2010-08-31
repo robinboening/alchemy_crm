@@ -1,4 +1,4 @@
-class StatisticsController < AlchemyController
+class StatisticsController < AlchemyMailingsController
   
   layout "alchemy"
   

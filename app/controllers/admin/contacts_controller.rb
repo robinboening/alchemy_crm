@@ -1,4 +1,4 @@
-class Admin::ContactsController < AlchemyController
+class Admin::ContactsController < AlchemyMailingsController
   
   layout "alchemy"
   

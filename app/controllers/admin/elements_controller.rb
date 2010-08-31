@@ -1,4 +1,4 @@
-class Admin::ElementsController < AlchemyController
+class Admin::ElementsController < AlchemyMailingsController
   
   def fill
     if File.exists? "#{RAILS_ROOT}/config/alchemy/mailing_elements.yml"

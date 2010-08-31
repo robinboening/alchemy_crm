@@ -1,4 +1,4 @@
-module ApplicationHelper
+module AlchemyMailingsHelper
   
   def contact_count_from_tag(tag)
     unless tag.nil?

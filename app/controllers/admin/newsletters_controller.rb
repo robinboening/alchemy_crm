@@ -1,4 +1,4 @@
-class Admin::NewslettersController < AlchemyController
+class Admin::NewslettersController < AlchemyMailingsController
   
   layout "alchemy"
   

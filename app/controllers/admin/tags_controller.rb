@@ -1,4 +1,4 @@
-class Admin::TagsController < AlchemyController
+class Admin::TagsController < AlchemyMailingsController
   
   layout "alchemy"
   helper :tags
