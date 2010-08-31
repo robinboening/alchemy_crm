@@ -1,4 +1,4 @@
-class Admin::SentMailingsController < ApplicationController
+class Admin::SentMailingsController < AlchemyController
   require "pdf/writer"
   require "pdfwriter_extensions"
   

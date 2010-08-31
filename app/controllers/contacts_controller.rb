@@ -1,4 +1,4 @@
-class ContactsController < ApplicationController
+class ContactsController < AlchemyController
   
   layout "pages"
   

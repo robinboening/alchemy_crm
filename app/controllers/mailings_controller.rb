@@ -1,4 +1,4 @@
-class MailingsController < ApplicationController
+class MailingsController < AlchemyController
   
   def show
     begin

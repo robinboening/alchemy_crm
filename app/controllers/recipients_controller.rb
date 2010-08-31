@@ -1,4 +1,4 @@
-class RecipientsController < ApplicationController
+class RecipientsController < AlchemyController
   
   def reads
     recipient = Recipient.find_by_id(params[:id])
