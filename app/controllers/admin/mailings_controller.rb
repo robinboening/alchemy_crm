@@ -35,8 +35,10 @@ class Admin::MailingsController < AlchemyMailingsController
   end
   
   def show
-    @page = Page.find(params[:id])
+    @page = Page.find(params[:page_id])
+    @mailing = Mailing.find(params[:id])
     @server = get_server.gsub(/http:\/\//, '')
+    @preview_mode = true
     render :layout => 'newsletters'
   end
   
@@ -49,7 +51,7 @@ class Admin::MailingsController < AlchemyMailingsController
   def update
     @mailing = Mailing.find(params[:id])
     @mailing.update_attributes(params[:mailing])
-    render_errors_or_redirect(@mailing, admin_mailings_path, "Das Mailing wurde gespeichert.")
+    render_errors_or_redirect(@mailing, :back, "Das Mailing wurde gespeichert.")
   end
   
   def destroy
