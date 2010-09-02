@@ -1,6 +1,6 @@
 <%- alchemy_assets_set(:edit_page) -%>
 <%- content_for(:stylesheets) do -%>
-    <%= stylesheet_link_tag('alchemy/mailings') %>
+    <%= stylesheet_link_tag('alchemy-mailings/base') %>
 <%- end -%>
 <%- content_for(:javascript_includes) do -%>
 	<%= tinymce_hammer_javascript_tags %>
@@ -9,8 +9,6 @@
 <div id="sub_navigation">
   <span class="page_status_and_name">
     <span class="page_name"><%= @page.name %></span>
-    <%= image_tag("alchemy/flags/#{session[:language]}.png") if configuration(:languages).size > 1 && !@layoutpage %>
-    <%= render :partial => 'admin/pages/page_status', :locals => {:page => @page} %>
   </span>
 </div>
 <%- end -%>
@@ -27,37 +25,9 @@
       	<button class="icon_button" title="<%= _('explain_unlocking') %>">
       		<%= image_tag('alchemy/icons/cross.png') %>
       	</button><br />
-      	<label><%= _("unlock_page") %></label>
+      	<label>Mailing schließen</label>
       <% end %>
     </div>
-    <div class="button_with_label">
-    	<%- if configuration(:cache_pages) -%>
-    		<% form_tag(
-    			publish_admin_page_path(@page),
-    			:onsubmit => "pleaseWaitOverlay();"
-    		) do -%>
-    			<button class="icon_button" title="<%= _('explain_publishing') %>">
-    				<%= image_tag('alchemy/icons/globe-green.png') %>
-    			</button><br />
-    			<label><%= _("Sweepe cache") %></label>
-    		<% end -%>
-    	<%- end -%>
-    </div>
-    <%- unless @page.layoutpage? -%>
-    <div class="button_with_label">
-    	<%= link_to_overlay_window(
-    		content_tag('span', '', :class => 'icon settings'),
-    		configure_admin_page_path(@page),
-    		{
-    			:title => _('edit_page_properties'),
-    			:size => '380x490'
-    		},
-    		:class => 'icon_button',
-    		:title => _('edit_page_properties')
-    	) -%><br />
-    	<label><%= _('page_properties') %></label>
-    </div>
-    <%- end -%>
     <div class="button_with_label">
     	<%= link_to_overlay_window(
     		content_tag('span', '', :class => 'icon new_element'),
@@ -96,8 +66,8 @@
   <script type="text/javascript" charset="utf-8">
   //<!--[CDATA[
   	document.observe("dom:loaded", function() {
-  		openElementsWindow(<%= @page.id %>, '<%= _('Elements') %>');
-  		openPreviewWindow('/admin/mailings/preview/'+<%= @page.id %>, '<%= _('Page Preview') %>');
+  		openElementsWindow('<%= list_admin_elements_path(:page_id => @page.id) %>', '<%= _('Elements') %>');
+  		openPreviewWindow('/admin/mailings/show/<%= @page.id %>', '<%= _('Page Preview') %>');
   	});
   //]]-->
   </script>

@@ -22,9 +22,8 @@ class Admin::MailingsController < AlchemyMailingsController
       mailing_root = Page.find_by_name('Mailing Root')
       page = Page.new(
         :name => "Mailing #{params[:mailing][:name]}",
-        :layoutpage => true,
         :sitemap => false,
-        :page_layout => @mailing.newsletter.layout
+        :page_layout => 'newsletter_' + @mailing.newsletter.layout
       )
       if page.save
         page.move_to_child_of mailing_root
@@ -33,6 +32,12 @@ class Admin::MailingsController < AlchemyMailingsController
       end
     end
     render_errors_or_redirect(@mailing, admin_mailings_path, "Das Mailing wurde angelegt.")
+  end
+  
+  def show
+    @page = Page.find(params[:id])
+    @server = get_server.gsub(/http:\/\//, '')
+    render :layout => 'newsletters'
   end
   
   def edit
@@ -60,12 +65,6 @@ class Admin::MailingsController < AlchemyMailingsController
   def edit_content
     @mailing = Mailing.find(params[:id])
     @page = @mailing.page
-  end
-  
-  def preview
-    @page = Page.find(params[:id])
-    @server = get_server.gsub(/http:\/\//, '')
-    render :layout => 'mailings'
   end
   
   def deliver

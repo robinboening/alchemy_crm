@@ -23,7 +23,7 @@ navigation:
       action: index
   nested:
     - controller: admin/mailings
-      action: edit
+      action: edit_content
 
 settings:
   mail_from: mailtest@vondeyen.com

@@ -9,4 +9,13 @@ module AlchemyMailingsHelper
     "&nbsp;<small>(#{count})</small>"
   end
   
+  # Renders the layout from @page.page_layout. File resists in /app/views/newsletter_layouts/_LAYOUT-NAME.html.erb
+  def render_newsletter_layout(options={})
+    default_options = {
+      :render_format => "html"
+    }
+    options = default_options.merge(options)
+    render :partial => "newsletter_layouts/#{@page.page_layout.downcase.gsub(/newsletter_/, '')}.#{options[:render_format]}.erb"
+  end
+  
 end

@@ -3,8 +3,7 @@ class Mailing < ActiveRecord::Base
   has_many :sent_mailings
   belongs_to :newsletter
   validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
-  #validates_uniqueness_of :name, :message => "Dieser Name ist schon vergeben"
-  #validates_presence_of :newsletter_id, :message => "Bitte wählen Sie ein Format aus."
+  validates_presence_of :newsletter_id, :message => "Bitte wählen Sie einen Newsletter aus.", :on => :create
   before_save :update_sha1
   
   def update_sha1
