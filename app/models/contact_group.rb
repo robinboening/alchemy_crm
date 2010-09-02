@@ -2,7 +2,8 @@ class ContactGroup < ActiveRecord::Base
   acts_as_taggable
   has_many :contact_group_filters, :dependent => :destroy 
   validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
-  
+  accepts_nested_attributes_for :contact_group_filters, :allow_destroy => true
+
   def contacts
     return [] if self.tags.blank?
     options = Contact.find_options_for_find_tagged_with(self.tags)

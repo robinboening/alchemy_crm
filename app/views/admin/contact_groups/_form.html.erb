@@ -34,15 +34,22 @@
             <td colspan="2">
                 <div id="filter_container">
                     <h2>Verfeinerungs-Filter</h2>
-                    <%= hidden_field_tag "counter", @contact_group.filters.length %>
-                    <%- @contact_group.filters.each_with_index do |filter, i| -%>
-                    <%= render :partial => "filter", :object => filter, :locals => {:filter_count => i} %>
+                    <%- @contact_group.contact_group_filters.each_with_index do |contact_group_filter, i| -%>
+					<%= render :partial => "filter", :object => contact_group_filter, :locals => {:count => i} %>
                     <%- end -%>
                 </div>
                 <p>
-                    <a onclick="url = '/admin/contact_groups/add_filter/'; counter = parseInt($('counter').value) + 1; $('counter').value = counter; new Ajax.Request(url + counter, {asynchronous:true, evalScripts:true}); return false;" href="#">
-                        + Filter hinzufügen
-                    </a>
+					<%= link_to_remote(
+						'<span class="icon add"></span>Filter hinzufügen',
+						{
+							:url => add_filter_admin_contact_group_path(),
+							:method => 'get',
+							:complete => 'alchemy_window.updateHeight()'
+						},
+						{
+							:class => 'button_with_icon'
+						}
+					) %>
                 </p>
             </td>
         </tr>

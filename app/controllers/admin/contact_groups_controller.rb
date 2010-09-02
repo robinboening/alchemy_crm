@@ -39,7 +39,6 @@ class Admin::ContactGroupsController < AlchemyMailingsController
     @contact_group = ContactGroup.find(params[:id])
     params[:contact_group][:tag_list] = {} if params[:contact_group][:tag_list].nil?
     @contact_group.update_attributes(params[:contact_group])
-    @contact_group.create_contact_group_filters(params[:filters])
     render_errors_or_redirect(@contact_group, admin_contact_groups_path, "Die Gruppe wurde gespeichert.")
   end
   
@@ -50,9 +49,10 @@ class Admin::ContactGroupsController < AlchemyMailingsController
   end
   
   def add_filter
-    filter_count = params[:id]
+    contact_group = ContactGroup.find(params[:id])
+    filter = contact_group.contact_group_filters.build
     render :update do |page|
-      page.insert_html :bottom, "filter_container", :partial => "filter", :object => ContactGroupFilter.new, :locals => {:filter_count => filter_count}
+      page.insert_html :bottom, "filter_container", :partial => "filter", :object => filter, :locals => {:count => contact_group.contact_group_filters.size}
     end
   end
   

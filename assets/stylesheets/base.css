@@ -1,4 +1,8 @@
-/* @override http://0.0.0.0:3000/stylesheets/mailings.css */
+/* @override 
+	http://0.0.0.0:3000/stylesheets/mailings.css
+	http://0.0.0.0:3000/stylesheets/alchemy-mailings/base.css?1282921977
+	http://0.0.0.0:3000/stylesheets/alchemy-mailings/base.css?1283247777
+*/
 
 div.sent_mailings {
 	clear: both;
@@ -347,6 +351,16 @@ span.tag {
 }
 
 #filter_container {
+	margin-bottom: 8px;
+}
+
+#filter_container span.remove_filter {
+	float: right;
+	position: relative;
+	bottom: 1px;
+}
+
+#filter_container div.filter {
 	margin-bottom: 8px;
 }
 
