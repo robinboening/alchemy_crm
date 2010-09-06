@@ -3,7 +3,7 @@ class ContactGroup < ActiveRecord::Base
   has_many :contact_group_filters, :dependent => :destroy 
   validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
   accepts_nested_attributes_for :contact_group_filters, :allow_destroy => true
-
+  
   def contacts
     return [] if self.tags.blank?
     options = Contact.find_options_for_find_tagged_with(self.tags)
@@ -11,7 +11,7 @@ class ContactGroup < ActiveRecord::Base
     Contact.find(:all, options)
   end
   
-  # Baut eine Sql-Query aus dem Filter-Hash
+  # Baut eine SQL-Query aus dem Filter-Hash
   # Hash Format:
   # {column1 => [wert1, wert2], column2 => [wert3]}
   # Resultierenden Sql-Query:
@@ -28,15 +28,6 @@ class ContactGroup < ActiveRecord::Base
   
   def filters
     contact_group_filters
-  end
-  
-  #deletes all contact_group_filters and creates new ones
-  def create_contact_group_filters filters
-    self.contact_group_filters.clear
-    return if filters.nil?
-    filters.values.each do |filter|
-      self.contact_group_filters.create(filter)
-    end
   end
   
 end

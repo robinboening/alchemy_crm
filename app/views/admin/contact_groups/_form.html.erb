@@ -42,7 +42,7 @@
 					<%= link_to_remote(
 						'<span class="icon add"></span>Filter hinzufügen',
 						{
-							:url => add_filter_admin_contact_group_path(:id => @contact_group.id),
+							:url => add_filter_admin_contact_groups_path(:size => @contact_group.contact_group_filters.size),
 							:method => 'get',
 							:complete => 'alchemy_window.updateHeight()'
 						},

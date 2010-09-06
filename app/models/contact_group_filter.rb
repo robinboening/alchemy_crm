@@ -7,7 +7,7 @@ class ContactGroupFilter < ActiveRecord::Base
   end
   
   def to_sql
-    return "" if(column.blank? || operator.blank? || prepared_value.blank?)
+    return "" if column.blank? || operator.blank? || prepared_value.blank?
     " AND #{self.column} #{self.operator} '#{prepared_value}'"
   end
   
@@ -16,4 +16,5 @@ class ContactGroupFilter < ActiveRecord::Base
   def prepared_value
     (operator == "LIKE" || operator == "NOT LIKE") ? "%#{value}%" : "#{value}"
   end
+  
 end
