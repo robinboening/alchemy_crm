@@ -4,7 +4,7 @@
 <table border="0" cellspacing="4" cellpadding="0">
 	<tr>
 		<td class="label"><%= f.label :salutation, ("Anrede") %></td>
-		<td colspan="3"><%= f.select :salutation, ["Herr","Frau"] %></td>
+		<td colspan="3"><%= f.select :salutation, options_for_select([['Bitte wählen', ''], ['Herr', 'male'], ['Frau', 'female']], @contact.salutation) %></td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :title, ("Titel") %></td>
