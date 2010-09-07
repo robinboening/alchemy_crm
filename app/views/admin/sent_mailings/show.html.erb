@@ -1,28 +1,27 @@
 <table border="0" cellspacing="5" cellpadding="5">
 	<tr>
-		<td>Anzahl Empfänger: </td>
+		<th style="text-align: left">Anzahl Empfänger insgesamt: </th>
 		<td><%= @recipients.length %></td>
 	</tr>
 	<tr>
-		<td>Empfänger die gelesen haben: </td>
+		<th style="text-align: left">Davon haben die Mail gelesen: </th>
 		<td>
 		    <%= render :partial => 'recipient', :collection => @read %>
 		    <%= 'Keine' if @read.blank? %>
 		</td>
 	</tr>
 	<tr>
-		<td>Empfänger die reagiert haben: </td>
+		<th style="text-align: left">Davon haben auf die Mail reagiert: </th>
 		<td>
 		    <%= render :partial => 'recipient', :collection => @reacted %>
 		    <%= 'Keine' if @reacted.blank? %>
 		</td>
 	</tr>
 	<tr>
-		<td>Empfänger deren Mails nicht angekommen sind: </td>
+		<th style="text-align: left">Davon sind nicht angekommen: </th>
 		<td>
 		    <%= render :partial => 'recipient', :collection => @bounced %>
 		    <%= 'Keine' if @bounced.blank? %>
 		</td>
 	</tr>
 </table>
-
