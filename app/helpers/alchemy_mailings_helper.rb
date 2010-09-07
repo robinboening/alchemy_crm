@@ -19,3 +19,7 @@ module AlchemyMailingsHelper
   end
   
 end
+
+# requiring AlchemyHelper and AlchemyMailingsHelper, because we need the methods for rendering the elements from @mailing.page
+ActionView::Base.send(:include, AlchemyMailingsHelper)
+ActionView::Base.send(:include, AlchemyHelper)

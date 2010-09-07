@@ -19,7 +19,7 @@ class MailingsMailer < ActionMailer::Base
     # Email body substitutions go here
     part("text/plain") do |p|
       p.body = render_message(
-        "layouts/mailings_plain",
+        "layouts/newsletters.plain",
         {
           :page => mailing.page,
           :mailing => mailing,
@@ -33,7 +33,7 @@ class MailingsMailer < ActionMailer::Base
     part(
       :content_type => "text/html", 
       :body => render_message(
-        "layouts/mailings",
+        "layouts/newsletters",
         {
           :page => mailing.page, 
           :mailing => mailing,
