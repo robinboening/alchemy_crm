@@ -23,7 +23,7 @@ class Admin::MailingsController < AlchemyMailingsController
       page = Page.new(
         :name => "Mailing #{params[:mailing][:name]}",
         :sitemap => false,
-        :page_layout => 'newsletter_' + @mailing.newsletter.layout
+        :page_layout => @mailing.newsletter.layout
       )
       if page.save
         page.move_to_child_of mailing_root
