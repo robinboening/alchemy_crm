@@ -99,6 +99,10 @@ span.icon.format_edit {
 	background: url(/images/alchemy-mailings/newsletter-icons.png) -32px 0;
 }
 
+span.icon.fill_from_element {
+	background: url(/images/alchemy/icons/elements_window.png) 0 0;
+}
+
 div.sent_mailings {
 	padding: 8px;
 	overflow: hidden;
