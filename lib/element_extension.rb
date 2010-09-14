@@ -2,25 +2,20 @@ module ElementExtension
   
   def update_from_element(source, server = "")
     self.contents.each do |content|
-      c = source.content_by_name(content.name)
-      if !c.blank? && c.essence_type == content.essence_type
-        case c.essence_type
-        when "EssenceText"
-          content.essence.body = c.essence.body
-          content.essence.save
-        when "EssenceRichtext"
-          content.essence.body = c.essence.body
-          content.essence.save
+      source_content = source.contents.find_by_name(content.name)
+      if !source_content.blank? && source_content.essence_type == content.essence_type
+        case content.essence_type
+        when "EssenceText" || "EssenceRichtext"
+          content.essence.body = source_content.essence.body
         when "EssencePicture"
-          content.essence.picture_id = c.essence.picture_id
-          content.essence.save
-        when "EssenceFile"
-          content.essence.attachment_id = c.essence.attachment_id
-          content.essence.save
+          content.essence.picture_id = source_content.essence.picture_id
+        when "EssenceAttachment"
+          content.essence.attachment_id = source_content.essence.attachment_id
         end
+        content.essence.save
       end
     end
-    teaser = self.all_contents_by_type("EssenceTeaserLink").first
+    teaser = self.contents.find_by_essence_type("EssenceElementTeaser")
     if !teaser.essence.blank?
       teaser.essence.url = File.join(server, "#{source.page.urlname}##{source.name}_#{source.id}")
       teaser.essence.save
@@ -28,7 +23,4 @@ module ElementExtension
   end
   
 end
-
-if defined?(stampable)
-  Element.send(:include, ElementExtension)
-end
+Element.send(:include, ElementExtension)

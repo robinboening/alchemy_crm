@@ -1,16 +1,33 @@
-<li class="sent_mailing <%= cycle('even', 'odd') %>">
-	<%= link_to_overlay_window(
-	    "Versendet am: #{l(sent_mailing.created_at)}",
-	    admin_sent_mailing_path(sent_mailing),
-	    {
-	        :title => l(sent_mailing.created_at),
-	        :size => '300x200'
-	    }
-	) %>
-	<%= link_to(
-		"PDF",
-		pdf_admin_sent_mailing_path(sent_mailing),
-		:class => "sent_mailing_pdf_link button",
-		:title => "PDF des Versands runterladen"
-	) %>
-</li>
+<div class="sent_mailing">
+	<div class="sent_mailing_stats_heading">
+		<span class="sent_mailing_text">Versendet am: <%= l(sent_mailing.created_at) %></span>
+		<%= link_to(
+			"-> PDF",
+			pdf_admin_sent_mailing_path(sent_mailing),
+			:class => "sent_mailing_pdf_link",
+			:title => "PDF des Versands runterladen"
+		) %>
+		<%= link_to_overlay_window(
+		    'show',
+		    admin_sent_mailing_path(sent_mailing),
+		    {
+		        :title => l(sent_mailing.created_at),
+		        :size => '400x300'
+		    }
+		) %>
+	</div>
+	<table border="0" cellspacing="5" cellpadding="5">
+		<tr>
+			<th>Empfänger</th>
+			<th>davon gelesen</th>
+			<th>davon reagiert</th>
+			<th>nicht angekommen</th>
+		</tr>
+		<tr>
+			<td><%= sent_mailing.recipients.count %></td>
+			<td><%= sent_mailing.recipients.select{ |r| r.read}.length %></td>
+			<td><%= sent_mailing.recipients.select{ |r| r.reacted}.length %></td>
+			<td><%= sent_mailing.recipients.select{ |r| r.bounced}.length %></td>
+		</tr>
+	</table>
+</div>

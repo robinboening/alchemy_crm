@@ -11,6 +11,13 @@
 	<td class="name"><%= contact.organisation %></td>
 	<td class="email"><%= contact.email %></td>
 	<td class="tools">
+		<%= link_to_confirmation_window(
+			"",
+			"Wollen Sie diesen Kontakt wirklich löschen?",
+			admin_contact_path(contact),
+			:title => 'Kontakt löschen',
+			:class => 'icon contact_delete'
+		) %>
 		<%= link_to_overlay_window(
 			'',
 			edit_admin_contact_path(contact),
@@ -31,12 +38,5 @@
 				:class => 'icon contact_export'
 			}
 		) -%>
-		<%= link_to_confirmation_window(
-			"",
-			"Wollen Sie diesen Kontakt wirklich löschen?",
-			admin_contact_path(contact),
-			:title => 'Kontakt löschen',
-			:class => 'icon contact_delete'
-		) %>
 	</td>
 </tr>

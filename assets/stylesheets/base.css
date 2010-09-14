@@ -1,3 +1,21 @@
+/* @override 
+	http://0.0.0.0:3000/stylesheets/mailings.css
+	http://0.0.0.0:3000/stylesheets/alchemy-mailings/base.css?1282921977
+	http://0.0.0.0:3000/stylesheets/alchemy-mailings/base.css?1283247777
+*/
+
+div.sent_mailings {
+	clear: both;
+	float: left;
+	font-size: 10px;
+	padding: 8px;
+	background-color: #dedede;
+}
+
+div.sent_mailings div.sent_mailing table tbody tr td {
+	text-align: center;
+}
+
 span.icon.mailing_add {
 	background: url(/images/alchemy-mailings/mailing-icons.png) -48px 0;
 }
@@ -99,36 +117,12 @@ span.icon.format_edit {
 	background: url(/images/alchemy-mailings/newsletter-icons.png) -32px 0;
 }
 
-div.sent_mailings {
-	padding: 8px;
-	overflow: hidden;
-}
-
-div.sent_mailings ol {
-	padding: 0;
-	margin: 0;
-}
-
-li.sent_mailing {
+div.sent_mailing {
 	clear: both;
+	margin-bottom: 8px;
+	background-color: #dedede;
 	width: 368px;
 	float: left;
-	line-height: 21px;
-	padding: 4px;
-	margin-bottom: 4px;
-}
-
-li.sent_mailing.even:hover,
-li.sent_mailing.odd:hover {
-	background-color: #fffdef;
-}
-
-li.sent_mailing.even {
-	background-color: #fff;
-}
-
-li.sent_mailing.odd {
-	background-color: #dedede;
 }
 
 span.sent_mailing_text {
@@ -214,6 +208,9 @@ form.send_mailing_form {
 
 a.sent_mailing_pdf_link {
 	float: right;
+	position: relative;
+	top: 4px;
+	right: 4px;
 }
 
 img.unverified_contact {
@@ -333,6 +330,11 @@ a.show_statistic_button:hover {
 .medium_long {
 	width: 343px;
 	margin-bottom: 6px;
+}
+
+div.sent_mailing_stats_heading {
+	height: 20px;
+	padding: 4px;
 }
 
 a.remove_filter_link {

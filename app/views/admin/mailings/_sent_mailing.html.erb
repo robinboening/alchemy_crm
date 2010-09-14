@@ -1,0 +1,12 @@
+<div class="sent_mailing">
+	<span class="sent_mailing_text">Versendet am: <%= sent_mailing.created_at.strftime("%d.%m.%Y um %H:%Mh") %></span>
+	<%=   prototype_window(
+			url_for(:controller => :sent_mailings, :action => :show, :id => sent_mailing),
+			"show_statistic_button",
+			"Statistik",
+			200,
+			150,
+			true
+		)    %>
+	<%= link_to "PDF", "/sent_mailings/pdf/#{sent_mailing.id}", :class => "sent_mailing_pdf_link", :title => "PDF des Versands runterladen" %>
+</div>
