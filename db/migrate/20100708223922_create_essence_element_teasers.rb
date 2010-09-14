@@ -1,6 +1,6 @@
-class CreateEssenceElementLinks < ActiveRecord::Migration
+class CreateEssenceElementTeasers < ActiveRecord::Migration
   def self.up
-    create_table :essence_element_links do |t|
+    create_table :essence_element_teasers do |t|
       t.string :url
       t.string :title
       t.string :text
@@ -10,6 +10,6 @@ class CreateEssenceElementLinks < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :essence_element_links
+    drop_table :essence_element_teasers
   end
 end
