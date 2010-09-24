@@ -26,7 +26,7 @@ navigation:
       action: edit_content
 
 settings:
-  mail_from: tvdeyen@gmail.com
+  mail_from: testmail@alchemy-app.com
   enable_workflow: false
 
 preview_frame:

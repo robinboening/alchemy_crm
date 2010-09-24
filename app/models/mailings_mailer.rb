@@ -4,7 +4,7 @@ class MailingsMailer < ActionMailer::Base
   
   def my_mail(mailing, elements, contact, recipient, options = {})
     default_options = {
-      :mail_from => "Kontaktformular <mailtest@vondeyen.com>",
+      :mail_from => "Test Newsletter <testmail@alchemy-app.com>",
       :subject => mailing.subject,
       :content_type => "multipart/alternative",
       :server => "http://localhost:3000"
