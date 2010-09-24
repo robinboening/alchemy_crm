@@ -72,6 +72,8 @@ class Admin::MailingsController < AlchemyMailingsController
   
   def deliver
     a = Time.now
+    logger.info("+++++++++++++++   current_server: #{current_server}")
+    
     @mailing = Mailing.find(params[:id])
     if request.post? && params[:confirm_to_send] == "send"
       mailing_elements = @mailing.page.elements
@@ -80,7 +82,7 @@ class Admin::MailingsController < AlchemyMailingsController
       all_contacts = @mailing.all_contacts + additional_email_addresses
       all_contacts.each do |contact|
         recipient             = Recipient.create(:email => contact.email, :contact => contact, :sent_mailing => sent_mailing)
-        mail                  = MailingsMailer.create_my_mail(@mailing, mailing_elements, contact, recipient, :mail_from => Alchemy::Configuration.parameter("alchemy-mailings")[:mail_from], :host => current_server)
+        mail                  = MailingsMailer.create_my_mail(@mailing, mailing_elements, contact, recipient, :mail_from => Alchemy::Configuration.parameter("alchemy-mailings")[:mail_from], :server => current_server)
         send_mail             = MailingsMailer.deliver(mail)
         recipient.message_id  = send_mail.message_id
         recipient.save
