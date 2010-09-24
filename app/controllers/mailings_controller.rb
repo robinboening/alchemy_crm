@@ -2,7 +2,8 @@ class MailingsController < AlchemyMailingsController
   
   def show
     begin
-      @server = get_server.gsub(/http:\/\//, '')
+      @host = get_server
+      @server = @host.gsub(/http:\/\//, '')
       @mailing = Mailing.find_by_id_and_sha1(params[:id], params[:nh])
       @page = @mailing.page
       @contact = Contact.find_by_id_and_email_sha1(params[:contact_id], params[:h]) rescue nil

@@ -8,22 +8,21 @@ namespace :gettext do
     require 'gettext'
     require 'gettext/tools'
   end
-
+  
   desc "Create mo-files for L10n"
   task :pack do
     load_gettext
     GetText.create_mofiles(:verbose => true, :po_root => "locale", :mo_root => "locale")
   end
-
+  
   desc "Update pot/po files."
   task :find do
     load_gettext
-    $LOAD_PATH << File.join(File.dirname(__FILE__),'..','alchemy','plugins','gettext_i18n_rails','lib')
     require 'gettext_i18n_rails/haml_parser'
-
+    
     if GetText.respond_to? :update_pofiles_org
       GetText.update_pofiles_org(
-        "mailings",
+        "alchemy-mailings",
         Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,haml,rjs}"),
         "version 2.0",
         :po_root => 'locale',
@@ -39,17 +38,17 @@ namespace :gettext do
           def init(x);end
         end
       end
-
+      
       #parse files.. (models are simply parsed as ruby files)
       GetText.update_pofiles(
-        "mailings",
+        "alchemy-mailings",
         Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,haml,rjs}"),
         "version 2.0",
         'locale'
       )
     end
   end
-
+  
   # This is more of an example, ignoring
   # the columns/tables that mostly do not need translation.
   # This can also be done with GetText::ActiveRecord

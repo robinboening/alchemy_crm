@@ -45,6 +45,21 @@
 	</div>
     <div class="button_with_label">
     	<%= link_to_overlay_window(
+    		render_icon('send_mailing'),
+    		deliver_admin_mailing_path(@mailing),
+    		{
+    			:title => _('Send Mailing'),
+    			:size => '550x400'
+    		},
+    		{
+    			:title => _('Send Mailing'),
+    			:class => 'icon_button'
+    		}
+    	) %><br />
+    	<label><%= _('Send Mailing') %></label>
+    </div>
+    <div class="button_with_label">
+    	<%= link_to_overlay_window(
     		content_tag('span', '', :class => 'icon new_element'),
     		new_admin_element_path(:page_id => @page.id),
     		{
@@ -58,21 +73,6 @@
     		}
     	) %><br />
     	<label><%= _('New Element') %></label>
-    </div>
-    <div class="button_with_label">
-    	<%= link_to_overlay_window(
-    		render_icon('send_mailing'),
-    		deliver_admin_mailing_path(@mailing),
-    		{
-    			:title => _('Send Mailing'),
-    			:size => '550x400'
-    		},
-    		{
-    			:title => _('Send Mailing'),
-    			:class => 'icon_button'
-    		}
-    	) %><br />
-    	<label><%= _('Send Mailing') %></label>
     </div>
   </div>
 </div>

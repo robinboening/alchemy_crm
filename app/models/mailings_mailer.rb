@@ -26,7 +26,8 @@ class MailingsMailer < ActionMailer::Base
           :elements => elements,
           :contact => contact,
           :recipient => recipient,
-          :server => options[:server]
+          :server => options[:server].gsub(/http:\/\//, ''),
+          :host => options[:server]
         }
       )
     end
@@ -40,7 +41,8 @@ class MailingsMailer < ActionMailer::Base
           :elements => elements,
           :contact => contact,
           :recipient => recipient,
-          :server => options[:server]
+          :server => options[:server].gsub(/http:\/\//, ''),
+          :host => options[:server]
         }
       )
     )

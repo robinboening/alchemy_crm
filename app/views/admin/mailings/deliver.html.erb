@@ -35,29 +35,28 @@
 			</div>
 		</div>
 		<% form_tag(deliver_admin_mailing_path(@mailing), :class => "send_mailing_form", :onsubmit => "$('please_wait').show()") do %>
-			<h2>Der Versand der eMails wird nur vorgenommen, wenn Sie dafür die folgende Checkbox aktivieren.</h2>
-			<p style="font-style: italic">
-				<%= check_box_tag "confirm_to_send", "send", false, :onclick => "$('send').disabled = !$('send').disabled" %>
-				Mit dem Aktivieren dieser Checkbox bestätige ich, dass ich den folgenden Text gelesen habe und diesem zustimme.
+			<h2>Der Versand der Emails wird erst vorgenommen, nachdem Sie die folgende Erklärung bestätigt haben.</h2>
+			<p style="margin-bottom: 1em">
+				Für den Versand der Emails übernehme ich die persönliche Verantwortung. Für alle ausgewählten Empfänger liegt ein ausdrückliches oder konkludentes Einverständnis vor. Mir ist bewusst, dass bereits die einmalige Übersendung einer unerwünschten Email einen unterlassungsrelevanten Eingriff in den eingerichteten und ausgeübten Gewerbebetrieb darstellt, bzw. die Privatsphäre einer Person beeinträchtigen kann. Beides kann rechtliche Folgen für den Versender und/oder seinen Erfüllungsgehilfen bedeuten.
 			</p>
-			<p>
-				Für den Versand der eMails übernehme ich die persönliche Verantwortung.
-				Für alle ausgewählten Empfänger liegt ein ausdrückliches oder konkludentes Einverständnis vor.
-				Mir ist bewusst, dass bereits die einmalige Übersendung einer unerwünschten eMail einen
-				unterlassungsrelevanten Eingriff in den eingerichteten und ausgeübten Gewerbebetrieb darstellt,
-				bzw. die Privatsphäre einer Person beeinträchtigen kann. Beides kann rechtliche Folgen für den
-				Versender und/oder seinen Erfüllungsgehilfen bedeuten.
+			<table>
+			 	<tr>
+        			<td style="width: 30px">
+        				<%= check_box_tag "confirm_to_send", "send", false, :onclick => "$('send').disabled = !$('send').disabled" %>
+        			</td>
+        			<td>
+        			    <label for="confirm_to_send" style="width: 100%">Mit dem Aktivieren dieser Checkbox bestätige ich, dass ich den vorherigen Text gelesen habe und diesem zustimme.</label>
+        			</td>
+    			</tr>
+			</table>
+			<p style="margin-top: 1em">
+    			<%= submit_tag(
+    				"versenden",
+    				:id => "send",
+    				:disabled => true,
+    				:class => "button"
+    			) %>
 			</p>
-			<p style="font-size:10px">
-				Hinweis: Gewerbetreibende und Unternehmer sollten beim Versand von eMails besonders darauf achten, dass der Versand vom Empfänger auch gewollt ist. Ist dem nicht der Fall, drohen kostenintensive Abmahnungen.
-			</p>
-			<%#= hidden_field_tag(:id, @mailing) %>
-			<%= submit_tag(
-				"versenden",
-				:id => "send",
-				:disabled => true,
-				:class => "button"
-			) %>
 		<% end %>
 	</div>
 </div>
