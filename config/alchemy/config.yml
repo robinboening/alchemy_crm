@@ -4,7 +4,7 @@ navigation:
   name: 'Mailings'
   controller: admin/mailings
   action: index
-  icon: mailings
+  image: /images/alchemy-mailings/mailings.png
   sub_navigation:
     - name: Mailings
       controller: admin/mailings

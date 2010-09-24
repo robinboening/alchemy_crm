@@ -37,7 +37,7 @@ class Admin::MailingsController < AlchemyMailingsController
   def show
     @page = Page.find(params[:page_id])
     @mailing = Mailing.find(params[:id])
-    @host = get_server
+    @host = current_server
     @server = @host.gsub(/http:\/\//, '')
     @preview_mode = true
     render :layout => 'newsletters'

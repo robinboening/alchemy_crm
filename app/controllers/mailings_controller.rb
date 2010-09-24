@@ -2,7 +2,7 @@ class MailingsController < AlchemyMailingsController
   
   def show
     begin
-      @host = get_server
+      @host = current_server
       @server = @host.gsub(/http:\/\//, '')
       @mailing = Mailing.find_by_id_and_sha1(params[:id], params[:nh])
       @page = @mailing.page
@@ -22,7 +22,7 @@ class MailingsController < AlchemyMailingsController
         @contact = Contact.find_by_email(params[:contact][:email])
         unless @contact.blank?
           unless @contact.newsletters.empty?
-            MailingsMailer.deliver_signout_mail(@contact, get_server.gsub(/http:\/\//, ""), element)
+            MailingsMailer.deliver_signout_mail(@contact, current_server.gsub(/http:\/\//, ""), element)
             flash[:frontend_notice] = element.contents.find_by_name("mail_delivered").essence.body
           else
             flash[:frontend_notice] = element.contents.find_by_name("mail_without_formats").essence.body

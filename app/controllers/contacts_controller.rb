@@ -15,7 +15,7 @@ class ContactsController < AlchemyMailingsController
       session[:contact] = params[:contact]
       
       if @contact.valid?
-        MailingsMailer.deliver_verification_mail(@contact, get_server.gsub(/http:\/\//, ""), element, params[:contact][:newsletter_ids])
+        MailingsMailer.deliver_verification_mail(@contact, current_server.gsub(/http:\/\//, ""), element, params[:contact][:newsletter_ids])
         flash[:mailing_notice] = element.contents.find_by_name("email_success_text").essence.body
         session[:contact] = nil
       end
