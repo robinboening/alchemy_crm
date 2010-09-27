@@ -31,3 +31,27 @@ function teasablesFilter (value) {
 		});
 	}
 }
+
+function openPagePreview (url, title) {
+	preview_window = new Window({
+		url: url,
+		className: 'alchemy_window',
+		title: title,
+		width: document.viewport.getDimensions().width - 250,
+		height: document.viewport.getDimensions().height - 150,
+		minWidth: 600,
+		minHeight: 300,
+		maximizable: false,
+		minimizable: false,
+		resizable: true,
+		draggable: true,
+		zIndex: 30000,
+		closable: true,
+		destroyOnClose: true,
+		recenterAuto: false,
+		effectOptions: {
+			duration: 0.2
+		}
+	});
+	preview_window.showCenter(false);
+}

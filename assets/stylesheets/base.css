@@ -108,15 +108,14 @@ div.sent_mailings {
 	overflow: hidden;
 }
 
-div.sent_mailings ol {
+div.sent_mailings ol,
+div.sent_mailings ul {
 	padding: 0;
 	margin: 0;
 }
 
 li.sent_mailing {
 	clear: both;
-	width: 368px;
-	float: left;
 	line-height: 21px;
 	padding: 4px;
 	margin-bottom: 4px;
@@ -133,6 +132,61 @@ li.sent_mailing.even {
 
 li.sent_mailing.odd {
 	background-color: #dedede;
+}
+
+div.recipient_group {
+	margin-bottom: 8px;
+	background-color: #eef1f7;
+	padding: 8px;
+	border: 1px solid #d5d9e1;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+#sent_mailing div.recipient_group p {
+	margin: 0;
+}
+
+#read div.recipient table tbody tr td {
+	padding-right: 8px;
+}
+
+#sent_mailing div.recipients table.recipients_table {
+	font-size: 10px;
+	border-style: none;
+	border-width: 0;
+	border-spacing: 0;
+	width: 100%;
+}
+
+div.recipients {
+	margin-top: 8px;
+	height: 144px;
+	overflow: auto;
+	position: relative;
+}
+
+div.recipients table.recipients_table th,
+div.recipients table.recipients_table td {
+	padding: 6px 4px 4px;
+	border-bottom: 4px solid #eef1f7;
+	text-align: left;
+	vertical-align: top;
+	line-height: 15px;
+}
+
+div.recipients table.recipients_table thead tr {
+	
+}
+
+#sent_mailing div.recipients table.recipients_table td {
+	background-color: #f7f7f7;
+}
+
+#sent_mailing h2 span {
+	font-weight: normal;
+	font-style: normal;
 }
 
 span.sent_mailing_text {
@@ -366,6 +420,20 @@ span.tag {
 	margin-bottom: 8px;
 }
 
-input#contact_city {
-	width: 123px;
+table#contact {
+	border: 0;
+	border-spacing: 0;
 }
+
+table#contact td {
+	padding: 4px 0 4px 4px;
+}
+
+input#contact_city {
+	width: 122px;
+}
+
+#contact_zip {
+	width: 55px;
+}
+

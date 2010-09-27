@@ -1,27 +1,56 @@
-<table border="0" cellspacing="5" cellpadding="5">
-	<tr>
-		<th style="text-align: left">Anzahl Empfänger insgesamt: </th>
-		<td><%= @recipients.length %></td>
-	</tr>
-	<tr>
-		<th style="text-align: left">Davon haben die Mail gelesen: </th>
-		<td>
-		    <%= render :partial => 'recipient', :collection => @read %>
-		    <%= 'Keine' if @read.blank? %>
-		</td>
-	</tr>
-	<tr>
-		<th style="text-align: left">Davon haben auf die Mail reagiert: </th>
-		<td>
-		    <%= render :partial => 'recipient', :collection => @reacted %>
-		    <%= 'Keine' if @reacted.blank? %>
-		</td>
-	</tr>
-	<tr>
-		<th style="text-align: left">Davon sind nicht angekommen: </th>
-		<td>
-		    <%= render :partial => 'recipient', :collection => @bounced %>
-		    <%= 'Keine' if @bounced.blank? %>
-		</td>
-	</tr>
-</table>
+<div id="sent_mailing" class="with_padding" style="padding: 8px">
+    <div class="recipient_group">
+        <h2>Empfänger insgesamt: <span style="float: right"><%= @recipients.length %></span></h2>
+    </div>
+    
+    <div class="recipient_group">
+        <h2>Davon haben die Mail geöffnet: <span style="float: right"><%= @read.length %></span></h2>
+        <p><%= link_to_function("Details", "$('read').toggle(); alchemy_window.updateHeight()", :class => 'button', :style => 'float: left') %></p>
+        <div class="recipients" id="read" style="display: none">
+            <%- if @read.blank? -%>
+            <p>Keine</p>
+            <%- else -%>
+            <table class="recipients_table">
+                <tr><th>Name</th><th>Email</th></tr>
+                <tr>
+                    <%= render :partial => 'recipient', :collection => @read, :locals => {:reactions => false, :bounced => false} %>
+                </tr>
+            </table>
+            <%- end -%>
+        </div>
+    </div>
+    
+    <div class="recipient_group">
+        <h2>Davon haben auf einen Link in der Mail geklickt: <span style="float: right"><%= @reacted.length %></span></h2>
+        <p><%= link_to_function("Details", "$('reacted').toggle(); alchemy_window.updateHeight()", :class => 'button', :style => 'float: left') %></p>
+        <div class="recipients" id="reacted" style="display: none">
+            <%- if @reacted.blank? -%>
+            <p>Keine</p>
+            <%- else -%>
+            <table class="recipients_table">
+                <tr><th>Name</th><th>Email</th><th>geklickte Links</th></tr>
+                <tr>
+                    <%= render :partial => 'recipient', :collection => @reacted, :locals => {:reactions => true, :bounced => false} %>
+                </tr>
+            </table>
+            <%- end -%>
+        </div>
+    </div>
+    
+    <div class="recipient_group">
+        <h2>Davon sind nicht angekommen: <span style="float: right"><%= @bounced.length %></span></h2>
+        <p><%= link_to_function("Details", "$('bounced').toggle(); alchemy_window.updateHeight()", :class => 'button', :style => 'float: left') %></p>
+        <div class="recipients" id="bounced" style="display: none">
+            <%- if @bounced.blank? -%>
+            <p>Keine</p>
+            <%- else -%>
+            <table class="recipients_table">
+                <tr><th>Name</th><th>Email</th><th></th></tr>
+                <tr>
+                    <%= render :partial => 'recipient', :collection => @bounced, :locals => {:reactions => false, :bounced => true} %>
+                </tr>
+            </table>
+            <%- end -%>
+        </div>
+    </div>
+</div>

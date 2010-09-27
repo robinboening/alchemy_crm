@@ -1,4 +1,32 @@
-<p>
-    Name: <%= recipient.contact.fullname rescue '' %><br />
-    Email: <%= recipient.email %>
-</p>
+<tr class="recipient">
+    <td><%= recipient.contact.blank? ? '<i>ohne</i>' : link_to(recipient.contact.fullname.blank? ? '<i>ohne</i>' : recipient.contact.fullname, admin_contacts_path(:query => recipient.contact.email), :title => "Kontakt anzeigen") %></td>
+    <td><%= recipient.email %></td>
+    <%- if reactions -%>
+    <td>
+        <%- recipient.reactions.each do |reaction| -%>
+        <%- link = "#{multi_language? ? '/' + reaction.page.language : ''}/#{reaction.page.urlname}##{reaction.element.name}_#{reaction.element.id}" -%>
+        <%= link_to_function link, "openPagePreview('#{link}', '#{reaction.page.urlname}')" %><br />
+        <%- end -%>
+    </td>
+    <%- end -%>
+    <%- if bounced -%>
+    <td>
+        <%- if recipient.contact -%>
+        <%= link_to_overlay_window(
+			'bearbeiten',
+			edit_admin_contact_path(recipient.contact),
+			{
+				:title => 'Kontakt bearbeiten',
+				:size => '345x400'
+			},
+			{
+				:title => 'Kontakt bearbeiten',
+				:class => 'button_with_icon edit'
+			}
+		) -%>
+		<%- else -%>
+		&nbsp;
+		<%- end -%>
+    </td>
+    <%- end -%>
+</tr>

@@ -1,7 +1,7 @@
 <div id="errors" style="display:none"></div>
 <% remote_form_for [:admin, @contact], :html => {:class => "with_padding"} do |f| %>
 
-<table border="0" cellspacing="4" cellpadding="0">
+<table id="contact">
 	<tr>
 		<td class="label"><%= f.label :salutation, ("Anrede") %></td>
 		<td colspan="3"><%= f.select :salutation, options_for_select([['Bitte wählen', ''], ['Herr', 'male'], ['Frau', 'female']], @contact.salutation) %></td>
@@ -40,9 +40,9 @@
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :zip, ("PLZ") %></td>
-		<td><%= f.text_field :zip, :class => "thin_border short" %></td>
+		<td class="short"><%= f.text_field :zip, :class => "thin_border short" %></td>
 		<td class="label right"><%= f.label :city, ("Stadt") %></td>
-		<td><%= f.text_field :city, :class => "thin_border medium_long" %></td>
+		<td class="input medium_long"><%= f.text_field :city, :class => "thin_border medium_long" %></td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :country, ("Land") %></td>

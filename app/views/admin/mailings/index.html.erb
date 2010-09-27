@@ -3,6 +3,10 @@
 <%- content_for(:stylesheets) do -%>
 	<%= stylesheet_link_tag('alchemy-mailings/base') %>
 <%- end -%>
+<%- content_for(:javascript_includes) do -%>
+	<%= javascript_include_tag('alchemy/controls') %>
+	<%= javascript_include_tag('alchemy-mailings/scripts') %>
+<%- end -%>
 
 <%- content_for :toolbar do -%>
 <div id="toolbar">

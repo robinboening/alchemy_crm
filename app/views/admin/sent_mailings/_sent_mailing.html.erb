@@ -1,10 +1,10 @@
 <li class="sent_mailing <%= cycle('even', 'odd') %>">
 	<%= link_to_overlay_window(
-	    "Versendet am: #{l(sent_mailing.created_at)}",
+	    l(sent_mailing.created_at),
 	    admin_sent_mailing_path(sent_mailing),
 	    {
-	        :title => l(sent_mailing.created_at),
-	        :size => '300x200'
+	        :title => "Statistik des #{sent_mailing.mailing.name} vom #{l(sent_mailing.created_at)}",
+	        :size => '500x400'
 	    }
 	) %>
 	<%= link_to(
