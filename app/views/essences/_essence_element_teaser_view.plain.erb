@@ -1,1 +1,3 @@
-<%= h content.essence.url %>
+<%- if @recipient -%>
+<%= recipient_reacts_url(:id => @recipient.id || 1, :host => @server) + content.essence.url %>
+<%- end -%>

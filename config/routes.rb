@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.recipient_reads 'recipients/reads/:id', :controller => :recipients, :action => :reads
+  map.recipient_reacts 'recipients/reacts/:id', :controller => :recipients, :action => :reacts
   map.resources :mailings, :collection => {:signout => :get}
   map.resources :contacts, :collection => {:signup => :get, :signout => :get, :verify => :get}
   map.verify_mailing 'contacts/verify/:sha1', :controller => 'contacts', :action => 'verify'

@@ -1,1 +1,1 @@
-<a href="<%= content.essence.url %>" title="<%= content.essence.title %>"><%= options[:link_text_value] || content.essence.text %></a>
+<a href="<%= recipient_reacts_url(:id => @recipient.id || 1, :host => @server) + content.essence.url if @recipient %>" title="<%= content.essence.title %>"><%= options[:link_text_value] || content.essence.text %></a>

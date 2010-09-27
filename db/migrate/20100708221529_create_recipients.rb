@@ -16,6 +16,6 @@ class CreateRecipients < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :sent_mailings
+    drop_table :recipients
   end
 end

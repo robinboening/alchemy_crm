@@ -12,12 +12,13 @@ module ElementsControllerExtension
     begin
       @element = Element.find(params[:id])
       @source_element = Element.find(params[:source_element_id])
+      url = "?page_id=#{@source_element.page.id}&element_id=#{@source_element.id}"
       if params[:link_only].blank?
-        @element.update_from_element(@source_element, current_server)
+        @element.update_from_element(@source_element, url)
       else
         teaser = @element.contents.find_by_essence_type("EssenceElementTeaser")
         if !teaser.essence.blank?
-          teaser.essence.url = File.join(current_server, "#{@source_element.page.urlname}##{@source_element.name}_#{@source_element.id}")
+          teaser.essence.url = url
           teaser.essence.save
         end
       end
