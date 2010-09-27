@@ -100,7 +100,7 @@ span.icon.format_edit {
 }
 
 span.icon.fill_from_element {
-	background: url(/images/alchemy/icons/elements_window.png) 0 0;
+	background: url(/images/alchemy/icons.png) -256px -40px;
 }
 
 div.sent_mailings {
@@ -303,7 +303,7 @@ a.send_mailing_button {
 	float: right;
 }
 
-#elements_for_mailing_content a.link_only {
+#teasable_elements a.link_only {
 	float: right;
 }
 

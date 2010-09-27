@@ -22,6 +22,7 @@ module ElementsControllerExtension
         end
       end
       @page = @element.page
+      @has_richtext_essence = @element.contents.detect { |content| content.essence_type == 'EssenceRichtext' }
       render :action => "update"
     rescue
       log_error($!)

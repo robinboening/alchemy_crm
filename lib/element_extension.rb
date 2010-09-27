@@ -5,7 +5,9 @@ module ElementExtension
       source_content = source.contents.find_by_name(content.name)
       if !source_content.blank? && source_content.essence_type == content.essence_type
         case content.essence_type
-        when "EssenceText" || "EssenceRichtext"
+        when "EssenceText"
+          content.essence.body = source_content.essence.body
+        when "EssenceRichtext"
           content.essence.body = source_content.essence.body
         when "EssencePicture"
           content.essence.picture_id = source_content.essence.picture_id

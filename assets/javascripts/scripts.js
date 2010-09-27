@@ -15,3 +15,19 @@ function removeContactGroupFilter(element, id, count) {
 		})
 	});
 }
+
+function teasablesFilter (value) {
+	var teasables = $$('#teasable_elements .teasable_page');
+	if (value === '') {
+		teasables.each(function(t) { t.show(); });
+	}
+	else {
+		teasables.each(function(el) {
+			if (el.readAttribute('id').replace('teasable_page_', '') != value) {
+				el.hide();
+			} else {
+				el.show();
+			}
+		});
+	}
+}

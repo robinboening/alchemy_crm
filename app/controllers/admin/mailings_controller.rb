@@ -2,6 +2,8 @@ class Admin::MailingsController < AlchemyMailingsController
   
   layout 'alchemy'
   
+  filter_access_to :all
+  
   def index
     if params[:query].blank?
       @mailings = Mailing.all
