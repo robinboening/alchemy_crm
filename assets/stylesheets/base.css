@@ -162,7 +162,7 @@ div.recipient_group {
 
 div.recipients {
 	margin-top: 8px;
-	height: 144px;
+	max-height: 144px;
 	overflow: auto;
 	position: relative;
 }
