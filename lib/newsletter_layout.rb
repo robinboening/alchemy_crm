@@ -10,4 +10,8 @@ class NewsletterLayout
     layouts
   end
   
+  def self.get(name)
+    PageLayout.get(name)
+  end
+  
 end

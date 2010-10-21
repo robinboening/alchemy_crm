@@ -32,4 +32,9 @@ class Newsletter < ActiveRecord::Base
     raise "Cannot delete Newsletter because of referencing Mailings with IDs (#{mailings.collect(&:id).join(", ")})" if(mailings.length != 0)
   end
   
+  def layout_name
+    page_layout = NewsletterLayout.get(self.layout)
+    page_layout['display_name']
+  end
+  
 end
