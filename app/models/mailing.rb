@@ -35,18 +35,10 @@ class Mailing < ActiveRecord::Base
     self.additional_email_addresses.gsub(/ /,'').split(',') rescue []
   end
   
-  def copy(attributes = {})
-    clone = self.clone
-    clone.contact_ids = self.contact_ids
-    clone.created_at = Time.now
-    clone.name = attributes[:name]
-    clone.subject = attributes[:subject]
-    if clone.save
-      cloned_page = Page.copy(self.page, :name => "Mailing #{attributes[:name]}", :urlname => "mailing-#{attributes[:name].underscore}")
-      cloned_page.move_to_child_of Page.find_by_parent_id_and_urlname(1, "mailing_root")
-      clone.page = cloned_page
-      clone.save
-    end
+  def self.copy(id)
+    source = self.find(id)
+    clone = source.clone
+    clone.name = "#{source.name} (Kopie)"
     clone
   end
   

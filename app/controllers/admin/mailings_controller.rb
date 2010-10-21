@@ -25,7 +25,7 @@ class Admin::MailingsController < AlchemyMailingsController
       page = Page.new(
         :name => "Mailing #{params[:mailing][:name]}",
         :sitemap => false,
-        :page_layout => @mailing.newsletter.layout
+        :page_layout => "newsletter_#{@mailing.newsletter.layout}"
       )
       if page.save
         page.move_to_child_of mailing_root
@@ -34,6 +34,12 @@ class Admin::MailingsController < AlchemyMailingsController
       end
     end
     render_errors_or_redirect(@mailing, admin_mailings_path, "Das Mailing wurde angelegt.")
+  end
+  
+  def copy
+    @mailing = Mailing.copy(params[:id])
+    @newsletters = Newsletter.all
+    render :action => :new, :layout => false
   end
   
   def show
@@ -74,8 +80,6 @@ class Admin::MailingsController < AlchemyMailingsController
   
   def deliver
     a = Time.now
-    logger.info("+++++++++++++++   current_server: #{current_server}")
-    
     @mailing = Mailing.find(params[:id])
     if request.post? && params[:confirm_to_send] == "send"
       mailing_elements = @mailing.page.elements
@@ -92,7 +96,7 @@ class Admin::MailingsController < AlchemyMailingsController
       sent_mailing.save
       a = Time.now - a
       logger.info("§§§ rendered mailing in #{a} s")
-      flash[:notice] = "Das Mailing wird nun versendet"
+      flash[:notice] = "Das Mailing wurde versendet"
       redirect_to :action => 'index'
     else
       render :layout => false

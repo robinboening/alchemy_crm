@@ -10,6 +10,6 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :contact_groups, :collection => {:add_filter => :get}
     admin.resources :tags, :newsletters
     admin.resources :sent_mailings, :member => {:pdf => :get}
-    admin.resources :mailings, :member => {:copy => :post, :deliver => [:get, :post]}, :collection => {:signout => :get}, :has_many => :sent_mailings, :shallow => true
+    admin.resources :mailings, :member => {:copy => :get, :deliver => [:get, :post]}, :collection => {:signout => :get}, :has_many => :sent_mailings, :shallow => true
   end
 end
