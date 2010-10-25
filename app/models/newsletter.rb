@@ -7,6 +7,8 @@ class Newsletter < ActiveRecord::Base
   validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
   before_destroy :can_delete_mailings?
   
+  named_scope :subscribables, :conditions => {:public => true}
+  
   def all_contacts
     (all_contact_group_contacts + verified_direct_contacts).uniq
   end

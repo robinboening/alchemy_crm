@@ -6,11 +6,19 @@ class Contact < ActiveRecord::Base
   acts_as_taggable
   
   has_many :newsletter_subscriptions
+  accepts_nested_attributes_for :newsletter_subscriptions, :allow_destroy => true
+  
   has_many :newsletters, :through => :newsletter_subscriptions, :uniq => true
   
   validates_presence_of :email, :message => "Bitte geben Sie eine E-Mail Adresse an."
   validates_uniqueness_of :email, :message => "Diese E-Mail Adresse ist bereits eingetragen."
   validates_format_of :email, :with => /^([a-zA-Z0-9_+\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/, :message => "Die E-Mail Adresse ist nicht valide.", :if => Proc.new { |contact| contact.errors[:email].blank? }
+  
+  def validate
+    if self.newsletter_subscriptions.length < 1
+      self.errors.add_to_base("Bitte wählen Sie zumindestens einen Newsletter aus.")
+    end
+  end
   
   before_save :update_sha1
   

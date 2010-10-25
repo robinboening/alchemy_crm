@@ -1,6 +1,11 @@
 class MailingsMailer < ActionMailer::Base
+  
+  # We need this, because we render the elements with render_elements helper
   helper :application
   helper_method :logged_in?
+  def logged_in?
+    false
+  end
   
   def my_mail(mailing, elements, contact, recipient, options = {})
     default_options = {
@@ -48,25 +53,29 @@ class MailingsMailer < ActionMailer::Base
     )
   end
   
-  # We need this, because we render the elements with render_elements helper
-  def logged_in?
-    false
-  end
-  
   def verification_mail(contact, server, element, newsletter_ids)
     recipients contact.email
-    from MAIL_FROM
-    subject element.contents.find_by_name("email_subject").essence.body
+    from element.content_by_name("mail_from").ingredient
+    subject element.content_by_name("mail_subject").ingredient
     content_type "text/html"
-    body :contact => contact, :server => server, :element => element, :newsletter_ids => newsletter_ids
+    body(
+      :contact => contact,
+      :server => server.gsub(/http:\/\//, ''),
+      :element => element,
+      :newsletter_ids => newsletter_ids
+    )
   end
   
   def signout_mail(contact, server, element)
     recipients contact.email
-    from MAIL_FROM
-    subject element.contents.find_by_name("email_subject").essence.body
+    from element.content_by_name("mail_from").ingredient
+    subject element.content_by_name("mail_subject").ingredient
     content_type "text/html"
-    body :contact => contact, :server => server, :element => element
+    body(
+      :contact => contact,
+      :server => server.gsub(/http:\/\//, ''),
+      :element => element
+    )
   end
   
 end
