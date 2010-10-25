@@ -14,27 +14,4 @@ class MailingsController < AlchemyMailingsController
     end
   end
   
-  def signout
-    begin
-      @page = Page.find_by_layout("mailing_abmelden")
-      element = @page.elements.find_by_name("mailing_signout")
-      if request.post?
-        @contact = Contact.find_by_email(params[:contact][:email])
-        unless @contact.blank?
-          unless @contact.newsletters.empty?
-            MailingsMailer.deliver_signout_mail(@contact, current_server.gsub(/http:\/\//, ""), element)
-            flash[:frontend_notice] = element.contents.find_by_name("mail_delivered").essence.body
-          else
-            flash[:frontend_notice] = element.contents.find_by_name("mail_without_formats").essence.body
-          end
-        else
-          flash[:frontend_notice] = element.contents.find_by_name("mail_not_found").essence.body
-        end
-      end
-    rescue
-      log_error($!)
-    end
-    render :layout => "pages"
-  end
-  
 end

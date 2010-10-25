@@ -1,10 +1,26 @@
 <html>
-	<body>
-		<%= @element.contents.find_by_name("email_text").essence.body % {:name => @contact.fullname} %>
-		<% @contact.all_newsletters.each do |newsletter| %>
-		<p>
-		<%= newsletter.name %>&nbsp;<%= link_to @element.contents.find_by_name("mailing_abbestellen").essence.body, url_for(:host => @server, :controller => 'contact', :action => 'signout', :id => @contact, :h => (@contact.email_sha1 rescue nil), :format_id => newsletter.id) %>
-		</p>
-		<% end %>
-	</body>
+    <body>
+        <%= @element.contents.find_by_name("email_text").essence.body % { 
+            :link => destroy_contact_url(
+                :sha1 => @contact.email_sha1,
+                :host => @server,
+                :element_id => @element.id
+            ),
+            :name => @contact.fullname 
+        } %>
+        <%- @contact.all_newsletters.each do |newsletter| -%>
+        <p>
+            <%= newsletter.name %>
+            <%= link_to(
+                t("newsletter.signout_email.signout"),
+                signout_from_newsletter_url(
+                    :host => @server,
+                    :sha1 => @contact.email_sha1,
+                    :newsletter_id => newsletter.id,
+                    :element_id => @element.id
+                )
+            ) %>
+        </p>
+        <%- end -%>
+    </body>
 </html>

@@ -1,9 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
   map.recipient_reads 'recipients/reads/:id', :controller => :recipients, :action => :reads
   map.recipient_reacts 'recipients/reacts/:id', :controller => :recipients, :action => :reacts
-  map.resources :mailings, :collection => {:signout => :get}
+  map.resources :mailings, :only => :show
   map.resources :contacts, :collection => {:signup => :post, :signout => :get, :verify => :get}, :except => [:index, :show, :new, :create, :edit, :update, :destroy]
-  map.verify_mailing 'contacts/verify/:sha1/:element_id', :controller => 'contacts', :action => 'verify'
+  map.verify_mailing '/contacts/verify/:sha1/:element_id', :controller => :contacts, :action => :verify
+  map.destroy_contact '/contacts/destroy/:sha1/:element_id', :controller => :contacts, :action => :destroy
+  map.signout_from_newsletter '/newsletter_subscriptions/destroy/:newsletter_id/:sha1/:element_id', :controller => :newsletter_subscriptions, :action => :destroy
   map.teasable_elements '/admin/elements/teasables', :controller => 'admin/elements', :action => :teasables
   map.resources :newsletter_subscriptions
   map.namespace :admin do |admin|

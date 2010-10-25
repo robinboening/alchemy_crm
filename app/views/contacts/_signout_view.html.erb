@@ -1,0 +1,14 @@
+<% form_tag signout_contacts_path, :method => :get, :id => 'signout' do %>
+    <%= render_essence_view_by_name(element, 'signout_text') %>
+    <p><%= flash[:notice] %></p>
+    <table>
+        <tr>
+            <td><%= label_tag 'email', 'Email Adresse' %></td>
+            <td><%= text_field_tag 'email', params[:email] %></td>
+        </tr>
+    </table>
+    <p>
+        <%= hidden_field_tag('element_id', element.id) %>
+        <%= submit_tag t('newsletter.signout_form.button_label'), :name => nil %>
+    </p>
+<% end %>
