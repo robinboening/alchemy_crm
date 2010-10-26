@@ -4,11 +4,11 @@ class MailingsController < AlchemyMailingsController
     begin
       @host = current_server
       @server = @host.gsub(/http:\/\//, '')
-      @mailing = Mailing.find_by_id_and_sha1(params[:id], params[:nh])
+      @mailing = Mailing.find_by_sha1(params[:mailing_hash])
       @page = @mailing.page
-      @contact = Contact.find_by_id_and_email_sha1(params[:contact_id], params[:h]) rescue nil
+      @contact = Contact.find_by_email_sha1(params[:sha1]) rescue nil
     rescue
-      render :file => "#{RAILS_ROOT}/public/404.html", :status => "404"
+      render :file => "#{RAILS_ROOT}/public/422.html", :status => "422"
     else
       render :layout => "mailings"
     end
