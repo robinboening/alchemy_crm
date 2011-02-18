@@ -1,5 +1,5 @@
 name: alchemy-mailings
-
+order: 1
 navigation:
   name: 'Mailings'
   controller: admin/mailings
