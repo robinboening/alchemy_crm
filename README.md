@@ -14,27 +14,34 @@ Install
 
     <https://github.com/magiclabs/alchemy/>
 
-2. In your Rails App folder enter:
+2. Install these plugins:
 
-        script/plugin install git://github.com/magiclabs/alchemy-mailings.git
+        $ script/plugin install git://github.com/magiclabs/alchemy-mailings.git
+        $ script/plugin install git://github.com/rails/auto_complete.git
 
-3. Then enter following lines into your config/environment.rb file
+3. Then put these lines into your `config/environment.rb` file inside the `config` block:
 
-    * Inside the config block:
+        config.gem 'vpim'
+        config.gem 'acts_as_taggable_on_steroids'
+        config.plugins = [ :all, 'alchemy-mailings', :alchemy ]
 
-            config.gem 'vpim'
-            config.gem 'acts_as_taggable_on_steroids'
-            
-            config.plugins = [ :all, 'alchemy-mailings', :alchemy ]
+4. Migrate your database:
 
-4. Then install these plugins:
+        $ rake db:migrate:alchemy-mailings
 
-        script/plugin install git://github.com/rails/auto_complete.git
+5. Seed the database:
 
-5. Then create your database and migrate:
+  5.1. Put this line into your db/seeds.rb file:
+        
+        AlchemyMailings::Seeder.seed!
 
-        rake db:create
-        rake db:migrate:alchemy-mailings
+  5.2. Run this rake task:
+
+        $ rake db:seed
+
+6. Copy all assets:
+
+        $ rake alchemy-mailings:assets:copy:all
 
 Resources
 ---------
