@@ -1,11 +1,8 @@
 class Admin::TagsController < AlchemyMailingsController
-  
-  layout "alchemy"
+
   helper :tags
-  
+
   filter_access_to :all
-  
-  before_filter :set_gettext_domain
   
   def index
     @tags = Tag.find(:all, :order => "name ASC")
@@ -59,10 +56,4 @@ class Admin::TagsController < AlchemyMailingsController
     redirect_to :controller => "tags", :action => "index"
   end
 
-protected
-  
-  def set_gettext_domain
-    FastGettext.text_domain = 'alchemy-mailings'
-  end
-  
 end

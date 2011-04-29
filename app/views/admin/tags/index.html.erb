@@ -13,7 +13,7 @@
 				new_admin_tag_path,
 				{
 					:title => _('New Tag'),
-					:size => '340x65'
+					:size => '310x65'
 				},
 				:title => _('New Tag'),
 				:class => 'icon_button'
@@ -21,12 +21,12 @@
 			<label><%= _('New Tag') %></label>
 		</div>
 	</div>
-	<%= js_filter_field :onkeyup => "alchemyListFilter('#contact_list li.filterable')" %>
+	<%= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list tr.filterable')" %>
 </div>
 <%- end -%>
 
 <div id="archive_all">
-    <table class="list">
+    <table class="list" id="tag_list">
         <%- unless @tags.blank? -%>
         <tr class="legend">
             <th class="icon"></th>

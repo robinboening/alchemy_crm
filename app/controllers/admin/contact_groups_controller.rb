@@ -1,7 +1,5 @@
 class Admin::ContactGroupsController < AlchemyMailingsController
   
-  layout "alchemy"
-  
   filter_access_to :all
   
   def index

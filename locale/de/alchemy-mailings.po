@@ -5,25 +5,26 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 2.0\n"
-"POT-Creation-Date: 2010-09-24 12:57+0200\n"
+"POT-Creation-Date: 2011-04-29 18:03+0200\n"
 "PO-Revision-Date: 2010-07-20 12:27+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/views/admin/mailings/edit_content.html.erb:66
+#: app/views/admin/mailings/edit_content.html.erb:67
 msgid "Choose Element"
 msgstr "Element wählen"
 
-#: app/views/admin/mailings/edit_content.html.erb:84
+#: app/views/admin/mailings/edit_content.html.erb:85
 msgid "Elements"
 msgstr "Elemente"
 
-#: app/views/admin/mailings/edit_content.html.erb:71
-#: app/views/admin/mailings/edit_content.html.erb:75
+#: app/views/admin/mailings/edit_content.html.erb:72
+#: app/views/admin/mailings/edit_content.html.erb:76
 msgid "New Element"
 msgstr "Neues Element"
 
@@ -31,27 +32,55 @@ msgstr "Neues Element"
 #: app/views/admin/tags/index.html.erb:18
 #: app/views/admin/tags/index.html.erb:21
 msgid "New Tag"
-msgstr "Neuer Tag"
+msgstr "Neues Tag"
 
-#: app/controllers/admin/tags_controller.rb:22
+#: app/controllers/admin/tags_controller.rb:19
 msgid "New Tag Created"
-msgstr "Neuer Tag wurde erstellt"
+msgstr "Neues Tag wurde erstellt"
 
-#: app/views/admin/mailings/edit_content.html.erb:85
+#: app/views/admin/mailings/edit_content.html.erb:86
 msgid "Page Preview"
 msgstr "Seiten Vorschau"
 
-#: app/views/admin/mailings/edit_content.html.erb:51
-#: app/views/admin/mailings/edit_content.html.erb:55
-#: app/views/admin/mailings/edit_content.html.erb:59
+#: app/views/admin/mailings/edit_content.html.erb:52
+#: app/views/admin/mailings/edit_content.html.erb:56
+#: app/views/admin/mailings/edit_content.html.erb:60
 msgid "Send Mailing"
 msgstr "Mailing versenden"
 
-#: app/views/admin/mailings/edit_content.html.erb:25
+#: locale/alchemy_core_translations.rb:2
+msgid "click_to_show_all"
+msgstr "wieder alles anzeigen"
+
+#: app/views/admin/mailings/edit_content.html.erb:26
 msgid "explain_unlocking"
-msgstr ""
+msgstr "Die Seite verlassen und für andere Benutzer zum Bearbeiten freigeben."
+
+#: locale/alchemy_core_translations.rb:5
+msgid "no"
+msgstr "nein"
+
+#: locale/alchemy_core_translations.rb:7
+msgid "pagination.%{label}_per_page"
+msgstr "%{label} pro Seite"
+
+#: locale/alchemy_core_translations.rb:3
+msgid "please_confirm"
+msgstr "Bitte bestätigen"
+
+#: locale/alchemy_core_translations.rb:4
+msgid "please_wait"
+msgstr "Bitte warten"
 
 #: app/views/admin/contacts/import.html.erb:18
 #: app/views/admin/tags/new.html.erb:8
 msgid "save"
 msgstr "speichern"
+
+#: locale/alchemy_core_translations.rb:1
+msgid "search"
+msgstr "suchen"
+
+#: locale/alchemy_core_translations.rb:6
+msgid "yes"
+msgstr "ja"

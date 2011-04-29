@@ -1,6 +1,39 @@
 require 'rake'
-Dir.glob(File.dirname(__FILE__) + "/lib/tasks/*.rake").each do |rake_file|
-  import rake_file
+require 'rake/testtask'
+require 'rake/rdoctask'
+
+desc 'Default: run unit tests.'
+task :default => :test
+
+desc 'Test the alchemy plugin.'
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = true
+end
+
+desc 'Generate documentation for the alchemy plugin.'
+Rake::RDocTask.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'Alchemy'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README.markdown')
+  rdoc.rdoc_files.include('config/alchemy/elements.yml')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.rdoc_files.include('app/controllers/*.rb')
+  rdoc.rdoc_files.include('app/controllers/admin/*.rb')
+  rdoc.rdoc_files.include('app/helpers/*.rb')
+  rdoc.rdoc_files.include('app/helpers/admin/*.rb')
+  rdoc.rdoc_files.include('app/models/*.rb')
+end
+
+namespace 'views' do
+  desc 'Renames all your rhtml views to erb'
+  task 'rename' do
+    Dir.glob('app/views/**/*.rhtml').each do |file|
+      puts `svn mv #{file} #{file.gsub(/\.rhtml$/, '.html.erb')}`
+    end
+  end
 end
 
 namespace :gettext do
@@ -8,18 +41,19 @@ namespace :gettext do
     require 'gettext'
     require 'gettext/tools'
   end
-  
+
   desc "Create mo-files for L10n"
   task :pack do
     load_gettext
     GetText.create_mofiles(:verbose => true, :po_root => "locale", :mo_root => "locale")
   end
-  
+
   desc "Update pot/po files."
   task :find do
     load_gettext
+    $LOAD_PATH << File.join(File.dirname(__FILE__),'plugins','gettext_i18n_rails','lib')
     require 'gettext_i18n_rails/haml_parser'
-    
+
     if GetText.respond_to? :update_pofiles_org
       GetText.update_pofiles_org(
         "alchemy-mailings",
@@ -38,17 +72,17 @@ namespace :gettext do
           def init(x);end
         end
       end
-      
+
       #parse files.. (models are simply parsed as ruby files)
       GetText.update_pofiles(
-        "alchemy-mailings",
+        "alchemy",
         Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,haml,rjs}"),
         "version 2.0",
         'locale'
       )
     end
   end
-  
+
   # This is more of an example, ignoring
   # the columns/tables that mostly do not need translation.
   # This can also be done with GetText::ActiveRecord
@@ -63,7 +97,7 @@ namespace :gettext do
   # gem "gettext_activerecord", '>=0.1.0' #download and install from github
   # require 'gettext_activerecord/parser'
   desc "write the locale/model_attributes.rb"
-  task :store_model_attributessss => :environment do
+  task :store_model_attributes => :environment do
     FastGettext.silence_errors
     require 'gettext_i18n_rails/model_attributes_finder'
     storage_file = 'locale/model_attributes.rb'
@@ -74,10 +108,4 @@ namespace :gettext do
       :ignore_tables=>[/^sitemap_/,/_versions$/,'schema_migrations']
     )
   end
-end
-
-begin
-  require "gettext_i18n_rails/tasks"
-rescue LoadError
-  puts "gettext_i18n_rails is not installed, you probably should run 'rake gems:install' or 'bundle install'."
 end

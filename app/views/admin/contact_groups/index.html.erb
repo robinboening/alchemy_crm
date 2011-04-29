@@ -19,20 +19,20 @@
 					:size => '485x300'
 				},
 				{
-					:class => 'icon_button old_icon',
+					:class => 'icon_button',
 					:title => 'Neue Gruppe anlegen'
 				}
 			) -%><br />
 			<label>Neue Gruppe</label>
 		</div>
 	</div>
-	<%= js_filter_field :onkeyup => "alchemyListFilter('.list li.filterable')" %>
+	<%= js_filter_field :onkeyup => "Alchemy.ListFilter('#group_list .filterable')" %>
 </div>
 <%- end -%>
 
 <div id="archive_all">
 	<%= render :partial => 'admin/partials/pagination_links', :locals => {:items => @contact_groups} %>
-	<table class="list">
+	<table class="list" id="group_list">
 		<%- unless @contact_groups.blank? -%>
 		<tr>
 			<th class="icon"></th>

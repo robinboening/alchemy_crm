@@ -1,7 +1,5 @@
 class Admin::NewslettersController < AlchemyMailingsController
   
-  layout "alchemy"
-  
   filter_access_to :all
   
   def index
@@ -10,7 +8,7 @@ class Admin::NewslettersController < AlchemyMailingsController
   
   def new
     @newsletter = Newsletter.new
-    @page_layouts = NewsletterLayout.get_layouts_for_select()
+    @page_layouts = AlchemyMailings::NewsletterLayout.get_layouts_for_select()
     @contact_groups = ContactGroup.all
     render :layout => false
   end
@@ -24,7 +22,7 @@ class Admin::NewslettersController < AlchemyMailingsController
   def edit
     @newsletter = Newsletter.find(params[:id])
     @contact_groups = ContactGroup.find(:all, :order => "name ASC")
-    @page_layouts = NewsletterLayout.get_layouts_for_select()
+    @page_layouts = AlchemyMailings::NewsletterLayout.get_layouts_for_select()
     render :layout => false
   end
   

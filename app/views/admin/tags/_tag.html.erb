@@ -1,4 +1,4 @@
-<tr class="<%= cycle('odd', 'even') %>">
+<tr class="<%= cycle('odd', 'even') %> filterable" name="<%= tag.name -%>">
     <td class="icon">
         <%= content_tag 'span', '', :class => 'icon tag' -%>
     </td>
@@ -14,7 +14,7 @@
             edit_admin_tag_path(tag),
             {
                 :title => 'Tag bearbeiten',
-                :size => '435x240'
+                :size => '480x240'
             },
             {
                 :title => 'Tag bearbeiten',

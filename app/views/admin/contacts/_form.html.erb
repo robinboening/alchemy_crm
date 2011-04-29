@@ -50,7 +50,11 @@
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :tag_list, ("Tags") %></td>
-		<td colspan="3"><%= text_field_with_auto_complete 'contact', 'tag_list', { :size => 40, :class => "thin_border long"}, {:tokens => ','} %></td>
+		<td colspan="3">
+			<%= f.text_field :tag_list, :class => "thin_border long" %>
+			<!-- TODO: Find a good jQuery based autocompleter solution with features like Scriptaculous Autocomplete -->
+			<%#= text_field_with_auto_complete 'contact', 'tag_list', { :size => 40, :class => "thin_border long"}, {:tokens => ','} %>
+		</td>
 	</tr>
 	<tr>
 		<td class="submit" colspan="4"><%= submit_tag "Speichern", :class => "button" %></td>

@@ -9,7 +9,7 @@ msgstr ""
 "PO-Revision-Date: 2010-07-20 12:27+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -50,11 +50,11 @@ msgstr ""
 
 #: locale/alchemy_core_translations.rb:2
 msgid "click_to_show_all"
-msgstr ""
+msgstr "Click to show all again."
 
 #: app/views/admin/mailings/edit_content.html.erb:26
 msgid "explain_unlocking"
-msgstr ""
+msgstr "Remove the cached version of this page from the server."
 
 #: locale/alchemy_core_translations.rb:5
 msgid "no"
@@ -62,15 +62,15 @@ msgstr ""
 
 #: locale/alchemy_core_translations.rb:7
 msgid "pagination.%{label}_per_page"
-msgstr ""
+msgstr "%{label} per page"
 
 #: locale/alchemy_core_translations.rb:3
 msgid "please_confirm"
-msgstr ""
+msgstr "Please confirm"
 
 #: locale/alchemy_core_translations.rb:4
 msgid "please_wait"
-msgstr ""
+msgstr "Please wait"
 
 #: app/views/admin/contacts/import.html.erb:18
 #: app/views/admin/tags/new.html.erb:8
