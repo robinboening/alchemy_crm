@@ -6,7 +6,6 @@
 
 <%- content_for :toolbar do -%>
 <div id="toolbar">
-	<%= js_filter_field :onkeyup => "Alchemy.ListFilter('.list li.filterable')" %>
 	<div id="toolbar_buttons">
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
@@ -24,10 +23,12 @@
 			<label>Neuer Newsletter</label>
 		</div>
 	</div>
+	<%= render :partial => 'admin/partials/search_form' %>
 </div>
 <%- end -%>
 
 <div id="archive_all">
+	<%= render :partial => 'admin/partials/pagination_links', :locals => {:items => @newsletters} %>
 	<table class="list">
 		<%- unless @newsletters.blank? -%>
 		<tr class="legend">

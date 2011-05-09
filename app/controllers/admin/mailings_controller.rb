@@ -3,11 +3,7 @@ class Admin::MailingsController < AlchemyMailingsController
   filter_access_to :all
   
   def index
-    if params[:query].blank?
-      @mailings = Mailing.all
-    else
-      @mailings = Mailing.find(:all, :conditions => {:name => params[:query], :subject => params[:query]})
-    end
+		@mailings = Mailing.paginate(:all, :page => params[:page] || 1, :per_page => 30, :conditions => "mailings.name LIKE '%#{params[:query]}%' OR mailings.subject LIKE '%#{params[:query]}%'")
   end
   
   def new

@@ -32,17 +32,18 @@
 <%- end -%>
 
 <div id="archive_all">
-    <table class="list">
-        <%- unless @mailings.blank? -%>
-        <tr class="legend">
-            <th class="icon"></th>
-            <th class="name">Name</th>
-            <th class="name">Betreff</th>
-            <th style="width: 120px">Newsletter</th>
-            <th class="size" style="width: 120px">Kontakte</th>
-            <th class="tools" style="width: 88px"></th>
-        </tr>
-        <%- end -%>
-        <%= render @mailings %>
-    </table>
+	<%= render :partial => 'admin/partials/pagination_links', :locals => {:items => @mailings} %>
+	<table class="list">
+		<%- unless @mailings.blank? -%>
+		<tr class="legend">
+			<th class="icon"></th>
+			<th class="name">Name</th>
+			<th class="name">Betreff</th>
+			<th style="width: 120px">Newsletter</th>
+			<th class="size" style="width: 120px">Kontakte</th>
+			<th class="tools" style="width: 88px"></th>
+		</tr>
+		<%- end -%>
+		<%= render @mailings %>
+	</table>
 </div>

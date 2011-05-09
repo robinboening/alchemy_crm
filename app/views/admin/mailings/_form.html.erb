@@ -6,7 +6,7 @@
 				<%= f.label :newsletter, ("Newsletter") %>
 			</td>
 			<td>
-				<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, :class => "thin_border long" %>
+				<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, :prompt => 'Bitte wählen', :class => "thin_border long" %>
 			</td>
 		</tr>
 		<tr>
