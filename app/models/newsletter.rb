@@ -35,8 +35,7 @@ class Newsletter < ActiveRecord::Base
   end
   
   def layout_name
-    page_layout = AlchemyMailings::NewsletterLayout.get(self.layout)
-    page_layout['display_name']
+    AlchemyMailings::NewsletterLayout.display_name_for(self.layout)
   end
   
 end
