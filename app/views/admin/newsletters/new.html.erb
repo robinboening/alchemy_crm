@@ -1,1 +1,10 @@
+<%- if @page_layouts.blank? -%>
+<div class="with_padding">
+	<div class="info">
+		<%= render_icon('info') %>
+		Sie haben noch kein Newsletter Layout. Bitte legen Sie erst eins an.
+	</div>	
+</div>
+<%- else -%>
 <%= render :partial => "form" %>
+<%- end -%>

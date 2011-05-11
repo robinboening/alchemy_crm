@@ -1,37 +1,63 @@
-<div id="errors" style="display: none"></div>
 <% remote_form_for [:admin, @mailing], :html => {:class => " with_padding"} do |f| %>
-	<div class="emulate_table">
-		<div class="emulated_table_row">
-			<%= f.label :newsletter, ("Newsletter"), :class => "medium_long" %>
-			<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, :class => "thin_border long" %>
-		</div>
-		<div class="emulated_table_row">
-			<%= f.label :name, ("Name"), :class => "medium_long" %>
-			<%= f.text_field :name, :class => "thin_border long" %>
-		</div>
-		<div class="emulated_table_row">
-			<%= f.label :subject, ("Betreff"), :class => "medium_long" %>
-			<%= f.text_field :subject, :class => "thin_border long" %>
-		</div>
+	<div id="errors" style="display: none"></div>
+	<table>
+		<tr>
+			<td class="label medium_long">
+				<%= f.label :newsletter, ("Newsletter") %>
+			</td>
+			<td>
+				<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, :prompt => 'Bitte wählen', :class => "thin_border long" %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :name, ("Name") %>
+			</td>
+			<td>
+				<%= f.text_field :name, :class => "thin_border long" %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :subject, ("Betreff") %>
+			</td>
+			<td>
+				<%= f.text_field :subject, :class => "thin_border long" %>
+			</td>
+		</tr>
 		<%- if plugin_conf("alchemy-mailings")[:enable_workflow] -%>
 		<%- if action == "update" -%>
-		<div class="emulated_table_row">
-			<%= f.label :status, ("Status"), :class => "medium_long" %>
-			<%= f.text_field :status, :class => "thin_border long", :disabled => true %>
-		</div>
-		<div class="emulated_table_row">
-			<%= f.label :new_state, ("neuer Status"), :class => "medium_long" %>
-			<%= select_tag("new_state", options_for_select([""] + translate_for_ofs("transition_names", @possible_transitions)), :disabled => (@possible_transitions.length == 0)) %>
-		</div>
+		<tr>
+			<td class="label">
+				<%= f.label :status, ("Status") %>
+			</td>
+			<td>
+				<%= f.text_field :status, :class => "thin_border long", :disabled => true %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :new_state, ("neuer Status") %>
+			</td>
+			<td>
+				<%= select_tag("new_state", options_for_select([""] + translate_for_ofs("transition_names", @possible_transitions)), :disabled => (@possible_transitions.length == 0)) %>
+			</td>
+		</tr>
 		<%- end -%>
 		<%- end -%>
-		<div class="emulated_table_row">
-			<%= f.label :new_state, ("zusätzliche Email-Adressen*"), :class => "medium_long" %>
-			<%= f.text_area :additional_email_addresses, :class => "thin_border", :style => "height: 4em; width: 233px" %>
-			<p style="text-align: right"><sup>*Email-Adressen bitte mit Komma getrennt angeben.</sup></p>
-		</div>
-		<div class="emulated_table_row">
-			<%= submit_tag "Speichern", :class => "button" %>
-		</div>
-	</div>
+		<tr>
+			<td class="label">
+				<%= f.label :additional_email_addresses, ("zusätzliche Email-Adressen*") %>
+			</td>
+			<td>
+				<%= f.text_area :additional_email_addresses, :class => "thin_border", :style => "height: 4em; width: 251px" %>
+				<p style="text-align: right"><sup>*Email-Adressen bitte mit Komma getrennt angeben.</sup></p>
+			</td>
+		</tr>
+		<tr>
+			<td class="submit" colspan="2">
+				<%= submit_tag "Speichern", :class => "button" %>
+			</td>
+		</tr>
+	</table>
 <% end %>

@@ -5,7 +5,7 @@ module AlchemyMailings
 	    layouts = []
 	    Alchemy::PageLayout.get_layouts.each do |layout|
 	      if layout['newsletter']
-	        layouts << [layout["display_name"], layout["name"]]
+	        layouts << [display_name_for(layout["name"]), layout["name"]]
 	      end
 	    end
 	    layouts
@@ -14,6 +14,10 @@ module AlchemyMailings
 	  def self.get(name)
 	    Alchemy::PageLayout.get(name)
 	  end
-  
+  	
+		def self.display_name_for(name)
+			I18n.t("alchemy.page_layout_names.#{name}", :default => name.camelcase)
+		end
+		
 	end
 end

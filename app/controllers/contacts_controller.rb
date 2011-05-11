@@ -20,6 +20,7 @@ class ContactsController < AlchemyMailingsController
       end
     else
       @page = @element.page
+			@root_page = @page.get_language_root
       render :template => '/pages/show', :layout => 'pages'
     end
   end

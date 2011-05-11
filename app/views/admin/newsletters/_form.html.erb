@@ -1,53 +1,49 @@
-<div id="errors" style="display: none"></div>
 <% remote_form_for [:admin, @newsletter], :html => {:class => "with_padding"} do |f| %>
-    <table border="0" cellspacing="4" cellpadding="4">
-        <tr>
-            <td class="label">
-                <%= f.label :name, "Name" %>
-            </td>
-            <td class="input">
-                <%= f.text_field :name, :class => "thin_border long" %>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">
-                <%= f.label :layout, "Layout" %>
-            </td>
-            <td class="input">
-                <%= f.select :layout, @page_layouts, {}, {:class => "long"} %>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">
-                <%= f.label :public, "Öffentlich" %>
-            </td>
-            <td class="input">
-                <%= f.check_box :public %>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">
-                <%= f.label :contact_groups, "Gruppen" %>
-            </td>
-            <td class="input">
-				<%- if @contact_groups.blank? -%>
-                	Bisher sind keine Gruppen angelegt.
-				<%- else -%>
-					<%= render :partial => "tag_with_radiobutton", :collection => @contact_groups, :locals => {:newsletter_contact_groups => @newsletter.contact_groups} %>
-				<%- end -%>
-            </td>
-        </tr>
-        <%- unless @newsletter.verified_direct_contacts.blank? -%>
-        <tr>
-            <td colspan="2">
-                Über die Website eingetragene Kontakte: <%= @newsletter.verified_direct_contacts.length %>
-            </td>
-        </tr>
-        <%- end -%>
-        <tr>
-            <td colspan="2" style="text-align: right">
-                <%= f.submit "Speichern", :class => "button" %>
-            </td>
-        </tr>
-    </table>
+	<div id="errors" style="display: none"></div>
+	<table>
+		<tr>
+			<td class="label">
+				<%= f.label :name, "Name" %>
+			</td>
+			<td class="input">
+				<%= f.text_field :name, :class => "thin_border long" %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :layout, "Layout" %>
+			</td>
+			<td class="input">
+				<%= f.select :layout, @page_layouts, {:prompt => 'Bitte wählen'}, {:class => "long"} %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :public, "Öffentlich" %>
+			</td>
+			<td class="input">
+				<%= f.check_box :public %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :contact_groups, "Gruppen" %>
+			</td>
+			<td class="input">
+				<%= render :partial => "tag_with_radiobutton", :collection => @contact_groups, :locals => {:newsletter_contact_groups => @newsletter.contact_groups} %>
+			</td>
+		</tr>
+		<%- unless @newsletter.verified_direct_contacts.blank? -%>
+		<tr>
+			<td colspan="2">
+				<p>Über die Website eingetragene Kontakte: <%= @newsletter.verified_direct_contacts.length %></p>
+			</td>
+		</tr>
+		<%- end -%>
+		<tr>
+			<td colspan="2" style="text-align: right">
+				<%= f.submit "Speichern", :class => "button" %>
+			</td>
+		</tr>
+	</table>
 <% end %>

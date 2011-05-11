@@ -1,14 +1,17 @@
 <%- if @sent_mailings.blank? -%>
-	<p class="with_padding">Dieser Mailing wurde noch nicht versendet!</p>
+<p class="with_padding">Dieser Mailing wurde noch nicht versendet!</p>
 <%- else -%>
 <div class="sent_mailings">
-    <div class="info">
-        <p>Klicken Sie für eine Statistik auf das jeweilige Datum des Versandes.</p>
-        <p>Eine PDF Version mit dem Inhalt und einer Empfängerliste erhalten Sie auf Klick des PDF Buttons neben dem jeweiligen Versand.</p>
-    </div>
-    <div class="with_padding"><h2>Versand vom:</h2></div>
-    <ol>
-        <%= render @sent_mailings %>
-    </ol>
+	<div class="info">
+	<%= render_icon('info') %>
+		<p>Klicken Sie für eine Statistik auf das jeweilige Datum des Versandes.</p>
+		<p>Eine PDF Version mit dem Inhalt und einer Empfängerliste erhalten Sie auf Klick des PDF Buttons neben dem jeweiligen Versand.</p>
+	</div>
+	<div class="with_padding">
+		<h2>Versand vom:</h2>
+	</div>
+	<ol>
+		<%= render @sent_mailings %>
+	</ol>
 </div>
 <%- end -%>

@@ -7,6 +7,7 @@ class Admin::SentMailingsController < AlchemyMailingsController
   def index
     @mailing = Mailing.find_by_id(params[:mailing_id])
     @sent_mailings = @mailing.sent_mailings
+		render :layout => false
   end
   
   def show

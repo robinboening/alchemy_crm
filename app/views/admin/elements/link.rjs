@@ -1,0 +1,4 @@
+Alchemy::Notice.show(page, _("Link wurde gesetzt"))
+page << "jQuery('#content_#{@content.id}_url').val('#{@params}')"
+page << "Alchemy.PreviewWindow.refresh()"
+page << "Alchemy.setElementDirty('#element_#{@element.id}')"

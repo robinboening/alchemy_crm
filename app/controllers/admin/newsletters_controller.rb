@@ -3,7 +3,7 @@ class Admin::NewslettersController < AlchemyMailingsController
   filter_access_to :all
   
   def index
-    @newsletters = Newsletter.find(:all, :conditions => "name LIKE '%#{params[:query]}%'", :order => 'name ASC')
+    @newsletters = Newsletter.paginate(:all, :page => params[:page] || 1, :per_page => 30, :conditions => "name LIKE '%#{params[:query]}%'", :order => 'name ASC')
   end
   
   def new

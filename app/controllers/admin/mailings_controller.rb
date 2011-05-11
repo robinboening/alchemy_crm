@@ -3,11 +3,7 @@ class Admin::MailingsController < AlchemyMailingsController
   filter_access_to :all
   
   def index
-    if params[:query].blank?
-      @mailings = Mailing.all
-    else
-      @mailings = Mailing.find(:all, :conditions => {:name => params[:query], :subject => params[:query]})
-    end
+		@mailings = Mailing.paginate(:all, :page => params[:page] || 1, :per_page => 30, :conditions => "mailings.name LIKE '%#{params[:query]}%' OR mailings.subject LIKE '%#{params[:query]}%'")
   end
   
   def new
@@ -17,23 +13,10 @@ class Admin::MailingsController < AlchemyMailingsController
   end
   
   def create
-    @mailing = Mailing.new(params[:mailing])
-    logger.info("@mailing.newsletter.layout: #{@mailing.newsletter.layout}")
-    
-    if @mailing.save
-      mailing_root = Page.find_by_name('Mailing Root')
-      page = Page.new(
-        :name => "Mailing #{params[:mailing][:name]}",
-        :sitemap => false,
-        :page_layout => @mailing.newsletter.layout
-      )
-      if page.save
-        page.move_to_child_of mailing_root
-        @mailing.page = page
-        @mailing.save
-      end
-    end
+    @mailing = Mailing.create(params[:mailing])
     render_errors_or_redirect(@mailing, admin_mailings_path, "Das Mailing wurde angelegt.")
+	rescue Exception => e
+		exception_handler(e)
   end
   
   def copy
@@ -69,7 +52,7 @@ class Admin::MailingsController < AlchemyMailingsController
     flash[:notice] = 'Mailing wurde gelöscht'
     render :update do |page|
       page.redirect_to admin_mailings_path
-      Alchemy::Notice.show_via_ajax(page, 'Das Mailing wurde gelöscht')
+      Alchemy::Notice.show(page, 'Das Mailing wurde gelöscht')
     end
   end
   
@@ -81,14 +64,14 @@ class Admin::MailingsController < AlchemyMailingsController
   def deliver
     a = Time.now
     @mailing = Mailing.find(params[:id])
-    if request.post? && params[:confirm_to_send] == "send"
+    if request.post?
       mailing_elements = @mailing.page.elements
       sent_mailing = SentMailing.create(:name => @mailing.name, :mailing => @mailing)
       additional_email_addresses = @mailing.all_additional_email_addresses.collect{|u| Contact.new(:email => u)}
       all_contacts = @mailing.all_contacts + additional_email_addresses
       all_contacts.each do |contact|
         recipient             = Recipient.create(:email => contact.email, :contact => contact, :sent_mailing => sent_mailing)
-        mail                  = MailingsMailer.create_my_mail(@mailing, mailing_elements, contact, recipient, :mail_from => Alchemy::Configuration.parameter("alchemy-mailings")[:mail_from], :server => current_server)
+        mail                  = MailingsMailer.create_my_mail(@mailing, mailing_elements, contact, recipient, :mail_from => plugin_conf("alchemy-mailings")[:mail_from], :server => current_server)
         send_mail             = MailingsMailer.deliver(mail)
         recipient.message_id  = send_mail.message_id
         recipient.save
