@@ -20,11 +20,11 @@ module AlchemyMailings
 					@source_element.contents.each do |content|
 						target_contents = @element.contents.select { |c| c.essence_type == content.essence_type && c.name == content.name }
 						target_contents.each do |tc|
-							page << "jQuery('#contents_content_#{tc.id}_#{tc.essence.ingredient_column}').val('#{escape_javascript(content.ingredient)}')"
-							page << "tinymce.get('contents_content_#{tc.id}_#{tc.essence.ingredient_column}').load();" if content.essence_type == "EssenceRichtext"
+							page << "jQuery('##{tc.form_field_id}').val('#{escape_javascript(content.ingredient)}')"
+							page << "tinymce.get('#{tc.form_field_id}').load();" if content.essence_type == "EssenceRichtext"
 						end
 					end
-					page << "jQuery('#content_#{@content.id}_url').val('#{@params}')"
+					page << "jQuery('##{@content.form_field_id(:url)}').val('#{@params}')"
 					page << "Alchemy.setElementDirty('#element_#{@element.id}')"
 					page << "Alchemy.PreviewWindow.refresh()"
 					Alchemy::Notice.show(page, _("Inhalte wurden übernommen"))
