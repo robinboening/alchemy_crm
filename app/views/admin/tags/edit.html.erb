@@ -1,5 +1,5 @@
 <h2 class="with_padding">Sie können dieses Tag umbenennen:</h2>
-<% remote_form_for :tag, @tag, :url => {:controller => :tags, :action => "update"}, :method => "put" do |f| %>
+<%= form_for :tag, @tag, :url => {:controller => :tags, :action => "update"}, :method => "put", :remote => true do |f| %>
 	<table border="0" cellspacing="4" cellpadding="4" style="width: 100%">
 		<tr>
 			<td class="label medium">
@@ -13,7 +13,7 @@
 	</table>
 <% end %>
 <h2 class="with_padding">Oder Sie ersetzen es durch ein vorhandenes Tag:</h2>
-<% remote_form_for :tag, @tag, :url => {:controller => :tags, :action => "update"}, :method => "put", :html => {:style => "clear:both"} do |f| %>
+<%= form_for :tag, @tag, :url => {:controller => :tags, :action => "update"}, :method => "put", :style => "clear: both", :remote => true do |f| %>
 	<table border="0" cellspacing="4" cellpadding="4" style="width: 100%">
 		<tr>
 			<td class="label medium">

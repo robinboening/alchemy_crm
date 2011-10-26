@@ -1,6 +1,6 @@
 <% unless @contacts.nil? %>
 	<div id="errors" style="display:none"></div>
-	<% remote_form_for :contact, @contact, :url => {:controller => :contact, :action => :multiple_update}, :method => "post", :class => "with_padding" do |f| %>
+	<%= form_for :contact, @contact, :url => {:controller => :contact, :action => :multiple_update}, :method => "post", :class => "with_padding", :remote => true do |f| %>
 		<div class="emulate_table">
 			<p>
 				<%= f.label :salutation, ("Anrede") %>

@@ -1,6 +1,7 @@
 if defined?(Rails) && Rails::VERSION::MAJOR == 3
   #require 'alchemy_mailings/models/element_extension'
   #require 'alchemy_mailings/admin/elements_controller_extension'
+  require 'acts-as-taggable-on'
   require 'alchemy_mailings/version'
   require 'alchemy_mailings/newsletter_layout'
   require "alchemy_mailings/seeder"

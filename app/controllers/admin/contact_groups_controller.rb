@@ -5,17 +5,18 @@ class Admin::ContactGroupsController < AlchemyMailingsController
   filter_access_to :all
   
   def index
-    @contact_groups = ContactGroup.find(
-      :all,
-      :order => "name ASC",
-      :conditions => "name LIKE '%#{params[:query]}%'"
-    )
+    @contact_groups = ContactGroup.where(
+      ["name LIKE '%#?%'", params[:query]]
+    ).paginate(
+      :page => params[:page] || 1,
+      :per_page => 20
+    ).order("name ASC")
   end
   
   def new
     @contact_group = ContactGroup.new
-    @contacts = Contact.find(:all)
-    @new_tags = Tag.find(:all, :order => "name ASC")
+    @contacts = Contact.all
+    @new_tags = ActsAsTaggableOn::Tag.order("name ASC").all
     render :layout => false
   end
   
@@ -27,10 +28,10 @@ class Admin::ContactGroupsController < AlchemyMailingsController
   
   def edit
     @contact_group = ContactGroup.find(params[:id])
-    @contacts = Contact.find(:all)
+    @contacts = Contact.all
     @old_tags = []
     @new_tags = []
-    Tag.find(:all, :order => "name ASC").each{ |tag| (tag.created_at > @contact_group.updated_at) ? @new_tags << tag : @old_tags << tag }
+    ActsAsTaggableOn::Tag.find(:all, :order => "name ASC").each{ |tag| (tag.created_at > @contact_group.updated_at) ? @new_tags << tag : @old_tags << tag }
     render :layout => false
   end
   

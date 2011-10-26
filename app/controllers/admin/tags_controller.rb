@@ -2,21 +2,19 @@
 
 class Admin::TagsController < AlchemyMailingsController
 
-  helper :tags
-
   filter_access_to :all
   
   def index
-    @tags = Tag.find(:all, :order => "name ASC")
+    @tags = ActsAsTaggableOn::Tag.order("name ASC").all
   end
   
   def new
-    @tag = Tag.new
+    @tag = ActsAsTaggableOn::Tag.new
     render :layout => false
   end
   
   def create
-    @tag = Tag.new(params[:tag])
+    @tag = ActsAsTaggableOn::Tag.new(params[:tag])
     if @tag.save
       flash[:notice] = _('New Tag Created')
       redirect_to admin_tags_path
@@ -26,17 +24,17 @@ class Admin::TagsController < AlchemyMailingsController
   end
   
   def edit
-    @tag = Tag.find(params[:id])
-    @tags = Tag.find(:all, :order => "name ASC") - [@tag]
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    @tags = ActsAsTaggableOn::Tag.order("name ASC").all - [@tag]
     render :layout => false
   end
   
   def update
-    @tag = Tag.find(params[:id])
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
     case params[:commit]
       when "ersetzen"
       then
-        @new_tag = Tag.find(params[:tag][:merge_to])
+        @new_tag = ActsAsTaggableOn::Tag.find(params[:tag][:merge_to])
         Contact.replace_tag @tag, @new_tag
         operation_text = "Das Tag '#{@tag.name}' wurde durch das Tag '#{@new_tag.name}' ersetzt"
         @tag.destroy
@@ -50,7 +48,7 @@ class Admin::TagsController < AlchemyMailingsController
   end
   
   def destroy
-    @tag = Tag.find(params[:id])
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
     if request.delete?
       @tag.destroy
       flash[:notice] = "Das Tag wurde gelöscht"

@@ -1,5 +1,5 @@
 <div id="errors" style="display:none"></div>
-<% remote_form_for [:admin, @contact_group] do |f| %>
+<%= form_for [:admin, @contact_group], :remote => true do |f| %>
     <table border="0" cellspacing="5" cellpadding="0" style="width: 100%">
         <tr>
             <td class="label medium">
@@ -35,21 +35,21 @@
                 <div id="filter_container">
                     <h2>Verfeinerungs-Filter</h2>
                     <%- @contact_group.contact_group_filters.each_with_index do |contact_group_filter, i| -%>
-					<%= render :partial => "filter", :object => contact_group_filter, :locals => {:count => i} %>
+											<%= render :partial => "filter", :object => contact_group_filter, :locals => {:count => i} %>
                     <%- end -%>
                 </div>
                 <p>
-					<%= link_to_remote(
-						'<span class="icon create"></span>Filter hinzufügen',
-						{
-							:url => add_filter_admin_contact_groups_path(:size => @contact_group.contact_group_filters.size),
-							:method => 'get',
-							:complete => 'alchemy_window.updateHeight()'
-						},
-						{
-							:class => 'button_with_icon'
-						}
-					) %>
+									<%= link_to_remote(
+										'<span class="icon create"></span>Filter hinzufügen',
+										{
+											:url => add_filter_admin_contact_groups_path(:size => @contact_group.contact_group_filters.size),
+											:method => 'get',
+											:complete => 'alchemy_window.updateHeight()'
+										},
+										{
+											:class => 'button_with_icon'
+										}
+									) %>
                 </p>
             </td>
         </tr>

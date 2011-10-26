@@ -8,34 +8,28 @@ class Admin::ContactsController < AlchemyMailingsController
     page = params[:page] || 1
     if params[:query].blank?
       if params[:per_page] == 'all'
-        @contacts = Contact.find(
-          :all,
-          :order => :lastname
-        )
+        @contacts = Contact.order(:lastname).all
       else
         @contacts = Contact.paginate(
-          :all,
           :page => page,
-          :per_page => (params[:per_page] || 20),
-          :order => :lastname
-        )
+          :per_page => (params[:per_page] || 20)
+        ).order(:lastname)
       end
     else
       @contacts = Contact.find_by_query(
         params[:query],
         {
           :page => page,
-          :per_page => (params[:per_page] || 20),
-          :order => :lastname
+          :per_page => (params[:per_page] || 20)
         },
         params[:per_page] != 'all'
-      )
+      ).order(:lastname)
     end
   end
   
   def new
     @contact = Contact.new
-    @tags = (Tag.find(:all, :order => "name ASC") - @contact.tags)
+    @tags = (Tag.order("name ASC").all - @contact.tags.to_a)
     render :layout => false
   end
   

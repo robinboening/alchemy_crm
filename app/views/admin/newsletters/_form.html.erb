@@ -1,4 +1,4 @@
-<% remote_form_for [:admin, @newsletter], :html => {:class => "with_padding"} do |f| %>
+<%= form_for [:admin, @newsletter], :class => "with_padding", :remote => true do |f| %>
 	<div id="errors" style="display: none"></div>
 	<table>
 		<tr>

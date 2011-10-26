@@ -1,4 +1,4 @@
-<% form_for [:admin, @tag] do |form| %>
+<% form_for [:admin, @tag], :url => admin_tags_path do |form| %>
 <table class="with_padding">
 	<tr>
 		<td class="label"><%= form.label :name %></td>

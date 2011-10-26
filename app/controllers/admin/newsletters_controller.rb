@@ -5,7 +5,12 @@ class Admin::NewslettersController < AlchemyMailingsController
   filter_access_to :all
   
   def index
-    @newsletters = Newsletter.paginate(:all, :page => params[:page] || 1, :per_page => 30, :conditions => "name LIKE '%#{params[:query]}%'", :order => 'name ASC')
+    @newsletters = Newsletter.where(
+      ["name LIKE '%#?%'", params[:query]]
+    ).paginate(
+      :page => params[:page] || 1,
+      :per_page => 30
+    ).order('name ASC')
   end
   
   def new
@@ -23,7 +28,7 @@ class Admin::NewslettersController < AlchemyMailingsController
   
   def edit
     @newsletter = Newsletter.find(params[:id])
-    @contact_groups = ContactGroup.find(:all, :order => "name ASC")
+    @contact_groups = ContactGroup.order("name ASC").all
     @page_layouts = AlchemyMailings::NewsletterLayout.get_layouts_for_select()
     render :layout => false
   end
