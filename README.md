@@ -4,26 +4,19 @@ Alchemy-Mailings Module
 About
 -----
 
-Alchemy-Mailings is a newsletter module for Alchemy CMS.
-For more Information please visit http://alchemy-app.com
+Alchemy Mailings is a newsletter module for Alchemy CMS.
+For more Information please visit http://alchemy-cms.com
 
 Install
 -------
 
-1. First of all install Alchemy:
+1. First of all install Alchemy 2.0:
 
-    <https://github.com/magiclabs/alchemy/>
+    <https://github.com/magiclabs/alchemy_cms/tree/next_stable>
 
-2. Install these plugins:
+2. Install the gems:
 
-        $ script/plugin install git://github.com/magiclabs/alchemy-mailings.git
-        $ script/plugin install git://github.com/rails/auto_complete.git
-
-3. Then put these lines into your `config/environment.rb` file inside the `config` block:
-
-        config.gem 'vpim'
-        config.gem 'acts_as_taggable_on_steroids'
-        config.plugins = [ :all, 'alchemy-mailings', :alchemy ]
+        $ bundle install
 
 4. Migrate your database:
 
