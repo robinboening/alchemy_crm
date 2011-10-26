@@ -1,27 +1,29 @@
-namespace :db do
-  namespace :migrate do
-    description = "Migrate the database through scripts in vendor/plugins/alchemy-mailings/lib/db/migrate"
-    description << "and update db/schema.rb by invoking db:schema:dump."
-    description << "Target specific version with VERSION=x. Turn off output with VERBOSE=false."
+namespace 'alchemy-mailings' do
 
-    desc description
-    task "alchemy-mailings" => :environment do
-      ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
-      ActiveRecord::Migrator.migrate(File.join(File.dirname(__FILE__), "../../db/migrate/"), ENV["VERSION"] ? ENV["VERSION"].to_i : nil)
-      Rake::Task["db:schema:dump"].invoke if ActiveRecord::Base.schema_format == :ruby
+  desc "Migrates the database, inserts essential data into the database and copies all assets."
+  task :prepare do
+    Rake::Task['alchemy-mailings:migrations:sync'].invoke
+    Rake::Task['alchemy-mailings:seeder:copy'].invoke
+    Rake::Task['alchemy-mailings:assets:copy:all'].invoke
+  end
+
+  namespace 'seeder' do
+    desc "Copy a line of code into the seeds.rb file"
+    task :copy do
+      File.open("./db/seeds.rb", "a") do |f|
+        f.puts "\n# Seeding Alchemy Mailings data"
+        f.puts "AlchemyMailings::Seeder.seed!\n"
+      end
     end
   end
-end
 
-namespace 'alchemy-mailings' do
-  
   namespace 'migrations' do
     desc "Syncs Alchemy-Mailings migrations into db/migrate"
     task 'sync' do
       system "rsync -ruv #{File.join(File.dirname(__FILE__), '..', '..', 'db', 'migrate')} #{Rails.root}/db"
     end
   end
-  
+
   namespace 'assets' do
     namespace 'copy' do
       
@@ -35,19 +37,19 @@ namespace 'alchemy-mailings' do
       desc "Copy javascripts for Alchemy-Mailings into apps public folder"
       task "javascripts" do
         system "mkdir -p #{Rails.root}/public/javascripts/alchemy-mailings"
-        system "rsync -r --delete #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'javascripts', '*')} #{RAILS_ROOT}/public/javascripts/alchemy-mailings/"
+        system "rsync -r --delete #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'javascripts', '*')} #{Rails.root.to_s}/public/javascripts/alchemy-mailings/"
       end
       
       desc "Copy stylesheets for Alchemy-Mailings into apps public folder"
       task "stylesheets" do
         system "mkdir -p #{Rails.root}/public/stylesheets/alchemy-mailings"
-        system "rsync -r --delete #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'stylesheets', '*')} #{RAILS_ROOT}/public/stylesheets/alchemy-mailings/"
+        system "rsync -r --delete #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'stylesheets', '*')} #{Rails.root.to_s}/public/stylesheets/alchemy-mailings/"
       end
       
       desc "Copy images for Alchemy-Mailings into apps public folder"
       task "images" do
         system "mkdir -p #{Rails.root}/public/images/alchemy-mailings"
-        system "rsync -r --delete #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'images', '*')} #{RAILS_ROOT}/public/images/alchemy-mailings/"
+        system "rsync -r --delete #{File.join(File.dirname(__FILE__), '..', '..', 'assets', 'images', '*')} #{Rails.root.to_s}/public/images/alchemy-mailings/"
       end
       
     end
