@@ -29,7 +29,7 @@ class Admin::ContactsController < AlchemyMailingsController
   
   def new
     @contact = Contact.new
-    @tags = (Tag.order("name ASC").all - @contact.tags.to_a)
+    @tags = (ActsAsTaggableOn::Tag.order("name ASC").all - @contact.tags.to_a)
     render :layout => false
   end
   
@@ -60,7 +60,7 @@ class Admin::ContactsController < AlchemyMailingsController
   
   def edit
     @contact = Contact.find(params[:id])
-    @tags = (Tag.find(:all, :order => "name ASC") - @contact.tags)
+    @tags = (ActsAsTaggableOn::Tag.find(:all, :order => "name ASC") - @contact.tags)
     render :layout => false
   end
   
@@ -84,7 +84,7 @@ class Admin::ContactsController < AlchemyMailingsController
   end
   
   def auto_complete_for_contact_tag_list
-    @tags = Tag.find(:all, :conditions => ['name LIKE ?', "#{params[:contact][:tag_list]}%"])
+    @tags = ActsAsTaggableOn::Tag.find(:all, :conditions => ['name LIKE ?', "#{params[:contact][:tag_list]}%"])
     render :inline => "<%= auto_complete_result(@tags, 'name') %>", :layout => false
   end
 

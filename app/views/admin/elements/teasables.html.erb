@@ -21,28 +21,30 @@
 				<%= element.preview_text(200) %>
 			</div>
 			<div class="teasable_tools">
-				<%= link_to_remote("kompletten Inhalt in das Mailing übernehmen",
-					:url => {
+				<%= link_to(
+					"kompletten Inhalt in das Mailing übernehmen",
+					url_for({
 						:controller => "/admin/elements",
 						:action => "fill",
 						:id => @element.id,
 						:source_element_id => element.id
-					},
+					}),
 					:method => 'put',
-					:complete => "Alchemy.closeCurrentWindow()",
-					:html => {:class => 'button'}
+					:class => 'button',
+					:remote => true
 				) %>
-				<%= link_to_remote("Nur einen Link setzen",
-					:url => {
+				<%= link_to(
+					"Nur einen Link setzen",
+					url_for({
 						:controller => "/admin/elements",
 						:action => "link",
 						:id => @element.id,
 						:source_element_id => element.id,
 						:link_only => true
-					},
+					}),
 					:method => 'put',
-					:complete => "Alchemy.closeCurrentWindow()",
-					:html => {:class => "link_only button"}
+					:class => "link_only button",
+					:remote => true
 				) %>
 			</div>
 			<%- end -%>

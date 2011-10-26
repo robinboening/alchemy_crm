@@ -24,8 +24,9 @@ class Admin::ElementsController < AlchemyController
 				end
 			end
 			page << "jQuery('##{@content.form_field_id(:url)}').val('#{@params}')"
-			page << "Alchemy.setElementDirty('#element_#{@element.id}')"
-			page << "Alchemy.PreviewWindow.refresh()"
+			page.call "Alchemy.setElementDirty", "#element_#{@element.id}"
+			page.call "Alchemy.PreviewWindow.refresh"
+			page.call "Alchemy.closeCurrentWindow"
 			Alchemy::Notice.show(page, _("Inhalte wurden übernommen"))
 		end
 	end
@@ -35,6 +36,9 @@ class Admin::ElementsController < AlchemyController
 		@source_element = Element.find(params[:source_element_id])
 		@content = @element.contents.find_by_essence_type("EssenceElementTeaser")
 		@params = "?page_id=#{@source_element.page.id}&element_id=#{@source_element.id}"
+		render :update do |page|
+		  page.call "Alchemy.closeCurrentWindow"
+	  end
 	end
 
 end
