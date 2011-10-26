@@ -136,7 +136,7 @@ class Contact < ActiveRecord::Base
       end
       maker.org = organisation
     end
-    vcf = File.new(RAILS_ROOT + "/tmp/#{fullname}.vcf", "w")
+    vcf = File.new(Rails.root.to_s + "/tmp/#{fullname}.vcf", "w")
     vcf.write(card.encode)
     vcf.close
   end

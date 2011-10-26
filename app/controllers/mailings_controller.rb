@@ -8,7 +8,7 @@ class MailingsController < AlchemyMailingsController
       @page = @mailing.page
       @contact = Contact.find_by_email_sha1(params[:sha1]) rescue nil
     rescue
-      render :file => "#{RAILS_ROOT}/public/422.html", :status => "422"
+      render :file => "#{Rails.root.to_s}/public/422.html", :status => "422"
     else
       render :layout => "mailings"
     end

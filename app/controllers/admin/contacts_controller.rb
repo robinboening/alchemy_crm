@@ -79,7 +79,7 @@ class Admin::ContactsController < AlchemyMailingsController
   def export
     @contact = Contact.find(params[:id])
     @contact.to_vcard
-    send_file("#{RAILS_ROOT}/tmp/#{@contact.fullname}.vcf")
+    send_file("#{Rails.root.to_s}/tmp/#{@contact.fullname}.vcf")
   end
   
   def destroy
