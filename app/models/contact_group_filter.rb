@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class ContactGroupFilter < ActiveRecord::Base
   belongs_to :contact_group
   @@operators = [["enthält", "LIKE"], ["enthält nicht", "NOT LIKE"], ["ist", "="], ["ist nicht", "!="]]

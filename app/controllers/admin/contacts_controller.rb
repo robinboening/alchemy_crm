@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class Admin::ContactsController < AlchemyMailingsController
   
   filter_access_to :all

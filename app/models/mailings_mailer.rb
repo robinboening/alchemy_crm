@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class MailingsMailer < ActionMailer::Base
   
   # We need this, because we render the elements with render_elements helper

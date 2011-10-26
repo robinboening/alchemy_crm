@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class SentMailing < ActiveRecord::Base
   require "pdf/writer"
   require "pdfwriter_extensions"

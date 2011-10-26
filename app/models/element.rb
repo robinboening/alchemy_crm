@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class Element < Activerecord::Base
 
   def update_from_element(source, url)

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class Mailing < ActiveRecord::Base
 
   belongs_to :page, :dependent => :destroy

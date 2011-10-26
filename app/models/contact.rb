@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class Contact < ActiveRecord::Base
   
   require 'vpim/vcard'

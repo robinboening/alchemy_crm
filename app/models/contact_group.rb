@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class ContactGroup < ActiveRecord::Base
   acts_as_taggable
   has_many :contact_group_filters, :dependent => :destroy 

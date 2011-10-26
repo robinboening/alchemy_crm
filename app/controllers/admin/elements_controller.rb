@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class Admin::ElementsController < AlchemyController
 
   def teasables
