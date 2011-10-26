@@ -13,7 +13,8 @@ module AlchemyMailings
 					:page_layout => 'alchemy_mailings_rootpage',
 	        :do_not_autogenerate => true,
 	        :do_not_sweep => true,
-	        :language => lang
+	        :language => lang,
+	        :parent_id => root.id
 				)
 				if mailing_root.new_record?
 					mailing_root.save!
