@@ -1,4 +1,5 @@
 # encoding: UTF-8
+require 'declarative_authorization'
 
 module AlchemyMailings
 	module Admin

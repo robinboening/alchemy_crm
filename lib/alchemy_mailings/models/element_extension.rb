@@ -1,3 +1,5 @@
+require 'acts_as_list'
+
 module AlchemyMailings
 	module Models
 		module ElementExtension
