@@ -13,7 +13,7 @@
 				new_admin_tag_path,
 				{
 					:title => _('New Tag'),
-					:size => '310x65'
+					:size => '310x120'
 				},
 				:title => _('New Tag'),
 				:class => 'icon_button'
@@ -26,15 +26,15 @@
 <%- end -%>
 
 <div id="archive_all">
-    <table class="list" id="tag_list">
-        <%- unless @tags.blank? -%>
-        <tr class="legend">
-            <th class="icon"></th>
-            <th class="name">Name</th>
-            <th class="size" style="width: 120px">Anzahl Kontakte</th>
-            <th class="tools"></th>
-        </tr>
-        <%- end -%>
-        <%= render @tags %>
-    </table>
+	<table class="list" id="tag_list">
+		<%- unless @tags.blank? -%>
+		<tr class="legend">
+			<th class="icon"></th>
+			<th class="name">Name</th>
+			<th class="size" style="width: 120px">Anzahl Kontakte</th>
+			<th class="tools"></th>
+		</tr>
+		<%- end -%>
+		<%= render @tags %>
+	</table>
 </div>
