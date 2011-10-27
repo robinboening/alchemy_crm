@@ -1,6 +1,4 @@
 class Admin::SentMailingsController < AlchemyMailingsController
-  require "pdf/writer"
-  require "pdfwriter_extensions"
   
   filter_access_to :all
   

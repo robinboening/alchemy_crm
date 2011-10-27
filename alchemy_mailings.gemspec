@@ -18,7 +18,8 @@ Gem::Specification.new do |gem|
 
 	#gem.add_dependency 'alchemy_cms', ["~> 2.0.rc5"]
 	gem.add_dependency 'vpim', ['>=0']
-	gem.add_dependency 'acts-as-taggable-on', ['~>2.1.0']
+	gem.add_dependency 'prawn', ['~> 0.11.1']
+	gem.add_dependency 'acts-as-taggable-on', ['~> 2.1.0']
 	gem.add_dependency 'rails3-jquery-autocomplete', ['~> 1.0.4']
 
   gem.add_development_dependency 'rspec-rails', [">= 2.0"]
