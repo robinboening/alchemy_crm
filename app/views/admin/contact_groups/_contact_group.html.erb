@@ -14,18 +14,18 @@
             edit_admin_contact_group_path(contact_group),
             {
                 :size => '485x300',
-                :title => 'Gruppe bearbeiten'
+                :title => 'Zielgruppe bearbeiten'
             },
             {
-                :title => 'Gruppe bearbeiten',
+                :title => 'Zielgruppe bearbeiten',
                 :class => 'icon group_edit'
             }
         ) -%>
         <%= link_to_confirmation_window(
             '',
-            "Wollen Sie die Gruppe wirklich löschen?",
+            "Wollen Sie die Zielgruppe wirklich löschen?",
             admin_contact_group_path(contact_group),
-            :title => 'Gruppe löschen',
+            :title => 'Zielgruppe löschen',
             :class => "icon group_delete"
         ) -%>
     </td>

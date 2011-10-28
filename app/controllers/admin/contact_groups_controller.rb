@@ -21,9 +21,8 @@ class Admin::ContactGroupsController < AlchemyMailingsController
   end
   
   def create
-    @contact_group = ContactGroup.new(params[:contact_group])
-    @contact_group.save
-    render_errors_or_redirect(@contact_group, admin_contact_groups_path, "Die Gruppe wurde angelegt.")
+    @contact_group = ContactGroup.create(params[:contact_group])
+    render_errors_or_redirect(@contact_group, admin_contact_groups_path, "Die Zielgruppe wurde angelegt.")
   end
   
   def edit
@@ -39,13 +38,13 @@ class Admin::ContactGroupsController < AlchemyMailingsController
     @contact_group = ContactGroup.find(params[:id])
     params[:contact_group][:tag_list] = {} if params[:contact_group][:tag_list].nil?
     @contact_group.update_attributes(params[:contact_group])
-    render_errors_or_redirect(@contact_group, admin_contact_groups_path, "Die Gruppe wurde gespeichert.")
+    render_errors_or_redirect(@contact_group, admin_contact_groups_path, "Die Zielgruppe wurde gespeichert.")
   end
   
   def destroy
     @contact_group = ContactGroup.find(params[:id])
     @contact_group.destroy
-    flash[:notice] = "Die Gruppe wurde gelöscht."
+    flash[:notice] = "Die Zielgruppe wurde gelöscht."
   end
   
   def add_filter

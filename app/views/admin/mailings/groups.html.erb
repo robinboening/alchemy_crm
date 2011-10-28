@@ -1,5 +1,5 @@
 <div id="sub_navigation">
-	<%= link_to "Liste", :action => "index" %><%= link_to "Empfänger", :controller => "recipients" %><span>Gruppen</span>
+	<%= link_to "Liste", :action => "index" %><%= link_to "Empfänger", :controller => "recipients" %><span>Zielgruppen</span>
 </div>
 <% @groups.each do |group| %>
 	<div><%= link_to "#{group.name}", :action => "groups", :group => group %></div>
@@ -10,7 +10,7 @@
 
 </div>
 <% unless @group.nil? %>
-	User der Gruppe:<%= @group.name %>
+	User der Zielgruppe:<%= @group.name %>
 	<div>
 		<% @group.mailing_recipients.each do |re| %>
 			<div>

@@ -15,7 +15,7 @@ navigation:
     - name: Kontakte
       controller: admin/contacts
       action: index
-    - name: Gruppen
+    - name: Zielgruppen
       controller: admin/contact_groups
       action: index
     - name: Tags

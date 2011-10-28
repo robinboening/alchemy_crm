@@ -11,7 +11,7 @@
 		</tr>
 		<tr>
 			<td class="label medium">
-				<label>Tags</label>
+				<label>Kontakte mit diesen Tag(s)</label>
 			</td>
 			<td class="input">
 				<%= render :partial => "tag", :collection => @old_tags, :locals => {:tags => @contact_group.tags, :name => "contact_group" } unless @old_tags.blank? %>
@@ -27,7 +27,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<small>* Tags, die nach der Gruppenbildung erstellt worden.</small>
+				<small>* Tags, die nach der Zielgruppenbildung erstellt worden.</small>
 			</td>
 		</tr>
 		<tr>

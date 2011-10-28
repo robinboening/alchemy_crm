@@ -27,13 +27,13 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :contact_groups, "Gruppen" %>
+				<%= f.label :contact_groups, "Zielgruppen" %>
 			</td>
 			<td class="input">
 				<%- if @contact_groups.any? -%>
 				<%= render :partial => "tag_with_radiobutton", :collection => @contact_groups, :locals => {:newsletter_contact_groups => @newsletter.contact_groups} %>
 				<%- else -%>
-				<p>Sie haben noch keine Empfänger Gruppen gebildet</p>
+				<p>Sie haben noch keine Empfänger Zielgruppen gebildet</p>
 				<%- end -%>
 			</td>
 		</tr>
