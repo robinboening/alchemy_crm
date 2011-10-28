@@ -12,21 +12,14 @@ var AlchemyMailings = {};
 		},
 		
 		removeContactGroupFilter : function(element, id, count) {
-			$(element).up().up('.filter').remove();
-			$('#filter_container').append({
-				bottom: new Element('input', {
-					type: 'hidden',
-					name: 'contact_group[contact_group_filters_attributes]['+count+'][_destroy]',
-					value: 1
-				})
-			});
-			$('filter_container').insert({
-				bottom: new Element('input', {
-					type: 'hidden',
-					name: 'contact_group[contact_group_filters_attributes]['+count+'][id]',
-					value: id
-				})
-			});
+			$(element).parent().parent('.filter').remove();
+			$(
+				'#filter_container'
+			).append(
+				'<input type="hidden" name="contact_group[contact_group_filters_attributes]['+count+'][_destroy]" value=1>'
+			).append(
+				'<input type="hidden" name="contact_group[contact_group_filters_attributes]['+count+'][id]" value='+id+'>'
+			);
 		},
 		
 		teasablesFilter : function(value) {
@@ -36,7 +29,7 @@ var AlchemyMailings = {};
 			}
 			else {
 				teasables.each(function(el) {
-					if (el.readAttribute('id').replace('teasable_page_', '') != value) {
+					if (el.attr('id').replace('teasable_page_', '') != value) {
 						el.hide();
 					} else {
 						el.show();

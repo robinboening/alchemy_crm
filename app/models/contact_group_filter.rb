@@ -8,15 +8,15 @@ class ContactGroupFilter < ActiveRecord::Base
     @@operators
   end
   
-  def to_sql
+  def sql_string
     return "" if column.blank? || operator.blank? || prepared_value.blank?
-    " AND #{self.column} #{self.operator} '#{prepared_value}'"
+    "#{self.column} #{self.operator} '#{prepared_value}'"
   end
   
-  private
+private
   
   def prepared_value
-    (operator == "LIKE" || operator == "NOT LIKE") ? "%#{value}%" : "#{value}"
+    operator =~ /LIKE/ ? "%#{value}%" : "#{value}"
   end
   
 end

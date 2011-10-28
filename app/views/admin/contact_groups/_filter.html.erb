@@ -19,9 +19,9 @@
 	<input type="hidden" value="<%= filter.id %>" name="contact_group[contact_group_filters_attributes][<%= count %>][id]" />
 	<%- end -%>
 	<span class="remove_filter">
-		<%= link_to_function("",
-			"removeContactGroupFilter(this, '#{filter.id}', '#{count}')",
-			:class => 'icon remove',
+		<%= link_to_function(
+			render_icon('close'),
+			"AlchemyMailings.removeContactGroupFilter(this, '#{filter.id}', '#{count}')",
 			:title => 'Filter entfernen'
 		) %>
 	</span>

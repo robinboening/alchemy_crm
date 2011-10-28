@@ -14,20 +14,7 @@
 				<label>Kontakte mit diesen Tag(s)</label>
 			</td>
 			<td class="input">
-				<%= render :partial => "tag", :collection => @old_tags, :locals => {:tags => @contact_group.tags, :name => "contact_group" } unless @old_tags.blank? %>
-			</td>
-		</tr>
-		<tr>
-			<td class="label medium">
-				<label>neue Tags*</label>
-			</td>
-			<td class="input">
-				<%= render :partial => "tag", :collection => @new_tags, :locals => {:tags => @contact_group.tags, :name => "contact_group" } unless @new_tags.blank? %>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<small>* Tags, die nach der Zielgruppenbildung erstellt worden.</small>
+				<%= render :partial => "tag", :collection => @tags, :locals => {:tags => @contact_group.contact_tags, :name => "contact_group" } %>
 			</td>
 		</tr>
 		<tr>

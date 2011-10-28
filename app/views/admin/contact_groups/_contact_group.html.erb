@@ -1,32 +1,32 @@
 <tr class="<%= cycle('odd', 'even') %> filterable">
-    <td class="icon">
-        <%= render_icon 'group' -%>
-    </td>
-    <td class="name">
-        <%= contact_group.name -%>
-    </td>
-    <td class="count">
-        <%= contact_group.contacts.count %>
-    </td>
-    <td class="tools">
-        <%= link_to_overlay_window(
-            "",
-            edit_admin_contact_group_path(contact_group),
-            {
-                :size => '485x300',
-                :title => 'Zielgruppe bearbeiten'
-            },
-            {
-                :title => 'Zielgruppe bearbeiten',
-                :class => 'icon group_edit'
-            }
-        ) -%>
-        <%= link_to_confirmation_window(
-            '',
-            "Wollen Sie die Zielgruppe wirklich löschen?",
-            admin_contact_group_path(contact_group),
-            :title => 'Zielgruppe löschen',
-            :class => "icon group_delete"
-        ) -%>
-    </td>
+	<td class="icon">
+		<%= render_icon 'group' -%>
+	</td>
+	<td class="name">
+		<%= contact_group.name -%>
+	</td>
+	<td class="count">
+		<%= contact_group.contacts.count %>
+	</td>
+	<td class="tools">
+		<%= link_to_overlay_window(
+			"",
+			edit_admin_contact_group_path(contact_group),
+			{
+				:size => '530x255',
+				:title => 'Zielgruppe bearbeiten'
+			},
+			{
+				:title => 'Zielgruppe bearbeiten',
+				:class => 'icon group_edit'
+			}
+		) -%>
+		<%= link_to_confirmation_window(
+			'',
+			"Wollen Sie die Zielgruppe wirklich löschen?",
+			admin_contact_group_path(contact_group),
+			:title => 'Zielgruppe löschen',
+			:class => "icon group_delete"
+		) -%>
+	</td>
 </tr>
