@@ -19,13 +19,8 @@ class Admin::TagsController < AlchemyMailingsController
   end
   
   def create
-    @tag = ActsAsTaggableOn::Tag.new(params[:tag])
-    if @tag.save
-      flash[:notice] = _('New Tag Created')
-      redirect_to admin_tags_path
-    else
-      render :action => 'new'
-    end
+    @tag = ActsAsTaggableOn::Tag.create(params[:tag])
+    render_errors_or_redirect @tag, "/admin/tags", _('New Tag Created'), "form#new_tag button.button"
   end
   
   def edit
@@ -36,18 +31,15 @@ class Admin::TagsController < AlchemyMailingsController
   
   def update
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
-    case params[:commit]
-      when "ersetzen"
-      then
-        @new_tag = ActsAsTaggableOn::Tag.find(params[:tag][:merge_to])
-        Contact.replace_tag @tag, @new_tag
-        operation_text = "Das Tag '#{@tag.name}' wurde durch das Tag '#{@new_tag.name}' ersetzt"
-        @tag.destroy
-    when "umbenennen"
-      then
-        @tag.update_attributes(params[:tag])
-        @tag.save
-        operation_text = "Das Tag wurde gespeichert"
+    if params[:replace]
+      @new_tag = ActsAsTaggableOn::Tag.find(params[:tag][:merge_to])
+      Contact.replace_tag @tag, @new_tag
+      operation_text = "Das Tag '#{@tag.name}' wurde durch das Tag '#{@new_tag.name}' ersetzt"
+      @tag.destroy
+    else
+      @tag.update_attributes(params[:tag])
+      @tag.save
+      operation_text = "Das Tag wurde gespeichert"
     end
     render_errors_or_redirect @tag, "/admin/tags", operation_text
   end

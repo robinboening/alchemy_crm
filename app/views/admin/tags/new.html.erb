@@ -1,17 +1,16 @@
-<div class="with_padding">
+<%= form_for [:admin, @tag], :as => :tag, :url => admin_tags_path, :html => {:id => 'new_tag'}, :remote => true do |form| %>
 	<div class="info">
 		<%= render_icon('info') %>
 		Tags werden automatisch erstellt, sobald Sie es bei einem Kontakt das erste mal verwenden.
 	</div>
-</div>
-<% form_for [:admin, @tag], :url => admin_tags_path do |form| %>
-<table class="with_padding">
-	<tr>
-		<td class="label"><%= form.label :name %></td>
-		<td class="input"><%= form.text_field :name, :class => 'input_field' %></td>
-	</tr>
-	<tr>
-		<td colspan="2" class="submit"><%= form.button _('save'), :name => nil, :class => 'button' %></td>
-	</tr>
-</table>
+	<div id="errors" style="display: none"></div>
+	<table class="with_padding">
+		<tr>
+			<td class="label"><%= form.label :name %></td>
+			<td class="input"><%= form.text_field :name, :class => 'input_field' %></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="submit"><%= form.button _('save'), :name => nil, :class => 'button' %></td>
+		</tr>
+	</table>
 <% end %>

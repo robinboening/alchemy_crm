@@ -52,7 +52,7 @@ class Contact < ActiveRecord::Base
   end
 
   def self.replace_tag(old_tag, new_tag)
-    self.find_tagged_with(old_tag).each do |contact|
+    self.tagged_with(old_tag).each do |contact|
       contact.tags.delete(old_tag)
       contact.tags << new_tag
       contact.save
