@@ -13,7 +13,7 @@
 				new_admin_tag_path,
 				{
 					:title => _('New Tag'),
-					:size => '310x120'
+					:size => '310x210'
 				},
 				:title => _('New Tag'),
 				:class => 'icon_button'
@@ -35,6 +35,6 @@
 			<th class="tools"></th>
 		</tr>
 		<%- end -%>
-		<%= render @tags %>
+		<%= render :partial => 'tag', :collection => @tags %>
 	</table>
 </div>

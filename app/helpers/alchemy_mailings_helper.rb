@@ -1,12 +1,7 @@
 module AlchemyMailingsHelper
   
   def contact_count_from_tag(tag)
-    unless tag.nil?
-      count = Contact.find_tagged_with(tag).length
-    else
-      count = 0
-    end
-    "&nbsp;<small>(#{count})</small>"
+    content_tag('small', "(#{Contact.tagged_with(tag).count})")
   end
   
   # Renders the layout from @page.page_layout. File resists in /app/views/newsletter_layouts/_LAYOUT-NAME.html.erb
@@ -22,4 +17,4 @@ end
 
 # requiring AlchemyHelper and AlchemyMailingsHelper, because we need the methods for rendering the elements from @mailing.page
 ActionView::Base.send(:include, AlchemyMailingsHelper)
-ActionView::Base.send(:include, AlchemyHelper)
+ActionView::Base.send(:include, ElementsHelper)

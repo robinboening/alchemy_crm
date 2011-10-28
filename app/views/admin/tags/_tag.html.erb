@@ -1,32 +1,32 @@
 <tr class="<%= cycle('odd', 'even') %> filterable" name="<%= tag.name -%>">
-    <td class="icon">
-        <%= content_tag 'span', '', :class => 'icon tag' -%>
-    </td>
-    <td class="name">
-        <%= tag.name -%>
-    </td>
-    <td class="size" style="width: 120px">
-        <%= contact_count_from_tag(tag) -%>
-    </td>
-    <td class="tools">
-        <%= link_to_overlay_window(
-            "",
-            edit_admin_tag_path(tag),
-            {
-                :title => 'Tag bearbeiten',
-                :size => '480x240'
-            },
-            {
-                :title => 'Tag bearbeiten',
-                :class => 'icon tag_edit'
-            }
-        ) -%>
-        <%= link_to_confirmation_window(
-            '',
-            "Wollen Sie dieses Tag wirklich löschen?",
-            admin_tag_path(tag),
-            :title => 'Tag löschen',
-            :class => "icon tag_delete"
-        ) -%>
-    </td>
+	<td class="icon">
+		<%= content_tag 'span', '', :class => 'icon tag' -%>
+	</td>
+	<td class="name">
+		<%= tag.name -%>
+	</td>
+	<td class="size" style="width: 120px">
+		<%= contact_count_from_tag(tag) -%>
+	</td>
+	<td class="tools">
+		<%= link_to_overlay_window(
+			"",
+			edit_admin_tag_path(tag),
+			{
+				:title => 'Tag bearbeiten',
+				:size => '480x250'
+			},
+			{
+				:title => 'Tag bearbeiten',
+				:class => 'icon tag_edit'
+			}
+		) -%>
+		<%= link_to_confirmation_window(
+			'',
+			"Wollen Sie dieses Tag wirklich löschen?",
+			admin_tag_path(tag),
+			:title => 'Tag löschen',
+			:class => "icon tag_delete"
+		) -%>
+	</td>
 </tr>
