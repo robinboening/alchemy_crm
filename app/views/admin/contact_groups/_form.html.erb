@@ -1,56 +1,58 @@
-<div id="errors" style="display:none"></div>
 <%= form_for [:admin, @contact_group], :remote => true do |f| %>
-    <table border="0" cellspacing="5" cellpadding="0" style="width: 100%">
-        <tr>
-            <td class="label medium">
-                <%= f.label :name, "Name" %>
-            </td>
-            <td class="input">
-                <%= f.text_field :name, :class => "thin_border long", :style => 'width: 350px' %>
-            </td>
-        </tr>
-        <tr>
-            <td class="label medium">
-                <label>Tags</label>
-            </td>
-            <td class="input">
-                <%= render :partial => "tag", :collection => @old_tags, :locals => {:tags => @contact_group.tags, :name => "contact_group" } unless @old_tags.blank? %>
-            </td>
-        </tr>
-        <tr>
-            <td class="label medium">
-                <label>neue Tags*</label>
-            </td>
-            <td class="input">
-                <%= render :partial => "tag", :collection => @new_tags, :locals => {:tags => @contact_group.tags, :name => "contact_group" } unless @new_tags.blank? %>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <small>* Tags, die nach der Gruppenbildung erstellt worden.</small>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div id="filter_container">
-                    <h2>Verfeinerungs-Filter</h2>
-                    <%- @contact_group.contact_group_filters.each_with_index do |contact_group_filter, i| -%>
-											<%= render :partial => "filter", :object => contact_group_filter, :locals => {:count => i} %>
-                    <%- end -%>
-                </div>
-                <p>
-									<%= link_to(
-										'<span class="icon create"></span>Filter hinzufügen'.html_safe,
-										add_filter_admin_contact_groups_path(:size => @contact_group.contact_group_filters.size),
-										:method => 'get',
-										:class => 'button_with_icon',
-										:remote => true
-									) %>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td align="right" colspan="2"><%= f.submit "speichern", :class => "button" %></td>
-        </tr>
-    </table>
+	<div id="errors" style="display:none"></div>
+	<table border="0" cellspacing="5" cellpadding="0" style="width: 100%">
+		<tr>
+			<td class="label medium">
+				<%= f.label :name, "Name" %>
+			</td>
+			<td class="input">
+				<%= f.text_field :name, :class => "thin_border long", :style => 'width: 350px' %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label medium">
+				<label>Tags</label>
+			</td>
+			<td class="input">
+				<%= render :partial => "tag", :collection => @old_tags, :locals => {:tags => @contact_group.tags, :name => "contact_group" } unless @old_tags.blank? %>
+			</td>
+		</tr>
+		<tr>
+			<td class="label medium">
+				<label>neue Tags*</label>
+			</td>
+			<td class="input">
+				<%= render :partial => "tag", :collection => @new_tags, :locals => {:tags => @contact_group.tags, :name => "contact_group" } unless @new_tags.blank? %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<small>* Tags, die nach der Gruppenbildung erstellt worden.</small>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div id="filter_container">
+					<h2>Verfeinerungs-Filter</h2>
+					<%- @contact_group.contact_group_filters.each_with_index do |contact_group_filter, i| -%>
+					<%= render :partial => "filter", :object => contact_group_filter, :locals => {:count => i} %>
+					<%- end -%>
+				</div>
+				<p>
+					<%= link_to(
+						"#{render_icon('create')}Filter hinzufügen".html_safe,
+						add_filter_admin_contact_groups_path(:size => @contact_group.contact_group_filters.size),
+						:method => 'get',
+						:class => 'small button with_icon',
+						:remote => true
+					) %>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" colspan="2">
+				<%= f.button "speichern", :class => "button" %>
+			</td>
+		</tr>
+	</table>
 <% end %>

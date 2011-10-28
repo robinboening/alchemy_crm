@@ -21,13 +21,14 @@
 			<label><%= _('New Tag') %></label>
 		</div>
 	</div>
-	<%= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list tr.filterable')" %>
+  <%= render :partial => 'admin/partials/search_form' %>
 </div>
 <%- end -%>
 
 <div id="archive_all">
 	<table class="list" id="tag_list">
-		<%- unless @tags.blank? -%>
+		<%- if @tags.any? -%>
+		<%= render :partial => 'admin/partials/pagination_links', :locals => {:items => @tags} %>
 		<tr class="legend">
 			<th class="icon"></th>
 			<th class="name">Name</th>

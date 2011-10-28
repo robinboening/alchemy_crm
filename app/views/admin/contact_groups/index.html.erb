@@ -26,7 +26,7 @@
 			<label>Neue Gruppe</label>
 		</div>
 	</div>
-	<%= js_filter_field :onkeyup => "Alchemy.ListFilter('#group_list .filterable')" %>
+  <%= render :partial => 'admin/partials/search_form' %>
 </div>
 <%- end -%>
 

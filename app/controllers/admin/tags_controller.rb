@@ -5,7 +5,12 @@ class Admin::TagsController < AlchemyMailingsController
   filter_access_to :all
   
   def index
-    @tags = ActsAsTaggableOn::Tag.order("name ASC").all
+    @tags = ActsAsTaggableOn::Tag.where(
+      "name LIKE '%#{params[:query]}%'"
+    ).paginate(
+      :page => params[:page] || 1, 
+      :per_page => 20
+    ).order("name ASC")
   end
   
   def new
