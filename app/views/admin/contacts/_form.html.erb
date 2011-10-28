@@ -51,7 +51,7 @@
 	<tr>
 		<td class="label"><%= f.label :tag_list, ("Tags") %></td>
 		<td colspan="3" class="input">
-			<%= f.autocomplete_field :tag_list, autocomplete_tag_list_admin_contacts_path, :class => "thin_border long" %>
+			<%= f.autocomplete_field :tag_list, autocomplete_tag_list_admin_contacts_path, :class => "thin_border long", 'data-delimiter' => ',' %>
 		</td>
 	</tr>
 	<tr>
