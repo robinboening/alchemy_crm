@@ -3,55 +3,56 @@
 
 <table id="contact">
 	<tr>
-		<td class="label"><%= f.label :salutation, ("Anrede") %></td>
+		<td class="label"><%= f.label :salutation, "Anrede" %></td>
 		<td colspan="3" class="input"><%= f.select :salutation, options_for_select([['Bitte wählen', ''], ['Herr', 'male'], ['Frau', 'female']], @contact.salutation) %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :title, ("Titel") %></td>
+		<td class="label"><%= f.label :title, "Titel" %></td>
 		<td colspan="3" class="input"><%= f.text_field :title, :class => "thin_border long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :firstname, ("Vorname") %></td>
+		<td class="label"><%= f.label :firstname, "Vorname" %></td>
 		<td colspan="3" class="input"><%= f.text_field :firstname, :class => "thin_border long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :lastname, ("Nachname") %></td>
+		<td class="label"><%= f.label :lastname, "Nachname" %></td>
 		<td colspan="3" class="input"><%= f.text_field :lastname, :class => "thin_border long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :organisation, ("Firma") %></td>
+		<td class="label"><%= f.label :organisation, "Firma" %></td>
 		<td colspan="3" class="input"><%= f.text_field :organisation, :class => "thin_border long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :email, ("E-Mail") %></td>
+		<td class="label"><%= f.label :email, "E-Mail" %></td>
 		<td colspan="3" class="input"><%= f.text_field :email, :class => "thin_border long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :phone, ("Telefon") %></td>
+		<td class="label"><%= f.label :phone, "Telefon" %></td>
 		<td colspan="3" class="input"><%= f.text_field :phone, :class => "thin_border long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :mobile, ("Mobil") %></td>
+		<td class="label"><%= f.label :mobile, "Mobil" %></td>
 		<td colspan="3" class="input"><%= f.text_field :mobile, :class => "thin_border long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :address, ("Adresse") %></td>
+		<td class="label"><%= f.label :address, "Adresse" %></td>
 		<td colspan="3" class="input"><%= f.text_field :address, :class => "thin_border long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :zip, ("PLZ") %></td>
+		<td class="label"><%= f.label :zip, "PLZ" %></td>
 		<td class="short input"><%= f.text_field :zip, :class => "thin_border short" %></td>
 		<td class="label right"><%= f.label :city, ("Stadt") %></td>
 		<td class="input medium_long"><%= f.text_field :city, :class => "thin_border medium_long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :country, ("Land") %></td>
+		<td class="label"><%= f.label :country, "Land" %></td>
 		<td colspan="3" class="input"><%= f.text_field :country, :class => "thin_border long" %></td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :tag_list, ("Tags") %></td>
+		<td class="label"><%= f.label :tag_list, "Tags" %></td>
 		<td colspan="3" class="input">
 			<%= f.autocomplete_field :tag_list, autocomplete_tag_list_admin_contacts_path, :class => "thin_border long", 'data-delimiter' => ',' %>
+			<p><small>*Mehrere Tags mit Komma trennen.</small></p>
 		</td>
 	</tr>
 	<tr>
