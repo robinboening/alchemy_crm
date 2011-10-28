@@ -1,5 +1,9 @@
 <%- alchemy_combined_assets -%>
 
+<%- content_for(:javascript_includes) do -%>
+	<%= javascript_include_tag "alchemy-mailings/autocomplete-rails.js" %>
+<%- end -%>
+
 <%- content_for(:stylesheets) do -%>
 	<%= stylesheet_link_tag('alchemy-mailings/base') %>
 <%- end -%>
@@ -13,7 +17,7 @@
 				new_admin_contact_path(),
 				{
 					:title => 'Neuen Kontakt anlegen',
-					:size => '350x480'
+					:size => '330x480'
 				},
 				{
 					:title => 'Neuen Kontakt anlegen',

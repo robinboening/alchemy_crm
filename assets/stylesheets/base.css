@@ -396,9 +396,8 @@ a.show_statistic_button:hover {
 	background-position: right;
 }
 
-.medium_long {
-	width: 343px;
-	margin-bottom: 6px;
+table#contact td.medium_long {
+	width: 291px;
 }
 
 a.remove_filter_link {
@@ -428,20 +427,14 @@ span.tag {
 	margin-bottom: 8px;
 }
 
-table#contact {
-	border: 0;
-	border-spacing: 0;
-}
-
-table#contact td {
-	padding: 4px 0 4px 4px;
-}
-
-input#contact_city {
+#alchemy input#contact_city {
 	width: 122px;
 }
 
-#contact_zip {
+#alchemy input#contact_zip {
 	width: 55px;
 }
 
+#alchemy table#contact td.label.right {
+	width: 138px;
+}
