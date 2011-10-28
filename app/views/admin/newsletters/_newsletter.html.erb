@@ -19,18 +19,18 @@
             content_tag('span', '', :class => 'icon format_edit'),
             edit_admin_newsletter_path(newsletter),
             {
-                :title => 'Liste bearbeiten',
-                :size => '350x180'
+                :title => 'Newsletter bearbeiten',
+                :size => '360x220'
             },
             {
-                :title => 'Mailing Format bearbeiten'
+                :title => 'Newsletter bearbeiten'
             }
         ) -%>
         <%= link_to_confirmation_window(
             content_tag('span', '', :class => 'icon format_delete'),
-            "Wollen Sie diese Mailingliste wirklich löschen?",
+            "Wollen Sie diesen Newsletter wirklich löschen?",
             admin_newsletter_path(newsletter),
-            :title => 'Mailing Format löschen'
+            :title => 'Newsletter löschen'
         ) -%>
     </td>
 </tr>

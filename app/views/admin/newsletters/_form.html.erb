@@ -30,7 +30,11 @@
 				<%= f.label :contact_groups, "Gruppen" %>
 			</td>
 			<td class="input">
+				<%- if @contact_groups.any? -%>
 				<%= render :partial => "tag_with_radiobutton", :collection => @contact_groups, :locals => {:newsletter_contact_groups => @newsletter.contact_groups} %>
+				<%- else -%>
+				<p>Sie haben noch keine Empfänger Gruppen gebildet</p>
+				<%- end -%>
 			</td>
 		</tr>
 		<%- unless @newsletter.verified_direct_contacts.blank? -%>
