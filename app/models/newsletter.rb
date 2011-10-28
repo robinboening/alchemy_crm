@@ -6,10 +6,12 @@ class Newsletter < ActiveRecord::Base
   has_many :mailings
   has_many :newsletter_subscriptions
   has_many :contacts, :through => :newsletter_subscriptions, :uniq => true
+  
   validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
+  
   before_destroy :can_delete_mailings?
   
-  named_scope :subscribables, :conditions => {:public => true}
+  scope :subscribables, where(:public => true)
   
   def all_contacts
     (all_contact_group_contacts + verified_direct_contacts).uniq
@@ -19,7 +21,7 @@ class Newsletter < ActiveRecord::Base
     self.contacts.count + contact_groups.inject(0){ |sum, cg| sum += cg.contacts.count }
   end
   
-  #get all uniq contacts from my contact groups
+  # get all uniq contacts from my contact groups
   def all_contact_group_contacts
     self.contact_groups.inject([]){|contacts, contact_group| contacts + contact_group.contacts}.uniq
   end
