@@ -5,9 +5,7 @@ class Admin::ContactGroupsController < AlchemyMailingsController
   filter_access_to :all
   
   def index
-    @contact_groups = ContactGroup.where(
-      ["name LIKE '%#?%'", params[:query]]
-    ).paginate(
+    @contact_groups = ContactGroup.where("name LIKE '%#{params[:query]}%'").paginate(
       :page => params[:page] || 1,
       :per_page => 20
     ).order("name ASC")

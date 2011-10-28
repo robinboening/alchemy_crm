@@ -5,9 +5,7 @@ class Admin::NewslettersController < AlchemyMailingsController
   filter_access_to :all
   
   def index
-    @newsletters = Newsletter.where(
-      ["name LIKE '%#?%'", params[:query]]
-    ).paginate(
+    @newsletters = Newsletter.where("name LIKE '%#{params[:query]}%'").paginate(
       :page => params[:page] || 1,
       :per_page => 30
     ).order('name ASC')
@@ -21,8 +19,7 @@ class Admin::NewslettersController < AlchemyMailingsController
   end
   
   def create
-    @newsletter = Newsletter.new(params[:newsletter])
-    @newsletter.save
+    @newsletter = Newsletter.create(params[:newsletter])
     render_errors_or_redirect @newsletter, admin_newsletters_path, "Der Newsletter wurde angelegt."
   end
   

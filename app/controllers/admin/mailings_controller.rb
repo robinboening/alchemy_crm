@@ -6,7 +6,7 @@ class Admin::MailingsController < AlchemyMailingsController
   
   def index
 		@mailings = Mailing.where(
-		  ["mailings.name LIKE '%?%' OR mailings.subject LIKE '%?%'", params[:query], params[:query]]
+		  "mailings.name LIKE '%#{params[:query]}%' OR mailings.subject LIKE '%#{params[:query]}%'"
 		).paginate(:page => params[:page] || 1, :per_page => 30)
   end
   
