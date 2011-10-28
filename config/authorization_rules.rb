@@ -21,7 +21,7 @@ authorization do
     has_permission_on :admin_mailings, :to => [:manage, :edit_content, :deliver, :copy]
     has_permission_on :admin_sent_mailings, :to => [:manage, :pdf]
     has_permission_on :admin_newsletters, :to => [:manage]
-    has_permission_on :admin_contacts, :to => [:manage, :import, :export, :auto_complete_for_contact_tag_list]
+    has_permission_on :admin_contacts, :to => [:manage, :import, :export, :autocomplete_tag_list]
     has_permission_on :admin_tags, :to => [:manage]
     has_permission_on :admin_contact_groups, :to => [:manage, :add_filter]
   end

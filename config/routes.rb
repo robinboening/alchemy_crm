@@ -27,7 +27,10 @@ Rails.application.routes.draw do
   namespace :admin do
 
     resources :contacts do
-      collection { get :import }
+      collection do
+        get :import
+        get :autocomplete_tag_list
+      end
       member { get :export }
     end
 

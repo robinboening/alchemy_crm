@@ -82,10 +82,10 @@ class Admin::ContactsController < AlchemyMailingsController
     @contact.destroy
     flash[:notice] = "#{name} wurde gelöscht."
   end
-  
-  def auto_complete_for_contact_tag_list
-    @tags = ActsAsTaggableOn::Tag.find(:all, :conditions => ['name LIKE ?', "#{params[:contact][:tag_list]}%"])
-    render :inline => "<%= auto_complete_result(@tags, 'name') %>", :layout => false
+
+  def autocomplete_tag_list
+    items = ActsAsTaggableOn::Tag.where(['LOWER(name) LIKE ?', "#{params[:term].downcase}%"])
+    render :json => json_for_autocomplete(items, :name)
   end
 
 end
