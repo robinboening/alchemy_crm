@@ -1,6 +1,5 @@
-<div id="errors" style="display:none"></div>
 <%= form_for [:admin, @contact], :class => "with_padding", :remote => true do |f| %>
-
+<div id="errors" style="display:none"></div>
 <table id="contact">
 	<tr>
 		<td class="label"><%= f.label :salutation, "Anrede" %></td>

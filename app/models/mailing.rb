@@ -56,10 +56,10 @@ private
 		  :name => "Mailing #{self.name}",
 		  :sitemap => false,
 		  :page_layout => self.newsletter.layout,
-			:language => Language.get_default
+			:language => Language.get_default,
+			:parent_id => mailing_root.id
 		)
-		if mailing_page.save!
-		  mailing_page.move_to_child_of mailing_root
+		if mailing_page.save
 		  self.page = mailing_page
 		  save
 		else

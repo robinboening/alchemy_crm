@@ -40,7 +40,7 @@
 		<%- unless @newsletter.verified_direct_contacts.blank? -%>
 		<tr>
 			<td colspan="2">
-				<p>Über die Website eingetragene Kontakte: <%= @newsletter.verified_direct_contacts.length %></p>
+				<p>Über die Website eingetragene Kontakte: <%= @newsletter.verified_direct_contacts.count %></p>
 			</td>
 		</tr>
 		<%- end -%>

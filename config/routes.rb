@@ -51,6 +51,7 @@ Rails.application.routes.draw do
         get :copy
         get :deliver
         post :deliver
+        get :edit_content
       end
     end
 

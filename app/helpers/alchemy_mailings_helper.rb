@@ -1,5 +1,7 @@
 module AlchemyMailingsHelper
   
+  include PagesHelper
+  
   def contact_count_from_tag(tag)
     content_tag('small', "(#{Contact.tagged_with(tag).count})")
   end
@@ -10,7 +12,7 @@ module AlchemyMailingsHelper
       :render_format => "html"
     }
     options = default_options.merge(options)
-    render :partial => "newsletter_layouts/#{@page.page_layout.downcase.gsub(/newsletter_/, '')}.#{options[:render_format]}.erb"
+    render :partial => "page_layouts/#{@page.page_layout.downcase}.#{options[:render_format]}.erb"
   end
   
 end

@@ -1,59 +1,59 @@
 <tr class="<%= cycle('odd', 'even') %>">
-    <td class="icon">
-        <%= content_tag('span', '', :class => 'icon mailing') %>
-    </td>
-    <td class="name">
-        <%= link_to mailing.name, {:action => 'edit_content', :id => mailing}, :title => 'bearbeiten' -%>
-    </td>
-    <td class="name">
-        <%= mailing.subject -%>
-    </td>
-    <td>
-        <%= mailing.newsletter.blank? ? '' : mailing.newsletter.name -%>
-    </td>
-    <td class="size">
-        <%= mailing.recipients_count -%>
-    </td>
-    <td class="tools">
-        <%= link_to_overlay_window(
-            render_icon('mailing_sent'),
-            admin_mailing_sent_mailings_path(mailing.id),
-            {
-                :title => 'gesendete Mailings',
-                :size => '408x450'
-            },
-            {
-                :title => 'gesendete Mailings anzeigen'
-            }
-        ) -%>
-        <%= link_to_overlay_window(
-            render_icon('mailing_copy'),
-            copy_admin_mailing_path(mailing),
-            {
-                :title => 'Mailing kopieren',
-                :size => '450x260'
-            },
-            {
-                :title => 'Mailing kopieren'
-            }
-        ) -%>
-        <%= link_to_overlay_window(
-            render_icon('mailing_edit'),
-            edit_admin_mailing_path(mailing),
-            {
-                :title => 'Mailing bearbeiten',
-                :size => '450x260'
-            },
-            {
-                :class => 'edit_mailing_button',
-                :title => 'Mailing bearbeiten'
-            }
-        ) -%>
-        <%= link_to_confirmation_window(
-            render_icon('mailing_delete'),
-            "Wollen Sie dieses Mailing wirklich löschen?",
-            admin_mailing_path(mailing),
-            :title => 'Mailing löschen'
-        ) -%>
-    </td>
+	<td class="icon">
+		<%= content_tag('span', '', :class => 'icon mailing') %>
+	</td>
+	<td class="name">
+		<%= link_to mailing.name, {:action => 'edit_content', :id => mailing}, :title => 'bearbeiten' -%>
+	</td>
+	<td class="name">
+		<%= mailing.subject -%>
+	</td>
+	<td>
+		<%= mailing.newsletter.blank? ? '' : mailing.newsletter.name -%>
+	</td>
+	<td class="size">
+		<%= mailing.recipients_count -%>
+	</td>
+	<td class="tools">
+		<%= link_to_overlay_window(
+			render_icon('mailing_sent'),
+			admin_mailing_sent_mailings_path(mailing.id),
+			{
+				:title => 'gesendete Mailings',
+				:size => '408x450'
+			},
+			{
+				:title => 'gesendete Mailings anzeigen'
+			}
+		) -%>
+		<%= link_to_overlay_window(
+			render_icon('mailing_copy'),
+			copy_admin_mailing_path(mailing),
+			{
+				:title => 'Mailing kopieren',
+				:size => '450x260'
+			},
+			{
+				:title => 'Mailing kopieren'
+			}
+		) -%>
+		<%= link_to_overlay_window(
+			render_icon('mailing_edit'),
+			edit_admin_mailing_path(mailing),
+			{
+				:title => 'Mailing bearbeiten',
+				:size => '450x260'
+			},
+			{
+				:class => 'edit_mailing_button',
+				:title => 'Mailing bearbeiten'
+			}
+		) -%>
+		<%= link_to_confirmation_window(
+			render_icon('mailing_delete'),
+			"Wollen Sie dieses Mailing wirklich löschen?",
+			admin_mailing_path(mailing),
+			:title => 'Mailing löschen'
+		) -%>
+	</td>
 </tr>

@@ -18,6 +18,7 @@ authorization do
   
   role :admin do
     includes :editor
+    has_permission_on :mailings, :to => [:show]
     has_permission_on :admin_mailings, :to => [:manage, :edit_content, :deliver, :copy]
     has_permission_on :admin_sent_mailings, :to => [:manage, :pdf]
     has_permission_on :admin_newsletters, :to => [:manage]
