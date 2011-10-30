@@ -1,8 +1,11 @@
-<%- FastGettext.text_domain = 'alchemy' -%>
 <%- alchemy_combined_assets -%>
 
 <%- content_for(:javascript_includes) do -%>
 	<%= tinymce_hammer_javascript_tags %>
+<%- end -%>
+
+<%- content_for(:stylesheets) do -%>
+	<%= stylesheet_link_tag('alchemy-mailings/base') %>
 <%- end -%>
 
 <%- content_for(:subnav_additions) do -%>
@@ -13,6 +16,7 @@
 <%- content_for(:toolbar) do -%>
 <div id="toolbar">
 	<div id="toolbar_buttons">
+		<%- FastGettext.text_domain = 'alchemy' -%>
 		<div class="button_with_label">
 			<%= form_tag(
 				unlock_admin_page_path(
@@ -27,7 +31,6 @@
 				<label><%= _("unlock_page") %></label>
 			<% end %>
 		</div>
-		<%- unless @page.layoutpage? -%>
 		<div class="button_with_label">
 			<%= link_to(
 				mailing_path(@mailing),
@@ -38,8 +41,39 @@
 			<% end %>
 			<label><%= _("Visit page") %></label>
 		</div>
-		<%- end -%>
+		<%- FastGettext.text_domain = 'alchemy-mailings' -%>
+		<div class="button_with_label">
+			<%= link_to_overlay_window(
+				render_icon('mailing_edit'),
+					edit_admin_mailing_path(@mailing),
+					{
+						:title => 'Mailing bearbeiten',
+						:size => '450x270'
+					},
+					{
+						:class => 'icon_button',
+						:title => 'Mailing bearbeiten'
+					}
+			) -%><br />
+			<label>Mailing bearbeiten</label>
+		</div>
+		<div class="button_with_label">
+			<%= link_to_overlay_window(
+				render_icon('send_mailing'),
+				deliver_admin_mailing_path(@mailing),
+				{
+					:title => _('Send Mailing'),
+					:size => '450x180'
+				},
+				{
+					:title => _('Send Mailing'),
+					:class => 'icon_button'
+				}
+			) %>
+			<label><%= _('Send Mailing') %></label>
+		</div>
 	</div>
+	<%- FastGettext.text_domain = 'alchemy' -%>
 	<div id="toolbar_buttons_right">
 		<div class="button_with_label" id="show_preview_window">
 			<%= link_to_function(
