@@ -28,9 +28,3 @@ navigation:
 settings:
   mail_from: testmail@alchemy-app.com
   enable_workflow: false
-
-preview_frame:
-  controller: admin/mailings
-  action: edit
-  target_controller: admin/mailings
-  target_action: preview
