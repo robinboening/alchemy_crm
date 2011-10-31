@@ -3,10 +3,12 @@ require 'vpim/vcard'
 require 'digest/sha1'
 
 class Contact < ActiveRecord::Base
-  
+
   acts_as_taggable
-  
+
   has_many :newsletter_subscriptions, :dependent => :destroy
+  has_many :recipients
+
   accepts_nested_attributes_for :newsletter_subscriptions, :allow_destroy => true
 
   has_many :newsletters, :through => :newsletter_subscriptions, :uniq => true

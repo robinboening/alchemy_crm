@@ -3,56 +3,38 @@
 class MailingsMailer < ActionMailer::Base
   
   # We need this, because we render the elements with render_elements helper
-  helper :application
-  helper_method :logged_in?
+  helper :alchemy, :pages
+  helper_method :logged_in?, :configuration
+  
   def logged_in?
     false
   end
   
+  def configuration(name)
+    return Alchemy::Config.get(name)
+  end
+  
+  # This renders the mail sent as newsletter to the recipient
   def my_mail(mailing, elements, contact, recipient, options = {})
     default_options = {
-      :mail_from => "Test Newsletter <testmail@alchemy-app.com>",
+      :mail_from => AlchemyMailings::Config.get(:mail_from),
       :subject => mailing.subject,
-      :content_type => "multipart/alternative",
       :server => "http://localhost:3000"
     }
     options = default_options.merge(options)
     
-    # Email header info MUST be added here
-    recipients(contact.email)
-    from(options[:mail_from])
-    subject(options[:subject])
-    content_type(options[:content_type])
-    # Email body substitutions go here
-    part("text/plain") do |p|
-      p.body = render_message(
-        "layouts/newsletters.plain",
-        {
-          :page => mailing.page,
-          :mailing => mailing,
-          :elements => elements,
-          :contact => contact,
-          :recipient => recipient,
-          :server => options[:server].gsub(/http:\/\//, ''),
-          :host => options[:server]
-        }
-      )
+    @page = mailing.page
+    @mailing = mailing
+    @elements = elements
+    @contact = contact
+    @recipient = recipient
+    @server = options[:server].gsub(/http:\/\//, '')
+    @host = options[:server]
+    
+    mail(:to => contact.email, :from => options[:mail_from], :subject => options[:subject]) do |format|
+      format.html { render("layouts/newsletters.html") }
+      format.text { render("layouts/newsletters.text") }
     end
-    part(
-      :content_type => "text/html", 
-      :body => render_message(
-        "layouts/newsletters",
-        {
-          :page => mailing.page, 
-          :mailing => mailing,
-          :elements => elements,
-          :contact => contact,
-          :recipient => recipient,
-          :server => options[:server].gsub(/http:\/\//, ''),
-          :host => options[:server]
-        }
-      )
-    )
   end
   
   def verification_mail(contact, server, element, newsletter_ids)

@@ -47,6 +47,32 @@ class Mailing < ActiveRecord::Base
     clone
   end
 
+  def deliver!(current_server)
+    mailing_elements = self.page.elements
+    sent_mailing = self.sent_mailings.create(:name => self.name)
+    additional_email_addresses = self.all_additional_email_addresses.collect{ |email| Contact.new(:email => email) }
+    all_contacts = self.all_contacts + additional_email_addresses
+    all_contacts.each do |contact|
+      recipient = Recipient.create(
+        :email => contact.email,
+        :sent_mailing => sent_mailing,
+        :contact => contact
+      )
+      mail = MailingsMailer.my_mail(
+        self,
+        mailing_elements,
+        contact,
+        recipient,
+        :server => current_server
+      )
+      send_mail             = MailingsMailer.deliver(mail)
+      recipient.message_id  = send_mail.message_id
+      recipient.save
+    end
+    sent_mailing.save
+  end
+  #handle_asynchronously :deliver!
+
 private
 
 	def create_page

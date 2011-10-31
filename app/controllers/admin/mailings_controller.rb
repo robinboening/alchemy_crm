@@ -66,23 +66,9 @@ class Admin::MailingsController < AlchemyMailingsController
   end
   
   def deliver
-    a = Time.now
     @mailing = Mailing.find(params[:id])
     if request.post?
-      mailing_elements = @mailing.page.elements
-      sent_mailing = SentMailing.create(:name => @mailing.name, :mailing => @mailing)
-      additional_email_addresses = @mailing.all_additional_email_addresses.collect{|u| Contact.new(:email => u)}
-      all_contacts = @mailing.all_contacts + additional_email_addresses
-      all_contacts.each do |contact|
-        recipient             = Recipient.create(:email => contact.email, :contact => contact, :sent_mailing => sent_mailing)
-        mail                  = MailingsMailer.create_my_mail(@mailing, mailing_elements, contact, recipient, :mail_from => plugin_conf("alchemy-mailings")[:mail_from], :server => current_server)
-        send_mail             = MailingsMailer.deliver(mail)
-        recipient.message_id  = send_mail.message_id
-        recipient.save
-      end
-      sent_mailing.save
-      a = Time.now - a
-      logger.info("§§§ rendered mailing in #{a} s")
+      @mailing.deliver!(current_server)
       flash[:notice] = "Das Mailing wurde versendet"
       redirect_to :action => 'index'
     else
