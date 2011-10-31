@@ -8,12 +8,12 @@ module AlchemyMailings
       
       def create_newsletter_scaffold
 
-        empty_directory "#{Rails.root}/app/views/newsletter_layouts"
+        empty_directory "#{Rails.root}/app/views/page_layouts"
 
-        copy_file File.join(File.dirname(__FILE__), "templates/_standard.html.erb"), "#{Rails.root}/app/views/newsletter_layouts/_standard.html.erb"
-        copy_file File.join(File.dirname(__FILE__), "templates/_standard.plain.erb"), "#{Rails.root}/app/views/newsletter_layouts/_standard.plain.erb"
+        copy_file File.join(File.dirname(__FILE__), "templates/_standard.html.erb"), "#{Rails.root}/app/views/page_layouts/_newsletter_standard.html.erb"
+        copy_file File.join(File.dirname(__FILE__), "templates/_standard.text.erb"), "#{Rails.root}/app/views/page_layouts/_newsletter_standard.text.erb"
         copy_file File.join(File.dirname(__FILE__), "templates/newsletters.html.erb"), "#{Rails.root}/app/views/layouts/newsletters.html.erb"
-        copy_file File.join(File.dirname(__FILE__), "templates/newsletters.plain.erb"), "#{Rails.root}/app/views/layouts/newsletters.plain.erb"
+        copy_file File.join(File.dirname(__FILE__), "templates/newsletters.text.erb"), "#{Rails.root}/app/views/layouts/newsletters.text.erb"
 
         # Thors append_to_file does not work. But who needs it anyway?
         # Has many bugs through Rails ^_^
