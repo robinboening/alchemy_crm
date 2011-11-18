@@ -60,10 +60,10 @@
 		<div class="button_with_label">
 			<%= link_to_overlay_window(
 				render_icon('send_mailing'),
-				deliver_admin_mailing_path(@mailing),
+				new_admin_sent_mailing_path(:mailing_id => @mailing.id),
 				{
 					:title => _('Send Mailing'),
-					:size => '450x180'
+					:size => '350x210'
 				},
 				{
 					:title => _('Send Mailing'),

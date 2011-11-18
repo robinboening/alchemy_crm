@@ -25,26 +25,6 @@
 				<%= f.text_field :subject, :class => "thin_border long" %>
 			</td>
 		</tr>
-		<%- if plugin_conf("alchemy-mailings")[:enable_workflow] -%>
-		<%- if action == "update" -%>
-		<tr>
-			<td class="label">
-				<%= f.label :status, ("Status") %>
-			</td>
-			<td>
-				<%= f.text_field :status, :class => "thin_border long", :disabled => true %>
-			</td>
-		</tr>
-		<tr>
-			<td class="label">
-				<%= f.label :new_state, ("neuer Status") %>
-			</td>
-			<td>
-				<%= select_tag("new_state", options_for_select([""] + translate_for_ofs("transition_names", @possible_transitions)), :disabled => (@possible_transitions.length == 0)) %>
-			</td>
-		</tr>
-		<%- end -%>
-		<%- end -%>
 		<tr>
 			<td class="label">
 				<%= f.label :additional_email_addresses, ("zusätzliche Email-Adressen*") %>

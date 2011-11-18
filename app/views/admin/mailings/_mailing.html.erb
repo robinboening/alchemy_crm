@@ -14,13 +14,18 @@
 	<td class="size">
 		<%= mailing.recipients_count -%>
 	</td>
+	<td class="time">
+		<%- if mailing.next_pending_sent_mailing -%>
+		<%= mailing.next_pending_sent_mailing.deliver_at.nil? ? '' : l(mailing.next_pending_sent_mailing.deliver_at) -%>
+		<%- end -%>
+	</td>
 	<td class="tools">
 		<%= link_to_overlay_window(
 			render_icon('mailing_sent'),
 			admin_mailing_sent_mailings_path(mailing.id),
 			{
 				:title => 'gesendete Mailings',
-				:size => '408x450'
+				:size => '500x550'
 			},
 			{
 				:title => 'gesendete Mailings anzeigen'

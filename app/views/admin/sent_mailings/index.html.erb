@@ -1,17 +1,24 @@
 <%- if @sent_mailings.blank? -%>
-<p class="with_padding">Dieser Mailing wurde noch nicht versendet!</p>
+<p class="with_padding">Dieses Mailing wurde noch nie versendet!</p>
 <%- else -%>
-<div class="sent_mailings">
+<div class="with_padding">
 	<div class="info">
-	<%= render_icon('info') %>
-		<p>Klicken Sie für eine Statistik auf das jeweilige Datum des Versandes.</p>
-		<p>Eine PDF Version mit dem Inhalt und einer Empfängerliste erhalten Sie auf Klick des PDF Buttons neben dem jeweiligen Versand.</p>
+		<%= render_icon('info') %>
+		<p>Dies ist eine Liste aller Sendungen dieses Mailings.</p>
+		<p>Für bereits versendete Mailings können Statistiken aufgerufen werden.</p>
+		<p>Noch nicht versendete Mailings können neu geplant werden, in dem Sie auf das Versanddatum klicken.</p>
 	</div>
-	<div class="with_padding">
-		<h2>Versand vom:</h2>
-	</div>
-	<ol>
+</div>
+<div id="sent_mailings">
+	<table class="list">
+		<tr>
+			<th>Versand geplant für</th>
+			<th class="right">Empfänger</th>
+			<th class="center">versendet?</th>
+			<th class="center">Statistik</th>
+			<th class="center">PDF</th>
+		</tr>
 		<%= render @sent_mailings %>
-	</ol>
+	</table>
 </div>
 <%- end -%>

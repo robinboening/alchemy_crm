@@ -48,8 +48,7 @@ Rails.application.routes.draw do
       resources :sent_mailings
       collection { get :signout }
       member do
-        get :copy, :deliver
-        post :deliver
+        get :copy
         get :edit_content
       end
     end

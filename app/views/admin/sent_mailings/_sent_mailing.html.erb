@@ -1,17 +1,43 @@
-<li class="sent_mailing <%= cycle('even', 'odd') %>">
-	<%= link_to_overlay_window(
-		l(sent_mailing.created_at),
-		admin_sent_mailing_path(sent_mailing),
-		{
-			:title => "Statistik des #{sent_mailing.mailing.name} vom #{l(sent_mailing.created_at)}",
-			:size => '500x400',
-			:modal => false
-		}
-	) %>
-	<%= link_to(
-		"PDF",
-		pdf_admin_sent_mailing_path(sent_mailing),
-		:class => "sent_mailing_pdf_link button",
-		:title => "PDF des Versands runterladen"
-	) %>
-</li>
+<tr class="sent_mailing <%= cycle('even', 'odd') %>">
+	<td>
+		<%- if sent_mailing.delivered? -%>
+		<%= l(sent_mailing.deliver_at) %>
+		<%- else -%>
+		<%= link_to_overlay_window(
+			l(sent_mailing.deliver_at),
+			edit_admin_sent_mailing_path(sent_mailing),
+			{
+				:title => "#{sent_mailing.name} bearbeiten",
+				:size => '350x210'
+			}
+		) %>
+		<%- end -%>
+	</td>
+	<td class="right">
+		<%= sent_mailing.recipients.count %>
+	</td>
+	<td class="center">
+		<%= render_icon(sent_mailing.delivered?) %>
+	</td>
+	<td class="center">
+		<%- if sent_mailing.delivered? -%>
+		<%= link_to_overlay_window(
+			render_icon('statistics'),
+			admin_sent_mailing_path(sent_mailing),
+			{
+				:title => "Statistik des #{sent_mailing.mailing.name} vom #{l(sent_mailing.created_at)}",
+				:size => '500x400',
+				:modal => false
+			}
+		) %>
+		<%- end -%>
+	</td>
+	<td class="center">
+		<%= link_to(
+			'',
+			pdf_admin_sent_mailing_path(sent_mailing),
+			:class => "icon file_download",
+			:title => "PDF des Versands runterladen"
+		) %>
+	</td>
+</tr>

@@ -3,12 +3,13 @@
 class Mailing < ActiveRecord::Base
 
   belongs_to :page, :dependent => :destroy
-  has_many :sent_mailings
+  has_many :sent_mailings, :dependent => :destroy
   belongs_to :newsletter
+
   validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
   validates_presence_of :newsletter_id, :message => "Bitte wählen Sie einen Newsletter aus.", :on => :create
-  before_save :update_sha1
 
+  before_save :update_sha1
   after_create :create_page
 
   def update_sha1
@@ -18,18 +19,16 @@ class Mailing < ActiveRecord::Base
     end
   end
   
-  def contacts_from_format
-    self.newsletter.all_contacts rescue []
+  def contacts_from_newsletter
+    self.newsletter.all_contacts
   end
   
   def all_contacts
-    self.contacts_from_format.uniq
+    (contacts_from_newsletter + contacts_from_additional_email_addresses).uniq
   end
   
   def recipients_count
-    additional_email_addresses_count = self.all_additional_email_addresses.length
-    return additional_email_addresses_count if self.newsletter.nil?
-    self.newsletter.contacts_count + additional_email_addresses_count
+    all_contacts.count
   end
   
   def all_email_addresses
@@ -40,6 +39,10 @@ class Mailing < ActiveRecord::Base
     self.additional_email_addresses.gsub(/ /,'').split(',') rescue []
   end
   
+  def contacts_from_additional_email_addresses
+    all_additional_email_addresses.collect{ |email| Contact.new(:email => email) }
+  end
+
   def self.copy(id)
     source = self.find(id)
     clone = source.clone
@@ -47,31 +50,14 @@ class Mailing < ActiveRecord::Base
     clone
   end
 
-  def deliver!(current_server)
-    mailing_elements = self.page.elements
-    sent_mailing = self.sent_mailings.create(:name => self.name)
-    additional_email_addresses = self.all_additional_email_addresses.collect{ |email| Contact.new(:email => email) }
-    all_contacts = self.all_contacts + additional_email_addresses
-    all_contacts.each do |contact|
-      recipient = Recipient.create(
-        :email => contact.email,
-        :sent_mailing => sent_mailing,
-        :contact => contact
-      )
-      mail = MailingsMailer.my_mail(
-        self,
-        mailing_elements,
-        contact,
-        recipient,
-        :server => current_server
-      )
-      send_mail             = MailingsMailer.deliver(mail)
-      recipient.message_id  = send_mail.message_id
-      recipient.save
-    end
-    sent_mailing.save
-  end
-  #handle_asynchronously :deliver!
+	# File name from name. Used for sent mailings PDF.
+	def file_name
+		name.gsub(' ', '_').downcase
+	end
+
+	def next_pending_sent_mailing
+		sent_mailings.pending.first
+	end
 
 private
 

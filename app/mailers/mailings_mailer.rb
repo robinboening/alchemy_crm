@@ -3,19 +3,19 @@
 class MailingsMailer < ActionMailer::Base
   
   # We need this, because we render the elements with render_elements helper
-  helper :alchemy, :pages
+  helper :alchemy
+  helper :alchemy_mailings
+	helper :pages
   helper_method :logged_in?, :configuration
   
-  def logged_in?
-    false
-  end
+  def logged_in?; false; end
   
   def configuration(name)
     return Alchemy::Config.get(name)
   end
   
   # This renders the mail sent as newsletter to the recipient
-  def my_mail(mailing, elements, contact, recipient, options = {})
+  def my_mail(mailing, recipient, options = {})
     default_options = {
       :mail_from => AlchemyMailings::Config.get(:mail_from),
       :subject => mailing.subject,
@@ -23,15 +23,15 @@ class MailingsMailer < ActionMailer::Base
     }
     options = default_options.merge(options)
     
-    @page = mailing.page
     @mailing = mailing
-    @elements = elements
-    @contact = contact
+    @page = @mailing.page
+    @elements = @page.elements
     @recipient = recipient
+    @contact = @recipient.contact
     @server = options[:server].gsub(/http:\/\//, '')
     @host = options[:server]
     
-    mail(:to => contact.email, :from => options[:mail_from], :subject => options[:subject]) do |format|
+    mail(:to => @recipient.email, :from => options[:mail_from], :subject => options[:subject]) do |format|
       format.html { render("layouts/newsletters.html") }
       format.text { render("layouts/newsletters.text") }
     end

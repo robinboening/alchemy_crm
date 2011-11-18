@@ -3,7 +3,8 @@
 class Admin::MailingsController < AlchemyMailingsController
   
   filter_access_to :all
-  
+  helper :pages
+
   def index
 		@mailings = Mailing.where(
 		  "mailings.name LIKE '%#{params[:query]}%' OR mailings.subject LIKE '%#{params[:query]}%'"
@@ -63,17 +64,6 @@ class Admin::MailingsController < AlchemyMailingsController
   def edit_content
     @mailing = Mailing.find(params[:id])
     @page = @mailing.page
-  end
-  
-  def deliver
-    @mailing = Mailing.find(params[:id])
-    if request.post?
-      @mailing.deliver!(current_server)
-      flash[:notice] = "Das Mailing wurde versendet"
-      redirect_to :action => 'index'
-    else
-      render :layout => false
-    end
   end
   
 end

@@ -105,7 +105,9 @@ span.icon.fill_from_element {
 
 div.sent_mailings {
 	padding: 8px;
-	overflow: hidden;
+	height: 400px;
+	overflow-y: auto;
+	overflow-x: none;
 }
 
 div.sent_mailings ol,
@@ -116,7 +118,7 @@ div.sent_mailings ul {
 
 li.sent_mailing {
 	clear: both;
-	line-height: 21px;
+	line-height: 25px;
 	padding: 4px;
 	margin-bottom: 4px;
 }
