@@ -1,0 +1,6 @@
+# mail from
+mail_from: testmail@alchemy-app.com
+# sending mails in chunks of
+send_mails_in_chunks_of: 10
+# sending mail chunks every minute
+send_mail_chunks_every: 1

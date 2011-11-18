@@ -4,7 +4,7 @@ navigation:
   name: 'Mailings'
   controller: admin/mailings
   action: index
-  image: /images/alchemy-mailings/mailings.png
+  image: /assets/alchemy_mailings/module_icon.png
   sub_navigation:
     - name: Mailings
       controller: admin/mailings
@@ -24,11 +24,3 @@ navigation:
   nested:
     - controller: admin/mailings
       action: edit_content
-
-settings:
-  # mail from
-  mail_from: testmail@alchemy-app.com
-  # sending mails in chunks of
-  send_mails_in_chunks_of: 10
-  # sending mail chunks every minute
-  send_mail_chunks_every: 1

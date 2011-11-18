@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = AlchemyMailings::VERSION
 
-	gem.add_dependency 'alchemy_cms', ["~> 2.0.rc5"]
+	gem.add_dependency 'alchemy_cms', ["~> 2.1.beta2"]
 	gem.add_dependency 'vpim', ['>=0']
 	gem.add_dependency 'delayed_job', ["~> 2.1.4"]
 	gem.add_dependency 'prawn', ['~> 0.11.1']
@@ -25,10 +25,12 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency 'rspec-rails', [">= 2.0"]
 
-	if RUBY_VERSION =~ /^1.9/
-		gem.add_development_dependency 'ruby-debug19'
-	else
-		gem.add_development_dependency 'ruby-debug'
+	if !ENV["CI"]
+		if RUBY_VERSION =~ /^1.9/
+			gem.add_development_dependency 'ruby-debug19'
+		else
+			gem.add_development_dependency 'ruby-debug'
+		end
 	end
 
 end
