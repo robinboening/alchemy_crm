@@ -4,7 +4,7 @@ Alchemy-Mailings Module
 About
 -----
 
-Alchemy Mailings is a newsletter module for Alchemy CMS.
+Alchemy CRM is a newsletter module for Alchemy CMS.
 For more Information please visit http://alchemy-cms.com
 
 Install
@@ -20,13 +20,13 @@ Install
 
 4. Migrate your database:
 
-        $ rake db:migrate:alchemy-mailings
+        $ rake db:migrate:alchemy_crm
 
 5. Seed the database:
 
   5.1. Put this line into your db/seeds.rb file:
         
-        AlchemyMailings::Seeder.seed!
+        AlchemyCrm::Seeder.seed!
 
   5.2. Run this rake task:
 
@@ -34,7 +34,7 @@ Install
 
 6. Copy all assets:
 
-        $ rake alchemy-mailings:assets:copy:all
+        $ rake alchemy_crm:assets:copy:all
 
 Resources
 ---------
@@ -42,7 +42,7 @@ Resources
 * Homepage: <http://alchemy-app.com>
 * Wiki: <http://wiki.alchemy-app.com>
 * Issue-Tracker: <http://issues.alchemy-app.com>
-* Sourcecode: <https://github.com/magiclabs/alchemy-mailings>
+* Sourcecode: <https://github.com/magiclabs/alchemy_crm>
 
 Authors
 ---------

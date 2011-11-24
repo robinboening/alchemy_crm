@@ -1,0 +1,46 @@
+<%- alchemy_combined_assets -%>
+
+<%- content_for(:stylesheets) do -%>
+	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+<%- end -%>
+
+<%- content_for :toolbar do -%>
+<div id="toolbar">
+	<div id="toolbar_buttons">
+		<div class="button_with_label">
+			<%= link_to_overlay_window(
+				content_tag('span', '', :class => 'icon format_add'),
+				new_admin_newsletter_path(),
+				{
+					:title => 'Neuen Newsletter anlegen',
+					:size => '360x220'
+				},
+				{
+					:title => 'Neuen Newsletter anlegen',
+					:class => 'icon_button'
+				}
+			) -%><br />
+			<label>Neuer Newsletter</label>
+		</div>
+	</div>
+	<%= render :partial => 'admin/partials/search_form' %>
+</div>
+<%- end -%>
+
+<div id="archive_all">
+	<%= render :partial => 'admin/partials/pagination_links', :locals => {:items => @newsletters} %>
+	<table class="list">
+		<%- unless @newsletters.blank? -%>
+		<tr class="legend">
+			<th class="icon"></th>
+			<th class="name">Name</th>
+			<th style="width: 120px">Layout</th>
+			<th style="width: 80px">öffentlich?</th>
+			<th class="size" style="width: 120px">Kontakte</th>
+			<th class="tools" style="width: 44px"></th>
+		</tr>
+		<%- end -%>
+		<%= render @newsletters %>
+	</table>
+</div>
+	

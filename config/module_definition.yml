@@ -1,10 +1,11 @@
-name: alchemy-mailings
+name: alchemy_crm
+engine_name: alchemy_crm
 order: 1
 navigation:
   name: 'Mailings'
   controller: admin/mailings
   action: index
-  image: /assets/alchemy_mailings/module_icon.png
+  image: /assets/alchemy_crm/module_icon.png
   sub_navigation:
     - name: Mailings
       controller: admin/mailings

@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+AlchemyCrm::Engine.routes.draw do
 
   match '/recipients/reads/:id' => 'recipients#reads',
     :as => 'recipient_reads'

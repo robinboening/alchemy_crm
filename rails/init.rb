@@ -1,1 +1,1 @@
-require File.join(File.dirname(__FILE__), '..', 'lib/alchemy_mailings')
+require File.join(File.dirname(__FILE__), '..', 'lib/alchemy_crm')

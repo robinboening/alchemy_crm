@@ -1,0 +1,56 @@
+<div id="overlay_toolbar" style="margin: 0">
+	Nur Elemente der Seite:
+	<%= select_tag(
+		"pages",
+		options_for_select([["Alle", ""]]) + options_from_collection_for_select(@pages, :id, :name),
+		:onchange => "AlchemyCrm.teasablesFilter(this.value)"
+	) %>
+	anzeigen.
+</div>
+<div class="with_padding" style="padding: 8px">
+	<div id="teasable_elements">
+		<%- if @elements.blank? -%>
+		<p>Es wurden keine Elemente gefunden.</p>
+		<%- else -%>
+		<%- @elements.group_by{ |e| e.page }.each do |page, elements| -%>
+		<%- if page -%>
+		<div id="teasable_page_<%= page.id %>" class="teasable_page">
+			<h2><%= page.name %></h2>
+			<%- elements.each do |element| -%>
+			<div class="teasable_element">
+				<%= element.preview_text(200) %>
+			</div>
+			<div class="teasable_tools">
+				<%= link_to(
+					"kompletten Inhalt in das Mailing übernehmen",
+					url_for({
+						:controller => "/admin/elements",
+						:action => "fill",
+						:id => @element.id,
+						:source_element_id => element.id
+					}),
+					:method => 'put',
+					:class => 'button',
+					:remote => true
+				) %>
+				<%= link_to(
+					"Nur einen Link setzen",
+					url_for({
+						:controller => "/admin/elements",
+						:action => "link",
+						:id => @element.id,
+						:source_element_id => element.id,
+						:link_only => true
+					}),
+					:method => 'put',
+					:class => "link_only button",
+					:remote => true
+				) %>
+			</div>
+			<%- end -%>
+		</div>
+		<%- end -%>
+		<%- end -%>
+		<%- end -%>
+	</div>
+</div>

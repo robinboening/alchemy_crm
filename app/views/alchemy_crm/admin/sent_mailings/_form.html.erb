@@ -1,0 +1,64 @@
+<%= form_for [:admin, @sent_mailing] do |f| %>
+	<div id="errors" style="display:none"></div>
+	<table style="width: 100%">
+		<tr>
+			<td class="label"><%= f.label :name, 'Name:' %></td>
+			<td><%= @mailing.name %></td>
+		</tr>
+		<tr>
+			<td class="label"><%= f.label :subject, 'Betreff:' %></td>
+			<td><%= @mailing.subject %></td>
+		</tr>
+		<tr>
+			<td class="label"><%= f.label :recipients, 'Empfänger:' %></td>
+			<td><%= @mailing.recipients_count %> (<%= link_to_function "Empfänger anzeigen", "jQuery('#all_contacts').toggle(); AlchemyCrm.toggleLabel(this, 'Empfänger ausblenden', 'Empfänger anzeigen')" ,:class => "" %>)</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul id="all_contacts" style="display: none">
+					<%- @mailing.all_email_addresses.each do |email_address| -%>
+					<li><%= email_address %></li>
+					<%- end -%>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">
+				<%= f.label :deliver_at, "versenden am" %>
+			</td>
+			<td class="input">
+				<%= text_field_tag nil, @sent_mailing.deliver_at.strftime('%d.%m.%Y'), :class => 'datepicker thin_border', :id => nil, :style => 'width: 90px' %>
+				<label>um</label>
+				<%= f.time_select :deliver_at, {:minute_step => 15, :time_separator => '<label>:&nbsp;</label>'.html_safe} %>
+				<label>Uhr</label>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="submit">
+				<%= f.hidden_field :mailing_id %>
+				<%= f.button("speichern", :class => "button") %>
+			</td>
+		</tr>
+	</table>
+<% end %>
+<script type="text/javascript" charset="utf-8">
+	(function($) {
+		
+		$('input.datepicker').datepicker({
+			dateFormat: 'dd.mm.yy',
+			dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+			dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+			monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+			monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+			onClose: function(dateText, inst) {
+				var dateparts = dateText.split('.');
+				console.info('partsText: ', dateparts);
+				$('#sent_mailing_deliver_at_1i').val(dateparts[2]);
+				$('#sent_mailing_deliver_at_2i').val(dateparts[1]);
+				$('#sent_mailing_deliver_at_3i').val(dateparts[0]);
+			}
+		});
+		
+	})(jQuery);
+</script>

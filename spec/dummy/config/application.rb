@@ -7,7 +7,7 @@ require "action_view/railtie"
 require "action_mailer/railtie"
 
 Bundler.require
-require "alchemy_mailings"
+require "alchemy_crm"
 
 module Dummy
   class Application < Rails::Application

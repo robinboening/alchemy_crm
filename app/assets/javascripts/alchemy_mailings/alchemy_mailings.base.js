@@ -1,7 +1,7 @@
-var AlchemyMailings = {};
+var AlchemyCrm = {};
 (function($) {
 	
-	AlchemyMailings = {
+	AlchemyCrm = {
 		
 		toggleLabel : function(link, hidetext, showtext) {
 			if ($(link).text() === showtext) {

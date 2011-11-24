@@ -1,2 +1,2 @@
-//= require alchemy_mailings/alchemy_mailings.base
+//= require alchemy_crm/alchemy_crm.base
 //= require autocomplete-rails
