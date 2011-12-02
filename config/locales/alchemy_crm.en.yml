@@ -1,0 +1,7 @@
+en:
+  alchemy:
+    modules:
+      crm: CRM
+  
+  alchemy_crm:
+    "Inhalte wurden übernommen": "Contents transfered"

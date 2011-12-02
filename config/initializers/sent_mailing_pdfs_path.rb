@@ -1,1 +1,1 @@
-FileUtils.mkdir_p(SentMailing::PDF_DIR) unless File.exist?(SentMailing::PDF_DIR)
+FileUtils.mkdir_p(AlchemyCrm::Delivery::PDF_DIR) unless File.exist?(AlchemyCrm::Delivery::PDF_DIR)

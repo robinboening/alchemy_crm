@@ -1,25 +1,22 @@
 # encoding: UTF-8
-require 'vpim/vcard'
-require 'digest/sha1'
 
 module AlchemyCrm
 	class Contact < ActiveRecord::Base
 
 		acts_as_taggable
 
-		has_many :newsletter_subscriptions, :dependent => :destroy
+		has_many :subscriptions, :dependent => :destroy
+		has_many :newsletters, :through => :subscriptions, :uniq => true
 		has_many :recipients
 
-		accepts_nested_attributes_for :newsletter_subscriptions, :allow_destroy => true
-
-		has_many :newsletters, :through => :newsletter_subscriptions, :uniq => true
+		accepts_nested_attributes_for :subscriptions, :allow_destroy => true
 
 		validates_presence_of :email, :message => "Bitte geben Sie eine E-Mail Adresse an."
 		validates_uniqueness_of :email, :message => "Diese E-Mail Adresse ist bereits eingetragen."
 		validates_format_of :email, :with => /^([a-zA-Z0-9_+\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/, :message => "Die E-Mail Adresse ist nicht valide.", :if => Proc.new { |contact| contact.errors[:email].blank? }
 
 		# def validate
-		#   if self.newsletter_subscriptions.length < 1
+		#   if self.subscriptions.length < 1
 		#     self.errors.add_to_base("Bitte wählen Sie zumindestens einen Newsletter aus.")
 		#   end
 		# end
@@ -94,7 +91,7 @@ module AlchemyCrm
 		end
 
 		def all_subscriptions_verified?
-			self.newsletter_subscriptions.inject(true){|acc, s| acc = s.verified? && acc; acc}
+			self.subscriptions.inject(true){|acc, s| acc = s.verified? && acc; acc}
 		end
 
 		def self.new_from_vcard(vcard)
@@ -109,10 +106,10 @@ module AlchemyCrm
 					:country => card.address.blank? ? nil : card.address.country,
 					:zip => card.address.blank? ? nil : card.address.postalcode,
 					:email => card.email.to_s,
-					:phone => card.telephone.location.include?("cell") ? nil : card.telephone.to_s,
+					:phone => card.telephone ? card.telephone.location.include?("cell") ? nil : card.telephone.to_s : nil,
 					:mobile => card.telephones.detect { |t| t.location.include?("cell") }.to_s
 				}
-				self.create!(remapped_attributes)
+				self.create(remapped_attributes)
 			end
 		end
 

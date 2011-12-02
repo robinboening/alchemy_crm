@@ -1,4 +1,4 @@
-<%- if @sent_mailings.blank? -%>
+<%- if @deliveries.blank? -%>
 <p class="with_padding">Dieses Mailing wurde noch nie versendet!</p>
 <%- else -%>
 <div class="with_padding">
@@ -9,7 +9,7 @@
 		<p>Noch nicht versendete Mailings können neu geplant werden, in dem Sie auf das Versanddatum klicken.</p>
 	</div>
 </div>
-<div id="sent_mailings">
+<div id="deliveries">
 	<table class="list">
 		<tr>
 			<th>Versand geplant für</th>
@@ -18,7 +18,7 @@
 			<th class="center">Statistik</th>
 			<th class="center">PDF</th>
 		</tr>
-		<%= render @sent_mailings %>
+		<%= render @deliveries %>
 	</table>
 </div>
 <%- end -%>

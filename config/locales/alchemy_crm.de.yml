@@ -1,0 +1,9 @@
+de:
+  alchemy:
+    modules:
+      crm: CRM
+    
+  alchemy_crm:
+    "New Tag": "Neues Tag"
+    "New Tag Created": "Neues Tag wurde erstellt"
+    "Send Mailing": "Mailing versenden"

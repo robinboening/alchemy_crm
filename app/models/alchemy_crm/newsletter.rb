@@ -2,10 +2,10 @@
 module AlchemyCrm
 	class Newsletter < ActiveRecord::Base
 
-		has_and_belongs_to_many :contact_groups
+		has_and_belongs_to_many :contact_groups, :join_table => 'alchemy_contact_groups_newsletters'
 		has_many :mailings
-		has_many :newsletter_subscriptions
-		has_many :contacts, :through => :newsletter_subscriptions, :uniq => true
+		has_many :subscriptions
+		has_many :contacts, :through => :subscriptions, :uniq => true
 
 		validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
 
@@ -31,7 +31,7 @@ module AlchemyCrm
 		end
 
 		def verified_direct_contacts
-			contacts.find(:all, :conditions => ["newsletter_subscriptions.verified = ? AND newsletter_subscriptions.wants = ?", true, true])
+			contacts.find(:all, :conditions => ["subscriptions.verified = ? AND subscriptions.wants = ?", true, true])
 		end
 
 		def can_delete_mailings?

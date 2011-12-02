@@ -5,7 +5,7 @@ module AlchemyCrm
 
 			before_filter :load_newsletters, :only => [:new, :edit, :copy]
 
-			helper :pages
+			helper 'Alchemy::Pages'
 
 			def copy
 				@mailing = Mailing.copy(params[:id])

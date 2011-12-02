@@ -11,16 +11,16 @@ module AlchemyCrm
 				else
 					begin
 						Contact.new_from_vcard(params[:vcard])
-						flash[:notice] = 'Kontakt(e) wurde importiert.'
+						flash[:notice] = 'Kontakt(e) wurde(n) importiert.'
+						redirect_to admin_contacts_path
 					rescue Exception => e
-						logger.error("\n++++ ERROR: #{e}\n")
-						if e.record
+						exception_handler(e)
+						if e.respond_to?(:record) && e.record
 							logger.error(e.record.inspect)
 							logger.error(e.record.errors.full_messages.join("\n"))
 							flash[:error] = %(Es sind Fehler beim Importieren aufgetaucht. Bitte überprüfen Sie die V-Card(s) nach folgenden Fehlern: \n#{e.record.errors.full_messages.join("\n")})
 						end
 					end
-					redirect_to admin_contacts_path
 				end
 			end
 

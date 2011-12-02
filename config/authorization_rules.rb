@@ -1,7 +1,7 @@
 authorization do
   
   role :guest do
-    has_permission_on :newsletters, :to => [:show]
+    has_permission_on :alchemy_crm_newsletters, :to => [:show]
   end
   
   role :registered do
@@ -18,13 +18,13 @@ authorization do
   
   role :admin do
     includes :editor
-    has_permission_on :mailings, :to => [:show]
-    has_permission_on :admin_mailings, :to => [:manage, :edit_content, :deliver, :copy]
-    has_permission_on :admin_sent_mailings, :to => [:manage, :pdf]
-    has_permission_on :admin_newsletters, :to => [:manage]
-    has_permission_on :admin_contacts, :to => [:manage, :import, :export, :autocomplete_tag_list]
-    has_permission_on :admin_tags, :to => [:manage]
-    has_permission_on :admin_contact_groups, :to => [:manage, :add_filter]
+    has_permission_on :alchemy_crm_mailings, :to => [:show]
+    has_permission_on :alchemy_crm_admin_mailings, :to => [:manage, :edit_content, :deliver, :copy]
+    has_permission_on :alchemy_crm_admin_deliveries, :to => [:manage, :pdf]
+    has_permission_on :alchemy_crm_admin_newsletters, :to => [:manage]
+    has_permission_on :alchemy_crm_admin_contacts, :to => [:manage, :import, :export, :autocomplete_tag_list]
+    has_permission_on :alchemy_crm_admin_tags, :to => [:manage]
+    has_permission_on :alchemy_crm_admin_contact_groups, :to => [:manage, :add_filter]
   end
   
 end

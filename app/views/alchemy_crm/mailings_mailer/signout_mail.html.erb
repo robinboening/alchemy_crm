@@ -12,7 +12,7 @@
         <p>
             <%= newsletter.name %>
             <%= link_to(
-                t("newsletter.signout_email.signout"),
+                t("newsletter.signout_email.signout", :scope => 'alchemy_crm'),
                 signout_from_newsletter_url(
                     :host => @server,
                     :sha1 => @contact.email_sha1,

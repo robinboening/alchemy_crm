@@ -13,7 +13,7 @@ module AlchemyCrm
 					@contact,
 					current_server,
 					@element,
-					@contact.newsletter_subscriptions.collect(&:newsletter_id)
+					@contact.subscriptions.collect(&:newsletter_id)
 				)
 				redirect_to alchemy.show_page_path(:urlname => followup_page.urlname, :lang => multi_language? ? session[:language_code] : nil)
 			else
@@ -27,7 +27,7 @@ module AlchemyCrm
 			@element = Alchemy::Element.find(params[:element_id])
 			unless params[:sha1].blank?
 				@contact = Contact.find_by_email_sha1(params[:sha1])
-				@subscriptions = @contact.newsletter_subscriptions.find_all_by_newsletter_id(params[:newsletter_ids])
+				@subscriptions = @contact.subscriptions.find_all_by_newsletter_id(params[:newsletter_ids])
 				@subscriptions.each do |subscription|
 					subscription.update_attributes(:verified => true)
 				end

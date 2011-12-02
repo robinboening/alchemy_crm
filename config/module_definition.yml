@@ -2,26 +2,26 @@ name: alchemy_crm
 engine_name: alchemy_crm
 order: 1
 navigation:
-  name: 'Mailings'
-  controller: admin/mailings
+  name: modules.crm
+  controller: alchemy_crm/admin/mailings
   action: index
   image: /assets/alchemy_crm/module_icon.png
   sub_navigation:
     - name: Mailings
-      controller: admin/mailings
+      controller: alchemy_crm/admin/mailings
       action: index
     - name: Newsletter
-      controller: admin/newsletters
+      controller: alchemy_crm/admin/newsletters
       action: index
     - name: Kontakte
-      controller: admin/contacts
+      controller: alchemy_crm/admin/contacts
       action: index
     - name: Zielgruppen
-      controller: admin/contact_groups
+      controller: alchemy_crm/admin/contact_groups
       action: index
     - name: Tags
-      controller: admin/tags
+      controller: alchemy_crm/admin/tags
       action: index
   nested:
-    - controller: admin/mailings
+    - controller: alchemy_crm/admin/mailings
       action: edit_content

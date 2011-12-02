@@ -2,6 +2,8 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'acts-as-taggable-on'
 	require 'rails3-jquery-autocomplete'
 	require "prawn"
+	require 'vcard'
+	require 'digest/sha1'
 	require 'delayed_job'
 	require 'alchemy_cms'
 	require 'alchemy_crm/version'

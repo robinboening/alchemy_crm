@@ -21,6 +21,13 @@ module AlchemyCrm
 			Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
 		end
 
+		# Adding additional page layout for root page.
+		initializer "alchemy_crm.add_page_layouts" do
+			Alchemy::PageLayout.add({
+				'name' => 'alchemy_crm_rootpage'
+			})
+		end
+
 		# Loading all alchemy core extensions found in app folder.
 		config.to_prepare do
 			Dir.glob(File.join(File.dirname(__FILE__), "../../app/**/*_extension.rb")) do |e|

@@ -1,31 +1,31 @@
-<tr class="sent_mailing <%= cycle('even', 'odd') %>">
+<tr class="delivery <%= cycle('even', 'odd') %>">
 	<td>
-		<%- if sent_mailing.delivered? -%>
-		<%= l(sent_mailing.deliver_at) %>
+		<%- if delivery.delivered? -%>
+		<%= l(delivery.deliver_at) %>
 		<%- else -%>
 		<%= link_to_overlay_window(
-			l(sent_mailing.deliver_at),
-			edit_admin_sent_mailing_path(sent_mailing),
+			l(delivery.deliver_at),
+			edit_admin_delivery_path(delivery),
 			{
-				:title => "#{sent_mailing.name} bearbeiten",
+				:title => "#{delivery.name} bearbeiten",
 				:size => '350x210'
 			}
 		) %>
 		<%- end -%>
 	</td>
 	<td class="right">
-		<%= sent_mailing.recipients.count %>
+		<%= delivery.recipients.count %>
 	</td>
 	<td class="center">
-		<%= render_icon(sent_mailing.delivered?) %>
+		<%= render_icon(delivery.delivered?) %>
 	</td>
 	<td class="center">
-		<%- if sent_mailing.delivered? -%>
+		<%- if delivery.delivered? -%>
 		<%= link_to_overlay_window(
 			render_icon('statistics'),
-			admin_sent_mailing_path(sent_mailing),
+			admin_delivery_path(delivery),
 			{
-				:title => "Statistik des #{sent_mailing.mailing.name} vom #{l(sent_mailing.created_at)}",
+				:title => "Statistik des #{delivery.mailing.name} vom #{l(delivery.created_at)}",
 				:size => '500x400',
 				:modal => false
 			}
@@ -35,7 +35,7 @@
 	<td class="center">
 		<%= link_to(
 			'',
-			pdf_admin_sent_mailing_path(sent_mailing),
+			pdf_admin_delivery_path(delivery),
 			:class => "icon file_download",
 			:title => "PDF des Versands runterladen"
 		) %>

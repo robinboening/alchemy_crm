@@ -8,7 +8,7 @@ AlchemyCrm::Engine.routes.draw do
     :as => 'verify_mailing'
   match '/contacts/destroy/:sha1/:element_id' => 'contacts#destroy',
     :as => 'destroy_contact'
-  match '/newsletter_subscriptions/destroy/:newsletter_id/:sha1/:element_id' => 'newsletter_subscriptions#destroy',
+  match '/subscriptions/destroy/:newsletter_id/:sha1/:element_id' => 'subscriptions#destroy',
     :as => 'signout_from_newsletter'
   match '/admin/elements/teasables' => 'admin/elements#teasables',
     :as => 'teasable_elements'
@@ -22,7 +22,7 @@ AlchemyCrm::Engine.routes.draw do
     end
   end
 
-  resources :newsletter_subscriptions
+  resources :subscriptions
 
   namespace :admin do
 
@@ -30,6 +30,7 @@ AlchemyCrm::Engine.routes.draw do
       collection do
         get :import
         get :autocomplete_tag_list
+        post :import
       end
       member { get :export }
     end
@@ -40,12 +41,12 @@ AlchemyCrm::Engine.routes.draw do
 
     resources :tags, :newsletters
 
-    resources :sent_mailings do
+    resources :deliveries do
       member { get :pdf }
     end
 
     resources :mailings do
-      resources :sent_mailings
+      resources :deliveries
       collection { get :signout }
       member do
         get :copy

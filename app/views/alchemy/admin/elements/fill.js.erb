@@ -9,5 +9,5 @@
 	Alchemy.setElementDirty('#element_<%= @element.id %>')
 	Alchemy.PreviewWindow.refresh();
 	Alchemy.closeCurrentWindow();
-	Alchemy.growl('<%= _("Inhalte wurden übernommen") %>');
+	Alchemy.growl('<%=t("Inhalte wurden übernommen", :scope => "alchemy_crm") %>');
 })(jQuery);

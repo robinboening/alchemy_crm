@@ -9,6 +9,6 @@
     </table>
     <p>
         <%= hidden_field_tag('element_id', element.id) %>
-        <%= submit_tag t('newsletter.signout_form.button_label'), :name => nil %>
+        <%= submit_tag t('newsletter.signout_form.button_label', :scope => 'alchemy_crm'), :name => nil %>
     </p>
 <% end %>

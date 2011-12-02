@@ -1,5 +1,5 @@
 module AlchemyCrm
-	class NewsletterSubscription < ActiveRecord::Base
+	class Subscription < ActiveRecord::Base
 
 		belongs_to :contact
 		belongs_to :newsletter

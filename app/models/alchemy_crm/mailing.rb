@@ -3,7 +3,7 @@ module AlchemyCrm
 	class Mailing < ActiveRecord::Base
 
 		belongs_to :page, :dependent => :destroy
-		has_many :sent_mailings, :dependent => :destroy
+		has_many :deliveries, :dependent => :destroy
 		belongs_to :newsletter
 
 		validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
@@ -55,8 +55,8 @@ module AlchemyCrm
 			name.gsub(' ', '_').downcase
 		end
 
-		def next_pending_sent_mailing
-			sent_mailings.pending.first
+		def next_pending_delivery
+			deliveries.pending.first
 		end
 
 	private

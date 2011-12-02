@@ -1,4 +1,4 @@
-Alchemy::Notice.show(page, _("Link wurde gesetzt"))
+Alchemy::Notice.show(page, t("Link wurde gesetzt", :scope => 'alchemy_crm'))
 page << "jQuery('##{@content.form_field_id(:url)}').val('#{@params}')"
 page << "Alchemy.PreviewWindow.refresh()"
 page << "Alchemy.setElementDirty('#element_#{@element.id}')"

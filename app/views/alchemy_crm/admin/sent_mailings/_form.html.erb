@@ -1,4 +1,4 @@
-<%= form_for [:admin, @sent_mailing] do |f| %>
+<%= form_for [:admin, @delivery] do |f| %>
 	<div id="errors" style="display:none"></div>
 	<table style="width: 100%">
 		<tr>
@@ -28,7 +28,7 @@
 				<%= f.label :deliver_at, "versenden am" %>
 			</td>
 			<td class="input">
-				<%= text_field_tag nil, @sent_mailing.deliver_at.strftime('%d.%m.%Y'), :class => 'datepicker thin_border', :id => nil, :style => 'width: 90px' %>
+				<%= text_field_tag nil, @delivery.deliver_at.strftime('%d.%m.%Y'), :class => 'datepicker thin_border', :id => nil, :style => 'width: 90px' %>
 				<label>um</label>
 				<%= f.time_select :deliver_at, {:minute_step => 15, :time_separator => '<label>:&nbsp;</label>'.html_safe} %>
 				<label>Uhr</label>
@@ -54,9 +54,9 @@
 			onClose: function(dateText, inst) {
 				var dateparts = dateText.split('.');
 				console.info('partsText: ', dateparts);
-				$('#sent_mailing_deliver_at_1i').val(dateparts[2]);
-				$('#sent_mailing_deliver_at_2i').val(dateparts[1]);
-				$('#sent_mailing_deliver_at_3i').val(dateparts[0]);
+				$('#delivery_deliver_at_1i').val(dateparts[2]);
+				$('#delivery_deliver_at_2i').val(dateparts[1]);
+				$('#delivery_deliver_at_3i').val(dateparts[0]);
 			}
 		});
 		

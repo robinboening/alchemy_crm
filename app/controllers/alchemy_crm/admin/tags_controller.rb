@@ -3,6 +3,8 @@ module AlchemyCrm
 	module Admin
 		class TagsController < Alchemy::Admin::ResourcesController
 
+			before_filter :load_tag, :only => [:edit, :update, :destroy]
+
 			def index
 				@tags = ActsAsTaggableOn::Tag.where(
 					"name LIKE '%#{params[:query]}%'"
@@ -19,17 +21,15 @@ module AlchemyCrm
 
 			def create
 				@tag = ActsAsTaggableOn::Tag.create(params[:tag])
-				render_errors_or_redirect @tag, admin_tags_path, _('New Tag Created')
+				render_errors_or_redirect @tag, admin_tags_path, t('New Tag Created', :scope => 'alchemy_crm')
 			end
 
 			def edit
-				@tag = ActsAsTaggableOn::Tag.find(params[:id])
 				@tags = ActsAsTaggableOn::Tag.order("name ASC").all - [@tag]
 				render :layout => false
 			end
 
 			def update
-				@tag = ActsAsTaggableOn::Tag.find(params[:id])
 				if params[:replace]
 					@new_tag = ActsAsTaggableOn::Tag.find(params[:tag][:merge_to])
 					Contact.replace_tag @tag, @new_tag
@@ -44,12 +44,17 @@ module AlchemyCrm
 			end
 
 			def destroy
-				@tag = ActsAsTaggableOn::Tag.find(params[:id])
 				if request.delete?
 					@tag.destroy
 					flash[:notice] = "Das Tag wurde gelöscht"
 				end
 				redirect_to admin_tags_path
+			end
+
+		private
+
+			def load_tag
+				@tag = ActsAsTaggableOn::Tag.find(params[:id])
 			end
 
 		end

@@ -1,17 +1,17 @@
 # encoding: UTF-8
 module AlchemyCrm
-	class SentMailing < ActiveRecord::Base
+	class Delivery < ActiveRecord::Base
 
 		attr_accessor :chunk_delay
-		PDF_DIR = Rails.root.join("sent_mailing_pdfs")
+		PDF_DIR = Rails.root.join("delivery_pdfs")
 
 		belongs_to :mailing
 		has_many :recipients, :dependent => :destroy
 
 		after_create :generate_pdf, :recipients_from_mailing_contacts
 
-		scope :delivered, where("`sent_mailings`.`delivered_at` IS NOT NULL")
-		scope :pending, where("`sent_mailings`.`delivered_at` IS NULL")
+		scope :delivered, where("`deliveries`.`delivered_at` IS NOT NULL")
+		scope :pending, where("`deliveries`.`delivered_at` IS NULL")
 
 		def delivered?
 			!self.delivered_at.nil?

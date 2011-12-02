@@ -1,4 +1,4 @@
-<% form_tag import_admin_contacts_path, :multipart => true, :class => 'with_padding' do %>
+<%= form_tag import_admin_contacts_path, :multipart => true, :class => 'with_padding' do %>
 	<table>
 		<tr>
 			<td colspan="2">
@@ -9,13 +9,13 @@
 		</tr>
 		<tr>
 			<td class="label">Datei:</td>
-			<td class="input">
+			<td>
 				<%= file_field_tag :vcard %>
 			</td>
 		</tr>
 		<tr>
 			<td class="submit" colspan="2">
-				<%= submit_tag _('save'), :name => nil, :class => 'button' %>
+				<%= submit_tag t('save'), :name => nil, :class => 'button' %>
 			</td>
 		</tr>
 	</table>
