@@ -10,7 +10,7 @@ For more Information please visit http://alchemy-cms.com
 Install
 -------
 
-1. First of all install Alchemy 2.0:
+1. First of all install Alchemy 2.1 beta:
 
     <https://github.com/magiclabs/alchemy_cms/tree/next_stable>
 
