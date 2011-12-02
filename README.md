@@ -1,5 +1,5 @@
-Alchemy-Mailings Module
-=======================
+Alchemy CRM Module
+==================
 
 About
 -----
@@ -18,9 +18,10 @@ Install
 
         $ bundle install
 
-4. Migrate your database:
+4. Copy the migrations into your app and migrate the database:
 
-        $ rake db:migrate:alchemy_crm
+        $ rake alchemy_crm:install:migrations
+        $ rake db:migrate
 
 5. Seed the database:
 
@@ -32,16 +33,12 @@ Install
 
         $ rake db:seed
 
-6. Copy all assets:
-
-        $ rake alchemy_crm:assets:copy:all
-
 Resources
 ---------
 
-* Homepage: <http://alchemy-app.com>
-* Wiki: <http://wiki.alchemy-app.com>
-* Issue-Tracker: <http://issues.alchemy-app.com>
+* Homepage: <http://alchemy-cms.com>
+* Wiki: <http://wiki.alchemy-cms.com>
+* Issue-Tracker: <http://issues.alchemy-cms.com>
 * Sourcecode: <https://github.com/magiclabs/alchemy_crm>
 
 Authors
