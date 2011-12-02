@@ -15,7 +15,8 @@
 		:overlay_options => {
 			:title => 'Neues Mailing anlegen',
 			:size => '450x270'
-		}
+		},
+		:if_permitted_to => [:new, :alchemy_crm_admin_mailings]
 	) %>
 </div>
 <%= render 'alchemy/admin/partials/search_form' %>
