@@ -1,6 +1,6 @@
 class CreateNewsletterSubscriptions < ActiveRecord::Migration
   def self.up
-    create_table :subscriptions do |t|
+    create_table :newsletter_subscriptions do |t|
       t.integer :contact_id
       t.integer :newsletter_id
       t.boolean :wants, :default => true
@@ -9,6 +9,6 @@ class CreateNewsletterSubscriptions < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :subscriptions
+    drop_table :newsletter_subscriptions
   end
 end
