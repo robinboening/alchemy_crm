@@ -21,6 +21,12 @@ module AlchemyCrm
 			Alchemy::AuthEngine.get_instance.load(File.join(File.dirname(__FILE__), '../..', 'config/authorization_rules.rb'))
 		end
 
+		initializer "alchemy_crm.add_newsletter_layouts" do
+			YAML.load_file(Rails.root.join('config', 'alchemy', 'newsletter_layouts.yml')).each do |newsletter_layout|
+				Alchemy::PageLayout.add(newsletter_layout.merge({'newsletter' => true}))
+			end
+		end
+
 		# Loading all alchemy core extensions found in app folder.
 		config.to_prepare do
 			Dir.glob(File.join(File.dirname(__FILE__), "../../app/**/*_extension.rb")) do |e|

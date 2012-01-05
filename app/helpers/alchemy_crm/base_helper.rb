@@ -20,4 +20,4 @@ module AlchemyCrm
 	end
 end
 
-Alchemy::BaseHelper.send(:include, AlchemyCrm::AlchemyCrmHelper)
+#Alchemy::BaseHelper.send(:include, AlchemyCrm::BaseHelper)

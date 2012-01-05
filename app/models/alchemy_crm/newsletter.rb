@@ -31,7 +31,7 @@ module AlchemyCrm
 		end
 
 		def verified_direct_contacts
-			contacts.find(:all, :conditions => ["subscriptions.verified = ? AND subscriptions.wants = ?", true, true])
+			subscriptions.where(:verified => true, :wants => true)
 		end
 
 		def can_delete_mailings?

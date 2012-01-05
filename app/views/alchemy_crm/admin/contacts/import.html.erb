@@ -1,12 +1,9 @@
 <%= form_tag import_admin_contacts_path, :multipart => true, :class => 'with_padding' do %>
+	<div class="info">
+		<%= render_icon('info') %>
+		<p>Sie können eine Visitenkarte (.vcf Datei) mit einem, oder auch mehreren Kontakten importieren.</p>
+	</div>
 	<table>
-		<tr>
-			<td colspan="2">
-				<p>
-					Sie können eine Visitenkarte (.vcf Datei) mit einem, oder auch mehreren Kontakten importieren.
-				</p>
-			</td>
-		</tr>
 		<tr>
 			<td class="label">Datei:</td>
 			<td>

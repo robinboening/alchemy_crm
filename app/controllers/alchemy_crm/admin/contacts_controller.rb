@@ -38,7 +38,8 @@ module AlchemyCrm
 		private
 
 			def load_tags
-				@tags = (ActsAsTaggableOn::Tag.order("name ASC").all - @contact.tags.to_a)
+				@tags = ActsAsTaggableOn::Tag.order("name ASC").all
+				@tags = @tags - @contact.tags.to_a unless @contact.nil?
 			end
 
 		end
