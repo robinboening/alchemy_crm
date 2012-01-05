@@ -3,7 +3,7 @@
 <table id="contact">
 	<tr>
 		<td class="label"><%= f.label :salutation, "Anrede" %></td>
-		<td colspan="3" class="select"><%= f.select :salutation, options_for_select([['Bitte wählen', ''], ['Herr', 'male'], ['Frau', 'female']], @contact.salutation), {}, {:class => 'long'} %></td>
+		<td colspan="3" class="select"><%= f.select :salutation, options_for_select([['Bitte wählen', ''], ['Herr', 'male'], ['Frau', 'female']], @contact.salutation), {}, {:class => 'very_long'} %></td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :title, "Titel" %></td>
@@ -39,13 +39,13 @@
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :zip, "PLZ" %></td>
-		<td class="short input"><%= f.text_field :zip, :class => "thin_border short" %></td>
+		<td class="input"><%= f.text_field :zip, :class => "thin_border short" %></td>
 		<td class="label right"><%= f.label :city, ("Stadt") %></td>
-		<td class="input medium_long"><%= f.text_field :city, :class => "thin_border medium_long" %></td>
+		<td class="input"><%= f.text_field :city, :class => "thin_border medium_long" %></td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :country, "Land" %></td>
-		<td colspan="3" class="input"><%= f.text_field :country, :class => "thin_border very_long" %></td>
+		<td colspan="3" class="input"><%= f.country_select :country, {}, {:include_blank => t('Please choose')}, {:class => "very_long"} %></td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :tag_list, "Tags" %></td>

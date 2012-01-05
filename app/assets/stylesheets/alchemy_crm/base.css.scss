@@ -397,10 +397,6 @@ a.show_statistic_button:hover {
 	background-position: right;
 }
 
-table#contact td.medium_long {
-	width: 291px;
-}
-
 a.remove_filter_link {
 	background: url(/alchemy/images/icons/cross.png) no-repeat;
 	width: 16px;
@@ -429,7 +425,7 @@ span.tag {
 }
 
 #alchemy input#contact_city {
-	width: 122px;
+	width: 182px;
 }
 
 #alchemy input#contact_zip {
@@ -437,5 +433,5 @@ span.tag {
 }
 
 #alchemy table#contact td.label.right {
-	width: 138px;
+	width: 40px;
 }

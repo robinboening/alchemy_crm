@@ -2,18 +2,18 @@
 	<div id="errors" style="display: none"></div>
 	<table>
 		<tr>
-			<td class="label medium_long">
+			<td class="label">
 				<%= f.label :newsletter, ("Newsletter") %>
 			</td>
-			<td>
-				<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, :prompt => 'Bitte wählen', :class => "thin_border long" %>
+			<td class="select">
+				<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, {:prompt => 'Bitte wählen'}, {:class => "long"} %>
 			</td>
 		</tr>
 		<tr>
 			<td class="label">
 				<%= f.label :name, ("Name") %>
 			</td>
-			<td>
+			<td class="input">
 				<%= f.text_field :name, :class => "thin_border long" %>
 			</td>
 		</tr>
@@ -21,7 +21,7 @@
 			<td class="label">
 				<%= f.label :subject, ("Betreff") %>
 			</td>
-			<td>
+			<td class="input">
 				<%= f.text_field :subject, :class => "thin_border long" %>
 			</td>
 		</tr>
@@ -29,8 +29,8 @@
 			<td class="label">
 				<%= f.label :additional_email_addresses, ("zusätzliche Email-Adressen*") %>
 			</td>
-			<td>
-				<%= f.text_area :additional_email_addresses, :class => "thin_border", :style => "height: 4em; width: 251px" %>
+			<td class="input">
+				<%= f.text_area :additional_email_addresses, :class => "thin_border long", :style => "height: 4em;" %>
 				<p style="text-align: right"><sup>*Email-Adressen bitte mit Komma getrennt angeben.</sup></p>
 			</td>
 		</tr>
