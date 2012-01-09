@@ -22,8 +22,13 @@ module AlchemyCrm
 		end
 
 		initializer "alchemy_crm.add_newsletter_layouts" do
-			YAML.load_file(Rails.root.join('config', 'alchemy', 'newsletter_layouts.yml')).each do |newsletter_layout|
-				Alchemy::PageLayout.add(newsletter_layout.merge({'newsletter' => true}))
+			newsletter_layouts_file = Rails.root.join('config', 'alchemy', 'newsletter_layouts.yml')
+			if File.exist? newsletter_layouts_file
+				YAML.load_file(newsletter_layouts_file).each do |newsletter_layout|
+					Alchemy::PageLayout.add(newsletter_layout.merge({'newsletter' => true}))
+				end
+			else
+				puts "!!! Alchemy CRM Warning: Newsletter Layouts File not found!\nPlease run 'rails generate alchemy_crm:scaffold' or create a 'newsletter_layouts.yml' file in config/alchemy folder."
 			end
 		end
 
