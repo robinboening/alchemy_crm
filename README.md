@@ -1,22 +1,33 @@
-Alchemy CRM Module
-==================
+Alchemy CRM Module *(2.0.alpha)*
+===============================
 
 About
 -----
 
-Alchemy CRM is a newsletter module for Alchemy CMS.
-For more Information please visit http://alchemy-cms.com
+This branch of the Alchemy CRM is a newsletter module for Alchemy CMS 2.1.
+For more Information please visit [http://alchemy-cms.com](http://alchemy-cms.com)
+
+**CAUTION: This branch is not stable. Please do not use it in productive environments.**
 
 Install
 -------
 
-1. First of all install Alchemy 2.1 beta:
+1. Put this line into your projects `Gemfile`:
 
-    <https://github.com/magiclabs/alchemy_cms/tree/next_stable>
+        gem "alchemy_crm", "~> 2.0.0.alpha", :git => 'git://github.com/magiclabs/alchemy_crm', :branch => 'rails31'
 
-2. Install the gems:
+2. Update your bundle:
 
-        $ bundle install
+        $ bundle
+
+3. Mount the Alchemy CRM Engine into your app:
+
+        # config/routes.rb
+        ...
+        mount AlchemyCrm::Engine => '/'
+        mount Alchemy::Engine => '/'
+
+  NOTE: It is **strongly** recommended to mount this module before you mount Alchemy CMS
 
 4. Copy the migrations into your app and migrate the database:
 
@@ -25,11 +36,11 @@ Install
 
 5. Seed the database:
 
-  5.1. Put this line into your db/seeds.rb file:
+  5.1. Put this line into your projects `db/seeds.rb` file:
         
         AlchemyCrm::Seeder.seed!
 
-  5.2. Run this rake task:
+  5.2. And run this rake task:
 
         $ rake db:seed
 
