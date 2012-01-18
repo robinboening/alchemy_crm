@@ -27,7 +27,7 @@ Install
         mount AlchemyCrm::Engine => '/'
         mount Alchemy::Engine => '/'
 
-  NOTE: It is **strongly** recommended to mount this module before you mount Alchemy CMS
+    NOTE: It is **strongly** recommended to mount this module before you mount Alchemy CMS
 
 4. Copy the migrations into your app and migrate the database:
 
@@ -36,13 +36,13 @@ Install
 
 5. Seed the database:
 
-  5.1. Put this line into your projects `db/seeds.rb` file:
+    1. Put this line into your projects `db/seeds.rb` file:
         
-        AlchemyCrm::Seeder.seed!
+            AlchemyCrm::Seeder.seed!
 
-  5.2. And run this rake task:
+    2. And run this rake task:
 
-        $ rake db:seed
+            $ rake db:seed
 
 Resources
 ---------
