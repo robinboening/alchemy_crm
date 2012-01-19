@@ -23,6 +23,7 @@ Gem::Specification.new do |gem|
 	gem.add_dependency 'acts-as-taggable-on', ['~> 2.1.0']
 	gem.add_dependency 'rails3-jquery-autocomplete', ['~> 1.0.4']
 	gem.add_dependency "magic-localized_country_select", ["~> 0.1"]
+	gem.add_dependency "hpricot", ["~> 0.8"]
 
 	gem.add_development_dependency 'rspec-rails', ["~> 2.7"]
 
