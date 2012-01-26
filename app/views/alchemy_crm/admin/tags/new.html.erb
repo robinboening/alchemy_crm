@@ -4,13 +4,13 @@
 		Tags werden automatisch erstellt, sobald Sie es bei einem Kontakt das erste mal verwenden.
 	</div>
 	<div id="errors" style="display: none"></div>
-	<table class="with_padding">
+	<table>
 		<tr>
 			<td class="label"><%= form.label :name %></td>
 			<td class="input"><%= form.text_field :name, :class => 'input_field' %></td>
 		</tr>
 		<tr>
-			<td colspan="2" class="submit"><%= form.button t('save', :scope => 'alchemy_crm'), :name => nil, :class => 'button' %></td>
+			<td colspan="2" class="submit"><%= form.button t('save'), :name => nil, :class => 'button' %></td>
 		</tr>
 	</table>
 <% end %>

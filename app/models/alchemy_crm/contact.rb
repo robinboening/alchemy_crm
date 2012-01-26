@@ -11,8 +11,8 @@ module AlchemyCrm
 
 		accepts_nested_attributes_for :subscriptions, :allow_destroy => true
 
-		validates_presence_of :email, :message => "Bitte geben Sie eine E-Mail Adresse an."
-		validates_uniqueness_of :email, :message => "Diese E-Mail Adresse ist bereits eingetragen."
+		validates_presence_of :email, :message => "^Bitte geben Sie eine E-Mail Adresse an."
+		validates_uniqueness_of :email, :message => "^Diese E-Mail Adresse ist bereits eingetragen."
 		validates_format_of :email, :with => /^([a-zA-Z0-9_+\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/, :message => "Die E-Mail Adresse ist nicht valide.", :if => Proc.new { |contact| contact.errors[:email].blank? }
 
 		# def validate

@@ -1,16 +1,16 @@
 <%= form_for [:admin, @contact_group], :remote => true do |f| %>
 	<div id="errors" style="display:none"></div>
-	<table border="0" cellspacing="5" cellpadding="0" style="width: 100%">
+	<table>
 		<tr>
-			<td class="label medium">
+			<td class="label">
 				<%= f.label :name, "Name" %>
 			</td>
 			<td class="input">
-				<%= f.text_field :name, :class => "thin_border long", :style => 'width: 350px' %>
+				<%= f.text_field :name, :class => "thin_border" %>
 			</td>
 		</tr>
 		<tr>
-			<td class="label medium">
+			<td class="label">
 				<label>Kontakte mit diesen Tag(s)</label>
 			</td>
 			<td class="input">
@@ -37,7 +37,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td align="right" colspan="2">
+			<td class="submit" colspan="2">
 				<%= f.button "speichern", :class => "button" %>
 			</td>
 		</tr>

@@ -6,7 +6,7 @@ module AlchemyCrm
 
 		has_many :contact_group_filters, :dependent => :destroy 
 
-		validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
+		validates_presence_of :name, :message => "^Bitte geben Sie einen Namen an."
 
 		accepts_nested_attributes_for :contact_group_filters, :allow_destroy => true
 

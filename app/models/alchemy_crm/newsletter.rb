@@ -7,7 +7,8 @@ module AlchemyCrm
 		has_many :subscriptions
 		has_many :contacts, :through => :subscriptions, :uniq => true
 
-		validates_presence_of :name, :message => "Bitte geben Sie einen Namen an."
+		validates_presence_of :name, :message => "^Bitte geben Sie einen Namen an."
+		validates_presence_of :layout, :message => "^Bitte wählen Sie einen Layout aus."
 
 		before_destroy :can_delete_mailings?
 
