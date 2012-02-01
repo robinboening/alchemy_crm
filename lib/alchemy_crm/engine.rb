@@ -4,14 +4,6 @@ module AlchemyCrm
 		isolate_namespace AlchemyCrm
 		engine_name 'alchemy_crm'
 
-		# Enabling assets precompiling
-		initializer 'alchemy_crm.assets', :group => :assets do |app|
-			app.config.assets.precompile += [
-				"alchemy_crm/scripts.js",
-				"alchemy_crm/styles.css"
-			]
-		end
-
 		initializer 'alchemy_crm.register_as_alchemy_module' do
 			Alchemy::Modules.register_module(YAML.load_file(File.join(File.dirname(__FILE__), '../..', 'config/module_definition.yml')))
 		end

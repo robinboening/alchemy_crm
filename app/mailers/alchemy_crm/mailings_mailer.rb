@@ -2,10 +2,9 @@
 module AlchemyCrm
 	class MailingsMailer < ActionMailer::Base
 
-		# We need this, because we render the elements with render_elements helper
-		helper :alchemy
-		helper :alchemy_crm
-		helper :pages
+		helper "Alchemy::Base"
+		helper "AlchemyCrm::Base"
+		helper "Alchemy::Pages"
 		helper_method :logged_in?, :configuration
 
 		def logged_in?; false; end

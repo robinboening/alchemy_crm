@@ -1,19 +1,6 @@
 module AlchemyCrm
-
-	class BounceReceiver < ActionMailer::Base
-
-		def receive(email)
-			return unless email.content_type == "multipart/report"
-			logger.info "*** Bounced email received -- #{Time.now} ***"
-			bounce = BouncedDelivery.from_email(email)
-			recipient = AlchemyCrm::Recipient.find_by_message_id(bounce.original_message_id)
-			recipient.bounced = (bounce.status == "Failure")
-			recipient.save!
-		end
-
-	end
-
 	class BouncedDelivery
+
 		attr_accessor :status_info, :original_message_id 
 
 		def self.from_email(email) 
@@ -48,5 +35,4 @@ module AlchemyCrm
 		end 
 
 	end
-
 end
