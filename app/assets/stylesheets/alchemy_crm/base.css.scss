@@ -397,14 +397,6 @@ a.show_statistic_button:hover {
 	background-position: right;
 }
 
-a.remove_filter_link {
-	background: url(/alchemy/images/icons/cross.png) no-repeat;
-	width: 16px;
-	height: 16px;
-	display: block;
-	margin-top: 2px;
-}
-
 span.tag {
 	margin-right: 12px;
 	float: left;
@@ -412,16 +404,21 @@ span.tag {
 
 #filter_container {
 	margin-bottom: 8px;
-}
 
-#filter_container span.remove_filter {
-	float: right;
-	position: relative;
-	bottom: 1px;
-}
+	.thin_border {
+		bottom: 8px;
+    	position: relative;
+	}
 
-#filter_container div.filter {
-	margin-bottom: 8px;
+	span.remove_filter {
+		float: right;
+		position: relative;
+    	top: 2px;
+	}
+
+	div.filter {
+		margin-bottom: 8px;
+	}
 }
 
 #alchemy input#contact_city {

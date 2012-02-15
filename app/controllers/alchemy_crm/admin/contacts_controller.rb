@@ -5,6 +5,11 @@ module AlchemyCrm
 
 			before_filter :load_tags, :only => [:new, :edit]
 
+			def new
+				@contact = Contact.new(:country => ::I18n.locale.upcase)
+				render :layout => false
+			end
+
 			def import
 				if request.get?
 					render :layout => false
