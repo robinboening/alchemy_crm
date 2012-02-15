@@ -12,102 +12,101 @@
 	</span>
 <%- end -%>
 <%- content_for(:toolbar) do -%>
-<div id="toolbar">
-	<div id="toolbar_buttons">
-		<div class="button_with_label">
-			<%= form_tag(
-				unlock_admin_page_path(
-					@page,
-					:redirect_to => admin_mailings_path
-				),
-				:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});"
-			) do %>
-				<button class="icon_button" title="<%= t('explain_unlocking') %>">
-					<%= render_icon('close') %>
-				</button><br />
-				<label><%= t("unlock_page") %></label>
-			<% end %>
-		</div>
-		<div class="button_with_label">
-			<%= link_to(
-				mailing_path(@mailing),
-				:onclick => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!') }', message: '#{ _('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ _('Yes') }', cancelLabel: '#{ _('No') }'});",
-				:class => 'icon_button'
-			) do %>
-				<%= render_icon('visit_page') %>
-			<% end %>
-			<label><%= t("Visit page") %></label>
-		</div>
-		<div class="button_with_label">
-			<%= link_to_overlay_window(
-				render_icon('mailing_edit'),
-					edit_admin_mailing_path(@mailing),
-					{
-						:title => 'Mailing bearbeiten',
-						:size => '450x270'
-					},
-					{
-						:class => 'icon_button',
-						:title => 'Mailing bearbeiten'
-					}
-			) -%><br />
-			<label>Mailing bearbeiten</label>
-		</div>
-		<div class="button_with_label">
-			<%= link_to_overlay_window(
-				render_icon('send_mailing'),
-				new_admin_delivery_path(:mailing_id => @mailing.id),
+<div id="toolbar_buttons">
+	<div class="button_with_label">
+		<%= form_tag(
+			alchemy.unlock_admin_page_path(
+				@page,
+				:redirect_to => admin_mailings_path
+			),
+			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!') }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'});"
+		) do %>
+			<button class="icon_button" title="<%= t('explain_unlocking') %>">
+				<%= render_icon('close') %>
+			</button><br />
+			<label><%= t("unlock_page") %></label>
+		<% end %>
+	</div>
+	<div class="button_with_label">
+		<%= link_to(
+			alchemy_crm.mailing_path(@mailing),
+			:onclick => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!') }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'});",
+			:class => 'icon_button'
+		) do %>
+			<%= render_icon('visit_page') %>
+		<% end %>
+		<label><%= t("Visit page") %></label>
+	</div>
+	<div class="button_with_label">
+		<%= link_to_overlay_window(
+			render_icon('mailing_edit'),
+				alchemy_crm.edit_admin_mailing_path(@mailing),
 				{
-					:title => t('Send Mailing'),
-					:size => '350x210'
+					:title => 'Mailing bearbeiten',
+					:size => '450x270'
 				},
 				{
-					:title => t('Send Mailing'),
-					:class => 'icon_button'
+					:class => 'icon_button',
+					:title => 'Mailing bearbeiten'
 				}
-			) %>
-			<label><%= t('Send Mailing') %></label>
-		</div>
+		) -%><br />
+		<label>Mailing bearbeiten</label>
 	</div>
-	<div id="toolbar_buttons_right">
-		<div class="button_with_label" id="show_preview_window">
-			<%= link_to_function(
-				render_icon('preview_window'),
-				"openPreviewWindow()",
-				{
-					:title => t('Show Preview Window'),
-					:class => 'icon_button'
-				}
-			) %><br />
-			<label><%= t('Show Preview Window') %></label>
-		</div>
-		<div class="button_with_label" id="show_element_window">
-			<%= link_to_function(
-				render_icon('element_window'),
-				"openElementsWindow()",
-				{
-					:title => t('Show Elements Window'),
-					:class => 'icon_button'
-				}
-			) %><br />
-			<label><%= t('Show Elements Window') %></label>
-		</div>
+	<div class="button_with_label">
+		<%= link_to_overlay_window(
+			render_icon('send_mailing'),
+			alchemy_crm.new_admin_delivery_path(:mailing_id => @mailing.id),
+			{
+				:title => t('Send Mailing'),
+				:size => '350x210'
+			},
+			{
+				:title => t('Send Mailing'),
+				:class => 'icon_button'
+			}
+		) %>
+		<label><%= t('Send Mailing') %></label>
+	</div>
+</div>
+<div id="toolbar_buttons_right">
+	<div class="button_with_label" id="show_preview_window">
+		<%= link_to_function(
+			render_icon('preview_window'),
+			"openPreviewWindow()",
+			{
+				:title => t('Show Preview Window'),
+				:class => 'icon_button'
+			}
+		) %><br />
+		<label><%= t('Show Preview Window') %></label>
+	</div>
+	<div class="button_with_label" id="show_element_window">
+		<%= link_to_function(
+			render_icon('element_window'),
+			"openElementsWindow()",
+			{
+				:title => t('Show Elements Window'),
+				:class => 'icon_button'
+			}
+		) %><br />
+		<label><%= t('Show Elements Window') %></label>
 	</div>
 </div>
 <%- end -%>
 <%- content_for :javascripts do -%>
+<%= tinymce_javascript_tags %>
 <script type="text/javascript" charset="utf-8">
-	
-	function openPreviewWindow() {
-		Alchemy.openPreviewWindow('<%= admin_page_url(@page) %>', '<%= t("Page Preview") -%>');
+
+	Alchemy.openPreviewWindow = function() {
+		Alchemy.PreviewWindow.init('<%= alchemy.admin_page_url(@page) %>', '<%= t("Page Preview") -%>');
 	}
-	
-	function openElementsWindow() {
-		Alchemy.openElementsWindow('<%= admin_elements_path(:page_id => @page.id) -%>', {
+
+	Alchemy.openElementsWindow = function() {
+		Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(:page_id => @page.id) -%>', {
 			texts: {
 				title: '<%= t("Elements") -%>',
 				dirtyTitle: '<%= t("Warning!") -%>',
-				dirtyMessage: '<%= t("You have unsaved elements. Do you really want to close the elements window?") -%>',
+				dirtyMessage: '<%= t(:element_dirty_close_window_notice) -%>',
 				okLabel: '<%= t("Yes") -%>',
 				cancelLabel: '<%= t("No") -%>'
 			},
@@ -118,10 +117,10 @@
 					iconClass: 'new_element',
 					onClick: function() {
 						Alchemy.openWindow(
-							'<%= new_admin_element_path(:page_id => @page.id) -%>',
+							'<%= alchemy.new_admin_element_path(:page_id => @page.id) -%>',
 							'<%= t("New Element") -%>',
-							'410',
-							'75',
+							'320',
+							'120',
 							false,
 							true,
 							true
@@ -135,7 +134,7 @@
 					buttonId: 'clipboard_button',
 					onClick: function() {
 						Alchemy.openWindow(
-							'<%= admin_clipboard_path(:remarkable_type => "element") -%>',
+							'<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") -%>',
 							'<%= t("Clipboard") -%>',
 							'380',
 							'270',
@@ -155,20 +154,34 @@
 					}
 				}
 			]
+		}, function() {
+			Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
+			Alchemy.ElementEditorSelector.init();
+			Alchemy.SelectBox('.element_editor select');
+			Alchemy.Tinymce.init(function() {
+				Alchemy.ElementDirtyObserver('#element_area');
+			});
+			jQuery('#cells').tabs();
+			jQuery('#cells').tabs('paging', { follow: true, followOnSelect: true } );
 		});
 	}
-	
-	jQuery(document).ready(function() {
-		openElementsWindow();
-		openPreviewWindow();
+
+	jQuery(document).ready(function($) {
+		var texts = {
+			title: '<%= t("Warning!") %>',
+			message: '<%= t(:element_dirty_page_leave_warning) %>',
+			okLabel: '<%= t("Yes") %>',
+			cancelLabel: '<%= t("No") %>'
+		};
+		$('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
+			var not_dirty = Alchemy.checkPageDirtyness(this, texts);
+			if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
+			return not_dirty;
+		});
+		Alchemy.PageLeaveObserver(texts);
+		Alchemy.openElementsWindow();
+		Alchemy.openPreviewWindow();
 	});
-	
-	Alchemy.PageLeaveObserver({
-		title: '<%= t("Warning!") -%>',
-		message: '<%=  t("You have unsaved elements on this page. Do you really want to leave this page?") -%>',
-		okLabel: '<%= t("Yes") -%>',
-		cancelLabel: '<%= t("No") -%>'
-	});
-	
+
 </script>
 <%- end -%>

@@ -45,7 +45,9 @@
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :country, "Land" %></td>
-		<td colspan="3" class="input"><%= f.country_select :country, {}, {:include_blank => t('Please choose')}, {:class => "very_long"} %></td>
+		<td colspan="3" class="input">
+			<%= f.country_select :country, {}, {:include_blank => t('Please choose')}, {:class => "very_long"} %>
+		</td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :tag_list, "Tags" %></td>

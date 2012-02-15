@@ -2,7 +2,7 @@
 module AlchemyCrm
 	class Mailing < ActiveRecord::Base
 
-		belongs_to :page, :dependent => :destroy
+		belongs_to :page, :dependent => :destroy, :class_name => 'Alchemy::Page'
 		has_many :deliveries, :dependent => :destroy
 		belongs_to :newsletter
 
@@ -68,7 +68,7 @@ module AlchemyCrm
 				:name => "Mailing #{self.name}",
 				:sitemap => false,
 				:page_layout => self.newsletter.layout,
-				:language => Language.get_default,
+				:language => Alchemy::Language.get_default,
 				:parent_id => mailing_root.id
 			)
 			if mailing_page.save

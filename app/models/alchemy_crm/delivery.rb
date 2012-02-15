@@ -10,8 +10,8 @@ module AlchemyCrm
 
 		after_create :generate_pdf, :recipients_from_mailing_contacts
 
-		scope :delivered, where("`deliveries`.`delivered_at` IS NOT NULL")
-		scope :pending, where("`deliveries`.`delivered_at` IS NULL")
+		scope :delivered, where("`alchemy_crm_deliveries`.`delivered_at` IS NOT NULL")
+		scope :pending, where("`alchemy_crm_deliveries`.`delivered_at` IS NULL")
 
 		def delivered?
 			!self.delivered_at.nil?
