@@ -1,51 +1,47 @@
-<% form_for @contact ||= Contact.new, :url => signup_contacts_path, :html => {:id => 'signup', :class => nil} do |form| %>
+<%= form_for @contact ||= AlchemyCrm::Contact.new do |form| %>
     <%= form.error_messages %>
     <table>
         <tr>
-            <td>
-                <%= form.label :salutation, 'Anrede' %>
-            </td>
-            <td>
-                <%= form.select :salutation, options_for_select([['Bitte wählen', ''], ['Herr', 'male'], ['Frau', 'female']], @contact.salutation) %>
-            </td>
+            <td><%= form.label :salutation %></td>
+            <td><%= form.select :salutation, options_for_select([['Bitte wählen', ''], ['Herr', 'male'], ['Frau', 'female']], @contact.salutation) %></td>
         </tr>
         <tr>
-            <td><%= form.label :firstname, 'Vorname' %></td>
+            <td><%= form.label :firstname %></td>
             <td><%= form.text_field :firstname %></td>
         </tr>
         <tr>
-            <td><%= form.label :lastname, 'Nachname' %></td>
+            <td><%= form.label :lastname %></td>
             <td><%= form.text_field :lastname %></td>
         </tr>
         <tr>
-            <td><%= form.label :address, 'Adresse' %></td>
+            <td><%= form.label :address %></td>
             <td><%= form.text_field :address %></td>
         </tr>
         <tr>
-            <td><%= form.label :zip, 'PLZ' %></td>
+            <td><%= form.label :zip %></td>
             <td><%= form.text_field :zip %></td>
         </tr>
         <tr>
-            <td><%= form.label :city, 'Stadt' %></td>
+            <td><%= form.label :city %></td>
             <td><%= form.text_field :city %></td>
         </tr>
         <tr>
-            <td><%= form.label :phone, 'Telefon' %></td>
+            <td><%= form.label :phone %></td>
             <td><%= form.text_field :phone %></td>
         </tr>
         <tr>
-            <td><%= form.label :email, 'Email*' %></td>
+            <td><%= form.label :email %></td>
             <td><%= form.text_field :email %></td>
         </tr>
     </table>
     <%= render_essence_view_by_name element, 'newsletter_text' %>
-    <%- @newsletters ||= Newsletter.subscribables -%>
-    <%- @newsletters.each_with_index do |newsletter, idx| -%>
+    <% @newsletters ||= AlchemyCrm::Newsletter.subscribables -%>
+    <% @newsletters.each_with_index do |newsletter, idx| -%>
     <p>
         <%= check_box_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.id, @contact.subscriptions.detect { |ns| ns.newsletter_id == newsletter.id } %>
         <%= label_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.name %>
     </p>
-    <%- end -%>
+    <% end -%>
     <%= hidden_field_tag :element_id, element.id %>
     <%= form.submit t('newsletter.subscribe_form.button_label', :scope => 'alchemy_crm'), :name => nil %>
 <% end %>

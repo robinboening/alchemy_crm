@@ -1,10 +1,7 @@
-<%- all_pages_for_select = Alchemy::Page.find_all_by_language(session[:language]).map { |p| [p.name, p.id.to_s] } -%>
-
 <%= render_essence_editor_by_name(element, 'signout_text') %>
-<%= render_essence_editor_by_name(element, 'followup_page', { :select_values => all_pages_for_select }) %>
+<%= page_selector(element, 'followup_page') %>
 <%= render_essence_editor_by_name(element, 'mail_from') %>
 <%= render_essence_editor_by_name(element, 'mail_subject') %>
 <%= render_essence_editor_by_name(element, 'email_text') %>
 <p class="foot_note">Bitte den Link zur Bestätigung mit %{link} einfügen.<br />Den Namen des Empfängers mit %{name} einfügen.</p>
-
-<%= render_essence_editor_by_name(element, 'signout_followup_page', { :select_values => all_pages_for_select }) %>
+<%= page_selector(element, 'signout_followup_page') %>

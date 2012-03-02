@@ -1,4 +1,4 @@
-<% form_tag signout_contacts_path, :method => :get, :id => 'signout' do %>
+<%= form_tag alchemy_crm.signout_path, :method => :get, :id => 'signout' do %>
     <%= render_essence_view_by_name(element, 'signout_text') %>
     <p><%= flash[:notice] %></p>
     <table>

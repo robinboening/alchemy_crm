@@ -1,5 +1,9 @@
 en:
   alchemy:
+
+	element_names:
+      alchemy_crm_contact_form: Newsletter Signup Form
+
     modules:
       crm: CRM
   

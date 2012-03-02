@@ -1,8 +1,12 @@
 de:
   alchemy:
+
+    element_names:
+      alchemy_crm_contact_form: Newsletter Anmeldeformular
+
     modules:
       crm: CRM
-    
+
     alchemy_crm:
       "New Tag": "Neues Tag"
       "New Tag Created": "Neues Tag wurde erstellt"
