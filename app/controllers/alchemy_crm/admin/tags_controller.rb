@@ -1,7 +1,7 @@
 # encoding: UTF-8
 module AlchemyCrm
 	module Admin
-		class TagsController < Alchemy::Admin::BaseController
+		class TagsController < Alchemy::Admin::ResourcesController
 
 			before_filter :load_tag, :only => [:edit, :update, :destroy]
 			helper "AlchemyCrm::Base"
@@ -9,10 +9,7 @@ module AlchemyCrm
 			def index
 				@tags = ActsAsTaggableOn::Tag.where(
 					"name LIKE '%#{params[:query]}%'"
-				).paginate(
-					:page => params[:page] || 1,
-					:per_page => 20
-				).order("name ASC")
+				).page(params[:page] || 1).per(per_page_value_for_screen_size).order("name ASC")
 			end
 
 			def new
