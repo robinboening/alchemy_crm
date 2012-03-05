@@ -1,59 +1,70 @@
 AlchemyCrm::Engine.routes.draw do
 
-  match '/recipients/reads/:id' => 'recipients#reads',
-    :as => 'recipient_reads'
-  match '/recipients/reacts/:id' => 'recipients#reacts',
-    :as => 'recipient_reacts'
-  match '/contacts/verify/:sha1/:element_id' => 'contacts#verify',
-    :as => 'verify_mailing'
-  match '/contacts/destroy/:sha1/:element_id' => 'contacts#destroy',
-    :as => 'destroy_contact'
-  match '/subscriptions/destroy/:newsletter_id/:sha1/:element_id' => 'subscriptions#destroy',
-    :as => 'signout_from_newsletter'
-  match '/admin/elements/teasables' => 'admin/elements#teasables',
-    :as => 'teasable_elements'
+	match '/recipients/reads/:id' => 'recipients#reads',
+		:as => 'recipient_reads'
+	
+	match '/recipients/reacts/:id' => 'recipients#reacts',
+		:as => 'recipient_reacts'
+	
+	match '/subscriptions/destroy/:newsletter_id/:token/:element_id' => 'subscriptions#destroy',
+		:as => 'destroy_subscription'
+	
+	match '/admin/elements/teasables' => 'admin/elements#teasables',
+		:as => 'teasable_elements'
+	
+	match '/admin/elements/teasables' => 'admin/elements#teasables',
+		:as => 'teasable_elements'
 
-  resources :mailings, :only => :show
+	match '/contacts/:token/verify/:element_id' => 'contacts#verify',
+		:as => 'verify_contact'
 
-  resources :contacts, :except => [:index, :show, :new, :create, :edit, :update, :destroy] do
-    collection do 
-      post :signup
-      get :signout, :verify
-    end
-  end
+	match '/subscriptions/:id/verify/:element_id' => 'contacts#verify',
+		:as => 'verify_subscription'
 
-  resources :subscriptions
+	resources :mailings, :only => :show
 
-  namespace :admin do
+	resources :contacts do
+		collection do
+			post :signup
+		end
+	end
 
-    resources :contacts do
-      collection do
-        get :import
-        get :autocomplete_tag_list
-        post :import
-      end
-      member { get :export }
-    end
+	resources :subscriptions do
+		collection do
+			post :overview
+		end
+	end
 
-    resources :contact_groups do
-      collection { get :add_filter }
-    end
+	namespace :admin do
 
-    resources :tags, :newsletters
+		resources :contacts do
+			collection do
+				get :import
+				get :autocomplete_tag_list
+				post :import
+			end
+			member { get :export }
+		end
 
-    resources :deliveries do
-      member { get :pdf }
-    end
+		resources :contact_groups do
+			collection { get :add_filter }
+		end
 
-    resources :mailings do
-      resources :deliveries
-      collection { get :signout }
-      member do
-        get :copy
-        get :edit_content
-      end
-    end
+		resources :tags, :newsletters
 
-  end
+		resources :deliveries do
+			member { get :pdf }
+		end
+
+		resources :mailings do
+			resources :deliveries
+			collection { get :signout }
+			member do
+				get :copy
+				get :edit_content
+			end
+		end
+
+	end
 
 end

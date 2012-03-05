@@ -1,0 +1,19 @@
+# These page layouts are added by the Alchemy CRM module.
+
+- name: newsletter_signup
+  unique: true
+  cache: false
+  elements: [newsletter_signup_form]
+  autogenerate: [newsletter_signup_form]
+
+- name: newsletter_signout
+  unique: true
+  cache: false
+  elements: [newsletter_signout_form]
+  autogenerate: [newsletter_signout_form]
+
+- name: newsletter_mails
+  unique: true
+  layoutpage: true
+  elements: [newsletter_signup_mail, newsletter_signout_mail]
+  autogenerate: [newsletter_signup_mail, newsletter_signout_mail]

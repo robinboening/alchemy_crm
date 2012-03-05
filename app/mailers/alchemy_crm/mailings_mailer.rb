@@ -34,23 +34,10 @@ module AlchemyCrm
 			end
 		end
 
-		def verification_mail(contact, server, element, newsletter_ids)
-			recipients contact.email
-			from element.content_by_name("mail_from").ingredient
-			subject element.content_by_name("mail_subject").ingredient
-			content_type "text/html"
-			body(
-				:contact => contact,
-				:server => server.gsub(/http:\/\//, ''),
-				:element => element,
-				:newsletter_ids => newsletter_ids
-			)
-		end
-
 		def signout_mail(contact, server, element)
 			recipients contact.email
-			from element.content_by_name("mail_from").ingredient
-			subject element.content_by_name("mail_subject").ingredient
+			from element.ingredient("mail_from")
+			subject element.ingredient("mail_subject")
 			content_type "text/html"
 			body(
 				:contact => contact,

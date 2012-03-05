@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <%= @element.content_by_name("text").ingredient % {
+            :link => link_to(
+                url = alchemy_crm.verify_contact_url(:token => @contact.email_sha1, :element_id => @element.id, :newsletter_ids => @newsletter_ids),
+                url
+            ),
+            :name => @contact.fullname
+        } %>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+# These elements are added by the Alchemy CRM module.
+
+- name: newsletter_signup_form
+  unique: true
+  contents:
+  - name: text
+    type: EssenceRichtext
+  - name: followup_page
+    type: EssenceText
+    validate: [presence]
+    settings:
+      display_as: select
+
+- name: newsletter_signup_mail
+  unique: true
+  contents:
+  - name: mail_from
+    type: EssenceText
+    validate: [presence]
+  - name: subject
+    type: EssenceText
+    validate: [presence]
+  - name: text
+    type: EssenceRichtext
+    validate: [presence]
+  - name: followup_page
+    type: EssenceText
+    validate: [presence]
+    settings:
+      display_as: select
+
+- name: newsletter_signout_form
+  unique: true
+  contents:
+  - name: text
+    type: EssenceRichtext
+  - name: followup_page
+    type: EssenceText
+    validate: [presence]
+    settings:
+      display_as: select
+
+- name: newsletter_signout_mail
+  unique: true
+  contents:
+  - name: mail_from
+    type: EssenceText
+    validate: [presence]
+  - name: subject
+    type: EssenceText
+    validate: [presence]
+  - name: text
+    type: EssenceRichtext
+    validate: [presence]
+  - name: followup_page
+    type: EssenceText
+    validate: [presence]
+    settings:
+      display_as: select

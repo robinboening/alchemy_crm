@@ -1,11 +1,16 @@
 en:
   alchemy:
 
-	element_names:
-      alchemy_crm_contact_form: Newsletter Signup Form
+    page_layout_names:
+      newsletter_signup: Newsletter Signup
+      newsletter_signout: Newsletter Signout
+      newsletter_mails: Newsletter Mails
+
+    element_names:
+      newsletter_signup_form: Newsletter Signup Form
 
     modules:
       crm: CRM
-  
-  alchemy_crm:
-    "Inhalte wurden übernommen": "Contents transfered"
+    
+    alchemy_crm:
+      "Inhalte wurden übernommen": "Contents transfered"

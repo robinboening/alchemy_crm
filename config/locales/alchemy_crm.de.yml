@@ -1,13 +1,41 @@
+# encoding: utf-8
+
 de:
   alchemy:
 
+    page_layout_names:
+      newsletter_signup: Newsletter Anmeldung
+      newsletter_signout: Newsletter Abmeldung
+      newsletter_mails: Newsletter E-Mails
+
     element_names:
-      alchemy_crm_contact_form: Newsletter Anmeldeformular
+      newsletter_signup_form: Newsletter Anmeldeformular
 
     modules:
       crm: CRM
+
+    content_names:
+      newsletter_signup_form:
+        followup_page: "Folgeseite für die Anmeldebestätigung"
+
+    content_validations:
+      newsletter_signup_form:
+        followup_page:
+          blank: "Bitte wählen Sie eine Folgeseite für die Anmeldebestätigung aus"
 
     alchemy_crm:
       "New Tag": "Neues Tag"
       "New Tag Created": "Neues Tag wurde erstellt"
       "Send Mailing": "Mailing versenden"
+
+  activerecord:
+    attributes:
+      alchemy_crm/contact:
+        salutation: Anrede
+        firstname: Vorname
+        lastname: Nachname
+        address: Adresse
+        zip: PLZ
+        city: Ort
+        phone: Telefon
+        email: E-Mail
