@@ -30,7 +30,7 @@
 			<td class="input">
 				<%= text_field_tag nil, @delivery.deliver_at.strftime('%d.%m.%Y'), :class => 'datepicker thin_border', :id => nil, :style => 'width: 90px' %>
 				<label>um</label>
-				<%= f.time_select :deliver_at, {:minute_step => 15, :time_separator => '<label>:&nbsp;</label>'.html_safe} %>
+				<%= f.time_select :deliver_at, { :minute_step => 15, :time_separator => '<label>:&nbsp;</label>'.html_safe }, { :class => 'alchemy_selectbox' } %>
 				<label>Uhr</label>
 			</td>
 		</tr>

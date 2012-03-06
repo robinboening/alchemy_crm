@@ -3,13 +3,13 @@
 		"contact_group[contact_group_filters_attributes][#{count}][column]",
 		options_for_select(AlchemyCrm::Contact.filterable_column_names, filter.column),
 		:id => "filter_column_#{count}",
-		:class => 'medium'
+		:class => 'alchemy_selectbox medium'
 	) %>
 	<%= select_tag(
 		"contact_group[contact_group_filters_attributes][#{count}][operator]",
 		options_for_select(AlchemyCrm::ContactGroupFilter.operators, filter.operator),
 		:id => "filter_operator_#{count}",
-		:class => 'short'
+		:class => 'alchemy_selectbox short'
 	) %>
 	<%= text_field_tag(
 		"contact_group[contact_group_filters_attributes][#{count}][value]",

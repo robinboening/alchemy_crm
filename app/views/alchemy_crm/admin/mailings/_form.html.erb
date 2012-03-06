@@ -6,7 +6,7 @@
 				<%= f.label :newsletter, ("Newsletter") %>
 			</td>
 			<td class="select">
-				<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, {:prompt => 'Bitte wählen'}, {:class => "long"} %>
+				<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, { :prompt => 'Bitte wählen' }, { :class => "alchemy_selectbox long" } %>
 			</td>
 		</tr>
 		<tr>

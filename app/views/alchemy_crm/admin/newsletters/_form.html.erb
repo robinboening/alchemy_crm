@@ -14,7 +14,7 @@
 				<%= f.label :layout, "Layout" %>
 			</td>
 			<td class="select">
-				<%= f.select :layout, @page_layouts, :prompt => 'Bitte wählen' %>
+				<%= f.select :layout, @page_layouts, { :prompt => 'Bitte wählen' }, { :class => 'alchemy_selectbox' } %>
 			</td>
 		</tr>
 		<tr>

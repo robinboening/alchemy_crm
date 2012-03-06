@@ -3,7 +3,8 @@
 	<%= select_tag(
 		"pages",
 		options_for_select([["Alle", ""]]) + options_from_collection_for_select(@pages, :id, :name),
-		:onchange => "AlchemyCrm.teasablesFilter(this.value)"
+		:onchange => "AlchemyCrm.teasablesFilter(this.value)",
+		:class => 'alchemy_selectbox'
 	) %>
 	anzeigen.
 </div>

@@ -3,7 +3,7 @@
 <table id="contact">
 	<tr>
 		<td class="label"><%= f.label :salutation, "Anrede" %></td>
-		<td colspan="3" class="select"><%= f.select :salutation, options_for_select([['Bitte wählen', ''], ['Herr', 'male'], ['Frau', 'female']], @contact.salutation), {}, {:class => 'very_long'} %></td>
+		<td colspan="3" class="select"><%= f.select :salutation, options_for_select([['Bitte wählen', ''], ['Herr', 'male'], ['Frau', 'female']], @contact.salutation), {}, {:class => 'alchemy_selectbox very_long'} %></td>
 	</tr>
 	<tr>
 		<td class="label"><%= f.label :title, "Titel" %></td>
@@ -46,7 +46,7 @@
 	<tr>
 		<td class="label"><%= f.label :country, "Land" %></td>
 		<td colspan="3" class="input">
-			<%= f.country_select :country, {}, {:include_blank => t('Please choose')}, {:class => "very_long"} %>
+			<%= f.country_select :country, {}, {:include_blank => t('Please choose')}, {:class => "alchemy_selectbox very_long"} %>
 		</td>
 	</tr>
 	<tr>
