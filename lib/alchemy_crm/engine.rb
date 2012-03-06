@@ -24,6 +24,10 @@ module AlchemyCrm
 			end
 		end
 
+		initializer "alchemy_crm.inject_helpers" do
+			ActionView::Base.send :include, AlchemyCrm::BaseHelper
+		end
+
 		# Loading all alchemy core extensions found in app folder.
 		config.to_prepare do
 			Dir.glob(File.join(File.dirname(__FILE__), "../../app/**/*_extension.rb")) do |e|

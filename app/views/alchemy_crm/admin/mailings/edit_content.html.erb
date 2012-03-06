@@ -23,7 +23,7 @@
 		) do %>
 			<button class="icon_button" title="<%= t('explain_unlocking') %>">
 				<%= render_icon('close') %>
-			</button><br />
+			</button>
 			<label><%= t("unlock_page") %></label>
 		<% end %>
 	</div>
@@ -98,7 +98,7 @@
 <script type="text/javascript" charset="utf-8">
 
 	AlchemyCrm.openPreviewWindow = function() {
-		Alchemy.PreviewWindow.init('<%= alchemy.admin_page_url(@page) %>', '<%= t("Page Preview") -%>');
+		Alchemy.PreviewWindow.init('<%= alchemy.admin_page_url(@page, :layout => "alchemy/newsletters") %>', '<%= t("Page Preview") -%>');
 	}
 
 	AlchemyCrm.openElementsWindow = function() {
