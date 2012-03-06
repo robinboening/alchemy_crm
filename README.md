@@ -14,7 +14,7 @@ Install
 
 1. Put this line into your projects `Gemfile`:
 
-        gem "alchemy_crm", "~> 2.0.0.alpha", :git => 'git://github.com/magiclabs/alchemy_crm', :branch => 'rails31'
+        gem "alchemy_crm", :git => 'git://github.com/magiclabs/alchemy_crm', :branch => 'rails31'
 
 2. Update your bundle:
 
@@ -24,7 +24,7 @@ Install
 
         # config/routes.rb
         ...
-        mount AlchemyCrm::Engine => '/'
+        mount AlchemyCrm::Engine => '/newsletter'
         mount Alchemy::Engine => '/'
 
     NOTE: It is **strongly** recommended to mount this module before you mount Alchemy CMS
@@ -44,6 +44,16 @@ Install
 
             $ rake db:seed
 
+6. Generate files and folders:
+
+    1. Run scaffold generator
+
+            $ rails g alchemy_crm:scaffold
+
+    2. Run copy elements rake task
+
+            $ rake alchemy_crm:elements:copy
+
 Resources
 ---------
 
@@ -62,4 +72,4 @@ Authors
 License
 -------
 
-* GPLv3: <http://www.gnu.org/licenses/gpl.html/>
+* MIT: <https://raw.github.com/magiclabs/alchemy_crm/rails31/MIT-LICENSE>

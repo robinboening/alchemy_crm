@@ -16,4 +16,13 @@ namespace 'alchemy_crm' do
 		end
 	end
 
+	namespace 'elements' do
+		desc "Copy all crm elements into app"
+		task :copy do
+			Dir.glob(File.expand_path('../../app/views/alchemy/elements/*', File.dirname(__FILE__))).each do |file|
+				FileUtils.cp(file, Rails.root.join('app/views/alchemy/elements/'))
+			end
+		end
+	end
+
 end
