@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <%= @element.ingredient("email_text") % { 
+            :link => destroy_contact_url(
+                :token => @contact.email_sha1,
+                :host => @server,
+                :element_id => @element.id
+            ),
+            :name => @contact.fullname 
+        } %>
+        <%- @subscriptions.each do |subscription| -%>
+        <ul>
+            <li>
+                <%= subscription.newsletter.name %>
+                <%= link_to(
+                    t("newsletter.signout_email.signout", :scope => 'alchemy_crm'),
+                    signout_from_newsletter_url(
+                        :token => @contact.email_sha1,
+                        :subscription_id => subscription.id,
+                        :element_id => @element.id
+                    )
+                ) %>
+            </li>
+        </ul>
+        <%- end -%>
+    </body>
+</html>

@@ -1,0 +1,23 @@
+<% if flash[:notice].present? -%>
+<p class="flash notice"><%= flash[:notice] %></p>
+<% elsif flash[:error].present? -%>
+<p class="flash error"><%= flash[:error] %></p>
+<% end -%>
+
+<% if @contact.nil? -%>
+
+<%= form_tag alchemy_crm.overview_subscriptions_path do %>
+	<%= label_tag :email, t('E-Mail') %>
+	<%= email_field_tag :email %>
+	<%= submit_tag t('Send subscriptions overview', :name => nil) %>
+<% end -%>
+
+<% else -%>
+
+<% @contact.subscriptions.each do |subscription| -%>
+<ul id="newsletter_subscriptions">
+	<li><%= subscription.newsletter.name %></li>
+</ul>
+<% end -%>
+
+<% end -%>
