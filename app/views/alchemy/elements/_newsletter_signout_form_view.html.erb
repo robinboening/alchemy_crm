@@ -14,13 +14,19 @@
 	<% end -%>
 	<table>
 		<tr>
-			<td><%= label_tag 'email', ::I18n.t(:email, :scope => "activerecord.attributes.alchemy_crm/contact") %></td>
-			<td><%= text_field_tag 'email', params[:email] %></td>
+			<td class="label">
+				<%= label_tag 'email', ::I18n.t(:email, :scope => "activerecord.attributes.alchemy_crm/contact") %>
+			</td>
+			<td class="input">
+				<%= email_field_tag 'email', params[:email], :required => true, :class => 'text_field' %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="submit">
+				<%= button_tag ::I18n.t('signout_form.button_label', :scope => :alchemy_crm), :name => nil %>
+			</td>
 		</tr>
 	</table>
-	<p>
-		<%= submit_tag ::I18n.t('signout_form.button_label', :scope => :alchemy_crm), :name => nil %>
-	</p>
 <% end %>
 
 <% end -%>
