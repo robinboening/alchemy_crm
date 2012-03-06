@@ -17,50 +17,62 @@
 	<%= form.error_messages %>
 	<table>
 		<tr>
-			<td><%= form.label :salutation %></td>
-			<td><%= form.select :salutation, options_for_select([[t('Please choose'), ''], [t('male'), 'male'], [t('female'), 'female']], @contact.salutation) %></td>
+			<td class="label"><%= form.label :salutation %></td>
+			<td class="input" colspan="3">
+				<%= form.radio_button :salutation, :male, :required => true %>
+				<%= form.label :salutation_male, t('male') %>
+				<%= form.radio_button :salutation, :female, :required => true %>
+				<%= form.label :salutation_female, t('female') %>
+			</td>
 		</tr>
 		<tr>
-			<td><%= form.label :firstname %></td>
-			<td><%= form.text_field :firstname %></td>
+			<td class="label"><%= form.label :firstname %></td>
+			<td class="input" colspan="3"><%= form.text_field :firstname, :class => 'text_field', :required => true %></td>
 		</tr>
 		<tr>
-			<td><%= form.label :lastname %></td>
-			<td><%= form.text_field :lastname %></td>
+			<td class="label"><%= form.label :lastname %></td>
+			<td class="input" colspan="3"><%= form.text_field :lastname, :class => 'text_field', :required => true %></td>
 		</tr>
 		<tr>
-			<td><%= form.label :address %></td>
-			<td><%= form.text_field :address %></td>
+			<td class="label"><%= form.label :email %></td>
+			<td class="input" colspan="3"><%= form.email_field :email, :class => 'text_field', :required => true %></td>
 		</tr>
 		<tr>
-			<td><%= form.label :zip %></td>
-			<td><%= form.text_field :zip %></td>
+			<td class="label"><%= form.label :address %></td>
+			<td class="input" colspan="3"><%= form.text_field :address, :class => 'text_field' %></td>
 		</tr>
 		<tr>
-			<td><%= form.label :city %></td>
-			<td><%= form.text_field :city %></td>
+			<td class="label"><%= form.label :zip %></td>
+			<td class="input short"><%= form.text_field :zip, :class => 'text_field' %></td>
+			<td class="label short"><%= form.label :city %></td>
+			<td class="input medium"><%= form.text_field :city, :class => 'text_field' %></td>
 		</tr>
 		<tr>
-			<td><%= form.label :phone %></td>
-			<td><%= form.text_field :phone %></td>
+			<td class="label"><%= form.label :phone %></td>
+			<td class="input" colspan="3"><%= form.text_field :phone, :class => 'text_field' %></td>
 		</tr>
 		<tr>
-			<td><%= form.label :email %></td>
-			<td><%= form.text_field :email %></td>
+			<td colspan="4">
+				<%= render_essence_view_by_name element, 'choose_newsletter_text' %>
+				<% if @newsletters.length == 1 -%>
+					<%= hidden_field_tag "contact[subscriptions_attributes][0][newsletter_id]", @newsletters.first.id %>
+				<% else -%>
+					<% @newsletters.each_with_index do |newsletter, idx| -%>
+					<p>
+						<%= check_box_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.id, @contact.subscriptions.detect { |ns| ns.newsletter_id == newsletter.id } %>
+						<%= label_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.name %>
+					</p>
+					<% end -%>
+				<% end -%>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4" class="submit">
+				<%= form.button ::I18n.t('subscribe_form.button_label', :scope => :alchemy_crm), :name => nil %>
+			</td>
 		</tr>
 	</table>
-	<%= render_essence_view_by_name element, 'choose_newsletter_text' %>
-	<% if @newsletters.length > 1 -%>
-		<% @newsletters.each_with_index do |newsletter, idx| -%>
-		<p>
-			<%= check_box_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.id, @contact.subscriptions.detect { |ns| ns.newsletter_id == newsletter.id } %>
-			<%= label_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.name %>
-		</p>
-		<% end -%>
-	<% elsif @newsletters.length == 1 -%>
-		<%= hidden_field_tag "contact[subscriptions_attributes][0][newsletter_id]", @newsletters.first.id %>
-	<% end -%>
-	<%= form.submit ::I18n.t('subscribe_form.button_label', :scope => :alchemy_crm), :name => nil %>
+	<p class="mandatory_fields_notice"><%= ::I18n.t(:mandatory_fields, :scope => :alchemy_crm) %></p>
 <% end %>
 
 <% end -%>
