@@ -21,8 +21,10 @@ de:
       newsletter_signup_form:
         choose_newsletter_text: "Newsletter Auswahltext"
         signed_up_text: "Bestätigungs-E-Mail Hinweis"
-        verified_text: "Kontakt Bestätigungstext"
+        verified_text: "Kontakt Anmeldebestätigungstext"
       newsletter_signout_form:
+        signed_out_text: "Abmelde-E-Mail Hinweis"
+        disabled_text: "Kontakt Abmeldebestätigungstext"
 
   alchemy_crm:
     "New Tag": "Neues Tag"
@@ -32,6 +34,7 @@ de:
     contact_unknown: "Dieser Kontakt konnte nicht gefunden werden!"
     text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen."
     mail_text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen. Den Bestätigungslink fügen Sie bitte mit %{link} ein."
+    mandatory_fields: "*Pflichtfelder"
     subscribe_form:
       button_label: bestellen
     signout_form:
@@ -40,11 +43,11 @@ de:
   activerecord:
     attributes:
       alchemy_crm/contact:
-        salutation: Anrede
-        firstname: Vorname
-        lastname: Nachname
+        salutation: "Anrede*"
+        firstname: "Vorname*"
+        lastname: "Nachname*"
         address: Adresse
         zip: PLZ
         city: Ort
         phone: Telefon
-        email: E-Mail
+        email: "E-Mail*"
