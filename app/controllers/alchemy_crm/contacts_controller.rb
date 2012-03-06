@@ -5,71 +5,100 @@ module AlchemyCrm
 		helper 'Alchemy::Pages'
 		layout :layout_for_page
 
+		before_filter :load_signup_form, :only => [:show, :signup, :verify]
+		before_filter :load_signout_form, :only => [:signout, :disable]
+
+		def show
+			@page = @element.page
+			@root_page = @page.get_language_root
+			render :template => 'alchemy/pages/show'
+		end
+
 		def signup
 			@contact = Contact.new(params[:contact])
-			@element = Alchemy::Element.find_by_id(params[:element_id])
 			if @contact.save
-				followup_page = Alchemy::Page.find(@element.ingredient('followup_page'))
 				ContactsMailer.signup_mail(
 					@contact,
 					@contact.subscriptions.collect(&:newsletter_id),
 					Alchemy::Page.find_by_page_layout_and_language_id('newsletter_mails', session[:language_id])
 				).deliver
-				redirect_to alchemy.show_page_path(:urlname => followup_page.urlname, :lang => multi_language? ? session[:language_code] : nil)
+				@contact_signed_up = true
 			else
-				@page = @element.page
-				@root_page = @page.get_language_root
-				render :template => 'alchemy/pages/show'
+				@contact_signed_up = false
 			end
+			@page = @element.page
+			@root_page = @page.get_language_root
+			render :template => 'alchemy/pages/show'
 		end
 
 		def verify
-			@element = Alchemy::Element.find(params[:element_id])
 			if params[:token].blank?
-				flash[:notice] = 'Diese E-Mail Adresse ist uns nicht bekannt.'
-				@page = @element.page
-				@root_page = @page.get_language_root
-				render :template => 'alchemy/pages/show'
+				flash[:notice] = ::I18n.t(:contact_unknown, :scope => :alchemy_crm)
 			else
 				@contact = Contact.find_by_email_sha1(params[:token])
 				@subscriptions = @contact.subscriptions.where(:newsletter_id => params[:newsletter_ids])
 				@subscriptions.each do |subscription|
 					subscription.update_attributes(:verified => true)
 				end
-				@contact.update_attributes(:verified => true)
-				followup_page = Alchemy::Page.find(@element.ingredient('followup_page'))
-				redirect_to alchemy.show_page_path(:urlname => followup_page.urlname, :lang => multi_language? ? session[:language_code] : nil)
+				@contact_verified = @contact.update_attributes(:verified => true)
 			end
+			@page = @element.page
+			@root_page = @page.get_language_root
+			render :template => 'alchemy/pages/show'
 		end
 
 		def signout
-			@element = Alchemy::Element.find(params[:element_id])
 			@contact = Contact.find_by_email(params[:email])
 			if @contact.blank?
-				flash[:notice] = 'Diese E-Mail Adresse ist uns nicht bekannt.'
-				@page = @element.page
-				@root_page = @page.get_language_root
-				render :template => 'alchemy/pages/show'
+				flash[:notice] = ::I18n.t(:contact_unknown, :scope => :alchemy_crm)
+				@contact_signed_out = false
 			else
-				followup_page = Alchemy::Page.find(@element.ingredient('followup_page'))
-				MailingsMailer.deliver_signout_mail(
+				ContactsMailer.signout_mail(
 					@contact,
-					current_server,
-					@element
-				)
-				redirect_to alchemy.show_page_path(:urlname => followup_page.urlname, :lang => multi_language? ? session[:language_code] : nil)
+					Alchemy::Page.find_by_page_layout_and_language_id('newsletter_mails', session[:language_id])
+				).deliver
+				@contact_signed_out = true
+			end
+			@page = @element.page
+			@root_page = @page.get_language_root
+			render :template => 'alchemy/pages/show'
+		end
+
+		def disable
+			@contact = Contact.find_by_email_sha1(params[:token])
+			if @contact
+				@contact_disabled = @contact.disable!
+			else
+				flash[:notice] = ::I18n.t(:contact_unknown, :scope => :alchemy_crm)
+				@contact_disabled = false
+			end
+			@page = @element.page
+			@root_page = @page.get_language_root
+			render :template => 'alchemy/pages/show'
+		end
+
+	private
+
+		def load_signup_form
+			@element = Alchemy::Element.find_by_name('newsletter_signup_form')
+			if @element.blank?
+				if Rails.env.production?
+					render :file => Rails.root.join('public', '404.html'), :status => 404
+				else
+					raise ActiveRecord::RecordNotFound, "Alchemy::Element with name 'newsletter_signup_form' not found!"
+				end
 			end
 		end
 
-		def destroy
-			@element = Alchemy::Element.find(params[:element_id])
-			@contact = Contact.find_by_email_sha1(params[:token])
-			@contact.destroy
-			followup_page = Alchemy::Page.find(@element.ingredient('followup_page'))
-			redirect_to alchemy.show_page_path(:urlname => followup_page.urlname, :lang => multi_language? ? session[:language_code] : nil)
-		rescue
-			log_error($!)
-			render :file => Rails.root + 'public/422.html', :status => 422
+		def load_signout_form
+			@element = Alchemy::Element.find_by_name('newsletter_signout_form')
+			if @element.blank?
+				if Rails.env.production?
+					render :file => Rails.root.join('public', '404.html'), :status => 404
+				else
+					raise ActiveRecord::RecordNotFound, "Alchemy::Element with name 'newsletter_signout_form' not found!"
+				end
+			end
 		end
 
 	end

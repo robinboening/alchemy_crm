@@ -432,3 +432,7 @@ span.tag {
 #alchemy table#contact td.label.right {
 	width: 40px;
 }
+
+table tr.disabled td {
+	background-color: red;
+}

@@ -34,17 +34,5 @@ module AlchemyCrm
 			end
 		end
 
-		def signout_mail(contact, server, element)
-			recipients contact.email
-			from element.ingredient("mail_from")
-			subject element.ingredient("mail_subject")
-			content_type "text/html"
-			body(
-				:contact => contact,
-				:server => server.gsub(/http:\/\//, ''),
-				:element => element
-			)
-		end
-
 	end
 end

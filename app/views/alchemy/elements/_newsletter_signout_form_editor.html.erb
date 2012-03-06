@@ -1,7 +1,3 @@
-<%= render_essence_editor_by_name(element, 'signout_text') %>
-<%= page_selector(element, 'followup_page') %>
-<%= render_essence_editor_by_name(element, 'mail_from') %>
-<%= render_essence_editor_by_name(element, 'mail_subject') %>
-<%= render_essence_editor_by_name(element, 'email_text') %>
-<p class="foot_note">Bitte den Link zur Bestätigung mit %{link} einfügen.<br />Den Namen des Empfängers mit %{name} einfügen.</p>
-<%= page_selector(element, 'signout_followup_page') %>
+<%= render_essence_editor_by_name(element, 'signed_out_text') %>
+<%= render_essence_editor_by_name(element, 'disabled_text') %>
+<p class="foot_note"><%= ::I18n.t(:text_interpolation_notice, :scope => :alchemy_crm) %></p>

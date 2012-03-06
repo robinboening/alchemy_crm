@@ -35,6 +35,11 @@ module AlchemyCrm
 			["Firma", "organisation"]
 		]
 
+		def disable!
+			self.disabled = true
+			save!
+		end
+
 		def update_sha1
 			if(self.email_sha1.blank? || self.email != Contact.find(self.id).email)
 				salt = self.email_salt || [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
@@ -48,7 +53,11 @@ module AlchemyCrm
 
 		def fullname(options = {})
 			options = (default_options = { :flipped => false }.merge(options))
-			options[:flipped] ? "#{self.lastname}, #{self.firstname}".squeeze(" ") : "#{self.firstname} #{self.lastname}".squeeze(" ")
+			if lastname.present? || firstname.present?
+				options[:flipped] ? "#{lastname}, #{firstname}".squeeze(" ") : "#{firstname} #{lastname}".squeeze(" ")
+			else
+				email
+			end
 		end
 
 		def self.replace_tag(old_tag, new_tag)

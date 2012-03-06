@@ -18,15 +18,15 @@ de:
       newsletter_signup_form:
         followup_page: "Folgeseite für die Anmeldebestätigung"
 
-    content_validations:
-      newsletter_signup_form:
-        followup_page:
-          blank: "Bitte wählen Sie eine Folgeseite für die Anmeldebestätigung aus"
-
-    alchemy_crm:
-      "New Tag": "Neues Tag"
-      "New Tag Created": "Neues Tag wurde erstellt"
-      "Send Mailing": "Mailing versenden"
+  alchemy_crm:
+    "New Tag": "Neues Tag"
+    "New Tag Created": "Neues Tag wurde erstellt"
+    "Send Mailing": "Mailing versenden"
+    contact_unknown: "Dieser Kontakt konnte nicht gefunden werden!"
+    subscribe_form:
+      button_label: bestellen
+    signout_form:
+      button_label: abbestellen
 
   activerecord:
     attributes:

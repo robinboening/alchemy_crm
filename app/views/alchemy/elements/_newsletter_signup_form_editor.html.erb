@@ -1,2 +1,5 @@
-<%= render_essence_editor_by_name element, 'text' %>
-<%= page_selector element, 'followup_page' %>
+<%= render_essence_editor_by_name element, 'choose_newsletter_text' %>
+<p class="foot_note"><%= ::I18n.t(:choose_newsletter_text_is_optional, :scope => :alchemy_crm) %></p>
+<%= render_essence_editor_by_name element, 'signed_up_text' %>
+<%= render_essence_editor_by_name element, 'verified_text' %>
+<p class="foot_note"><%= ::I18n.t(:text_interpolation_notice, :scope => :alchemy_crm) %></p>

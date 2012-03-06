@@ -1,10 +1,19 @@
 <% @newsletters ||= AlchemyCrm::Newsletter.subscribables -%>
 
-<% if flash[:notice].present? -%>
-<p class="flash notice"><%= flash[:notice] %></p>
-<% end -%>
+<% if @contact_signed_up -%>
+
+<%= raw element.ingredient('signed_up_text') % {:name => @contact.fullname} %>
+
+<% elsif @contact_verified -%>
+
+<%= raw element.ingredient('verified_text') % {:name => @contact.fullname} %>
+
+<% else -%>
 
 <%= form_for [alchemy_crm, @contact ||= AlchemyCrm::Contact.new], :url => alchemy_crm.signup_contacts_path do |form| %>
+	<% if flash[:notice].present? -%>
+	<p class="flash notice"><%= flash[:notice] %></p>
+	<% end -%>
 	<%= form.error_messages %>
 	<table>
 		<tr>
@@ -40,7 +49,7 @@
 			<td><%= form.text_field :email %></td>
 		</tr>
 	</table>
-	<%= render_essence_view_by_name element, 'text' %>
+	<%= render_essence_view_by_name element, 'choose_newsletter_text' %>
 	<% if @newsletters.length > 1 -%>
 		<% @newsletters.each_with_index do |newsletter, idx| -%>
 		<p>
@@ -51,6 +60,7 @@
 	<% elsif @newsletters.length == 1 -%>
 		<%= hidden_field_tag "contact[subscriptions_attributes][0][newsletter_id]", @newsletters.first.id %>
 	<% end -%>
-	<%= hidden_field_tag :element_id, element.id %>
-	<%= form.submit t('newsletter.subscribe_form.button_label', :scope => 'alchemy_crm'), :name => nil %>
+	<%= form.submit ::I18n.t('subscribe_form.button_label', :scope => :alchemy_crm), :name => nil %>
 <% end %>
+
+<% end -%>

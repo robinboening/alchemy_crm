@@ -12,5 +12,15 @@ module AlchemyCrm
 			)
 		end
 
+		def signout_mail(contact, page)
+			@element = page.elements.where(:name => 'newsletter_signout_mail').first
+			@contact = contact
+			mail(
+				:from => @element.ingredient("mail_from"),
+				:to => contact.email,
+				:subject => @element.ingredient('subject')
+			)
+		end
+
 	end
 end

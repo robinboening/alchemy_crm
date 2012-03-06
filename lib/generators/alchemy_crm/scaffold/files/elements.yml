@@ -3,13 +3,14 @@
 - name: newsletter_signup_form
   unique: true
   contents:
-  - name: text
+  - name: choose_newsletter_text
     type: EssenceRichtext
-  - name: followup_page
-    type: EssenceText
+  - name: signed_up_text
+    type: EssenceRichtext
     validate: [presence]
-    settings:
-      display_as: select
+  - name: verified_text
+    type: EssenceRichtext
+    validate: [presence]
 
 - name: newsletter_signup_mail
   unique: true
@@ -23,22 +24,16 @@
   - name: text
     type: EssenceRichtext
     validate: [presence]
-  - name: followup_page
-    type: EssenceText
-    validate: [presence]
-    settings:
-      display_as: select
 
 - name: newsletter_signout_form
   unique: true
   contents:
-  - name: text
+  - name: signed_out_text
     type: EssenceRichtext
-  - name: followup_page
-    type: EssenceText
     validate: [presence]
-    settings:
-      display_as: select
+  - name: disabled_text
+    type: EssenceRichtext
+    validate: [presence]
 
 - name: newsletter_signout_mail
   unique: true
@@ -52,8 +47,3 @@
   - name: text
     type: EssenceRichtext
     validate: [presence]
-  - name: followup_page
-    type: EssenceText
-    validate: [presence]
-    settings:
-      display_as: select

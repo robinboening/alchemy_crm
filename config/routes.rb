@@ -6,7 +6,7 @@ AlchemyCrm::Engine.routes.draw do
 	match '/recipients/reacts/:id' => 'recipients#reacts',
 		:as => 'recipient_reacts'
 	
-	match '/subscriptions/destroy/:newsletter_id/:token/:element_id' => 'subscriptions#destroy',
+	match '/subscriptions/:token/destroy/:newsletter_id' => 'subscriptions#destroy',
 		:as => 'destroy_subscription'
 	
 	match '/admin/elements/teasables' => 'admin/elements#teasables',
@@ -15,17 +15,17 @@ AlchemyCrm::Engine.routes.draw do
 	match '/admin/elements/teasables' => 'admin/elements#teasables',
 		:as => 'teasable_elements'
 
-	match '/contacts/:token/verify/:element_id' => 'contacts#verify',
+	match '/contacts/:token/verify' => 'contacts#verify',
 		:as => 'verify_contact'
 
-	match '/subscriptions/:id/verify/:element_id' => 'contacts#verify',
-		:as => 'verify_subscription'
+	match '/contacts/:token/disable' => 'contacts#disable',
+		:as => 'disable_contact'
 
 	resources :mailings, :only => :show
 
 	resources :contacts do
 		collection do
-			post :signup
+			post :signup, :signout
 		end
 	end
 

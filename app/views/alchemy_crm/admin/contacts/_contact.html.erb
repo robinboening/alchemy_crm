@@ -1,4 +1,4 @@
-<tr class="<%= cycle('even', 'odd') %>">
+<tr class="<%= cycle('even', 'odd') %><%= contact.disabled? ? ' disabled' : nil %>">
 	<td class="icon">
 		<%= content_tag('span', '', :class => 'icon contact') %>
 	</td>

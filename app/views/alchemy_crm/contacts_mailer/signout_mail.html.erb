@@ -1,0 +1,8 @@
+<html>
+    <body>
+        <%= raw @element.ingredient("text") % { 
+            :link => alchemy_crm.disable_contact_url(:token => @contact.email_sha1),
+            :name => @contact.fullname 
+        } rescue "" %>
+    </body>
+</html>
