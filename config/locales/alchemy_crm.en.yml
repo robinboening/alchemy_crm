@@ -12,5 +12,31 @@ en:
     modules:
       crm: CRM
     
-    alchemy_crm:
-      "Inhalte wurden übernommen": "Contents transfered"
+    content_names:
+      newsletter_signup_form:
+        choose_newsletter_text: "Choose newsletter text"
+        signed_up_text: "Verification email notice"
+        verified_text: "Contact verified text"
+      newsletter_signout_form:
+
+  alchemy_crm:
+    "Inhalte wurden übernommen": "Contents transfered"
+    choose_newsletter_text_is_optional: "Hint: This text is for choosing from multiple newsletters. You may leave this blank, if only one newsletter is available."
+    contact_unknown: "This contact could not be found!"
+    text_interpolation_notice: "Tip: You can insert the contact's name with %{name}."
+    subscribe_form:
+      button_label: subscribe
+    signout_form:
+      button_label: unsubscribe
+
+  activerecord:
+    attributes:
+      alchemy_crm/contact:
+        salutation: Anrede
+        firstname: Vorname
+        lastname: Nachname
+        address: Adresse
+        zip: PLZ
+        city: Ort
+        phone: Telefon
+        email: E-Mail

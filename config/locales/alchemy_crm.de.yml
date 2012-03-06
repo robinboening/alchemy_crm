@@ -10,19 +10,28 @@ de:
 
     element_names:
       newsletter_signup_form: Newsletter Anmeldeformular
+      newsletter_signup_mail: Kontakt Bestätigungs-E-Mail
+      newsletter_signout_form: Newsletter Abmeldeformular
+      newsletter_signout_mail: Kontakt Abmelde-E-Mail
 
     modules:
       crm: CRM
 
     content_names:
       newsletter_signup_form:
-        followup_page: "Folgeseite für die Anmeldebestätigung"
+        choose_newsletter_text: "Newsletter Auswahltext"
+        signed_up_text: "Bestätigungs-E-Mail Hinweis"
+        verified_text: "Kontakt Bestätigungstext"
+      newsletter_signout_form:
 
   alchemy_crm:
     "New Tag": "Neues Tag"
     "New Tag Created": "Neues Tag wurde erstellt"
     "Send Mailing": "Mailing versenden"
+    choose_newsletter_text_is_optional: "Hinweis: Dieser Text ist für die Auswahl mehrerer Newsletter gedacht. Sie können ihn bei nur einem auswählbarem Newsletter weglassen."
     contact_unknown: "Dieser Kontakt konnte nicht gefunden werden!"
+    text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen."
+    mail_text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen. Den Bestätigungslink fügen Sie bitte mit %{link} ein."
     subscribe_form:
       button_label: bestellen
     signout_form:

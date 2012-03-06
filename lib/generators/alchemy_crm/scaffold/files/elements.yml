@@ -21,6 +21,7 @@
   - name: subject
     type: EssenceText
     validate: [presence]
+    take_me_for_preview: true
   - name: text
     type: EssenceRichtext
     validate: [presence]
@@ -44,6 +45,7 @@
   - name: subject
     type: EssenceText
     validate: [presence]
+    take_me_for_preview: true
   - name: text
     type: EssenceRichtext
     validate: [presence]
