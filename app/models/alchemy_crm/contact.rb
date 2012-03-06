@@ -5,15 +5,54 @@ module AlchemyCrm
 
 		acts_as_taggable
 
+		attr_accessible(
+			:salutation,
+			:title,
+			:firstname,
+			:lastname,
+			:email,
+			:phone,
+			:mobile,
+			:address,
+			:zip,
+			:city,
+			:organisation,
+			:country,
+			:subscriptions_attributes
+		)
+
+		attr_accessible(
+			:salutation,
+			:title,
+			:firstname,
+			:lastname,
+			:email,
+			:phone,
+			:mobile,
+			:address,
+			:zip,
+			:city,
+			:organisation,
+			:country,
+			:subscriptions_attributes,
+			:verified,
+			:disabled,
+			:cached_tag_list,
+			:as => :admin
+		)
+
 		has_many :subscriptions, :dependent => :destroy
 		has_many :newsletters, :through => :subscriptions, :uniq => true
 		has_many :recipients
 
 		accepts_nested_attributes_for :subscriptions, :allow_destroy => true
 
-		validates_presence_of :email, :message => "^Bitte geben Sie eine E-Mail Adresse an."
+		validates_presence_of :salutation, :message => "^Bitte geben Sie Ihre Anrede an."
+		validates_presence_of :firstname, :message => "^Bitte geben Sie Ihren Vornamen an."
+		validates_presence_of :lastname, :message => "^Bitte geben Sie Ihren Nachnamen an."
+		validates_presence_of :email, :message => "^Bitte geben Sie Ihre E-Mail Adresse an."
 		validates_uniqueness_of :email, :message => "^Diese E-Mail Adresse ist bereits eingetragen."
-		validates_format_of :email, :with => /^([a-zA-Z0-9_+\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/, :message => "Die E-Mail Adresse ist nicht valide.", :if => Proc.new { |contact| contact.errors[:email].blank? }
+		validates_format_of :email, :with => ::Authlogic::Regex.email, :message => "^Die E-Mail Adresse ist nicht valide.", :if => proc { errors[:email].blank? }
 
 		before_save :update_sha1
 
