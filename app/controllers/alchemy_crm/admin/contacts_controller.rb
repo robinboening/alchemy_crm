@@ -29,11 +29,6 @@ module AlchemyCrm
 				end
 			end
 
-			def update
-				@contact = Contact.find(params[:id])
-				if @contact.update_attributes(params[:contact], :as => :admin)
-			end
-
 			def export
 				@contact = Contact.find(params[:id])
 				@contact.to_vcard
