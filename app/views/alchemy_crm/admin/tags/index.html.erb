@@ -9,13 +9,13 @@
 				content_tag('span', '', :class => 'icon tag_add'),
 				new_admin_tag_path,
 				{
-					:title => t('New Tag', :scope => 'alchemy_crm'),
+					:title => ::I18n.t('New Tag', :scope => :alchemy_crm),
 					:size => '310x210'
 				},
-				:title => t('New Tag', :scope => 'alchemy_crm'),
+				:title => ::I18n.t('New Tag', :scope => :alchemy_crm),
 				:class => 'icon_button'
 			) %><br />
-			<label><%= t('New Tag', :scope => 'alchemy_crm') %></label>
+			<label><%= ::I18n.t('New Tag', :scope => :alchemy_crm) %></label>
 		</div>
 	</div>
   <%= render :partial => 'alchemy/admin/partials/search_form' %>

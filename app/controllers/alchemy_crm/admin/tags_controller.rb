@@ -1,7 +1,7 @@
 # encoding: UTF-8
 module AlchemyCrm
 	module Admin
-		class TagsController < Alchemy::Admin::ResourcesController
+		class TagsController < Alchemy::Admin::BaseController
 
 			before_filter :load_tag, :only => [:edit, :update, :destroy]
 			helper "AlchemyCrm::Base"

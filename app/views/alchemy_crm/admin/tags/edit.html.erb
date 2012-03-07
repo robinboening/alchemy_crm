@@ -16,6 +16,7 @@
 		</tr>
 	</table>
 <% end %>
+<% if @tags.any? -%>
 <h2 class="with_padding">Oder Sie ersetzen es durch ein vorhandenes Tag:</h2>
 <%= form_for @tag, :as => :tag, :url => {:controller => :tags, :action => "update", :id => @tag.id, :replace => true}, :html => {:method => :put, :style => "clear: both"}, :remote => true do |f| %>
 	<table border="0" cellspacing="4" cellpadding="4" style="width: 100%">
@@ -36,3 +37,4 @@
 		</tr>
 	</table>
 <% end %>
+<% end -%>
