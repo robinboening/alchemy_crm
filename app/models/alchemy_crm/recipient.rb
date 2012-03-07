@@ -6,6 +6,7 @@ module AlchemyCrm
 		has_many :reactions
 
 		validates_presence_of :email
+		validates_format_of :email, :with => Authlogic::Regex.email, :if => proc { email.present? }
 
 	end
 end

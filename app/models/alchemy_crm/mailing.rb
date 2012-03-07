@@ -4,6 +4,7 @@ module AlchemyCrm
 
 		belongs_to :page, :dependent => :destroy, :class_name => 'Alchemy::Page'
 		has_many :deliveries, :dependent => :destroy
+		has_many :recipients, :through => :deliveries
 		belongs_to :newsletter
 
 		validates_presence_of :name, :message => "^Bitte geben Sie einen Namen an."
@@ -19,30 +20,39 @@ module AlchemyCrm
 			end
 		end
 
-		def contacts_from_newsletter
-			self.newsletter.all_contacts
+		# Returns all contacts found via newsletter.
+		def newsletter_contacts
+			return [] if newsletter.blank?
+			newsletter.contacts
 		end
 
-		def all_contacts
-			(contacts_from_newsletter + contacts_from_additional_email_addresses).uniq
+		# Returns all contacts found via newsletter contacts and additional email addresses.
+		def contacts
+			(newsletter_contacts + contacts_from_additional_email_addresses).uniq
 		end
 
-		def recipients_count
-			all_contacts.count
+		def contacts_count
+			return 0 if contacts.blank?
+			contacts.count
 		end
 
-		def all_email_addresses
-			self.all_contacts.collect{ |c| c.email } + self.all_additional_email_addresses
+		# Returns a list of all email addresses found via newsletter contacts and additional email addresses.
+		def emails
+			(contacts.collect(&:email) + additional_emails).uniq
 		end
 
-		def all_additional_email_addresses
-			self.additional_email_addresses.gsub(/ /,'').split(',') rescue []
+		# Return a list of email addresses from additional_email_addresses field.
+		def additional_emails
+			return [] if additional_email_addresses.blank?
+			additional_email_addresses.gsub(/\s/,'').split(',').uniq
 		end
 
+		# Returns a list of contacts found or initialized by email address from additional_email_addresses field.
 		def contacts_from_additional_email_addresses
-			all_additional_email_addresses.collect{ |email| Contact.new(:email => email) }
+			additional_emails.collect{ |email| Contact.find_or_initialize_by_email(:email => email) }
 		end
 
+		# Makes a copy of another mailing.
 		def self.copy(id)
 			source = self.find(id)
 			clone = source.clone

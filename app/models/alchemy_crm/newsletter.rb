@@ -5,7 +5,7 @@ module AlchemyCrm
 		has_and_belongs_to_many :contact_groups, :join_table => 'alchemy_contact_groups_newsletters'
 		has_many :mailings
 		has_many :subscriptions
-		has_many :contacts, :through => :subscriptions, :uniq => true
+		has_many :subscribers, :through => :subscriptions, :uniq => true, :source => :contact
 
 		validates_presence_of :name, :message => "^Bitte geben Sie einen Namen an."
 		validates_presence_of :layout, :message => "^Bitte wählen Sie einen Layout aus."
@@ -14,25 +14,26 @@ module AlchemyCrm
 
 		scope :subscribables, where(:public => true)
 
-		def all_contacts
-			(all_contact_group_contacts + verified_direct_contacts).uniq
+		def contacts
+			(verified_contact_group_contacts + verified_subscribers).uniq
 		end
 
 		def contacts_count
-			self.contacts.count + contact_groups.inject(0){ |sum, cg| sum += cg.contacts.count }
+			return 0 if contacts.blank?
+			contacts.length
 		end
 
 		# get all uniq contacts from my contact groups
-		def all_contact_group_contacts
-			self.contact_groups.inject([]){|contacts, contact_group| contacts + contact_group.contacts}.uniq
+		def verified_contact_group_contacts
+			contact_groups.collect { |contact_group| contact_group.contacts.available }.flatten.uniq
 		end
 
 		def humanized_name
 			"#{self.name} (#{self.contacts_count})"
 		end
 
-		def verified_direct_contacts
-			subscriptions.where(:verified => true, :wants => true)
+		def verified_subscribers
+			subscribers.available.includes(:subscriptions).where(:alchemy_crm_subscriptions => {:verified => true, :wants => true})
 		end
 
 		def can_delete_mailings?

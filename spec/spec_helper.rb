@@ -11,23 +11,27 @@ ActionMailer::Base.default_url_options[:host] = "test.com"
 
 Rails.backtrace_cleaner.remove_silencers!
 
-# Configure capybara for integration testing
-require "capybara/rails"
-Capybara.default_driver   = :rack_test
-Capybara.default_selector = :css
+require 'database_cleaner'
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean
 
-# Run any available migration
-ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
+# Configure capybara for integration testing
+# require "capybara/rails"
+# Capybara.default_driver   = :rack_test
+# Capybara.default_selector = :css
+
+Alchemy::Seeder.seed!
+AlchemyCrm::Seeder.seed!
 
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
-  # Remove this line if you don't want RSpec's should and should_not
-  # methods or matchers
-  require 'rspec/expectations'
-  config.include RSpec::Matchers
-
-  # == Mock Framework
-  config.mock_with :rspec
+	# Remove this line if you don't want RSpec's should and should_not
+	# methods or matchers
+	require 'rspec/expectations'
+	config.include RSpec::Matchers
+	config.use_transactional_fixtures = true
+	# == Mock Framework
+	config.mock_with :rspec
 end

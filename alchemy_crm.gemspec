@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
 	gem.require_paths = ["lib"]
 	gem.version       = AlchemyCrm::VERSION
 
-	gem.add_dependency 'alchemy_cms', ["~> 2.1.rc1"]
+	gem.add_dependency 'alchemy_cms', ["~> 2.1.6"]
 	gem.add_dependency 'vcard', ['~> 0.1.1']
 	gem.add_dependency 'delayed_job', ["~> 2.1.4"]
 	gem.add_dependency 'prawn', ['~> 0.11.1']
@@ -24,6 +24,8 @@ Gem::Specification.new do |gem|
 	gem.add_dependency 'rails3-jquery-autocomplete', ['~> 1.0.4']
 	gem.add_dependency "magic-localized_country_select", ["~> 0.1.2"]
 
-	gem.add_development_dependency 'rspec-rails', ["~> 2.7"]
+	gem.add_development_dependency 'rspec-rails', ["~> 2.8.0"]
+	gem.add_development_dependency 'sqlite3', ["~> 1.3.5"]
+	gem.add_development_dependency 'database_cleaner'
 
 end

@@ -37,7 +37,7 @@ module AlchemyCrm
 			:subscriptions_attributes,
 			:verified,
 			:disabled,
-			:cached_tag_list,
+			:tag_list,
 			:as => :admin
 		)
 
@@ -56,7 +56,10 @@ module AlchemyCrm
 
 		before_save :update_sha1
 
-		scope :subscribers, where(:verified => true, :disabled => false)
+		scope :verified, where(:verified => true)
+		scope :disabled, where(:disabled => true)
+		scope :enabled, where(:disabled => false)
+		scope :available, verified.enabled
 
 		COLUMN_NAMES = [
 			["Titel", "title"],

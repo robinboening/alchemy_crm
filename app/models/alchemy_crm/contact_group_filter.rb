@@ -1,6 +1,7 @@
 # encoding: UTF-8
 module AlchemyCrm
 	class ContactGroupFilter < ActiveRecord::Base
+
 		belongs_to :contact_group
 		@@operators = [["enthält", "LIKE"], ["enthält nicht", "NOT LIKE"], ["ist", "="], ["ist nicht", "!="]]
 
@@ -10,7 +11,7 @@ module AlchemyCrm
 
 		def sql_string
 			return "" if column.blank? || operator.blank? || prepared_value.blank?
-			"#{self.column} #{self.operator} '#{prepared_value}'"
+			"`#{Contact.table_name}`.`#{column}` #{operator} '#{prepared_value}'"
 		end
 
 	private
