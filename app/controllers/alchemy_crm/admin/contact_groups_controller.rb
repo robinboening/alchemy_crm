@@ -7,8 +7,9 @@ module AlchemyCrm
 			helper "AlchemyCrm::Base"
 
 			def add_filter
-				@filter = ContactGroupFilter.new
-				@count = params[:size]
+				@contact_group = ContactGroup.find(params[:contact_group_id])
+				@filter = @contact_group.filters.build
+				@count = @contact_group.filters.length - 1
 			end
 
 		private

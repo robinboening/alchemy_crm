@@ -17,18 +17,19 @@
 				<%= render :partial => "tag", :collection => @tags, :locals => {:tags => @contact_group.contact_tags, :name => "contact_group" } %>
 			</td>
 		</tr>
+		<% unless @contact_group.new_record? -%>
 		<tr>
 			<td colspan="2" style="padding: 0">
 				<div id="filter_container">
 					<h2>Verfeinerungs-Filter</h2>
-					<%- @contact_group.contact_group_filters.each_with_index do |contact_group_filter, i| -%>
-					<%= render :partial => "filter", :object => contact_group_filter, :locals => {:count => i} %>
+					<%- @contact_group.filters.each_with_index do |filter, i| -%>
+					<%= render :partial => "filter", :object => filter, :locals => {:count => i} %>
 					<%- end -%>
 				</div>
 				<p>
 					<%= link_to(
 						"#{render_icon('create')}Filter hinzufügen".html_safe,
-						add_filter_admin_contact_groups_path(:size => @contact_group.contact_group_filters.size),
+						add_filter_admin_contact_groups_path(:contact_group_id => @contact_group.id),
 						:method => 'get',
 						:class => 'small button with_icon',
 						:remote => true
@@ -36,6 +37,7 @@
 				</p>
 			</td>
 		</tr>
+		<% end -%>
 		<tr>
 			<td class="submit" colspan="2">
 				<%= f.button "speichern", :class => "button" %>
