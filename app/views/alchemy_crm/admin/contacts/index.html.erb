@@ -11,7 +11,7 @@
 	<div class="button_with_label">
 		<%= link_to_overlay_window(
 			content_tag('span', '', :class => 'icon contact_add'),
-			new_admin_contact_path(),
+			new_admin_contact_path,
 			{
 				:title => 'Neuen Kontakt anlegen',
 				:size => '407x560'
@@ -26,7 +26,7 @@
 	<div class="button_with_label">
 		<%= link_to_overlay_window(
 			content_tag('span', '', :class => 'icon contact_import'),
-			'/admin/contacts/import',
+			import_admin_contacts_path,
 			{
 				:title => 'Kontakt(e) importieren',
 				:size => '335x150'

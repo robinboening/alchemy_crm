@@ -1,5 +1,14 @@
-<%= form_for [:admin, @contact], :class => "with_padding", :remote => true do |f| %>
+<%= form_for [:admin, @contact], :remote => true do |f| %>
 <div id="errors" style="display:none"></div>
+<% if @contact.disabled? -%>
+<div class="info">
+	<%= render_icon(:info) %>
+	<p>
+		<strong>Dieser Kontakt hat sich abgemeldet!</strong><br>
+		Er erhält keine Mailings mehr.
+	</p>
+</div>
+<% end -%>
 <table id="contact">
 	<tr>
 		<td class="label"><%= f.label :salutation, "Anrede" %></td>
