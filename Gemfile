@@ -14,3 +14,8 @@ group :development do
 		gem 'ruby-debug', :platform => :ruby_18
 	end
 end
+
+group :test do
+	gem 'sqlite3'
+	gem "database_cleaner"
+end
