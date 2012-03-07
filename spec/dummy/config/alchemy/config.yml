@@ -1,0 +1,142 @@
+# encoding: UTF-8
+# 
+# = Configuration
+#
+# == This is the global Alchemy configuration file
+# Please override your apps settings in your config/alchemy/config.yml file.
+# You can use a handy rake task to generate it.
+#
+#   rake alchemy:app_structure:create:config
+
+# The amount of time of inactivity in minutes after which the user is kicked out of his current session.
+# Only active in production environment!!!
+:auto_logout_time: 30
+
+# === Redirect options
+# redirect_index: You can set to redirect (an 301 permanent, for all you SEO geeks ^_^) to first child page (typically the homepage) the index/intro page if it's not visible.
+# So you don't get an 404 error if the language root page is not visible.
+# redirect_to_public_child: Alchemy redirects to the first public child page found, if a page is not visible.
+:redirect_index: true
+:redirect_to_public_child: true
+
+# Enabling the Ferret fulltext search engine.
+# Tip! For best performance and stability install a crontab that reindexes ferrets search index periodly.
+# Example: cd ~/html/alchemy/current && RAILS_ENV=production rake ferret:rebuild_index
+:ferret: true
+
+# === Pagecaching
+# Enable/Disable pagecaching globally.
+# Hint: You can enable/disable page caching for single Alchemy::PageLayouts in the page_layout.yml file.
+:cache_pages: true
+
+# === Sitemap
+# Alchemy renders a nice HTML (<ul><li> style) and XML (Google conform!) Sitemap for you.
+# Just place a sitemap element for a page layout in your page_layouts.yml file. Alchemy does the rest.
+# ==== Options:
+# show_root: Show language root page in sitemap?
+# show_flag: enables the Checkbox in Page#update overlay. So your customer can set the visibilit of pages in the sitemap.
+:sitemap: 
+  :show_root: true
+  :show_flag: false
+
+# === URL nesting
+# By default Alchemy does not nest page urls respectivley to their page tree position.
+# Enable +url_nesting+ to get nested urls.
+# ==== Example of a nested url:
+# +http://homepage.com/company/history/the-early-years+
+# Alchemy supports url nesting up to three levels deep. We think that's more then enough,
+# because URLs like this are possible:
+# +http://homepage.com/en/2011/12/08/my-post
+url_nesting: false
+
+# === Picture rendering settings
+# Alchemy uses Fleximage and RMagick to render images. Use {:image_size => "XXXxYYY", :crop => BOOLEAN [true]} to resize images.
+# See https://github.com/Squeegy/fleximage for further infos.
+# ==== Options:
+# output_image_jpg_quality: If rendered as JPG this is the quality setting for it.
+# preprocess_image_resize: Large images are downsized after upload to save diskspace.
+# image_store_format: Masterimage storage format. Images are rendered from this master image, so a lossless format (png) is strongly recommended.
+# image_output_format: Globally image output format setting.
+# TIP: You can always override the output format in the options of your Essence. I.e. {:format => :gif}
+:output_image_jpg_quality: 85
+:preprocess_image_resize: 1000x1000
+:image_store_format: png
+:image_output_format: jpg
+
+# Default language for the seeder.
+default_language:
+  code: de
+  name: Deutsch
+  page_layout: intro
+  frontpage_name: Intro
+
+# === Mailer Settings:
+# 
+# To send Mails via contact forms you can create your form fields here and set which fields are to be validated.
+# 
+# ==== Options:
+# 
+# fields: An Array from Hashes with fieldname as keys and type as values. Types are ActiveRecord column types (i.e. string, text, boolean, etc.).
+# validate_fields: A Hash with fieldname as key and a Hash (with :message as key and a message_id as value) as value
+# 
+# ==== Translating validation messages:
+# 
+# The message_id is passed through Alchemy::I18n.t so you can translate it in your language yml file.
+# 
+# Example:
+# 
+#   de:  
+#     alchemy:
+#      contactform:
+#         validations:
+#           enter_name: 'Bitte geben Sie einen Namen an'
+# 
+:mailer:
+  :page_layout_name: contact
+  :forward_to_page: false
+  :mail_success_page: thanks
+  :mail_from: your.mail@your-domain.com
+  :mail_to: your.mail@your-domain.com
+  :fields: [salutation, firstname, lastname, address, zip, city, phone, email, message]
+  :validate_fields:
+    :lastname:
+      :message: enter_name
+    :email:
+      :message: enter_mail
+
+# === User roles
+# You can add own user roles. To set permissions for this roles please add an authorization_rules.rb file in your config folder.
+# Further documentation for the auth system used please visit:
+# https://github.com/stffn/declarative_authorization/blob/master/README.rdoc
+# 
+# ==== Translating Userroles
+# Userroles can be translated inside your the language yml file under:
+#   alchemy:
+#     user_roles:
+#       rolename: Name of the role
+:user_roles: [registered, author, editor, admin]
+
+# === Uploader Settings
+#   upload_limit: Integer       Set an amount of files upload limit of files which can be uploaded at once. Set 0 for unlimited.
+#   file_size_limit: Integer    Set a file size limit in megabytes for a per file limit.
+# Allow filetypes to upload.
+# Pass * to allow all kind of files.
+:uploader:
+  :upload_limit: 50
+  :file_size_limit: 100
+  :allowed_filetypes:
+    :pictures: [jpg, jpeg, gif, png, psd, pdf]
+    :attachments: ['*']
+
+# === Link Target Options
+# Values for the link target selectbox inside the page link overlay.
+# The value gets attached as a data-link-target attribute to the link.
+# 
+# == Example:
+# Open all links set to overlay inside an jQuery UI Dialog Window.
+# 
+#   jQuery(a[data-link-target="overlay"]).dialog();
+:link_target_options: [blank]
+
+# Should pages that redirect to an external url open the link in a new tab/window?
+:open_external_links_in_new_tab: true
