@@ -44,10 +44,16 @@ de:
     attributes:
       alchemy_crm/contact:
         salutation: "Anrede*"
+        title: Titel
         firstname: "Vorname*"
         lastname: "Nachname*"
+        organisation: Firma
         address: Adresse
         zip: PLZ
         city: Ort
+        country: Land
         phone: Telefon
+        mobile: Mobil
         email: "E-Mail*"
+        verified: verifiziert
+        disabled: abgemeldet

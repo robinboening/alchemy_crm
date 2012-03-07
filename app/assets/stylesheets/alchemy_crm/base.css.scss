@@ -421,16 +421,24 @@ span.tag {
 	}
 }
 
-#alchemy input#contact_city {
+#alchemy input#contact_city, #alchemy input#contact_title {
 	width: 182px;
 }
 
 #alchemy input#contact_zip {
-	width: 55px;
+	width: 59px;
 }
 
 #alchemy table#contact td.label.right {
 	width: 40px;
+}
+
+#alchemy table#contact .selectbox .display.very_short {
+	width: 39px;
+}
+
+#alchemy .selectbox.items.very_short {
+	width: auto;
 }
 
 table tr.disabled td {
