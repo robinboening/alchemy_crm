@@ -16,9 +16,9 @@ var AlchemyCrm = {};
 			$(
 				'#filter_container'
 			).append(
-				'<input type="hidden" name="contact_group[contact_group_filters_attributes]['+count+'][_destroy]" value=1>'
+				'<input type="hidden" name="contact_group[filters_attributes]['+count+'][_destroy]" value=1>'
 			).append(
-				'<input type="hidden" name="contact_group[contact_group_filters_attributes]['+count+'][id]" value='+id+'>'
+				'<input type="hidden" name="contact_group[filters_attributes]['+count+'][id]" value='+id+'>'
 			);
 		},
 		

@@ -38,13 +38,13 @@
 			<%- end -%>
 			</td>
 		</tr>
-		<%- unless @newsletter.verified_direct_contacts.blank? -%>
+		<% if @newsletter.verified_subscribers.any? -%>
 		<tr>
-			<td colspan="2" class="headline">
-				Über die Website eingetragene Kontakte: <%= @newsletter.verified_direct_contacts.count %>
+			<td colspan="2" class="headline" style="padding: 0">
+				<p>Über die Website eingetragene Kontakte: <%= @newsletter.verified_subscribers.count %></p>
 			</td>
 		</tr>
-		<%- end -%>
+		<% end -%>
 		<tr>
 			<td colspan="2" class="submit">
 				<%= f.button "Speichern", :class => "button" %>

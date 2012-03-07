@@ -1,7 +1,7 @@
 # encoding: UTF-8
 module AlchemyCrm
 	module Admin
-		class DeliveriesController < Alchemy::Admin::ResourcesController
+		class DeliveriesController < Alchemy::Admin::BaseController
 
 			SEND_DELAY = Time.now + 1.hour
 			before_filter :load_mailing, :only => [:index, :new]
