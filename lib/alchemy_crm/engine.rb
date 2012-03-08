@@ -17,6 +17,7 @@ module AlchemyCrm
 			newsletter_layouts_file = Rails.root.join('config', 'alchemy', 'newsletter_layouts.yml')
 			if File.exist? newsletter_layouts_file
 				YAML.load_file(newsletter_layouts_file).each do |newsletter_layout|
+					newsletter_layout['name'] = Mailing::MAILING_PAGE_LAYOUT_PREFIX + newsletter_layout['name']
 					Alchemy::PageLayout.add(newsletter_layout.merge({'newsletter' => true}))
 				end
 			else

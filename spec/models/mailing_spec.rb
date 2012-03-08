@@ -40,4 +40,19 @@ describe AlchemyCrm::Mailing do
 
 	end
 
+	describe '#after_create' do
+
+		before(:each) do
+			@newsletter = AlchemyCrm::Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
+			@mailing.newsletter = @newsletter
+			@mailing.save!
+		end
+
+		it "should create a page with correct page layout" do
+			@mailing.page.should be_an_instance_of(Alchemy::Page)
+			@mailing.page.page_layout.should == "newsletter_layout_standard"
+		end
+
+	end
+
 end

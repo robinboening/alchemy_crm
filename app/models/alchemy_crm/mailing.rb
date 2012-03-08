@@ -2,6 +2,8 @@
 module AlchemyCrm
 	class Mailing < ActiveRecord::Base
 
+		MAILING_PAGE_LAYOUT_PREFIX = "newsletter_layout_"
+
 		belongs_to :page, :dependent => :destroy, :class_name => 'Alchemy::Page'
 		has_many :deliveries, :dependent => :destroy
 		has_many :recipients, :through => :deliveries
@@ -77,7 +79,7 @@ module AlchemyCrm
 			mailing_page = Alchemy::Page.new(
 				:name => "Mailing #{self.name}",
 				:sitemap => false,
-				:page_layout => self.newsletter.layout,
+				:page_layout => MAILING_PAGE_LAYOUT_PREFIX + self.newsletter.layout,
 				:language => Alchemy::Language.get_default,
 				:parent_id => mailing_root.id
 			)
