@@ -1,46 +1,34 @@
-<%- content_for(:javascript_includes) do -%>
+<% content_for(:javascript_includes) do -%>
 	<%= javascript_include_tag "alchemy_crm/scripts.js" %>
-<%- end -%>
+<% end -%>
 
-<%- content_for(:stylesheets) do -%>
+<% content_for(:stylesheets) do -%>
 	<%= stylesheet_link_tag('alchemy_crm/styles') %>
-<%- end -%>
+<% end -%>
 
-<%- content_for :toolbar do -%>
-<div id="toolbar_buttons">
-	<div class="button_with_label">
-		<%= link_to_overlay_window(
-			content_tag('span', '', :class => 'icon contact_add'),
-			new_admin_contact_path,
-			{
+<% toolbar(
+	:buttons => [
+		{
+			:icon => "contact_add",
+			:label => "Neuer Kontakt",
+			:url => alchemy_crm.new_admin_contact_path,
+			:title => "Neuen Kontakt anlegen",
+			:overlay_options => {
 				:title => 'Neuen Kontakt anlegen',
 				:size => '407x560'
 			},
-			{
-				:title => 'Neuen Kontakt anlegen',
-				:class => 'icon_button'
-			}
-		) -%><br />
-		<label>Neuer Kontakt</label>
-	</div>
-	<div class="button_with_label">
-		<%= link_to_overlay_window(
-			content_tag('span', '', :class => 'icon contact_import'),
-			import_admin_contacts_path,
-			{
-				:title => 'Kontakt(e) importieren',
-				:size => '335x150'
-			},
-			{
-				:title => 'Kontakt(e) importieren',
-				:class => 'icon_button'
-			}
-		) -%><br />
-		<label>Kontakt(e) importieren</label>
-	</div>
-</div>
-<%= render :partial => "alchemy/admin/partials/search_form" %>
-<%- end -%>
+			:if_permitted_to => [:new, :alchemy_crm_admin_contacts]
+		},
+		{
+			:icon => :contact_import,
+			:label => "Kontakt(e) importieren",
+			:url => alchemy_crm.import_admin_contacts_path,
+			:title => "Kontakt(e) importieren",
+			:overlay => false,
+			:if_permitted_to => [:import, :alchemy_crm_admin_contacts]
+		}
+	]
+) %>
 
 <table class="list">
 	<%- unless @contacts.blank? -%>

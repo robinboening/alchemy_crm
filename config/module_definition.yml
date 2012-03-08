@@ -16,6 +16,7 @@ navigation:
     - name: Kontakte
       controller: alchemy_crm/admin/contacts
       action: index
+      nested_actions: [import]
     - name: Zielgruppen
       controller: alchemy_crm/admin/contact_groups
       action: index
@@ -25,3 +26,5 @@ navigation:
   nested:
     - controller: alchemy_crm/admin/mailings
       action: edit_content
+    - controller: alchemy_crm/admin/contacts
+      action: import

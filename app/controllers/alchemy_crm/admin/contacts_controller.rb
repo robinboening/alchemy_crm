@@ -12,20 +12,21 @@ module AlchemyCrm
 
 			def import
 				if request.get?
-					render :layout => false
+					render :import
 				else
-					begin
-						Contact.new_from_vcard(params[:vcard])
-						flash[:notice] = 'Kontakt(e) wurde(n) importiert.'
-						redirect_to admin_contacts_path
-					rescue Exception => e
-						exception_handler(e)
-						if e.respond_to?(:record) && e.record
-							logger.error(e.record.inspect)
-							logger.error(e.record.errors.full_messages.join("\n"))
-							flash[:error] = %(Es sind Fehler beim Importieren aufgetaucht. Bitte überprüfen Sie die V-Card(s) nach folgenden Fehlern: \n#{e.record.errors.full_messages.join("\n")})
+					if params[:vcard].blank?
+						@errors = build_error_message(::I18n.t(:missing_vcard, :scope => :alchemy_crm))
+					elsif params[:verified] == "1"
+						@contacts = Contact.new_from_vcard(params[:vcard], true)
+						if @contacts.detect(&:invalid?).nil?
+							flash[:notice] = 'Kontakt(e) wurde(n) importiert.'
+						else
+							@errors = build_error_message("Bitte überprüfen Sie die markierten Visitenkarten auf Fehler.")
 						end
+					else
+						@errors = build_error_message(::I18n.t(:imported_contacts_not_verified, :scope => :alchemy_crm))
 					end
+					render :import_result
 				end
 			end
 
@@ -45,6 +46,11 @@ module AlchemyCrm
 			def load_tags
 				@tags = ActsAsTaggableOn::Tag.order("name ASC").all
 				@tags = @tags - @contact.tags.to_a unless @contact.nil?
+			end
+
+			def build_error_message(message)
+				heading = "<h2>Es sind Fehler beim Importieren aufgetaucht!</h2>".html_safe
+				heading += "<p>#{message}</p>".html_safe
 			end
 
 		end

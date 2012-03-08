@@ -20,11 +20,18 @@
 	:search => false
 ) -%>
 
-<h1><%= ::I18n.t('Import contacts', :scope => :alchemy_crm) %></h1>
+<% if @errors -%>
 
-<div class="info">
-	<%= render_icon('info') %>
-	<p>Sie können eine Visitenkarte (.vcf Datei) mit einem, oder auch mehreren Kontakten importieren.</p>
-</div>
+<div id="errors"><%= raw @errors %></div>
 
-<%= render "import_form" %>
+<% end -%>
+
+<table>
+<% @contacts.each do |contact| -%>
+	<tr>
+		<td><%= contact.fullname %></td>
+		<td><%= contact.email %></td>
+		<td><%= contact.errors.full_messages %></td>
+	</tr>
+<% end -%>
+</table>

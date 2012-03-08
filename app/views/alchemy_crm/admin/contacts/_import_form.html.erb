@@ -1,0 +1,19 @@
+<%= form_tag import_admin_contacts_path, :remote => request.xhr?, :multipart => true, :class => 'contact_import' do %>
+	<table>
+		<tr>
+			<td class="label">Datei:</td>
+			<td><%= file_field_tag :vcard %></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="padding: 0">
+				<%= check_box_tag :verified %>
+				<%= label_tag :verified, ::I18n.t(:import_contacts_verified, :scope => :alchemy_crm) %>
+			</td>
+		</tr>
+		<tr>
+			<td class="submit" colspan="2">
+				<%= button_tag ::I18n.t(:import, :scope => :alchemy_crm), :name => nil, :class => 'button' %>
+			</td>
+		</tr>
+	</table>
+<% end %>

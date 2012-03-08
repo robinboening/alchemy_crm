@@ -27,14 +27,21 @@ de:
         disabled_text: "Kontakt Abmeldebestätigungstext"
 
   alchemy_crm:
+    "Active Mailing": "Aktives Mailing"
     "New Tag": "Neues Tag"
     "New Tag Created": "Neues Tag wurde erstellt"
     "Send Mailing": "Mailing versenden"
     choose_newsletter_text_is_optional: "Hinweis: Dieser Text ist für die Auswahl mehrerer Newsletter gedacht. Sie können ihn bei nur einem auswählbarem Newsletter weglassen."
     contact_unknown: "Dieser Kontakt konnte nicht gefunden werden!"
+    import_contacts_verified: "Diese(r) Kontakt(e) wurde(n) über den Erhalt von E-Mails informiert"
+    imported_contacts_not_verified: "Bitte bestätigen Sie, dass die Kontakte über den Erhalt von E-Mails informiert wurden."
+    import: importieren
+    "Import contacts": "Kontakte importieren"
+    "Import result": "Importergebnis"
     text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen."
     mail_text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen. Den Bestätigungslink fügen Sie bitte mit %{link} ein."
     mandatory_fields: "*Pflichtfelder"
+    missing_vcard: "Bitte laden Sie eine V-Card hoch"
     subscribe_form:
       button_label: bestellen
     signout_form:

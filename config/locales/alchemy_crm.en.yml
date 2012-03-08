@@ -25,12 +25,19 @@ en:
         disabled_text: "Contact signed out text"
 
   alchemy_crm:
+    "Active Mailing": "Active Mailing"
     "Inhalte wurden übernommen": "Contents transfered"
     choose_newsletter_text_is_optional: "Hint: This text is for choosing from multiple newsletters. You may leave this blank, if only one newsletter is available."
     contact_unknown: "This contact could not be found!"
+    import_contacts_verified: "These contacts have been informed about that they will receive emails"
+    imported_contacts_not_verified: "Please confirm that you have informed the contacts about that they will receive emails."
+    import: import
+    "Import contacts": "Import contacts"
+    "Import result": "Import result"
     text_interpolation_notice: "Tip: You can insert the contact's name with %{name}."
     mail_text_interpolation_notice: "Tip: You can insert the contact's name with %{name}. Please insert the confirmation link with %{link}."
     mandatory_fields: "*Mandatory"
+    missing_vcard: "Please upload a vcard"
     subscribe_form:
       button_label: subscribe
     signout_form:

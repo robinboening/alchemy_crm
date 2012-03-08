@@ -45,12 +45,14 @@ module AlchemyCrm
 		has_many :newsletters, :through => :subscriptions, :uniq => true
 		has_many :recipients
 
+		attr_accessor :skip_validation
+
 		accepts_nested_attributes_for :subscriptions, :allow_destroy => true
 
-		validates_presence_of :salutation, :message => "^Bitte geben Sie Ihre Anrede an."
-		validates_presence_of :firstname, :message => "^Bitte geben Sie Ihren Vornamen an."
-		validates_presence_of :lastname, :message => "^Bitte geben Sie Ihren Nachnamen an."
-		validates_presence_of :email, :message => "^Bitte geben Sie Ihre E-Mail Adresse an."
+		validates_presence_of :salutation, :message => "^Bitte wählen Sie eine Anrede aus.", :unless => proc { skip_validation }
+		validates_presence_of :firstname, :message => "^Bitte geben Sie einen Vornamen an.", :unless => proc { skip_validation }
+		validates_presence_of :lastname, :message => "^Bitte geben Sie einen Namen an."
+		validates_presence_of :email, :message => "^Bitte geben Sie eine E-Mail Adresse an."
 		validates_uniqueness_of :email, :message => "^Diese E-Mail Adresse ist bereits eingetragen."
 		validates_format_of :email, :with => ::Authlogic::Regex.email, :message => "^Die E-Mail Adresse ist nicht valide.", :if => proc { errors[:email].blank? }
 
@@ -141,23 +143,31 @@ module AlchemyCrm
 			self.subscriptions.inject(true){|acc, s| acc = s.verified? && acc; acc}
 		end
 
-		def self.new_from_vcard(vcard)
-			for card in Vpim::Vcard.decode(vcard) do
+		def self.new_from_vcard(vcard, verified)
+			raise "No vcard found!" if vcard.nil?
+			raise ::I18n.t(:imported_contacts_not_verified, :scope => :alchemy_crm) if !verified
+			contacts = []
+			::Vpim::Vcard.decode(vcard).each do |card|
 				remapped_attributes = {
 					:organisation => card.org.blank? ? nil : card.org.first,
 					:lastname => card.name.blank? ? nil : card.name.family,
 					:firstname => card.name.blank? ? nil : card.name.given,
-					:salutation => card.name.blank? ? nil : card.name.prefix,
+					:title => card.name.blank? ? nil : card.name.prefix,
 					:address => card.address.blank? ? nil : card.address.street,
 					:city => card.address.blank? ? nil : card.address.locality,
 					:country => card.address.blank? ? nil : card.address.country,
 					:zip => card.address.blank? ? nil : card.address.postalcode,
 					:email => card.email.to_s,
 					:phone => card.telephone ? card.telephone.location.include?("cell") ? nil : card.telephone.to_s : nil,
-					:mobile => card.telephones.detect { |t| t.location.include?("cell") }.to_s
+					:mobile => card.telephones.detect { |t| t.location.include?("cell") }.to_s,
+					:verified => true
 				}
-				self.create(remapped_attributes)
+				contact = Contact.new(remapped_attributes, :as => :admin)
+				contact.skip_validation = true
+				contact.save
+				contacts << contact
 			end
+			contacts
 		end
 
 		def to_vcard

@@ -1,0 +1,65 @@
+<%- content_for(:javascript_includes) do -%>
+	<%= javascript_include_tag "alchemy_crm/scripts.js" %>
+<%- end -%>
+
+<%- content_for(:stylesheets) do -%>
+	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+<%- end -%>
+
+<% toolbar(
+	:buttons => [
+		{
+			:icon => :close,
+			:label => t(:cancel),
+			:url => alchemy_crm.admin_contacts_path,
+			:title => t(:cancel),
+			:overlay => false,
+			:if_permitted_to => [:index, :alchemy_crm_admin_contacts]
+		}
+	],
+	:search => false
+) -%>
+
+<h1><%= ::I18n.t('Import result', :scope => :alchemy_crm) %></h1>
+
+<% if @errors -%>
+
+<div id="errors">
+	<%= @errors %>
+</div>
+
+<% if @contacts -%>
+<div class="info">
+	<%= render_icon(:info) %>
+	<p>Die restlichen Kontakt wurden importiert. Beheben Sie die Fehler an den markierten Kontakten und laden Sie deren Visitenkarte erneut hoch.</p>
+</div>
+<% end -%>
+
+<%= render "import_form" %>
+
+<% end -%>
+
+<% if @contacts -%>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>E-Mail</th>
+		<th>Import-Status</th>
+	</tr>
+<% @contacts.each do |contact| -%>
+	<tr class="<%= cycle("even", "odd") %><%= contact.invalid? ? ' disabled' : nil -%>">
+		<td><%= contact.fullname %></td>
+		<td><%= contact.email %></td>
+		<td>
+			<% if contact.valid? -%>
+			<%= render_icon(:true) %>
+			<% else -%>
+			<%= contact.errors.full_messages.join('<br>') %>
+			<% end -%>
+		</td>
+	</tr>
+<% end -%>
+</table>
+
+<% end -%>
