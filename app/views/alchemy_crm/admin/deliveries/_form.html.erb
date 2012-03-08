@@ -11,14 +11,14 @@
 		</tr>
 		<tr>
 			<td class="label"><%= f.label :recipients, 'Empfänger:' %></td>
-			<td><%= @mailing.recipients_count %> (<%= link_to_function "Empfänger anzeigen", "jQuery('#all_contacts').toggle(); AlchemyCrm.toggleLabel(this, 'Empfänger ausblenden', 'Empfänger anzeigen')" ,:class => "" %>)</td>
+			<td><%= @mailing.contacts_count %> (<%= link_to_function "Empfänger anzeigen", "jQuery('#all_contacts').toggle(); AlchemyCrm.toggleLabel(this, 'Empfänger ausblenden', 'Empfänger anzeigen')" ,:class => "" %>)</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td>
 				<ul id="all_contacts" style="display: none">
-					<%- @mailing.all_email_addresses.each do |email_address| -%>
-					<li><%= email_address %></li>
+					<%- @mailing.emails.each do |email| -%>
+					<li class="<%= cycle("even", "odd") -%>"><%= email %></li>
 					<%- end -%>
 				</ul>
 			</td>
@@ -27,10 +27,10 @@
 			<td class="label">
 				<%= f.label :deliver_at, "versenden am" %>
 			</td>
-			<td class="input">
+			<td class="delivery_time">
 				<%= text_field_tag nil, @delivery.deliver_at.strftime('%d.%m.%Y'), :class => 'datepicker thin_border', :id => nil, :style => 'width: 90px' %>
 				<label>um</label>
-				<%= f.time_select :deliver_at, { :minute_step => 15, :time_separator => '<label>:&nbsp;</label>'.html_safe }, { :class => 'alchemy_selectbox' } %>
+				<%= f.time_select :deliver_at, { :minute_step => 15, :time_separator => '<label>:&nbsp;</label>'.html_safe }, { :class => 'alchemy_selectbox time_select' } %>
 				<label>Uhr</label>
 			</td>
 		</tr>

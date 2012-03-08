@@ -260,17 +260,18 @@ div.tag_list {
 }
 
 #all_contacts {
-	padding: 3px;
+
+	padding: 2px 4px;
 	margin: 0;
 	list-style-type: none;
 	overflow: auto;
 	height: 8em;
 	background-color: white;
-}
 
-#all_contacts li {
-	padding: 0;
-	margin: 0;
+	li {
+		padding: 4px;
+		margin: 2px 0;
+	}
 }
 
 form.send_mailing_form {
@@ -433,12 +434,20 @@ span.tag {
 	width: 40px;
 }
 
-#alchemy table#contact .selectbox .display.very_short {
+#alchemy .selectbox .display.very_short {
 	width: 39px;
 }
 
 #alchemy .selectbox.items.very_short {
 	width: auto;
+}
+
+#alchemy .selectbox .display.time_select {
+	width: 19px;
+}
+
+#alchemy .selectbox.items.time_select {
+	width: 47px;
 }
 
 table tr.disabled td {
@@ -449,4 +458,22 @@ table tr.disabled td {
 div#archive_all form.contact_import {
 	width: 550px;
 	margin: 8px;
+}
+
+td.delivery_time {
+	white-space: nowrap;
+
+	div.alchemy_selectbox, label, input.thin_border {
+		float: left;
+	}
+
+	label {
+		line-height: 23px;
+		margin: 0 8px;
+	}
+
+	input.thin_border {
+		position: relative;
+		top: -2px;
+	}
 }

@@ -58,15 +58,15 @@
 			render_icon('send_mailing'),
 			alchemy_crm.new_admin_delivery_path(:mailing_id => @mailing.id),
 			{
-				:title => t('Send Mailing'),
-				:size => '350x210'
+				:title => ::I18n.t('Send Mailing', :scope => :alchemy_crm),
+				:size => '420x210'
 			},
 			{
-				:title => t('Send Mailing'),
+				:title => ::I18n.t('Send Mailing', :scope => :alchemy_crm),
 				:class => 'icon_button'
 			}
 		) %>
-		<label><%= t('Send Mailing') %></label>
+		<label><%= ::I18n.t('Send Mailing', :scope => :alchemy_crm) %></label>
 	</div>
 </div>
 <div id="toolbar_buttons_right">
