@@ -22,7 +22,7 @@ Gem::Specification.new do |gem|
 	gem.add_dependency 'prawn', ['~> 0.11.1']
 	gem.add_dependency 'acts-as-taggable-on', ['~> 2.1.0']
 	gem.add_dependency 'rails3-jquery-autocomplete', ['~> 1.0.4']
-	gem.add_dependency "magic-localized_country_select", ["~> 0.1.2"]
+	gem.add_dependency "magic-localized_country_select", ["~> 0.2.0"]
 
 	gem.add_development_dependency 'rspec-rails', ["~> 2.8.0"]
 	gem.add_development_dependency 'sqlite3', ["~> 1.3.5"]
