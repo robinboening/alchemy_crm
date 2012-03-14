@@ -99,7 +99,7 @@
 <script type="text/javascript" charset="utf-8">
 
 	AlchemyCrm.openPreviewWindow = function() {
-		Alchemy.PreviewWindow.init('<%= alchemy.admin_page_url(@page, :layout => "alchemy/newsletters") %>', '<%= t("Page Preview") -%>');
+		Alchemy.PreviewWindow.init('<%= alchemy_crm.admin_mailing_path(@mailing) %>', '<%= t("Page Preview") -%>');
 	}
 
 	AlchemyCrm.openElementsWindow = function() {

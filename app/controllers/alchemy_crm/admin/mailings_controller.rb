@@ -14,17 +14,26 @@ module AlchemyCrm
 			end
 
 			def show
-				@page = Alchemy::Page.find(params[:page_id])
 				@mailing = Mailing.find(params[:id])
-				@host = current_server
-				@server = @host.gsub(/http:\/\//, '')
+				@page = @mailing.page
+				#@host = current_server
+				#@server = @host.gsub(/http:\/\//, '')
 				@preview_mode = true
-				render :layout => 'newsletters'
+				render :layout => 'alchemy/newsletters'
 			end
 
 			def edit_content
 				@mailing = Mailing.find(params[:id])
 				@page = @mailing.page
+			end
+
+			def update
+				@mailing.update_attributes(params[:mailing], :as => current_user.role.to_sym)
+				render_errors_or_redirect(
+					@mailing,
+					:back,
+					flash_notice_for_resource_action
+				)
 			end
 
 		private
