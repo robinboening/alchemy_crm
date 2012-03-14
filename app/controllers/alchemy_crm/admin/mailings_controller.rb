@@ -18,6 +18,8 @@ module AlchemyCrm
 				@page = @mailing.page
 				#@host = current_server
 				#@server = @host.gsub(/http:\/\//, '')
+				@contact = Contact.fake
+				@recipient = Recipient.new(:contact => @contact)
 				@preview_mode = true
 				render :layout => 'alchemy/newsletters'
 			end

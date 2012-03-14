@@ -26,7 +26,7 @@ describe AlchemyCrm::Mailing do
 
 		before(:each) do
 			@newsletter = AlchemyCrm::Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
-			@verified_contact = AlchemyCrm::Contact.new(:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'male')
+			@verified_contact = AlchemyCrm::Contact.new(:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr')
 			@verified_contact.verified = true
 			@verified_contact.save!
 			@subscription = AlchemyCrm::Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :verified => true, :wants => true)

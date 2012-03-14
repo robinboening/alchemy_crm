@@ -29,16 +29,6 @@
 		<% end %>
 	</div>
 	<div class="button_with_label">
-		<%= link_to(
-			alchemy_crm.mailing_path(@mailing),
-			:onclick => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!') }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'});",
-			:class => 'icon_button'
-		) do %>
-			<%= render_icon('visit_page') %>
-		<% end %>
-		<label><%= t("Visit page") %></label>
-	</div>
-	<div class="button_with_label">
 		<%= link_to_overlay_window(
 			render_icon('mailing_edit'),
 				alchemy_crm.edit_admin_mailing_path(@mailing),

@@ -87,17 +87,37 @@ module AlchemyCrm
 			end
 		end
 
-		def fullname_reversed
-			fullname :flipped => true
+		def fullname
+			if lastname.present? || firstname.present?
+				"#{::I18n.t(salutation, :scope => [:alchemy_crm, :salutations])} #{title} #{name}".squeeze(" ")
+			else
+				name
+			end
 		end
 
-		def fullname(options = {})
-			options = (default_options = { :flipped => false }.merge(options))
+		def name
 			if lastname.present? || firstname.present?
-				options[:flipped] ? "#{lastname}, #{firstname}".squeeze(" ") : "#{firstname} #{lastname}".squeeze(" ")
+				"#{firstname} #{lastname}".squeeze(" ")
 			else
 				email
 			end
+		end
+
+		def self.fake
+			new(
+				:salutation => 'mr',
+				:title => 'Dr.',
+				:firstname => 'Max',
+				:lastname => 'Mustermann',
+				:email => 'max@mustermann.de',
+				:phone => '040-1234567',
+				:mobile => '0171-1234567',
+				:address => 'Lange Straße 10',
+				:zip => '20000',
+				:city => 'Hamburg',
+				:organisation => 'Musterfirma',
+				:country => 'DE'
+			)
 		end
 
 		def self.replace_tag(old_tag, new_tag)

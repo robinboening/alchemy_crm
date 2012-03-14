@@ -5,8 +5,8 @@ describe AlchemyCrm::ContactGroup do
 	describe "#contacts" do
 
 		before(:each) do
-			@verified_contact = AlchemyCrm::Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'male', :tag_list => 'father', :verified => true}, :as => :admin)
-			@contact = AlchemyCrm::Contact.create!({:email => 'jane@smith.com', :firstname => 'Jane', :lastname => 'Smith', :salutation => 'female', :tag_list => 'mother'}, :as => :admin)
+			@verified_contact = AlchemyCrm::Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :tag_list => 'father', :verified => true}, :as => :admin)
+			@contact = AlchemyCrm::Contact.create!({:email => 'jane@smith.com', :firstname => 'Jane', :lastname => 'Smith', :salutation => 'mrs', :tag_list => 'mother'}, :as => :admin)
 			@contact_group = AlchemyCrm::ContactGroup.create!(:name => 'Family', :contact_tag_list => 'father, mother, son')
 		end
 

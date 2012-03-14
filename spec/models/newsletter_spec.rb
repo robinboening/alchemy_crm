@@ -4,12 +4,12 @@ describe AlchemyCrm::Newsletter do
 
 	before(:each) do
 		@newsletter = AlchemyCrm::Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
-		@verified_contact = AlchemyCrm::Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'male', :verified => true}, :as => :admin)
+		@verified_contact = AlchemyCrm::Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
 		@subscription = AlchemyCrm::Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :verified => true, :wants => true)
-		@contact = AlchemyCrm::Contact.create!(:email => 'jon_2@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'male')
-		@father = AlchemyCrm::Contact.create!({:email => 'father@family.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'male', :tag_list => 'father', :verified => true}, :as => :admin)
-		@mother = AlchemyCrm::Contact.create!({:email => 'mother@family.com', :firstname => 'Jane', :lastname => 'Doe', :salutation => 'female', :tag_list => 'mother', :verified => true}, :as => :admin)
-		@son = AlchemyCrm::Contact.create!(:email => 'son@family.com', :firstname => 'Jim', :lastname => 'Doe', :salutation => 'male', :tag_list => 'son')
+		@contact = AlchemyCrm::Contact.create!(:email => 'jon_2@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr')
+		@father = AlchemyCrm::Contact.create!({:email => 'father@family.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :tag_list => 'father', :verified => true}, :as => :admin)
+		@mother = AlchemyCrm::Contact.create!({:email => 'mother@family.com', :firstname => 'Jane', :lastname => 'Doe', :salutation => 'mrs', :tag_list => 'mother', :verified => true}, :as => :admin)
+		@son = AlchemyCrm::Contact.create!(:email => 'son@family.com', :firstname => 'Jim', :lastname => 'Doe', :salutation => 'mr', :tag_list => 'son')
 
 		@subscription_2 = AlchemyCrm::Subscription.create!(:contact => @contact, :newsletter => @newsletter)
 

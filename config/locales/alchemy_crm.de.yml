@@ -42,6 +42,9 @@ de:
     mail_text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen. Den Bestätigungslink fügen Sie bitte mit %{link} ein."
     mandatory_fields: "*Pflichtfelder"
     missing_vcard: "Bitte laden Sie eine V-Card hoch"
+    salutations:
+      mr: Herr
+      mrs: Frau
     subscribe_form:
       button_label: bestellen
     signout_form:

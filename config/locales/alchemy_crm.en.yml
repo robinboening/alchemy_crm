@@ -38,6 +38,9 @@ en:
     mail_text_interpolation_notice: "Tip: You can insert the contact's name with %{name}. Please insert the confirmation link with %{link}."
     mandatory_fields: "*Mandatory"
     missing_vcard: "Please upload a vcard"
+    salutations:
+      mr: Mr
+      mrs: Mrs
     subscribe_form:
       button_label: subscribe
     signout_form:
