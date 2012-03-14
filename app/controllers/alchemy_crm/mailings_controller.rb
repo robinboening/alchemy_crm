@@ -14,8 +14,10 @@ module AlchemyCrm
 			@page = @mailing.page
 			@contact = Contact.find_by_email_sha1(params[:sha1]) rescue nil
 			# TODO / WIP: The recipient has to be found via recipient_id, or the contact.
-			# For preview mode it has to be a fake one.
-			@recipient = Recipient.new(:email => 'foo@baz.com', :contact => @contact)
+			if @contact.nil?
+				@contact = Contact.fake
+			end
+			@recipient = Recipient.new(:contact => @contact)
 		rescue
 			render :file => "#{Rails.root.to_s}/public/422.html", :status => "422"
 		end
