@@ -2,31 +2,29 @@ module AlchemyCrm
 	class RecipientsController < AlchemyCrm::BaseController
 
 		def reads
-			recipient = Recipient.find_by_id(params[:id])
+			recipient = Recipient.find(params[:id])
 			recipient.update_attributes(:read => true, :read_at => Time.now) unless recipient.nil?
 			render :nothing => true
 		end
 
 		def reacts
-			page = Alchemy::Page.find(params[:page_id])
-			element = Alchemy::Element.find(params[:element_id])
-			recipient = Recipient.find_by_id(params[:id])
-			unless recipient.nil?
-				recipient.update_attributes(
-					:reacted => true,
-					:reacted_at => Time.now
-				)
-				Reaction.create(
-					:recipient => recipient,
-					:element => element,
-					:page => page
+			recipient = Recipient.find(params[:id])
+			recipient.reacts!({
+				:page_id => params[:page_id],
+				:element_id => params[:element_id],
+				:url => params[:r].present? ? CGI.unescape(params[:r]) : nil
+			}) unless recipient.nil?
+			if params[:r].present?
+				redirect_to CGI.unescape(params[:r])
+			else
+				page = Alchemy::Page.find(params[:page_id])
+				element = Alchemy::Element.find_by_id(params[:element_id])
+				redirect_to alchemy.show_page_url(
+					:urlname => page.urlname,
+					:lang => multi_language? ? page.language_code : nil,
+					:anchor => element ? element.dom_id : nil
 				)
 			end
-			redirect_to alchemy.show_page_path(
-				:lang => multi_language? ? page.language : nil,
-				:urlname => page.urlname,
-				:anchor => "#{element.name}_#{element.id}"
-			)
 		end
 
 	end

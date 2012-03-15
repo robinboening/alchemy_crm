@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307095785) do
+ActiveRecord::Schema.define(:version => 20120315113522) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -136,14 +136,15 @@ ActiveRecord::Schema.define(:version => 20120307095785) do
     t.integer  "element_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "url"
   end
 
   create_table "alchemy_crm_recipients", :force => true do |t|
     t.string   "email"
-    t.boolean  "bounced",         :default => false
-    t.boolean  "read",            :default => false
-    t.boolean  "reacted",         :default => false
-    t.integer  "sent_mailing_id"
+    t.boolean  "bounced",     :default => false
+    t.boolean  "read",        :default => false
+    t.boolean  "reacted",     :default => false
+    t.integer  "delivery_id"
     t.integer  "contact_id"
     t.datetime "read_at"
     t.datetime "bounced_at"
