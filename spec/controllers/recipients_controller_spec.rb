@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe AlchemyCrm::RecipientsController do
 
-	let(:recipient) { mock_model() }
-
 	describe '#reacts' do
 
 		before(:each) do
