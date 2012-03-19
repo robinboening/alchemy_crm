@@ -31,23 +31,27 @@ module AlchemyCrm
 		end
 
 		def verify
-			if params[:token].blank?
-				flash[:notice] = ::I18n.t(:contact_unknown, :scope => :alchemy_crm)
-			else
-				@contact = Contact.find_by_email_sha1(params[:token])
-				@subscriptions = @contact.subscriptions.where(:newsletter_id => params[:newsletter_ids])
-				@subscriptions.each do |subscription|
-					subscription.update_attributes(:verified => true)
+			@contact = Contact.find_by_email_sha1(params[:token])
+			if @contact
+				@contact_verified = @contact.update_attribute(:verified, true)
+				if params[:newsletter_ids]
+					@subscriptions = @contact.subscriptions.where(:newsletter_id => params[:newsletter_ids])
+				else
+					@subscriptions = @contact.subscriptions
 				end
-				@contact_verified = @contact.update_attributes(:verified => true)
+				@subscriptions.each do |subscription|
+					subscription.update_attribute(:verified, true)
+				end
+				@page = @element.page
+				@root_page = @page.get_language_root
+				render :template => 'alchemy/pages/show'
+			else
+				contact_not_found
 			end
-			@page = @element.page
-			@root_page = @page.get_language_root
-			render :template => 'alchemy/pages/show'
 		end
 
 		def signout
-			@contact = Contact.find_by_email(params[:email])
+			@contact = Contact.find_by_email_and_verified(params[:email], true)
 			if @contact.blank?
 				flash[:notice] = ::I18n.t(:contact_unknown, :scope => :alchemy_crm)
 				@contact_signed_out = false
@@ -67,13 +71,12 @@ module AlchemyCrm
 			@contact = Contact.find_by_email_sha1(params[:token])
 			if @contact
 				@contact_disabled = @contact.disable!
+				@page = @element.page
+				@root_page = @page.get_language_root
+				render :template => 'alchemy/pages/show'
 			else
-				flash[:notice] = ::I18n.t(:contact_unknown, :scope => :alchemy_crm)
-				@contact_disabled = false
+				contact_not_found
 			end
-			@page = @element.page
-			@root_page = @page.get_language_root
-			render :template => 'alchemy/pages/show'
 		end
 
 	private
@@ -98,6 +101,10 @@ module AlchemyCrm
 					raise ActiveRecord::RecordNotFound, "Alchemy::Element with name 'newsletter_signout_form' not found!"
 				end
 			end
+		end
+
+		def contact_not_found
+			raise ActionController::RoutingError.new('Contact Not Found')
 		end
 
 	end

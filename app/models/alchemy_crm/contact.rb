@@ -76,8 +76,11 @@ module AlchemyCrm
 		]
 
 		def disable!
-			self.disabled = true
-			save!
+			update_attributes({
+				:verified => false,
+				:disabled => true
+			}, :as => :admin)
+			subscriptions.destroy_all
 		end
 
 		def fullname
