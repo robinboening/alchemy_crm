@@ -53,7 +53,7 @@ module AlchemyCrm
 				send_file(delivery.pdf_path)
 			end
 
-		before_filter
+		private
 
 			def load_mailing
 				@mailing = Mailing.find(params[:mailing_id])

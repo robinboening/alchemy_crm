@@ -19,7 +19,6 @@ module AlchemyCrm
 			if @contact.save
 				ContactsMailer.signup_mail(
 					@contact,
-					@contact.subscriptions.collect(&:newsletter_id),
 					Alchemy::Page.find_by_page_layout_and_language_id('newsletter_mails', session[:language_id])
 				).deliver
 				@contact_signed_up = true

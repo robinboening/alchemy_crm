@@ -55,4 +55,8 @@ describe AlchemyCrm::Contact do
 
 	end
 
+	after(:all) do
+		@contact.destroy
+	end
+
 end

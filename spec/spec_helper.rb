@@ -4,6 +4,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require "rspec/rails"
+require "email_spec"
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
@@ -31,6 +32,9 @@ RSpec.configure do |config|
 	# methods or matchers
 	require 'rspec/expectations'
 	config.include RSpec::Matchers
+	# for testing mails
+	config.include(EmailSpec::Helpers)
+	config.include(EmailSpec::Matchers)
 	config.use_transactional_fixtures = true
 	# == Mock Framework
 	config.mock_with :rspec

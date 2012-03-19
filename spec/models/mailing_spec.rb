@@ -2,8 +2,11 @@ require 'spec_helper'
 
 describe AlchemyCrm::Mailing do
 
-	before(:each) do
+	before(:all) do
 		@mailing = AlchemyCrm::Mailing.new(:name => 'Mailing', :additional_email_addresses => "jim@family.com, jon@doe.com, jane@family.com, \n")
+		@newsletter = AlchemyCrm::Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
+		@mailing.newsletter = @newsletter
+		@mailing.save!
 	end
 
 	describe "#additional_emails" do
@@ -25,13 +28,10 @@ describe AlchemyCrm::Mailing do
 	describe "#contacts" do
 
 		before(:each) do
-			@newsletter = AlchemyCrm::Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
 			@verified_contact = AlchemyCrm::Contact.new(:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr')
 			@verified_contact.verified = true
 			@verified_contact.save!
 			@subscription = AlchemyCrm::Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :verified => true, :wants => true)
-			@mailing.newsletter = @newsletter
-			@mailing.save!
 		end
 
 		it "should return all contacts from additional email addresses and newsletter contacts" do
@@ -42,25 +42,14 @@ describe AlchemyCrm::Mailing do
 	
 	describe '#before_create' do
 
-		before(:each) do
-			@mailing.newsletter = AlchemyCrm::Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
-			@mailing.save!
-		end
-
 		it "should set sha1 and salt" do
-		  	@mailing.sha1.should_not be_nil
-		  	@mailing.salt.should_not be_nil
+			@mailing.sha1.should_not be_nil
+			@mailing.salt.should_not be_nil
 		end
 
 	end
 
 	describe '#after_create' do
-
-		before(:each) do
-			@newsletter = AlchemyCrm::Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
-			@mailing.newsletter = @newsletter
-			@mailing.save!
-		end
 
 		it "should create a page with correct page layout" do
 			@mailing.page.should be_an_instance_of(Alchemy::Page)
