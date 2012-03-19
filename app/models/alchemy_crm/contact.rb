@@ -56,7 +56,7 @@ module AlchemyCrm
 		validates_uniqueness_of :email, :message => "^Diese E-Mail Adresse ist bereits eingetragen."
 		validates_format_of :email, :with => ::Authlogic::Regex.email, :message => "^Die E-Mail Adresse ist nicht valide.", :if => proc { errors[:email].blank? }
 
-		before_save :update_sha1
+		before_save :update_sha1, :if => proc { email_sha1.blank? || email_changed? }
 
 		scope :verified, where(:verified => true)
 		scope :disabled, where(:disabled => true)
@@ -218,10 +218,8 @@ module AlchemyCrm
 	private
 
 		def update_sha1
-			if email_sha1.blank? || email.changed?
-				salt = email_salt || [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
-				self.email_salt, self.email_sha1 = salt, Digest::SHA1.hexdigest(email + salt)
-			end
+			salt = email_salt || [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
+			self.email_salt, self.email_sha1 = salt, Digest::SHA1.hexdigest(email + salt)
 		end
 
 	end
