@@ -2,10 +2,13 @@ require 'spec_helper'
 
 describe AlchemyCrm::Contact do
 
+	before(:all) do
+		@contact = AlchemyCrm::Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
+	end
+
 	describe '.create' do
 
 		it "should set email_salt and email_sha1 for new records" do
-			@contact = AlchemyCrm::Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
 			@contact.email_sha1.should_not be_nil
 			@contact.email_salt.should_not be_nil
 		end
@@ -17,7 +20,6 @@ describe AlchemyCrm::Contact do
 		context "a contact with new email address" do
 
 			before(:each) do
-				@contact = AlchemyCrm::Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
 				@sha1 = @contact.email_sha1
 				@salt = @contact.email_salt
 				@contact.update_attributes!(:email => 'jane@doe.com')
@@ -36,7 +38,6 @@ describe AlchemyCrm::Contact do
 		context "a contact with same email address" do
 
 			before(:each) do
-				@contact = AlchemyCrm::Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
 				@sha1 = @contact.email_sha1
 				@salt = @contact.email_salt
 				@contact.update_attributes!(:firstname => 'jane')
