@@ -1,30 +1,6 @@
 # encoding: utf-8
 
 de:
-  alchemy:
-
-    page_layout_names:
-      newsletter_signup: Newsletter Anmeldung
-      newsletter_signout: Newsletter Abmeldung
-      newsletter_mails: Newsletter E-Mails
-
-    element_names:
-      newsletter_signup_form: Newsletter Anmeldeformular
-      newsletter_signup_mail: Kontakt Bestätigungs-E-Mail
-      newsletter_signout_form: Newsletter Abmeldeformular
-      newsletter_signout_mail: Kontakt Abmelde-E-Mail
-
-    modules:
-      crm: CRM
-
-    content_names:
-      newsletter_signup_form:
-        choose_newsletter_text: "Newsletter Auswahltext"
-        signed_up_text: "Bestätigungs-E-Mail Hinweis"
-        verified_text: "Kontakt Anmeldebestätigungstext"
-      newsletter_signout_form:
-        signed_out_text: "Abmelde-E-Mail Hinweis"
-        disabled_text: "Kontakt Abmeldebestätigungstext"
 
   alchemy_crm:
     "Active Mailing": "Aktives Mailing"
@@ -33,6 +9,7 @@ de:
     "Send Mailing": "Mailing versenden"
     choose_newsletter_text_is_optional: "Hinweis: Dieser Text ist für die Auswahl mehrerer Newsletter gedacht. Sie können ihn bei nur einem auswählbarem Newsletter weglassen."
     contact_unknown: "Dieser Kontakt konnte nicht gefunden werden!"
+    here: hier
     import_contacts_verified: "Diese(r) Kontakt(e) wurde(n) über den Erhalt von E-Mails informiert"
     imported_contacts_not_verified: "Bitte bestätigen Sie, dass die Kontakte über den Erhalt von E-Mails informiert wurden."
     import: importieren
@@ -42,6 +19,7 @@ de:
     mail_text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen. Den Bestätigungslink fügen Sie bitte mit %{link} ein."
     mandatory_fields: "*Pflichtfelder"
     missing_vcard: "Bitte laden Sie eine V-Card hoch"
+    read_in_browser_notice: "Falls der Newsletter nicht richtig dargestellt wird, klicken Sie bitte %{link}."
     salutations:
       mr: Herr
       mrs: Frau

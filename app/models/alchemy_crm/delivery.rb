@@ -55,9 +55,9 @@ module AlchemyCrm
 	private
 
 		def recipients_from_mailing_contacts
-			raise "No Mailing Given" if self.mailing.blank?
-			self.mailing.all_contacts.each do |contact|
-				self.recipients << Recipient.create(
+			raise "No Mailing Given" if mailing.blank?
+			mailing.contacts.each do |contact|
+				recipients << Recipient.create(
 					:email => contact.email,
 					:contact => contact
 				)
@@ -69,6 +69,7 @@ module AlchemyCrm
 		def generate_pdf
 			raise "No Mailing Given" if self.mailing.blank?
 			raise "No Page Given" if self.mailing.page.blank?
+			FileUtils.mkdir_p(PDF_DIR) unless File.directory?(PDF_DIR)
 			Prawn::Document.generate(self.pdf_path, :page_size => "A4", :orientation => :portrait) do |pdf|
 				pdf.text("Empfängerliste:\n\n")
 				pdf.text(self.recipients.collect { |r| r.email }.join(', '))

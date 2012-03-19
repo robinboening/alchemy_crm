@@ -8,6 +8,8 @@ module AlchemyCrm
 		validates_presence_of :email
 		validates_format_of :email, :with => Authlogic::Regex.email, :if => proc { email.present? }
 
+		before_create :set_sha1
+
 		def reacts!(options={})
 			update_attributes(
 				:reacted => true,
@@ -18,6 +20,20 @@ module AlchemyCrm
 				:page_id => options[:page_id],
 				:url => options[:url]
 			)
+		end
+
+		def self.new_from_contact(contact)
+			raise "No contact given!" if contact.nil?
+			recipient = new(:contact => contact, :email => contact.email)
+			recipient.readonly!
+			recipient
+		end
+
+	private
+
+		def set_sha1
+			self.salt = [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
+			self.sha1 = Digest::SHA1.hexdigest(Time.now.to_i.to_s + salt)
 		end
 
 	end

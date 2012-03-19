@@ -34,4 +34,7 @@ RSpec.configure do |config|
 	config.use_transactional_fixtures = true
 	# == Mock Framework
 	config.mock_with :rspec
+	config.after(:all) {
+		FileUtils.rm_rf(Rails.root.join('delivery_pdfs'))
+	}
 end

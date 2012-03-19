@@ -12,15 +12,8 @@ module AlchemyCrm
 		validates_presence_of :name, :message => "^Bitte geben Sie einen Namen an."
 		validates_presence_of :newsletter_id, :message => "^Bitte wählen Sie einen Newsletter aus.", :on => :create
 
-		before_save :update_sha1
+		before_create :set_sha1
 		after_create :create_page
-
-		def update_sha1
-			if(self.sha1.blank? || self.id.blank?)
-				salt = self.salt || [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
-				self.salt, self.sha1 = salt, Digest::SHA1.hexdigest(self.created_at.to_s + salt)
-			end
-		end
 
 		# Returns all contacts found via newsletter.
 		def newsletter_contacts
@@ -89,6 +82,11 @@ module AlchemyCrm
 			else
 				raise "Error while creating Mailingpage: #{mailing_page.errors.full_messages}"
 			end
+		end
+
+		def set_sha1
+			salt = [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
+			sha1 = Digest::SHA1.hexdigest(Time.now.to_i.to_s + salt)
 		end
 
 	end

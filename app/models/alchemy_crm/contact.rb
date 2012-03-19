@@ -80,13 +80,6 @@ module AlchemyCrm
 			save!
 		end
 
-		def update_sha1
-			if(self.email_sha1.blank? || self.email != Contact.find(self.id).email)
-				salt = self.email_salt || [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
-				self.email_salt, self.email_sha1 = salt, Digest::SHA1.hexdigest(self.email + salt)
-			end
-		end
-
 		def fullname
 			if lastname.present? || firstname.present?
 				"#{::I18n.t(salutation, :scope => [:alchemy_crm, :salutations])} #{title} #{name}".squeeze(" ")
@@ -104,7 +97,7 @@ module AlchemyCrm
 		end
 
 		def self.fake
-			new(
+			fake = new(
 				:salutation => 'mr',
 				:title => 'Dr.',
 				:firstname => 'Max',
@@ -118,6 +111,8 @@ module AlchemyCrm
 				:organisation => 'Musterfirma',
 				:country => 'DE'
 			)
+			fake.readonly!
+			fake
 		end
 
 		def self.replace_tag(old_tag, new_tag)
@@ -163,6 +158,13 @@ module AlchemyCrm
 			self.subscriptions.inject(true){|acc, s| acc = s.verified? && acc; acc}
 		end
 
+		def self.new_from_recipient(recipient)
+			raise "No recipient found!" if recipient.nil?
+			contact = new(:email => recipient.email, :lastname => recipient.email)
+			contact.readonly!
+			contact
+		end
+
 		def self.new_from_vcard(vcard, verified)
 			raise "No vcard found!" if vcard.nil?
 			raise ::I18n.t(:imported_contacts_not_verified, :scope => :alchemy_crm) if !verified
@@ -193,7 +195,7 @@ module AlchemyCrm
 		def to_vcard
 			card = Vpim::Vcard::Maker.make2 do |maker|
 				maker.add_name do |name|
-					name.prefix = salutation unless salutation.blank?
+					name.prefix = title unless title.blank?
 					name.given = firstname unless firstname.blank?
 					name.family = lastname unless lastname.blank?
 				end
@@ -211,6 +213,15 @@ module AlchemyCrm
 			vcf = File.new(Rails.root.to_s + "/tmp/#{fullname}.vcf", "w")
 			vcf.write(card.encode)
 			vcf.close
+		end
+
+	private
+
+		def update_sha1
+			if email_sha1.blank? || email.changed?
+				salt = email_salt || [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
+				self.email_salt, self.email_sha1 = salt, Digest::SHA1.hexdigest(email + salt)
+			end
 		end
 
 	end

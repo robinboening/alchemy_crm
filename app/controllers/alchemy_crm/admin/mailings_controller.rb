@@ -6,6 +6,7 @@ module AlchemyCrm
 			before_filter :load_newsletters, :only => [:new, :edit, :copy]
 
 			helper 'Alchemy::Pages'
+			helper 'AlchemyCrm::Mailings'
 			helper 'Alchemy::Admin::Pages'
 
 			def copy
@@ -16,10 +17,8 @@ module AlchemyCrm
 			def show
 				@mailing = Mailing.find(params[:id])
 				@page = @mailing.page
-				#@host = current_server
-				#@server = @host.gsub(/http:\/\//, '')
 				@contact = Contact.fake
-				@recipient = Recipient.new(:contact => @contact)
+				@recipient = Recipient.new_from_contact(@contact)
 				@preview_mode = true
 				render :layout => 'alchemy/newsletters'
 			end

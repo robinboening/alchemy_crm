@@ -1,0 +1,26 @@
+# encoding: utf-8
+de:
+  alchemy:
+
+    page_layout_names:
+      newsletter_signup: Newsletter Anmeldung
+      newsletter_signout: Newsletter Abmeldung
+      newsletter_mails: Newsletter E-Mails
+
+    element_names:
+      newsletter_signup_form: Newsletter Anmeldeformular
+      newsletter_signup_mail: Kontakt Bestätigungs-E-Mail
+      newsletter_signout_form: Newsletter Abmeldeformular
+      newsletter_signout_mail: Kontakt Abmelde-E-Mail
+
+    modules:
+      crm: CRM
+
+    content_names:
+      newsletter_signup_form:
+        choose_newsletter_text: "Newsletter Auswahltext"
+        signed_up_text: "Bestätigungs-E-Mail Hinweis"
+        verified_text: "Kontakt Anmeldebestätigungstext"
+      newsletter_signout_form:
+        signed_out_text: "Abmelde-E-Mail Hinweis"
+        disabled_text: "Kontakt Abmeldebestätigungstext"

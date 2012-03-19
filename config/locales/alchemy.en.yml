@@ -1,0 +1,25 @@
+en:
+  alchemy:
+
+    page_layout_names:
+      newsletter_signup: Newsletter Signup
+      newsletter_signout: Newsletter Signout
+      newsletter_mails: Newsletter Mails
+
+    element_names:
+      newsletter_signup_form: Newsletter Signup Form
+      newsletter_signup_mail: Contact Signup Mail
+      newsletter_signout_form: Newsletter Signout Form
+      newsletter_signout_mail: Contact Signout Mail
+
+    modules:
+      crm: CRM
+    
+    content_names:
+      newsletter_signup_form:
+        choose_newsletter_text: "Choose newsletter text"
+        signed_up_text: "Verification email notice"
+        verified_text: "Contact verified text"
+      newsletter_signout_form:
+        signed_out_text: "Signout email notice"
+        disabled_text: "Contact signed out text"
