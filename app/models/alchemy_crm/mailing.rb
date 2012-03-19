@@ -85,8 +85,8 @@ module AlchemyCrm
 		end
 
 		def set_sha1
-			salt = [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
-			sha1 = Digest::SHA1.hexdigest(Time.now.to_i.to_s + salt)
+			self.salt = [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
+			self.sha1 = Digest::SHA1.hexdigest(Time.now.to_i.to_s + salt)
 		end
 
 	end

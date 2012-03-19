@@ -39,6 +39,20 @@ describe AlchemyCrm::Mailing do
 		end
 
 	end
+	
+	describe '#before_create' do
+
+		before(:each) do
+			@mailing.newsletter = AlchemyCrm::Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
+			@mailing.save!
+		end
+
+		it "should set sha1 and salt" do
+		  	@mailing.sha1.should_not be_nil
+		  	@mailing.salt.should_not be_nil
+		end
+
+	end
 
 	describe '#after_create' do
 
