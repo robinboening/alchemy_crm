@@ -52,9 +52,7 @@ AlchemyCrm::Engine.routes.draw do
 
 		resources :tags, :newsletters
 
-		resources :deliveries do
-			member { get :pdf }
-		end
+		resources :deliveries
 
 		resources :mailings do
 			resources :deliveries

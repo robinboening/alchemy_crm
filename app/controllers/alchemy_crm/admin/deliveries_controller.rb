@@ -48,11 +48,6 @@ module AlchemyCrm
 				render :layout => false
 			end
 
-			def pdf
-				delivery = Delivery.find(params[:id])
-				send_file(delivery.pdf_path)
-			end
-
 		private
 
 			def load_mailing

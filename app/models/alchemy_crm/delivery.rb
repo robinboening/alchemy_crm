@@ -3,12 +3,11 @@ module AlchemyCrm
 	class Delivery < ActiveRecord::Base
 
 		attr_accessor :chunk_delay
-		PDF_DIR = Rails.root.join("delivery_pdfs")
 
 		belongs_to :mailing
 		has_many :recipients, :dependent => :destroy
 
-		after_create :generate_pdf, :recipients_from_mailing_contacts
+		after_create :recipients_from_mailing_contacts
 
 		scope :delivered, where("`alchemy_crm_deliveries`.`delivered_at` IS NOT NULL")
 		scope :pending, where("`alchemy_crm_deliveries`.`delivered_at` IS NULL")
@@ -43,11 +42,6 @@ module AlchemyCrm
 		end
 		handle_asynchronously :send_mail_chunk, :run_at => Proc.new { |m| (m.chunk_delay * m.settings(:send_mail_chunks_every)).minutes.from_now }
 
-		def pdf_path#:nodoc:
-			raise "No Mailing Given" if self.mailing.blank?
-			File.join(PDF_DIR, "#{self.mailing.file_name}-#{created_at.strftime('%Y%m%d%H%M')}.pdf")
-		end
-
 		def settings(name)
 			AlchemyCrm::Config.get(name)
 		end
@@ -61,30 +55,6 @@ module AlchemyCrm
 					:email => contact.email,
 					:contact => contact
 				)
-			end
-		end
-
-		# This generates a pdf version of the newsletter.
-		# This has no layout and is just for proofing what content was sent to the recipients.
-		def generate_pdf
-			raise "No Mailing Given" if self.mailing.blank?
-			raise "No Page Given" if self.mailing.page.blank?
-			FileUtils.mkdir_p(PDF_DIR) unless File.directory?(PDF_DIR)
-			Prawn::Document.generate(self.pdf_path, :page_size => "A4", :orientation => :portrait) do |pdf|
-				pdf.text("Empfängerliste:\n\n")
-				pdf.text(self.recipients.collect { |r| r.email }.join(', '))
-				pdf.text("\nVersendet am: #{self.created_at.strftime("%d.%m.%Y, %H:%Mh")}")
-				pdf.text("Betreff: #{self.mailing.subject}\n\n")
-				pdf.text("Inhalt:\n\n")
-				self.mailing.page.elements.each do |element|
-					element.all_contents_by_type(["EssenceText", "EssenceRichtext"]).each do |text_content|
-						pdf.text(text_content.essence_type == 'EssenceText' ? text_content.ingredient : text_content.essence.stripped_body)
-					end
-					element.all_contents_by_type("EssencePicture").each do |picture_content|
-						pdf.image(picture_content.essence.picture.file_path) rescue nil
-					end
-					pdf.text("\n")
-				end
 			end
 		end
 

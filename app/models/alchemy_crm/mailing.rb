@@ -55,11 +55,6 @@ module AlchemyCrm
 			clone
 		end
 
-		# File name from name. Used for sent mailings PDF.
-		def file_name
-			name.gsub(' ', '_').downcase
-		end
-
 		def next_pending_delivery
 			deliveries.pending.first
 		end

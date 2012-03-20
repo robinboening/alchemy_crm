@@ -1,1 +1,0 @@
-FileUtils.mkdir_p(AlchemyCrm::Delivery::PDF_DIR) unless File.exist?(AlchemyCrm::Delivery::PDF_DIR)

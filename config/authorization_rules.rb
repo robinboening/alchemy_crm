@@ -19,7 +19,7 @@ authorization do
   role :admin do
     includes :editor
     has_permission_on :alchemy_crm_admin_mailings, :to => [:manage, :edit_content, :deliver, :copy]
-    has_permission_on :alchemy_crm_admin_deliveries, :to => [:manage, :pdf]
+    has_permission_on :alchemy_crm_admin_deliveries, :to => [:manage]
     has_permission_on :alchemy_crm_admin_newsletters, :to => [:manage]
     has_permission_on :alchemy_crm_admin_contacts, :to => [:manage, :import, :export, :autocomplete_tag_list]
     has_permission_on :alchemy_crm_admin_tags, :to => [:manage]
