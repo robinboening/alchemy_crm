@@ -1,9 +1,9 @@
 AlchemyCrm::Engine.routes.draw do
 
-	match '/recipients/reads/:id' => 'recipients#reads',
+	match '/recipients/:h/reads' => 'recipients#reads',
 		:as => 'recipient_reads'
 	
-	match '/recipients/reacts/:id' => 'recipients#reacts',
+	match '/recipients/:h/reacts' => 'recipients#reacts',
 		:as => 'recipient_reacts'
 	
 	match '/subscriptions/:token/destroy/:newsletter_id' => 'subscriptions#destroy',

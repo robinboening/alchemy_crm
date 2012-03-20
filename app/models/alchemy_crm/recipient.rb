@@ -10,6 +10,10 @@ module AlchemyCrm
 
 		before_create :set_sha1
 
+		def reads!
+			update_attributes(:read => true, :read_at => Time.now)
+		end
+
 		def reacts!(options={})
 			update_attributes(
 				:reacted => true,
