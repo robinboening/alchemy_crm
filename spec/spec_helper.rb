@@ -1,41 +1,58 @@
-# Configure Rails Envinronment
-ENV["RAILS_ENV"] = "test"
+begin
+	require 'spork'
+rescue LoadError => e
+end
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
-require "rails/test_help"
-require "rspec/rails"
-require "email_spec"
+def configure
+	# Configure Rails Environment
+	ENV["RAILS_ENV"] = "test"
 
-ActionMailer::Base.delivery_method = :test
-ActionMailer::Base.perform_deliveries = true
-ActionMailer::Base.default_url_options[:host] = "test.com"
+	require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
-Rails.backtrace_cleaner.remove_silencers!
+	require 'database_cleaner'
+	DatabaseCleaner.strategy = :truncation
 
-require 'database_cleaner'
-DatabaseCleaner.strategy = :truncation
-DatabaseCleaner.clean
+	require "rails/test_help"
+	require "rspec/rails"
+	require "email_spec"
 
-# Configure capybara for integration testing
-# require "capybara/rails"
-# Capybara.default_driver   = :rack_test
-# Capybara.default_selector = :css
+	ActionMailer::Base.delivery_method = :test
+	ActionMailer::Base.perform_deliveries = true
+	ActionMailer::Base.default_url_options[:host] = "test.com"
 
-Alchemy::Seeder.seed!
-AlchemyCrm::Seeder.seed!
+	Rails.backtrace_cleaner.remove_silencers!
 
-# Load support files
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+	# Load support files
+	Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
-RSpec.configure do |config|
-	# Remove this line if you don't want RSpec's should and should_not
-	# methods or matchers
-	require 'rspec/expectations'
-	config.include RSpec::Matchers
-	# for testing mails
-	config.include(EmailSpec::Helpers)
-	config.include(EmailSpec::Matchers)
-	config.use_transactional_fixtures = true
-	# == Mock Framework
-	config.mock_with :rspec
+	RSpec.configure do |config|
+		# Remove this line if you don't want RSpec's should and should_not
+		# methods or matchers
+		require 'rspec/expectations'
+		config.include RSpec::Matchers
+		# for testing mails
+		config.include(EmailSpec::Helpers)
+		config.include(EmailSpec::Matchers)
+		config.use_transactional_fixtures = true
+		# == Mock Framework
+		config.mock_with :rspec
+	end
+
+end
+
+def seed
+	# This code will be run each time you run your specs.
+	DatabaseCleaner.clean
+
+	# Seed the database
+	Alchemy::Seeder.seed!
+	AlchemyCrm::Seeder.seed!
+end
+
+if defined?(Spork)
+	Spork.prefork  { configure }
+	Spork.each_run { seed }
+else
+	configure
+	seed
 end
