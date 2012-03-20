@@ -2,7 +2,6 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'acts-as-taggable-on'
 	require 'localized_country_select'
 	require 'rails3-jquery-autocomplete'
-	require "prawn"
 	require 'vcard'
 	require 'digest/sha1'
 	require 'delayed_job'
