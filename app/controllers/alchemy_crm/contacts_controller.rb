@@ -84,22 +84,14 @@ module AlchemyCrm
 		def load_signup_form
 			@element = Alchemy::Element.find_by_name('newsletter_signup_form')
 			if @element.blank?
-				if Rails.env.production?
-					render :file => Rails.root.join('public', '404.html'), :status => 404
-				else
-					raise ActiveRecord::RecordNotFound, "Alchemy::Element with name 'newsletter_signup_form' not found!"
-				end
+				raise ActiveRecord::RecordNotFound, "Alchemy::Element with name 'newsletter_signup_form' not found!"
 			end
 		end
 
 		def load_signout_form
 			@element = Alchemy::Element.find_by_name('newsletter_signout_form')
 			if @element.blank?
-				if Rails.env.production?
-					render :file => Rails.root.join('public', '404.html'), :status => 404
-				else
-					raise ActiveRecord::RecordNotFound, "Alchemy::Element with name 'newsletter_signout_form' not found!"
-				end
+				raise ActiveRecord::RecordNotFound, "Alchemy::Element with name 'newsletter_signout_form' not found!"
 			end
 		end
 
