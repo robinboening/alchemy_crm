@@ -1,3 +1,4 @@
 # Newsletter page layouts
 - name: standard
-  elements: []
+  elements: [newsletter_greeting, newsletter_article]
+  autogenerate: [newsletter_greeting]

@@ -7,6 +7,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'delayed_job'
 	require 'alchemy_cms'
 	require 'alchemy_crm/version'
+	require 'alchemy_crm/config'
 	require 'alchemy_crm/engine'
 	require 'alchemy_crm/newsletter_layout'
 	require "alchemy_crm/seeder"

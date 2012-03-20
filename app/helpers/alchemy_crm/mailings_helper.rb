@@ -7,7 +7,7 @@ module AlchemyCrm
 		def render_tracking_image
 			return "" if @preview_mode || @recipient.nil?
 			image_tag(
-				alchemy_crm.recipient_reads_url(:id => @recipient.id),
+				alchemy_crm.recipient_reads_url(:h => @recipient.sha1),
 				:style => "width: 0; height: 0; display: none",
 				:width => 0,
 				:height => 0,
@@ -16,7 +16,46 @@ module AlchemyCrm
 		end
 
 		# Renders a link to the unsubscribe page
-		def render_unsubscribe_link
+		# 
+		# Please notice that you have to create a page with a +newsletter_signout+ page layout and this page has to be public.
+		# 
+		# The text inside the link is translated.
+		# 
+		# === Example translation:
+		# 
+		#   de:
+		#     alchemy_crm:
+		#       unsubscribe: 'abmelden'
+		# 
+		# === Options:
+		# 
+		#   html_options [Hash] # Passed to the link. Useful for styling the link with inline css.
+		# 
+		# You can pass an optional block thats gets passed to +link_to+
+		# 
+		def link_to_unsubscribe_page(html_options={})
+			unsubscribe_page = Alchemy::Page.find_by_page_layout('newsletter_signout')
+			text = ::I18n.t(:unsubscribe, :scope => :alchemy_crm)
+			if unsubscribe_page.nil?
+				warning('Newsletter Signout Page Could Not Be Found. Please create one!', text)
+			else
+				url = alchemy.show_page_url(
+					:urlname => unsubscribe_page.urlname,
+					:lang => multi_language? ? unsubscribe_page.language_code : nil,
+					:email => @contact ? @contact.email : nil
+				)
+				if block_given?
+					link_to(url, html_options) do
+						yield
+					end
+				else
+					link_to(
+						text,
+						url,
+						html_options
+					)
+				end
+			end
 		end
 
 		# Renders a notice to open the mailing inside a browser, if it does not displays correctly.
@@ -26,8 +65,8 @@ module AlchemyCrm
 		# 
 		#   de:
 		#     alchemy_crm:
-		#      here: 'hier'
-		#      read_in_browser_notice: "Falls der Newsletter nicht richtig dargestellt wird, klicken Sie bitte %{link}."
+		#       here: 'hier'
+		#       read_in_browser_notice: "Falls der Newsletter nicht richtig dargestellt wird, klicken Sie bitte %{link}."
 		# 
 		# === Options:
 		# 

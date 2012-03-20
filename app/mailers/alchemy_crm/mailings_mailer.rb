@@ -1,36 +1,27 @@
-# encoding: UTF-8
 module AlchemyCrm
 	class MailingsMailer < ActionMailer::Base
 
-		helper "Alchemy::Base"
 		helper "AlchemyCrm::Base"
-		helper "Alchemy::Pages"
+		helper "AlchemyCrm::Mailings"
 		helper_method :logged_in?, :configuration
 
+		# Faking helper methods
 		def logged_in?; false; end
+		def configuration(name); return ::Alchemy::Config.get(name); end
 
-		def configuration(name)
-			return Alchemy::Config.get(name)
-		end
-
-		# This renders the mail sent as newsletter to the recipient
-		def my_mail(mailing, recipient, options = {})
-			default_options = {
-				:mail_from => AlchemyCrm::Config.get(:mail_from),
-				:subject => mailing.subject,
-				:server => "http://localhost:3000"
-			}
-			options = default_options.merge(options)
+		# Renders the email sent to the mailing recipient
+		# It takes the layout from +layouts/alchemy_crm/mailings.erb+ and renders a html and a text part from it.
+		def build(mailing, recipient, options = {})
+			options = {
+				:mail_from => AlchemyCrm::Config.get(:mail_from)
+			}.update(options)
 			@mailing = mailing
 			@page = @mailing.page
-			@elements = @page.elements
 			@recipient = recipient
-			@contact = @recipient.contact
-			@server = options[:server].gsub(/http:\/\//, '')
-			@host = options[:server]
-			mail(:to => @recipient.email, :from => options[:mail_from], :subject => options[:subject]) do |format|
-				format.html { render("layouts/newsletters.html") }
-				format.text { render("layouts/newsletters.text") }
+			@contact = @recipient.contact || Contact.new_from_recipient(@recipient)
+			mail(:to => @recipient.email, :from => options[:mail_from], :subject => mailing.subject) do |format|
+				format.html { render("layouts/alchemy_crm/mailings.html") }
+				format.text { render("layouts/alchemy_crm/mailings.text") }
 			end
 		end
 

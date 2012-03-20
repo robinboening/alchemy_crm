@@ -1,7 +1,6 @@
 module AlchemyCrm
 	class MailingsController < AlchemyCrm::BaseController
 
-		layout "alchemy/newsletters"
 		#layout :layout_for_page
 
 		def show

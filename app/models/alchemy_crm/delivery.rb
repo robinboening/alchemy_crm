@@ -32,7 +32,7 @@ module AlchemyCrm
 		# Send the mail chunk via delayed_job and waiting some time before next is enqueued
 		def send_mail_chunk(recipients_chunk, current_server)
 			recipients_chunk.each do |recipient|
-				# MailingsMailer.my_mail(
+				# MailingsMailer.build(
 				# 	self.mailing,
 				# 	recipient,
 				# 	:server => current_server

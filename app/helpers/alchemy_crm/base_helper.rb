@@ -17,8 +17,9 @@ module AlchemyCrm
 		# Given a mailing page with a +standard+ layout has partials named +_standard.html.erb+ and +_standard.text.erb+
 		# But the page page_layout attribute is +newsletter_layout_standard+
 		# 
-		def render_newsletter_layout
-			render "alchemy/newsletter_layouts/#{@page.page_layout.downcase.gsub(Regexp.new(Mailing::MAILING_PAGE_LAYOUT_PREFIX), '')}.#{request.format.to_sym}.erb"
+		def render_newsletter_layout(options={})
+			options = {:format => 'html'}.update(options)
+			render "alchemy/newsletter_layouts/#{@page.page_layout.downcase.gsub(Regexp.new(Mailing::MAILING_PAGE_LAYOUT_PREFIX), '')}.#{options[:format]}.erb"
 		end
 
 	end

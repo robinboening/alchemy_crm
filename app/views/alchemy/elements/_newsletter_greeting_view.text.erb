@@ -1,0 +1,7 @@
+<% if @contact.salutation == "mrs" -%>
+## <%= render_essence_view_by_name(element, 'female_greeting') %> <%= @contact.fullname %>,
+<% else -%>
+## <%= render_essence_view_by_name(element, 'male_greeting') %> <%= @contact.fullname %>,
+<% end -%>
+
+<%= render_essence_view_by_name(element, 'text') %>
