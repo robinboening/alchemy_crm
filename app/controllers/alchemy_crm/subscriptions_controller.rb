@@ -1,3 +1,4 @@
+# Caution: Not yet implemmented!
 module AlchemyCrm
 	class SubscriptionsController < AlchemyCrm::BaseController
 
