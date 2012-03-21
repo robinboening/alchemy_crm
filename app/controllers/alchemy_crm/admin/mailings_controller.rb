@@ -20,7 +20,7 @@ module AlchemyCrm
 				@contact = Contact.fake
 				@recipient = Recipient.new_from_contact(@contact)
 				@preview_mode = true
-				render :layout => 'alchemy/newsletters'
+				render :layout => 'alchemy_crm/mailings'
 			end
 
 			def edit_content
