@@ -28,7 +28,7 @@ module AlchemyCrm
 
 		def self.new_from_contact(contact)
 			raise "No contact given!" if contact.nil?
-			recipient = new(:contact => contact, :email => contact.email)
+			recipient = new(:contact => contact, :email => contact.email, :sha1 => Digest::SHA1.hexdigest(Time.now.to_i.to_s))
 			recipient.readonly!
 			recipient
 		end
