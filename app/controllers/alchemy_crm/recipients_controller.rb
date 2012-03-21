@@ -15,11 +15,11 @@ module AlchemyCrm
 				recipient.reacts!({
 					:page_id => params[:page_id],
 					:element_id => params[:element_id],
-					:url => params[:r].present? ? CGI.unescape(params[:r]) : nil
+					:url => params[:r]
 				})
 			end
 			if params[:r].present?
-				redirect_to CGI.unescape(params[:r])
+				redirect_to params[:r]
 			else
 				page = Alchemy::Page.includes(:elements).find(params[:page_id])
 				element = page.elements.find_by_id(params[:element_id])

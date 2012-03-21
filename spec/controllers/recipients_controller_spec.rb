@@ -66,7 +66,7 @@ describe AlchemyCrm::RecipientsController do
 		context "receiving a redirect url" do
 
 			before(:each) do
-				get :reacts, {:h => @recipient.sha1, :r => CGI.escape("http://google.de"), :use_route => 'alchemy_crm'}
+				get :reacts, {:h => @recipient.sha1, :r => "http://google.de", :use_route => 'alchemy_crm'}
 			end
 
 			it "should record the url as reaction for recipient." do
