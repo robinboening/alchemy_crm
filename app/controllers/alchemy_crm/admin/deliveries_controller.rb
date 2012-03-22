@@ -23,7 +23,7 @@ module AlchemyCrm
 				@delivery = Delivery.new(params[:delivery])
 				@mailing = @delivery.mailing = Mailing.find(params[:delivery][:mailing_id])
 				if @delivery.save
-					@delivery.deliver!(current_server)
+					@delivery.deliver!(self)
 					flash[:notice] = "Das Mailing wurde für den Versand vorbereitet."
 				end
 				redirect_to admin_mailings_path

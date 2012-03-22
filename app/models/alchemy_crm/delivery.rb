@@ -17,32 +17,31 @@ module AlchemyCrm
 		end
 
 		# Sending mails in chunks.
-		def deliver!(current_server)
-			raise "No Mailing Given" if self.mailing.blank?
-			#100.times { |i| self.recipients << Recipient.new(:email => "tvdeyen+#{i}@gmail.com") }
+		def deliver!(controller)
+			@controller = controller
+			raise "No Mailing Given" if mailing.blank?
 			@chunk_delay = 0
-			self.recipients.each_slice(settings(:send_mails_in_chunks_of)) do |recipients_chunk|
-				send_mail_chunk(recipients_chunk, current_server)
+			recipients.each_slice(self.class.settings(:send_mails_in_chunks_of)) do |recipients_chunk|
+				send_mail_chunk(recipients_chunk)
 				@chunk_delay += 1
 			end
-			self.update_attribute(:delivered_at, Time.now)
+			update_attribute(:delivered_at, Time.now)
 		end
-		handle_asynchronously :deliver!, :run_at => Proc.new { |m| m.deliver_at || Time.now }
+		#handle_asynchronously :deliver!, :run_at => proc { |m| m.deliver_at || Time.now }
 
 		# Send the mail chunk via delayed_job and waiting some time before next is enqueued
-		def send_mail_chunk(recipients_chunk, current_server)
+		def send_mail_chunk(recipients_chunk)
 			recipients_chunk.each do |recipient|
-				# MailingsMailer.build(
-				# 	self.mailing,
-				# 	recipient,
-				# 	:server => current_server
-				# ).deliver
-				puts "sending mail at: #{recipient.email}"
+				MailingsMailer.build(
+					@controller,
+					mailing,
+					recipient
+				).deliver
 			end
 		end
-		handle_asynchronously :send_mail_chunk, :run_at => Proc.new { |m| (m.chunk_delay * m.settings(:send_mail_chunks_every)).minutes.from_now }
+		#handle_asynchronously :send_mail_chunk, :run_at => proc { |m| (m.chunk_delay * m.class.settings(:send_mail_chunks_every)).minutes.from_now }
 
-		def settings(name)
+		def self.settings(name)
 			AlchemyCrm::Config.get(name)
 		end
 
@@ -51,7 +50,7 @@ module AlchemyCrm
 		def recipients_from_mailing_contacts
 			raise "No Mailing Given" if mailing.blank?
 			mailing.contacts.each do |contact|
-				recipients << Recipient.create(
+				recipients << Recipient.create!(
 					:email => contact.email,
 					:contact => contact
 				)

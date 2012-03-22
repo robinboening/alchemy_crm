@@ -3,15 +3,24 @@ module AlchemyCrm
 
 		helper "AlchemyCrm::Base"
 		helper "AlchemyCrm::Mailings"
-		helper_method :logged_in?, :configuration
+		helper_method :logged_in?, :configuration, :session, :current_server
 
 		# Faking helper methods
 		def logged_in?; false; end
 		def configuration(name); return ::Alchemy::Config.get(name); end
 
+		def session
+			@controller.session
+		end
+
+		def current_server
+			[@controller.request.protocol, @controller.request.host_with_port].join
+		end
+
 		# Renders the email sent to the mailing recipient
 		# It takes the layout from +layouts/alchemy_crm/mailings.erb+ and renders a html and a text part from it.
-		def build(mailing, recipient, options = {})
+		def build(controller, mailing, recipient, options = {})
+			@controller = controller
 			options = {
 				:mail_from => AlchemyCrm::Config.get(:mail_from)
 			}.update(options)
