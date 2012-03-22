@@ -1,14 +1,14 @@
 <tr class="delivery <%= cycle('even', 'odd') %>">
 	<td>
 		<%- if delivery.delivered? -%>
-		<%= l(delivery.deliver_at) %>
+		<%= l(delivery.deliver_at, :format => :deliveries) %>
 		<%- else -%>
 		<%= link_to_overlay_window(
-			l(delivery.deliver_at),
+			l(delivery.deliver_at, :format => :deliveries),
 			edit_admin_delivery_path(delivery),
 			{
 				:title => "#{delivery.name} bearbeiten",
-				:size => '350x210'
+				:size => '420x210'
 			}
 		) %>
 		<%- end -%>
