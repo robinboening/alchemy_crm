@@ -21,7 +21,8 @@ AlchemyCrm::Engine.routes.draw do
 	match '/contacts/:token/disable' => 'contacts#disable',
 		:as => 'disable_contact'
 
-	resources :mailings, :only => :show
+	match '/mailings/:m/show/:r' => 'mailings#show',
+		:as => 'show_mailing'
 
 	resources :contacts do
 		collection do
