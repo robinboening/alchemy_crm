@@ -21,6 +21,17 @@
 	</td>
 	<td class="tools">
 		<%= link_to_overlay_window(
+			render_icon('send_mailing'),
+			new_admin_delivery_path(:mailing_id => mailing.id),
+			{
+				:title => ::I18n.t('Send Mailing', :scope => :alchemy_crm),
+				:size => '420x210'
+			},
+			{
+				:title => ::I18n.t('Send Mailing', :scope => :alchemy_crm)
+			}
+		) %>
+		<%= link_to_overlay_window(
 			render_icon('delivery'),
 			admin_mailing_deliveries_path(mailing.id),
 			{
