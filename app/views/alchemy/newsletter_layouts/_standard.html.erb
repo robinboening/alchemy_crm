@@ -1,2 +1,39 @@
-<h1>Newsletter</h1>
-<%= render_elements %>
+<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%">
+	<tr>
+		<td valign="top">
+			<table cellpadding="0" cellspacing="0" border="0" align="center" width="610">
+				<tr>
+					<td valign="middle">
+						<%= image_from_server_tag('logo.png', :style => 'outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;') %>
+					</td>
+					<td valign="middle" align="center">
+						<h1>Newsletter in <%= current_language.name %></h1>
+						<h2><%= @mailing.name %></h2>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<table cellpadding="0" cellspacing="0" border="0" align="center" width="610">
+				<tr>
+					<td valign="top">
+						<%= render_elements %>
+					</td>
+				</tr>
+			</table
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<table cellpadding="0" cellspacing="0" border="0" align="center" width="610">
+				<tr>
+					<td valign="top">
+						<%= link_to_unsubscribe_page %>
+					</td>
+				</tr>
+			</table
+		</td>
+	</tr>
+</table>

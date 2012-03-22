@@ -1,11 +1,12 @@
 module AlchemyCrm
 	class MailingsMailer < ActionMailer::Base
 
+		include ControllerHelpers
+
 		default :from => AlchemyCrm::Config.get(:mail_from)
 
-		helper "AlchemyCrm::Base"
 		helper "AlchemyCrm::Mailings"
-		helper_method :logged_in?, :configuration, :current_language, :current_server, :current_host, :session
+		helper_method :logged_in?, :configuration, :session
 
 		# Faking that we are not logged in
 		def logged_in?
@@ -22,18 +23,6 @@ module AlchemyCrm
 
 		def configuration(name)
 			Alchemy::Config.get(name)
-		end
-
-		def current_language
-			@language ||= Alchemy::Language.find(@options[:language_id])
-		end
-
-		def current_server
-			@current_server ||= [@options[:protocol], @options[:host]].join
-		end
-
-		def current_host
-			@current_host ||= @options[:host]
 		end
 
 		# Renders the email sent to the mailing recipient

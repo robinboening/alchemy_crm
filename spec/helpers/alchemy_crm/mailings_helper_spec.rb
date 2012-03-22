@@ -7,6 +7,30 @@ module AlchemyCrm
 
 		let(:recipient) { mock_model('Recipient', :email => 'foo@bar.org', :sha1 => 'kjhgfdfgh') }
 
+		describe '#render_newsletter_layout' do
+
+			before(:each) do
+				@page = Alchemy::Page.new(:name => 'Mailing page', :page_layout => 'newsletter_layout_standard')
+			end
+
+			it "should render the newsletter layout" do
+				helper.stub!(:render_elements).and_return("")
+				helper.stub!(:configuration).and_return(true)
+				helper.stub!(:current_server).and_return('http://example.com')
+				helper.stub!(:current_language).and_return(mock_model('Language', :name => 'English'))
+				@mailing = mock_model('Mailing', :name => 'News 01/2012')
+				helper.render_newsletter_layout.should =~ /<h1>Newsletter/
+			end
+
+			it "should render the newsletter layout in plain text" do
+				helper.stub!(:render_elements).and_return("")
+				helper.stub!(:configuration).and_return(true)
+				helper.request.format = :text
+				helper.render_newsletter_layout(:format => :text).should_not =~ /<h1>Newsletter/
+			end
+
+		end
+
 		describe '#render_tracking_image' do
 			it "should render a tracking image with recipient_reads_url as source." do
 				helper.stub!(:current_host).and_return('example.com')

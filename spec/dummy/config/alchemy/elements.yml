@@ -10,10 +10,14 @@
 
 - name: newsletter_article
   contents:
+  - name: image
+    type: EssencePicture
   - name: headline
     type: EssenceText
   - name: text
     type: EssenceRichtext
+  - name: link
+    type: EssenceLink
 
 # These elements are added by the Alchemy CRM module.
 

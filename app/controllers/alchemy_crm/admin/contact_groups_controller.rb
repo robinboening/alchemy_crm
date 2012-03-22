@@ -4,7 +4,7 @@ module AlchemyCrm
 		class ContactGroupsController < Alchemy::Admin::ResourcesController
 
 			before_filter :load_additional_data, :only => [:new, :edit]
-			helper "AlchemyCrm::Base"
+			helper "AlchemyCrm::Admin::Base"
 
 			def add_filter
 				@contact_group = ContactGroup.find(params[:contact_group_id])

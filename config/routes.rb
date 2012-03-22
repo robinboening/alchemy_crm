@@ -24,6 +24,8 @@ AlchemyCrm::Engine.routes.draw do
 	match '/mailings/:m/show/:r' => 'mailings#show',
 		:as => 'show_mailing'
 
+	resources :mailings, :only => [:show]
+
 	resources :contacts do
 		collection do
 			post :signup, :signout

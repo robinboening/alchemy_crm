@@ -4,7 +4,7 @@ module AlchemyCrm
 		class TagsController < Alchemy::Admin::BaseController
 
 			before_filter :load_tag, :only => [:edit, :update, :destroy]
-			helper "AlchemyCrm::Base"
+			helper "AlchemyCrm::Admin::Base"
 
 			def index
 				@tags = ActsAsTaggableOn::Tag.where(
