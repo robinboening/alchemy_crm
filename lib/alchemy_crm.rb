@@ -4,7 +4,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'rails3-jquery-autocomplete'
 	require 'vcard'
 	require 'digest/sha1'
-	require 'delayed_job'
+	require 'delayed_job_active_record'
 	require 'alchemy_cms'
 	require 'alchemy_crm/version'
 	require 'alchemy_crm/config'
