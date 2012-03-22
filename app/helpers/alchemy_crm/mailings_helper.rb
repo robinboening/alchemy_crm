@@ -49,11 +49,7 @@ module AlchemyCrm
 						yield
 					end
 				else
-					link_to(
-						text,
-						url,
-						html_options
-					)
+					link_to(text, url, html_options)
 				end
 			end
 		end
@@ -76,9 +72,35 @@ module AlchemyCrm
 			return "" if @recipient.nil?
 			::I18n.t(
 				:read_in_browser_notice,
-				:link => link_to(::I18n.t(:here, :scope => :alchemy_crm), alchemy_crm.mailing_path(:m => @mailing.sha1, :r => @recipient.sha1), html_options),
+				:link => link_to(::I18n.t(:here, :scope => :alchemy_crm), alchemy_crm.show_mailing_url(:m => @mailing.sha1, :r => @recipient.sha1), html_options),
 				:scope => :alchemy_crm
 			).html_safe
+		end
+
+		# Use this helper to render an image from your server
+		# The notice and the link inside are translated via I18n.
+		# 
+		# === Example:
+		# 
+		#   <%= image_from_server_tag('logo.png', :alt => 'Logo', :width => 230, :height => 116, :style => 'outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;') %>
+		#   <img src="http://example.com/assets/logo.png"
+		#  
+		# === Options:
+		# 
+		#   html_options [Hash] # Passed to the image_tag helper.
+		# 
+		def image_from_server_tag(image, html_options={})
+			image_tag([current_server, Rails.application.config.assets.prefix, image].join('/'), html_options)
+		end
+
+		def tracked_link_tag(*args)
+			if block_given?
+				link_to(alchemy_crm.recipient_reacts_url(:h => @recipient.sha1, :r => args.first), args.last) do
+					yield
+				end
+			else
+				link_to(args.first, url, args.last)
+			end
 		end
 
 	end
