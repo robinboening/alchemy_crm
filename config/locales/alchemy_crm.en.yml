@@ -29,3 +29,7 @@ en:
         salutation: "Salutation*"
         firstname: "Firstname*"
         lastname: "Lastname*"
+
+  time:
+    formats:
+      deliveries: "%Y-%m-%d %H:%M"

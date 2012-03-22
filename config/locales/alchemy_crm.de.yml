@@ -45,3 +45,7 @@ de:
         email: "E-Mail*"
         verified: verifiziert
         disabled: abgemeldet
+
+  time:
+    formats:
+      deliveries: "%d. %b. %Y - %H:%M"
