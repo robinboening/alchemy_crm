@@ -11,7 +11,7 @@ module AlchemyCrm
 				@element = @mailing.page.elements.first
 				@element.content_by_name('text').essence.update_attribute(:body, "<h2>Hello World</h2>")
 				@recipient = @mailing.recipients.first
-				@email = MailingsMailer.build(@mailing, @recipient).deliver
+				@email = MailingsMailer.build(Alchemy::PagesController.new, @mailing, @recipient).deliver
 			end
 
 			it "should render the mailings body." do

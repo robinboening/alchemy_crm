@@ -21,7 +21,7 @@ module AlchemyCrm
 				@delivery.should_receive(:send_mail_chunk).once.with(@recipients[0..1])
 				@delivery.should_receive(:send_mail_chunk).once.with(@recipients[2..3])
 				@delivery.should_receive(:send_mail_chunk).once.with(@recipients[4..5])
-				@delivery.deliver!
+				@delivery.deliver!(Alchemy::PagesController.new)
 			end
 
 		end
