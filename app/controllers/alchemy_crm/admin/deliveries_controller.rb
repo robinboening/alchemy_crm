@@ -23,7 +23,11 @@ module AlchemyCrm
 				@delivery = Delivery.new(params[:delivery])
 				@mailing = @delivery.mailing = Mailing.find(params[:delivery][:mailing_id])
 				if @delivery.save
-					@delivery.deliver!(self)
+					@delivery.send_chunks(
+						:language_id => session[:language_id],
+						:protocol => request.protocol,
+						:host => request.host_with_port
+					)
 					flash[:notice] = "Das Mailing wurde für den Versand vorbereitet."
 				end
 				redirect_to admin_mailings_path

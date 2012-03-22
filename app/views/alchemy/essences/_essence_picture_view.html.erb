@@ -10,7 +10,8 @@
 			:upsample  => options[:upsample],
 			:padding => options[:padding],
 			:format => options[:format],
-			:effects => options[:effects].blank? ? nil : options[:effects]
+			:effects => options[:effects].blank? ? nil : options[:effects],
+			:host => current_host
 		),
 		{
 			:alt => (content.essence.alt_tag.blank? ? nil : content.essence.alt_tag),
@@ -29,7 +30,7 @@
 	<%- else -%>
 		<%= link_to(
 			content.essence.caption.blank? || options[:show_caption] == false ? img_tag : img_tag + caption,
-			url_for(content.essence.link),
+			url_for(content.essence.link, :host => current_host),
 			:title => content.essence.link_title,
 			:target => (content.essence.link_target == "blank" ? "_blank" : nil),
 			'data-link-target' => content.essence.link_target

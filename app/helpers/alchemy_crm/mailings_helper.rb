@@ -7,7 +7,7 @@ module AlchemyCrm
 		def render_tracking_image
 			return "" if @preview_mode || @recipient.nil?
 			image_tag(
-				alchemy_crm.recipient_reads_url(:h => @recipient.sha1),
+				alchemy_crm.recipient_reads_url(:h => @recipient.sha1, :host => current_host),
 				:style => "width: 0; height: 0; display: none",
 				:width => 0,
 				:height => 0,
@@ -15,7 +15,7 @@ module AlchemyCrm
 			)
 		end
 
-		# Renders a link to the unsubscribe page
+		# Renders a link to the unsubscribe page.
 		# 
 		# Please notice that you have to create a page with a +newsletter_signout+ page layout and this page has to be public.
 		# 
@@ -42,7 +42,8 @@ module AlchemyCrm
 				url = alchemy.show_page_url(
 					:urlname => unsubscribe_page.urlname,
 					:lang => multi_language? ? unsubscribe_page.language_code : nil,
-					:email => @contact ? @contact.email : nil
+					:email => @contact ? @contact.email : nil,
+					:host => current_host
 				)
 				if block_given?
 					link_to(url, html_options) do
@@ -55,6 +56,7 @@ module AlchemyCrm
 		end
 
 		# Renders a notice to open the mailing inside a browser, if it does not displays correctly.
+		# 
 		# The notice and the link inside are translated via I18n.
 		# 
 		# === Example translation:
@@ -72,18 +74,28 @@ module AlchemyCrm
 			return "" if @recipient.nil?
 			::I18n.t(
 				:read_in_browser_notice,
-				:link => link_to(::I18n.t(:here, :scope => :alchemy_crm), alchemy_crm.show_mailing_url(:m => @mailing.sha1, :r => @recipient.sha1), html_options),
+				:link => link_to(
+					::I18n.t(:here, :scope => :alchemy_crm),
+					alchemy_crm.show_mailing_url(
+						:m => @mailing.sha1,
+						:r => @recipient.sha1,
+						:host => current_host
+					),
+					html_options,
+					:host => current_host
+				),
 				:scope => :alchemy_crm
 			).html_safe
 		end
 
-		# Use this helper to render an image from your server
+		# Use this helper to render an image from your server.
+		# 
 		# The notice and the link inside are translated via I18n.
 		# 
 		# === Example:
 		# 
 		#   <%= image_from_server_tag('logo.png', :alt => 'Logo', :width => 230, :height => 116, :style => 'outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;') %>
-		#   <img src="http://example.com/assets/logo.png"
+		#   => <img src="http://example.com/assets/logo.png"
 		#  
 		# === Options:
 		# 
@@ -93,13 +105,27 @@ module AlchemyCrm
 			image_tag([current_server, Rails.application.config.assets.prefix, image].join('/'), html_options)
 		end
 
+		# Renders a link that tracks the reaction of a recipient.
+		# 
+		# After getting tracked the controller redirects to the url passed in.
+		# 
+		# It has the same arguments that the Rails +link_to+ helper has.
+		# 
+		# === Example:
+		# 
+		#   <%= tracked_link_tag('read more' :r => 'http://example.com/my-article', :style => 'color: black') %>
+		#   => <a href="http://example.com/recipient/s3cr3tSh41/reacts?r=http%3A%2F%2Fexample.com%2Fmy-article" style="color: black">
+		# 
+		# *NOTE:* You can even pass a block like you could for +link_to+ helper from Rails.
+		# 
 		def tracked_link_tag(*args)
+			params = {:h => @recipient.sha1, :r => args.first, :host => current_host}
 			if block_given?
-				link_to(alchemy_crm.recipient_reacts_url(:h => @recipient.sha1, :r => args.first), args.last) do
+				link_to(alchemy_crm.recipient_reacts_url(params), args.last) do
 					yield
 				end
 			else
-				link_to(args.first, url, args.last)
+				link_to(args.first, alchemy_crm.recipient_reacts_url(params.merge(:r => args[1])), args.last)
 			end
 		end
 

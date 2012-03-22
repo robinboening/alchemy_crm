@@ -8,16 +8,16 @@
 		<p>Für bereits versendete Mailings können Statistiken aufgerufen werden.</p>
 		<p>Noch nicht versendete Mailings können neu geplant werden, in dem Sie auf das Versanddatum klicken.</p>
 	</div>
-</div>
-<div id="deliveries">
-	<table class="list">
-		<tr>
-			<th>Versand geplant für</th>
-			<th class="right">Empfänger</th>
-			<th class="center">versendet?</th>
-			<th class="center">Statistik</th>
-		</tr>
-		<%= render @deliveries %>
-	</table>
+	<div id="deliveries">
+		<table class="list">
+			<tr>
+				<th>Versand geplant für</th>
+				<th class="right">Empfänger</th>
+				<th class="center">versendet?</th>
+				<th class="center">Statistik</th>
+			</tr>
+			<%= render @deliveries %>
+		</table>
+	</div>
 </div>
 <%- end -%>
