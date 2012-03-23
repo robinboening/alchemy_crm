@@ -145,5 +145,36 @@ module AlchemyCrm
 			end
 		end
 
+		def current_host
+			(defined?(request)).nil? || request.nil? ? @options[:host] : request.host
+		end
+
+		def current_server
+			if (defined?(request)).nil? || request.nil?
+				protocol = @options.nil? || @options[:protocol].blank? ? 'http://' : @options[:protocol]
+			else
+				protocol = request.protocol
+			end
+			if (defined?(request)).nil? || request.nil?
+				if @options
+					port = @options[:port] && @options[:port] != 80 ? @options[:port] : nil
+				else
+					port = nil
+				end
+			else
+				port = request.port != 80 ? request.port : nil
+			end
+			[protocol, current_host, port ? ":#{port}" : nil].join
+		end
+
+		def current_language
+			return @language if @language
+			if @options && @options[:language_id]
+				@language = Alchemy::Language.find(@options[:language_id])
+			else
+				@language = Alchemy::Language.get_default
+			end
+		end
+
 	end
 end

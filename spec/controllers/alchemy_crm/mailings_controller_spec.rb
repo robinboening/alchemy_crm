@@ -16,8 +16,8 @@ module AlchemyCrm
 					get :show, {:id => @mailing.id, :use_route => :alchemy_crm}
 				end
 
-				it "should not have a recipient" do
-					assigns(:recipient).should be(nil)
+				it "should have a recipient" do
+					assigns(:recipient).should_not be(nil)
 				end
 
 				it "should have a fake contact" do
@@ -71,6 +71,7 @@ module AlchemyCrm
 				before(:each) do
 					@contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
 					@recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
+					@delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
 				end
 
 				it "should render the view." do

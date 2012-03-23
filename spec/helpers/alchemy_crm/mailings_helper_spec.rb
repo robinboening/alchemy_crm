@@ -40,13 +40,18 @@ module AlchemyCrm
 		end
 
 		describe '#link_to_unsubscribe_page' do
-			it "should render a link to the unsubscribe page." do
+
+			before(:each) do
 				unsubscribe_page = mock_model('Page', {:urlname => 'unsubscribe'})
 				Alchemy::Page.stub!(:find_by_page_layout).and_return(unsubscribe_page)
-				helper.stub!(:current_host).and_return('example.com')
 				helper.stub!(:multi_language?).and_return(false)
+			end
+
+			it "should render a link to the unsubscribe page." do
+				helper.stub!(:current_host).and_return('example.com')
 				helper.link_to_unsubscribe_page.should match /<a.+href=.+example.com\/unsubscribe/
 			end
+
 		end
 
 		describe '#read_in_browser_notice' do
@@ -71,6 +76,90 @@ module AlchemyCrm
 				@recipient = recipient
 				helper.stub!(:current_host).and_return('example.com')
 				helper.tracked_link_tag('read more', '/de/my-article', :style => 'color: black').should match /<a.+href=.#{Regexp.escape(recipient_reacts_url({:h => recipient.sha1, :r => '/de/my-article', :host => 'example.com'}))}.+style=.color: black.+read more/
+			end
+		end
+
+		describe '#current_host' do
+			it "should return the host from request." do
+				helper.stub!(:request).and_return(OpenStruct.new({:host => 'example.com'}))
+				helper.current_host.should match /^example.com$/
+			end
+
+			it "should return the host from options[:host] if no request is present." do
+				helper.stub!(:request).and_return(nil)
+				helper.instance_variable_set('@options', {:host => 'example.com'})
+				helper.current_host.should match /^example.com$/
+			end
+		end
+
+		describe '#current_server' do
+
+			context "if no request given" do
+				it "should return the full server url from options." do
+					helper.stub!(:request).and_return(nil)
+					helper.instance_variable_set('@options', {
+						:port => 80,
+						:host => 'example.com'
+					})
+					helper.current_server.should match /^http:\/\/example.com$/
+				end
+			end
+
+			context "if request given" do
+				it "should return the full server url from request." do
+					helper.current_server.should match /^http:\/\/test.host$/
+				end
+			end
+
+			context "given a port different from 80 with options present" do
+				it "should return the full server url with port." do
+					helper.stub!(:request).and_return(nil)
+					helper.instance_variable_set('@options', {
+						:port => 3000,
+						:host => 'localhost'
+					})
+					helper.current_server.should match /^http:\/\/localhost:3000$/
+				end
+			end
+
+			context "given port 80 with options present" do
+				it "should return the full server url without port." do
+					helper.stub!(:request).and_return(nil)
+					helper.instance_variable_set('@options', {
+						:port => 80,
+						:host => 'example.com'
+					})
+					helper.current_server.should match /^http:\/\/example.com$/
+				end
+			end
+
+			context "given a port different from 80 with request present" do
+				it "should return the full server url with port." do
+					helper.stub!(:request).and_return(OpenStruct.new({:host => 'localhost', :port => 3000, :protocol => 'http://'}))
+					helper.current_server.should match /^http:\/\/localhost:3000$/
+				end
+			end
+
+			context "given port 80 with request present" do
+				it "should return the full server url without port." do
+					helper.current_server.should match /^http:\/\/test.host$/
+				end
+			end
+
+		end
+
+		describe '#current_language' do
+			it "should return the language from session[:language_id]." do
+				helper.current_language.should be_an_instance_of(Alchemy::Language)
+			end
+
+			it "should return the language from options[:language_id] if no session is present." do
+				helper.instance_variable_set('@options', {:language_id => Alchemy::Language.get_default.id})
+				helper.current_language.should be_an_instance_of(Alchemy::Language)
+			end
+
+			it "should return the default language if no session or options[:language_id] is present." do
+				helper.current_language.should be_an_instance_of(Alchemy::Language)
 			end
 		end
 

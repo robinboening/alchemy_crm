@@ -3,9 +3,6 @@ module AlchemyCrm
 	module Admin
 		class MailingsController < Alchemy::Admin::ResourcesController
 
-			include ControllerHelpers
-
-			before_filter :set_options_for_helpers, :only => [:show]
 			before_filter :load_newsletters, :only => [:new, :edit, :copy]
 
 			helper 'AlchemyCrm::Mailings'
@@ -40,10 +37,6 @@ module AlchemyCrm
 			end
 
 		private
-
-			def set_options_for_helpers
-				@options = {:language_id => session[:language_id], :host => request.host_with_port, :protocol => request.protocol}
-			end
 
 			def load_newsletters
 				@newsletters = Newsletter.all

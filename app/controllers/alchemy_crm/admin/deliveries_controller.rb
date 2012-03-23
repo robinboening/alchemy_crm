@@ -26,7 +26,8 @@ module AlchemyCrm
 					@delivery.send_chunks(
 						:language_id => session[:language_id],
 						:protocol => request.protocol,
-						:host => request.host_with_port
+						:host => request.host,
+						:port => request.port
 					)
 					flash[:notice] = "Das Mailing wurde für den Versand vorbereitet."
 				end

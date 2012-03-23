@@ -1,29 +1,10 @@
 module AlchemyCrm
 	class MailingsMailer < ActionMailer::Base
 
-		include ControllerHelpers
-
 		default :from => AlchemyCrm::Config.get(:mail_from)
 
 		helper "AlchemyCrm::Mailings"
-		helper_method :logged_in?, :configuration, :session
-
-		# Faking that we are not logged in
-		def logged_in?
-			false
-		end
-
-		# Session Hash for Alchemy::PagesHelper
-		def session
-			{
-				:language_id => @language.id,
-				:language_code => @language.code
-			}
-		end
-
-		def configuration(name)
-			Alchemy::Config.get(name)
-		end
+		helper_method :logged_in?, :configuration
 
 		# Renders the email sent to the mailing recipient
 		# It takes the layout from +layouts/alchemy_crm/mailings.erb+ and renders a html and a text part from it.
@@ -38,6 +19,15 @@ module AlchemyCrm
 				format.html { render("layouts/alchemy_crm/mailings.html") }
 				format.text { render("layouts/alchemy_crm/mailings.text") }
 			end
+		end
+
+		# Faking that we are not logged in
+		def logged_in?
+			false
+		end
+
+		def configuration(name)
+			Alchemy::Config.get(name)
 		end
 
 	end

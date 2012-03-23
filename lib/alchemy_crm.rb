@@ -11,7 +11,6 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'alchemy_crm/engine'
 	require 'alchemy_crm/newsletter_layout'
 	require "alchemy_crm/seeder"
-	require "alchemy_crm/controller_helpers"
 else
 	raise "Alchemy CRM 2.0 needs Rails 3.0 or higher. You are currently using Rails #{Rails::VERSION::MAJOR}"
 end
