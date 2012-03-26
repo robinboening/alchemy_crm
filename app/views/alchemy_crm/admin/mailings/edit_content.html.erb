@@ -58,6 +58,16 @@
 		) %>
 		<label><%= ::I18n.t('Send Mailing', :scope => :alchemy_crm) %></label>
 	</div>
+	<div class="button_with_label">
+		<%= link_to(
+			render_icon('plain_text_view'),
+			alchemy_crm.admin_mailing_path(@mailing, :format => :text),
+			:title => ::I18n.t(:show_as_plain_text, :scope => :alchemy_crm),
+			:class => 'icon_button',
+			:id => "toggle_preview_frame_button"
+		) %>
+		<label><%= ::I18n.t(:show_as_plain_text, :scope => :alchemy_crm) %></label>
+	</div>
 </div>
 <div id="toolbar_buttons_right">
 	<div class="button_with_label" id="show_preview_window">
@@ -172,6 +182,12 @@
 		Alchemy.PageLeaveObserver(texts);
 		AlchemyCrm.openElementsWindow();
 		AlchemyCrm.openPreviewWindow();
+
+		$('#toggle_preview_frame_button').on('click', function(e) {
+			e.preventDefault();
+			AlchemyCrm.togglePreviewFrame(this, '<%= alchemy_crm.admin_mailing_path(@mailing, :format => :text) -%>', '<%= alchemy_crm.admin_mailing_path(@mailing) -%>');
+			return false;
+		});
 	});
 
 </script>

@@ -18,6 +18,7 @@ en:
     salutations:
       mr: Mr
       mrs: Mrs
+    show_as_plain_text: "Show as plain text"
     subscribe_form:
       button_label: subscribe
     signout_form:

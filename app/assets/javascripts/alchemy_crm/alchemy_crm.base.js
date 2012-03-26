@@ -1,8 +1,8 @@
 var AlchemyCrm = {};
 (function($) {
-	
+
 	AlchemyCrm = {
-		
+
 		toggleLabel : function(link, hidetext, showtext) {
 			if ($(link).text() === showtext) {
 				$(link).text(hidetext);
@@ -10,7 +10,7 @@ var AlchemyCrm = {};
 				$(link).text(showtext);
 			}
 		},
-		
+
 		removeContactGroupFilter : function(element, id, count) {
 			$(element).parent().parent('.filter').remove();
 			$(
@@ -21,7 +21,7 @@ var AlchemyCrm = {};
 				'<input type="hidden" name="contact_group[filters_attributes]['+count+'][id]" value='+id+'>'
 			);
 		},
-		
+
 		teasablesFilter : function(value) {
 			var teasables = $('#teasable_elements .teasable_page');
 			if (value === '') {
@@ -36,8 +36,30 @@ var AlchemyCrm = {};
 					}
 				});
 			}
+		},
+
+		text_view_active : false,
+
+		togglePreviewFrame : function(btn, text_url, html_url) {
+			var $frame = $('iframe#alchemyPreviewWindow');
+			var $btn = $(btn).parent();
+			var $spin = $('#preview_load_info');
+			$frame.load(function() {
+				$spin.hide();
+			});
+			if (AlchemyCrm.text_view_active) {
+				$frame.attr('src', html_url);
+				AlchemyCrm.text_view_active = false;
+				$btn.removeClass('active');
+			} else {
+				$frame.attr('src', text_url);
+				AlchemyCrm.text_view_active = true;
+				$btn.addClass('active');
+			}
+			$spin.show();
+			return false;
 		}
-		
+
 	}
-	
+
 })(jQuery);

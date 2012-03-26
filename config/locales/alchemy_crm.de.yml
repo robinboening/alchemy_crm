@@ -23,6 +23,7 @@ de:
     salutations:
       mr: Herr
       mrs: Frau
+    show_as_plain_text: "Als reinen Text anzeigen"
     subscribe_form:
       button_label: bestellen
     signout_form:
