@@ -11,6 +11,9 @@ module AlchemyCrm
 
 			before(:each) do
 				@page = Alchemy::Page.new(:name => 'Mailing page', :page_layout => 'newsletter_layout_standard')
+				language_root = Alchemy::Page.create!(:name => 'Language Root', :page_layout => 'standard', :language => Alchemy::Language.get_default, :parent_id => Alchemy::Page.root.id)
+				@unsubscribe_page = Alchemy::Page.create!(:name => 'Unsubscribe Page', :page_layout => 'newsletter_signout', :parent_id => language_root.id, :language => Alchemy::Language.get_default)
+				@mailing = mock_model('Mailing', :name => 'News 01/2012')
 			end
 
 			it "should render the newsletter layout" do
@@ -18,7 +21,6 @@ module AlchemyCrm
 				helper.stub!(:configuration).and_return(true)
 				helper.stub!(:current_server).and_return('http://example.com')
 				helper.stub!(:current_language).and_return(mock_model('Language', :name => 'English'))
-				@mailing = mock_model('Mailing', :name => 'News 01/2012')
 				helper.render_newsletter_layout.should =~ /<h1>Newsletter/
 			end
 

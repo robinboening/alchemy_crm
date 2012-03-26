@@ -72,6 +72,8 @@ module AlchemyCrm
 					@contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
 					@recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
 					@delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
+					@language_root = Alchemy::Page.create!(:name => 'Language Root', :page_layout => 'standard', :language => Alchemy::Language.get_default, :parent_id => Alchemy::Page.root.id)
+					@unsubscribe_page = Alchemy::Page.create!(:name => 'Unsubscribe Page', :page_layout => 'newsletter_signout', :parent_id => @language_root.id, :language => Alchemy::Language.get_default)
 				end
 
 				it "should render the view." do

@@ -1,3 +1,5 @@
 ## <%= render_essence_view_by_name(element, 'headline') %>
-
 <%= render_essence_view_by_name(element, 'text') %>
+<% if element.has_ingredient?('link') -%>
+<%= alchemy_crm.recipient_reacts_url(:h => @recipient.sha1, :r => element.ingredient('link'), :host => current_host) %>
+<% end -%>

@@ -50,24 +50,29 @@ module AlchemyCrm
 		# You can pass an optional block thats gets passed to +link_to+
 		# 
 		def link_to_unsubscribe_page(html_options={})
-			unsubscribe_page = Alchemy::Page.find_by_page_layout('newsletter_signout')
 			text = ::I18n.t(:unsubscribe, :scope => :alchemy_crm)
-			if unsubscribe_page.nil?
-				warning('Newsletter Signout Page Could Not Be Found. Please create one!', text)
+			if block_given?
+				link_to(url_for_unsubscribe_page, html_options) do
+					yield
+				end
 			else
-				url = alchemy.show_page_url(
+				link_to(text, url_for_unsubscribe_page, html_options)
+			end
+		end
+
+		# Returns the url for the unsubscribe page.
+		# Used by +link_to_unsubscribe_page+ helper and inside of plain text views of mailings.
+		def url_for_unsubscribe_page
+			unsubscribe_page = Alchemy::Page.find_by_page_layout('newsletter_signout')
+			if unsubscribe_page.nil?
+				raise('Newsletter Signout Page Could Not Be Found. Please create one!')
+			else
+				alchemy.show_page_url(
 					:urlname => unsubscribe_page.urlname,
 					:lang => multi_language? ? unsubscribe_page.language_code : nil,
 					:email => @contact ? @contact.email : nil,
 					:host => current_host
 				)
-				if block_given?
-					link_to(url, html_options) do
-						yield
-					end
-				else
-					link_to(text, url, html_options)
-				end
 			end
 		end
 

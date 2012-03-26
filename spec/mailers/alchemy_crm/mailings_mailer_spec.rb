@@ -11,6 +11,8 @@ module AlchemyCrm
 				@element = @mailing.page.elements.first
 				@element.content_by_name('text').essence.update_attribute(:body, "<h2>Hello World</h2>")
 				@recipient = @mailing.recipients.first
+				@language_root = Alchemy::Page.create!(:name => 'Language Root', :page_layout => 'standard', :language => Alchemy::Language.get_default, :parent_id => Alchemy::Page.root.id)
+				@unsubscribe_page = Alchemy::Page.create!(:name => 'Unsubscribe Page', :page_layout => 'newsletter_signout', :parent_id => @language_root.id, :language => Alchemy::Language.get_default)
 				@email = MailingsMailer.build(@mailing, @recipient, {:host => ActionMailer::Base.default_url_options[:host], :language_id => Alchemy::Language.get_default.id}).deliver
 			end
 
@@ -28,6 +30,10 @@ module AlchemyCrm
 
 			it "should have mailing's subject." do
 				@email.should have_subject(@mailing.subject)
+			end
+
+			after(:all) do
+				@language_root.destroy
 			end
 
 		end
