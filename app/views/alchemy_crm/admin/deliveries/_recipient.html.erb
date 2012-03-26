@@ -1,11 +1,10 @@
 <tr class="recipient">
-    <td><%= recipient.contact.blank? ? '<i>ohne</i>' : link_to(recipient.contact.fullname.blank? ? '<i>ohne</i>' : recipient.contact.fullname, admin_contacts_path(:query => recipient.contact.email), :title => "Kontakt anzeigen") %></td>
+    <td><%= recipient.contact.blank? ? '<i>ohne</i>'.html_safe : link_to(recipient.contact.fullname.blank? ? '<i>ohne</i>'.html_safe : recipient.contact.fullname, admin_contacts_path(:query => recipient.contact.email), :title => "Kontakt anzeigen") %></td>
     <td><%= recipient.email %></td>
     <%- if reactions -%>
     <td>
         <%- recipient.reactions.each do |reaction| -%>
-        <%- link = "#{multi_language? ? '/' + reaction.page.language : ''}/#{reaction.page.urlname}##{reaction.element.name}_#{reaction.element.id}" -%>
-        <%= link_to_function link, "openPagePreview('#{link}', '#{reaction.page.urlname}')" %><br />
+        <%= reaction.url %><br />
         <%- end -%>
     </td>
     <%- end -%>

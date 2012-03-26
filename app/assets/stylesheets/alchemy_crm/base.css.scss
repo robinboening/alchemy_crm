@@ -107,6 +107,12 @@ span.icon.fill_from_element {
 	background: image-url('alchemy/icons.png') -256px -40px;
 }
 
+span.icon.statistics {
+	background-image: image-url('alchemy_crm/statistic.png');
+	width: 18px;
+	height: 18px;
+}
+
 div.deliveries {
 	padding: 8px;
 	height: 400px;
@@ -384,18 +390,6 @@ a.send_mailing_button:hover {
 	float: right;
 	background-position: right;
 	text-decoration: none;
-}
-
-a.show_statistic_button {
-	float: right;
-	width: 19px;
-	height: 19px;
-	background-image: image-url('alchemy_crm/statistic.png');
-}
-
-a.show_statistic_button:hover {
-	text-decoration: none;
-	background-position: right;
 }
 
 span.tag {
