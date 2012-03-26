@@ -134,20 +134,25 @@ module AlchemyCrm
 		# 
 		# === Example:
 		# 
-		#   <%= tracked_link_tag('read more' :r => 'http://example.com/my-article', :style => 'color: black') %>
+		#   <%= tracked_link_tag('read more', :r => 'http://example.com/my-article', :style => 'color: black') %>
 		#   => <a href="http://example.com/recipient/s3cr3tSh41/reacts?r=http%3A%2F%2Fexample.com%2Fmy-article" style="color: black">
 		# 
 		# *NOTE:* You can even pass a block like you could for +link_to+ helper from Rails.
 		# 
 		def tracked_link_tag(*args)
-			params = {:h => @recipient.sha1, :r => args.first, :host => current_host}
 			if block_given?
-				link_to(alchemy_crm.recipient_reacts_url(params), args.last) do
+				link_to(tracked_url_for(args.first), args.last) do
 					yield
 				end
 			else
-				link_to(args.first, alchemy_crm.recipient_reacts_url(params.merge(:r => args[1])), args.last)
+				link_to(args.first, tracked_url_for(args[1]), args.last)
 			end
+		end
+
+		# Returns the url for tracking a link that's clicked inside a mailing.
+		# Used by +tracked_link_tag+ helper and plain text mailing views.
+		def tracked_url_for(redirect_url)
+			alchemy_crm.recipient_reacts_url(:h => @recipient.sha1, :r => redirect_url, :host => current_host)
 		end
 
 		def current_host
