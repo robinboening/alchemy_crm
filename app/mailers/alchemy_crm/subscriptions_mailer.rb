@@ -2,17 +2,6 @@
 module AlchemyCrm
 	class SubscriptionsMailer < ActionMailer::Base
 
-		helper "Alchemy::Base"
-		helper "AlchemyCrm::Base"
-		helper "Alchemy::Pages"
-		helper_method :logged_in?, :configuration
-
-		def logged_in?; false; end
-
-		def configuration(name)
-			Alchemy::Config.get(name)
-		end
-
 		def overview_mail(contact, element)
 			@contact = contact
 			@subscriptions = contact.subscriptions
