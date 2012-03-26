@@ -10,6 +10,7 @@ module AlchemyCrm
 		# It takes the layout from +layouts/alchemy_crm/mailings.erb+ and renders a html and a text part from it.
 		def build(mailing, recipient, options = {})
 			@options = options
+			::I18n.locale = @options[:locale]
 			@mailing = mailing
 			@page = @mailing.page
 			@recipient = recipient
@@ -26,8 +27,21 @@ module AlchemyCrm
 			false
 		end
 
+		# Proxy to Alchemy config for view helpers
 		def configuration(name)
 			Alchemy::Config.get(name)
+		end
+
+		# Simple session object that contains the language id for view helpers.
+		def session
+			{
+				:language_id => @options[:language_id]
+			}
+		end
+
+		# Setting default url options for rails url_for helpers.
+		def default_url_options
+			{:host => @options[:host], :port => @options[:port]}
 		end
 
 	end

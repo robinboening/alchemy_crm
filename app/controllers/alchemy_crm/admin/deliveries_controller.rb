@@ -27,7 +27,8 @@ module AlchemyCrm
 						:language_id => session[:language_id],
 						:protocol => request.protocol,
 						:host => request.host,
-						:port => request.port
+						:port => request.port,
+						:locale => ::I18n.locale
 					)
 					flash[:notice] = "Das Mailing wurde für den Versand vorbereitet."
 				end
