@@ -33,7 +33,7 @@ module AlchemyCrm
 				@recipients.count.should == @mailing.contacts.count
 			end
 
-			context "mailing having former deliveries", :focus => true do
+			context "mailing having former deliveries" do
 
 				before(:each) do
 					@more_emails = %w(tim@struppi.de mickey@mouse.com)

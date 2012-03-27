@@ -8,6 +8,7 @@ Gem::Specification.new do |gem|
 	gem.description   = %q{A CRM module for Alchemy CMS with Newsletters, Contacts, Mailings.}
 	gem.summary       = %q{A CRM module for Alchemy CMS}
 	gem.homepage      = "http://alchemy-cms.com"
+	s.license         = 'BSD New'
 
 	gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
 	gem.files         = `git ls-files`.split("\n")
