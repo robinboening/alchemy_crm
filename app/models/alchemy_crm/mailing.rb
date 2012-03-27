@@ -31,9 +31,14 @@ module AlchemyCrm
 			contacts.count
 		end
 
-		# Returns a list of all email addresses found via newsletter contacts and additional email addresses.
+		def contacts_not_having_email_yet
+			return contacts if recipients.empty?
+			contacts.select { |c| !recipients.collect(&:email).include?(c.email) }
+		end
+
+		# Returns a list of all email addresses for contacts that have not got any email yet.
 		def emails
-			(contacts.collect(&:email) + additional_emails).uniq
+			contacts_not_having_email_yet.collect(&:email)
 		end
 
 		# Return a list of email addresses from additional_email_addresses field.

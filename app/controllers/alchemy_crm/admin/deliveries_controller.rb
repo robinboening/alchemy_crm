@@ -19,6 +19,19 @@ module AlchemyCrm
 				render :layout => false
 			end
 
+			def show
+				begin
+					@delivery = Delivery.find(params[:id])
+					@recipients = @delivery.recipients
+					@read = @delivery.recipients.select{|r| r.read}
+					@reacted = @delivery.recipients.select{|r| r.reacted}
+					@bounced = @delivery.recipients.select{|r| r.bounced}
+				rescue
+					log_error($!)
+				end
+				render :layout => false
+			end
+
 			def create
 				@delivery = Delivery.new(params[:delivery])
 				@mailing = @delivery.mailing = Mailing.find(params[:delivery][:mailing_id])
@@ -41,17 +54,20 @@ module AlchemyCrm
 				render :layout => false
 			end
 
-			def show
-				begin
-					@delivery = Delivery.find(params[:id])
-					@recipients = @delivery.recipients
-					@read = @delivery.recipients.select{|r| r.read}
-					@reacted = @delivery.recipients.select{|r| r.reacted}
-					@bounced = @delivery.recipients.select{|r| r.bounced}
-				rescue
-					log_error($!)
-				end
-				render :layout => false
+			def update
+				@delivery = Delivery.find(params[:id])
+				@delivery.update_attributes(params[:delivery])
+				render_errors_or_redirect(
+					@delivery,
+					admin_mailings_path,
+					'Versand wurde neu geplant'
+				)
+			end
+
+			def destroy
+				@delivery = Delivery.find(params[:id])
+				@delivery.destroy
+				render :js => "window.location.replace('#{admin_mailings_path}'); Alchemy.growl('Versand wurde storniert')"
 			end
 
 		private

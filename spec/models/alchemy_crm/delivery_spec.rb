@@ -27,10 +27,28 @@ module AlchemyCrm
 		end
 
 		describe '#after_create' do
+
 			it "should create recipients from mailings contacts" do
 				@recipients.first.should be_an_instance_of(Recipient)
 				@recipients.count.should == @mailing.contacts.count
 			end
+
+			context "mailing having former deliveries", :focus => true do
+
+				before(:each) do
+					@more_emails = %w(tim@struppi.de mickey@mouse.com)
+					@mailing.additional_email_addresses += ", #{@more_emails.join(', ')}"
+					@mailing.save
+					@delivery = Delivery.create!(:mailing => @mailing)
+				end
+
+				it "should not create recipients for former recipients" do
+					@mailing.recipients.should_not be_empty
+					@delivery.recipients.collect(&:email).should == @more_emails
+				end
+
+			end
+
 		end
 
 	end

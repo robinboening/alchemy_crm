@@ -44,7 +44,7 @@ module AlchemyCrm
 
 		def recipients_from_mailing_contacts
 			raise "No Mailing Given" if mailing.blank?
-			mailing.contacts.each do |contact|
+			mailing.contacts_not_having_email_yet.each do |contact|
 				recipients << Recipient.create!(
 					:email => contact.email,
 					:contact => contact

@@ -11,13 +11,14 @@
 		</tr>
 		<tr>
 			<td class="label"><%= f.label :recipients, 'Empfänger:' %></td>
-			<td><%= @mailing.contacts_count %> (<%= link_to_function "Empfänger anzeigen", "jQuery('#all_contacts').toggle(); AlchemyCrm.toggleLabel(this, 'Empfänger ausblenden', 'Empfänger anzeigen')" ,:class => "" %>)</td>
+			<td><%= @delivery.new_record? ? @mailing.contacts_not_having_email_yet.count : @delivery.recipients.count %> (<%= link_to_function "Empfänger anzeigen", "jQuery('#all_contacts').toggle(); AlchemyCrm.toggleLabel(this, 'Empfänger ausblenden', 'Empfänger anzeigen')" ,:class => "" %>)</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td>
 				<ul id="all_contacts" style="display: none">
-					<%- @mailing.emails.each do |email| -%>
+					<% emails = @delivery.new_record? ? @mailing.emails : @delivery.recipients.collect(&:email) -%>
+					<%- emails.each do |email| -%>
 					<li class="<%= cycle("even", "odd") -%>"><%= email %></li>
 					<%- end -%>
 				</ul>

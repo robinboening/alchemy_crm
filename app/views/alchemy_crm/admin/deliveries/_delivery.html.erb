@@ -11,6 +11,12 @@
 				:size => '420x210'
 			}
 		) %>
+		<%= link_to_confirmation_window(
+			render_icon('destroy'),
+			"Wollen Sie den Versand stornieren?",
+			admin_delivery_path(delivery),
+			:title => 'Versand stornieren'
+		) -%>
 		<%- end -%>
 	</td>
 	<td class="right">

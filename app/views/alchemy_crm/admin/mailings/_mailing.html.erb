@@ -12,7 +12,7 @@
 		<%= mailing.newsletter.blank? ? '' : mailing.newsletter.name -%>
 	</td>
 	<td class="size">
-		<%= mailing.contacts_count -%>
+		<%= mailing.recipients.count -%>
 	</td>
 	<td class="time">
 		<%- if mailing.next_pending_delivery -%>
