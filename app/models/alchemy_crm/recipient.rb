@@ -10,6 +10,10 @@ module AlchemyCrm
 
 		before_create :set_sha1
 
+		def mail_to
+			contact.nil? ? email : "#{contact.name_with_title} <#{email}>"
+		end
+
 		def reads!
 			update_attributes(:read => true, :read_at => Time.now)
 		end

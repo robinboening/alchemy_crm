@@ -16,7 +16,7 @@ module AlchemyCrm
 			@recipient = recipient
 			@contact = @recipient.contact || Contact.new_from_recipient(@recipient)
 
-			mail(:to => @recipient.email, :subject => mailing.subject) do |format|
+			mail(:to => @recipient.mail_to, :subject => mailing.subject) do |format|
 				format.html { render("layouts/alchemy_crm/mailings.html") }
 				format.text { render("layouts/alchemy_crm/mailings.text") }
 			end

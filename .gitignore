@@ -19,3 +19,4 @@ spec/dummy/index/
 
 .rvmrc
 .rspec
+spec/dummy/log/development.log

@@ -31,7 +31,8 @@ module AlchemyCrm
 		# Send the mail chunk via delayed_job and waiting some time before next is enqueued
 		def send_mail_chunk(recipients_chunk, options)
 			recipients_chunk.each do |recipient|
-				MailingsMailer.build(mailing, recipient, options).deliver
+				mail = MailingsMailer.build(mailing, recipient, options).deliver
+				recipient.update_attribute(:message_id, mail.message_id)
 			end
 		end
 		handle_asynchronously :send_mail_chunk, :run_at => proc { |m| (m.chunk_delay * m.class.settings(:send_mail_chunks_every)).minutes.from_now }

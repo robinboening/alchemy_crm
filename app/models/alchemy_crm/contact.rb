@@ -85,10 +85,18 @@ module AlchemyCrm
 
 		def fullname
 			if lastname.present? || firstname.present?
-				"#{::I18n.t(salutation, :scope => [:alchemy_crm, :salutations])} #{title} #{name}".squeeze(" ")
+				"#{translated_salutation} #{name_with_title}".squeeze(" ")
 			else
 				name
 			end
+		end
+
+		def translated_salutation
+			::I18n.t(salutation, :scope => [:alchemy_crm, :salutations], :default => salutation.to_s.capitalize)
+		end
+
+		def name_with_title
+			"#{title} #{name}".squeeze(" ")
 		end
 
 		def name
