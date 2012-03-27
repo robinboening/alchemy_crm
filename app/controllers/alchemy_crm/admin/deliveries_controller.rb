@@ -3,7 +3,6 @@ module AlchemyCrm
 	module Admin
 		class DeliveriesController < Alchemy::Admin::BaseController
 
-			SEND_DELAY = Time.now + 1.hour
 			before_filter :load_mailing, :only => [:index, :new]
 
 			def index
@@ -13,7 +12,7 @@ module AlchemyCrm
 
 			def new
 				@delivery = Delivery.new(
-					:deliver_at => SEND_DELAY,
+					:deliver_at => Time.now + 1.hour,
 					:mailing => @mailing
 				)
 				render :layout => false
