@@ -12,7 +12,7 @@
 	<tr>
 		<td class="label"><%= f.label :salutation %></td>
 		<td class="select">
-			<%= f.select :salutation, options_for_select([['auswählen', ''], [::I18n.t(:mr, :scope => [:alchemy_crm, :salutations]), :mr], [::I18n.t(:mrs, :scope => [:alchemy_crm, :salutations]), :mrs]], @contact.salutation), {}, { :class => 'alchemy_selectbox very_short' } %>
+			<%= f.select :salutation, options_for_select([['auswählen', ''], [::I18n.t(:mr, :scope => [:alchemy_crm, :salutations]), :mr], [::I18n.t(:ms, :scope => [:alchemy_crm, :salutations]), :ms]], @contact.salutation), {}, { :class => 'alchemy_selectbox very_short' } %>
 		</td>
 		<td class="label right"><%= f.label :title %></td>
 		<td class="input"><%= f.text_field :title, :class => "thin_border medium_long" %></td>

@@ -7,7 +7,7 @@ module AlchemyCrm
 
 			before(:each) do
 				@verified_contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :tag_list => 'father', :verified => true}, :as => :admin)
-				@contact = Contact.create!({:email => 'jane@smith.com', :firstname => 'Jane', :lastname => 'Smith', :salutation => 'mrs', :tag_list => 'mother'}, :as => :admin)
+				@contact = Contact.create!({:email => 'jane@smith.com', :firstname => 'Jane', :lastname => 'Smith', :salutation => 'ms', :tag_list => 'mother'}, :as => :admin)
 				@contact_group = ContactGroup.create!(:name => 'Family', :contact_tag_list => 'father, mother, son')
 			end
 

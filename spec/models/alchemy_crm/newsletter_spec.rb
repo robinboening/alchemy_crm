@@ -9,7 +9,7 @@ module AlchemyCrm
 			@subscription = Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :verified => true, :wants => true)
 			@contact = Contact.create!(:email => 'jon_2@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr')
 			@father = Contact.create!({:email => 'father@family.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :tag_list => 'father', :verified => true}, :as => :admin)
-			@mother = Contact.create!({:email => 'mother@family.com', :firstname => 'Jane', :lastname => 'Doe', :salutation => 'mrs', :tag_list => 'mother', :verified => true}, :as => :admin)
+			@mother = Contact.create!({:email => 'mother@family.com', :firstname => 'Jane', :lastname => 'Doe', :salutation => 'ms', :tag_list => 'mother', :verified => true}, :as => :admin)
 			@son = Contact.create!(:email => 'son@family.com', :firstname => 'Jim', :lastname => 'Doe', :salutation => 'mr', :tag_list => 'son')
 
 			@subscription_2 = Subscription.create!(:contact => @contact, :newsletter => @newsletter)

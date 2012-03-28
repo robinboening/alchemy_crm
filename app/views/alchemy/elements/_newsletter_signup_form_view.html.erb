@@ -20,9 +20,9 @@
 			<td class="label"><%= form.label :salutation %></td>
 			<td class="input" colspan="3">
 				<%= form.radio_button :salutation, :mr, :required => true %>
-				<%= form.label :salutation_mr, t('mr') %>
-				<%= form.radio_button :salutation, :mrs, :required => true %>
-				<%= form.label :salutation_mrs, t('mrs') %>
+				<%= form.label :salutation_mr, ::I18n.t(:mr, :scope => 'alchemy_crm.salutations', :default => 'Mr') %>
+				<%= form.radio_button :salutation, :ms, :required => true %>
+				<%= form.label :salutation_ms, ::I18n.t(:ms, :scope => 'alchemy_crm.salutations', :default => 'Ms') %>
 			</td>
 		</tr>
 		<tr>

@@ -24,3 +24,29 @@ de:
       newsletter_signout_form:
         signed_out_text: "Abmelde-E-Mail Hinweis"
         disabled_text: "Kontakt Abmeldebestätigungstext"
+
+    content_validations:
+      newsletter_signup_form:
+        signed_up_text:
+          blank: 'Bitte geben Sie den Bestätigungs-E-Mail Hinweis ein'
+        verified_text: 
+          blank: 'Bitte geben Sie den Kontakt Anmeldebestätigungstext ein'
+      newsletter_signout_form:
+        disabled_text:
+          blank: 'Bitte geben Sie den Abmeldebestätigungstext ein'
+        signed_out_text:
+          blank: 'Bitte geben Sie den Abmelde-E-Mail Hinweis ein'
+      newsletter_signup_mail:
+        mail_from:
+          blank: 'Bitte geben Sie die Absender E-Mail Adresse an'
+        text:
+          blank: 'Bitte geben Sie einen E-Mail Text ein'
+        subject:
+          blank: 'Bitte geben Sie einen Betreff an'
+      newsletter_signout_mail:
+        mail_from:
+          blank: 'Bitte geben Sie die Absender E-Mail Adresse an'
+        text:
+          blank: 'Bitte geben Sie einen E-Mail Text ein'
+        subject:
+          blank: 'Bitte geben Sie einen Betreff an'

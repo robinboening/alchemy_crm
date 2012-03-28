@@ -1,6 +1,6 @@
 <div class="newsletter_greeting" <%= element_preview_code(element) -%>>
 	<h2>
-		<% if @contact.salutation == "mrs" -%>
+		<% if @contact.salutation == "ms" -%>
 		<%= render_essence_view_by_name(element, 'female_greeting') %>
 		<% else -%>
 		<%= render_essence_view_by_name(element, 'male_greeting') %>

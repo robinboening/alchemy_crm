@@ -22,7 +22,7 @@ de:
     read_in_browser_notice: "Falls der Newsletter nicht richtig dargestellt wird, klicken Sie bitte %{link}."
     salutations:
       mr: Herr
-      mrs: Frau
+      ms: Frau
     show_as_plain_text: "Als reinen Text anzeigen"
     subscribe_form:
       button_label: bestellen

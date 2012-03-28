@@ -23,3 +23,29 @@ en:
       newsletter_signout_form:
         signed_out_text: "Signout email notice"
         disabled_text: "Contact signed out text"
+
+    content_validations:
+      newsletter_signup_form:
+        signed_up_text:
+          blank: 'Please enter the verification email notice'
+        verified_text: 
+          blank: 'Please enter the contact verified text'
+      newsletter_signout_form:
+        disabled_text:
+          blank: 'Please enter the contact signed out text'
+        signed_out_text:
+          blank: 'Please enter the signout email notice'
+      newsletter_signup_mail:
+        mail_from:
+          blank: 'Please enter the Mail-From email'
+        text:
+          blank: 'Please enter an email text'
+        subject:
+          blank: 'Please enter a subject'
+      newsletter_signout_mail:
+        mail_from:
+          blank: 'Please enter the Mail-From email'
+        text:
+          blank: 'Please enter an email text'
+        subject:
+          blank: 'Please enter a subject'
