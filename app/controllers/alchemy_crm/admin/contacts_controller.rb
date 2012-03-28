@@ -6,7 +6,7 @@ module AlchemyCrm
 			before_filter :load_tags, :only => [:new, :edit]
 
 			def new
-				@contact = Contact.new(:country => ::I18n.locale.upcase)
+				@contact = Contact.new(:country => ::I18n.locale.to_s.upcase)
 				render :layout => false
 			end
 
