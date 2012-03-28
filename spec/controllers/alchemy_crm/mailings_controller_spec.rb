@@ -6,7 +6,7 @@ module AlchemyCrm
 		describe '#show' do
 
 			before(:each) do
-				@newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
+				@newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'newsletter_layout_standard')
 				@mailing = Mailing.create!(:name => 'Mailing', :newsletter => @newsletter)
 			end
 

@@ -5,7 +5,7 @@ module AlchemyCrm
 
 		before(:all) do
 			@mailing = Mailing.new(:name => 'Mailing', :additional_email_addresses => "jim@family.com, jon@doe.com, jane@family.com, \n")
-			@newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
+			@newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'newsletter_layout_standard')
 			@mailing.newsletter = @newsletter
 			@mailing.save!
 		end

@@ -6,7 +6,7 @@ module AlchemyCrm
 		describe '#build' do
 
 			before(:all) do
-				@mailing = Mailing.create!(:name => 'Mailing', :subject => 'News Mailing', :additional_email_addresses => "jim@family.com, jon@doe.com, jane@family.com, \n", :newsletter => Newsletter.create!(:name => 'Newsletter', :layout => 'standard'))
+				@mailing = Mailing.create!(:name => 'Mailing', :subject => 'News Mailing', :additional_email_addresses => "jim@family.com, jon@doe.com, jane@family.com, \n", :newsletter => Newsletter.create!(:name => 'Newsletter', :layout => 'newsletter_layout_standard'))
 				@mailing.deliveries.create!
 				@element = @mailing.page.elements.first
 				@element.content_by_name('text').essence.update_attribute(:body, "<h2>Hello World</h2>")
