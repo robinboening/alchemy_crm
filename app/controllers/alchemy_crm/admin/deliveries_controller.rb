@@ -42,7 +42,7 @@ module AlchemyCrm
 						:port => request.port,
 						:locale => ::I18n.locale
 					)
-					flash[:notice] = "Das Mailing wurde für den Versand vorbereitet."
+					flash[:notice] = alchemy_crm_t(:successfully_scheduled_mailing)
 				end
 				redirect_to admin_mailings_path
 			end
@@ -59,14 +59,14 @@ module AlchemyCrm
 				render_errors_or_redirect(
 					@delivery,
 					admin_mailings_path,
-					'Versand wurde neu geplant'
+					alchemy_crm_t(:successfully_rescheduled_mailing)
 				)
 			end
 
 			def destroy
 				@delivery = Delivery.find(params[:id])
 				@delivery.destroy
-				render :js => "window.location.replace('#{admin_mailings_path}'); Alchemy.growl('Versand wurde storniert')"
+				render :js => "window.location.replace('#{admin_mailings_path}'); Alchemy.growl('#{successfully_canceled_delivery}')"
 			end
 
 		private

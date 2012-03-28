@@ -7,9 +7,9 @@
 <% if @contact.nil? -%>
 
 <%= form_tag alchemy_crm.overview_subscriptions_path do %>
-	<%= label_tag :email, t('E-Mail') %>
+	<%= label_tag :email, translate_model_attribute(:contact, :email) %>
 	<%= email_field_tag :email %>
-	<%= submit_tag t('Send subscriptions overview', :name => nil) %>
+	<%= submit_tag alchemy_crm_t('Send subscriptions overview', :name => nil) %>
 <% end -%>
 
 <% else -%>

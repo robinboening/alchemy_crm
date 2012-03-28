@@ -7,15 +7,15 @@
 			l(delivery.deliver_at, :format => :deliveries),
 			edit_admin_delivery_path(delivery),
 			{
-				:title => "#{delivery.name} bearbeiten",
+				:title => alchemy_crm_t(:reschedule_delivery),
 				:size => '420x210'
 			}
 		) %>
 		<%= link_to_confirmation_window(
 			render_icon('destroy'),
-			"Wollen Sie den Versand stornieren?",
+			alchemy_crm_t(:do_you_want_to_cancel_the_delivery?),
 			admin_delivery_path(delivery),
-			:title => 'Versand stornieren'
+			:title => alchemy_crm_t(:cancel_delivery)
 		) -%>
 		<%- end -%>
 	</td>
@@ -31,8 +31,8 @@
 			render_icon('statistics'),
 			admin_delivery_path(delivery),
 			{
-				:title => "Statistik des #{delivery.mailing.name} vom #{l(delivery.created_at)}",
-				:size => '500x400',
+				:title => alchemy_crm_t(:show_statistics) % {:name => delivery.mailing.name, :date => l(delivery.delivered_at)},
+				:size => '540x400',
 				:modal => false
 			}
 		) %>

@@ -33,40 +33,40 @@
 			render_icon('mailing_edit'),
 				alchemy_crm.edit_admin_mailing_path(@mailing),
 				{
-					:title => 'Mailing bearbeiten',
+					:title => alchemy_crm_t(:edit_mailing),
 					:size => '450x270'
 				},
 				{
 					:class => 'icon_button',
-					:title => 'Mailing bearbeiten'
+					:title => alchemy_crm_t(:edit_mailing)
 				}
 		) -%><br />
-		<label>Mailing bearbeiten</label>
+		<label><%= alchemy_crm_t(:edit_mailing) %></label>
 	</div>
 	<div class="button_with_label">
 		<%= link_to_overlay_window(
 			render_icon('send_mailing'),
 			alchemy_crm.new_admin_delivery_path(:mailing_id => @mailing.id),
 			{
-				:title => ::I18n.t('Send Mailing', :scope => :alchemy_crm),
+				:title => alchemy_crm_t('Send Mailing'),
 				:size => '420x210'
 			},
 			{
-				:title => ::I18n.t('Send Mailing', :scope => :alchemy_crm),
+				:title => alchemy_crm_t('Send Mailing'),
 				:class => 'icon_button'
 			}
 		) %>
-		<label><%= ::I18n.t('Send Mailing', :scope => :alchemy_crm) %></label>
+		<label><%= alchemy_crm_t('Send Mailing') %></label>
 	</div>
 	<div class="button_with_label">
 		<%= link_to(
 			render_icon('plain_text_view'),
 			alchemy_crm.admin_mailing_path(@mailing, :format => :text),
-			:title => ::I18n.t(:show_as_plain_text, :scope => :alchemy_crm),
+			:title => alchemy_crm_t(:show_as_plain_text),
 			:class => 'icon_button',
 			:id => "toggle_preview_frame_button"
 		) %>
-		<label><%= ::I18n.t(:show_as_plain_text, :scope => :alchemy_crm) %></label>
+		<label><%= alchemy_crm_t(:show_as_plain_text) %></label>
 	</div>
 </div>
 <div id="toolbar_buttons_right">

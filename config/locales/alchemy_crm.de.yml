@@ -12,7 +12,9 @@ de:
     "New Tag": "Neues Tag"
     "New Tag Created": "Neues Tag wurde erstellt"
     "Send Mailing": "Mailing versenden"
+    cancel_delivery: 'Versand stornieren'
     choose_newsletter_text_is_optional: "Hinweis: Dieser Text ist für die Auswahl mehrerer Newsletter gedacht. Sie können ihn bei nur einem auswählbarem Newsletter weglassen."
+    clicked_links: geklickte Links
     contact_group_filter_operators:
       like: enthält
       not_like: enthält nicht
@@ -24,11 +26,16 @@ de:
     contacts_tagged_with: 'Kontakte mit diesen Tag(s)'
     copy: Kopie
     copy_mailing: Mailing kopieren
+    count_of_bounced_emails: Davon sind nicht angekommen
+    count_of_recipients_that_clicked_a_link: Davon haben auf einen Link geklickt
+    count_of_recipients_that_received_the_email: 'Davon haben die E-Mail geöffnet'
     delete_contact: 'Kontakt löschen'
     delete_contact_group: 'Zielgruppe löschen'
     delete_mailing: 'Mailing löschen'
     delete_newsletter: 'Newsletter löschen'
     delete_tag: 'Tag löschen'
+    delivery_scheduled_at: 'Versand geplant für'
+    do_you_want_to_cancel_the_delivery?: "Wollen Sie den Versand stornieren?"
     do_you_really_want_to_delete_this_contact?: "Wollen Sie diesen Kontakt wirklich löschen?"
     do_you_really_want_to_delete_this_contact_group?: "Wollen Sie diese Zielgruppe wirklich löschen?"
     do_you_really_want_to_delete_this_mailing?: "Wollen Sie dieses Mailing wirklich löschen?"
@@ -68,6 +75,9 @@ de:
     mandatory_fields: "*Pflichtfelder"
     missing_vcard: "Bitte laden Sie eine V-Card hoch"
     newsletter_layout_not_found_notice: 'Es wurde kein Newsletter Layout gefunden. Bitte legen Sie erst eins an.'
+    none: 'Keine'
+    not_yet_delivered_mailings_can_be_rescheduled: 'Noch nicht versendete Mailings können neu geplant werden, in dem Sie auf das Versanddatum klicken'
+    not_yet_delivered_mailings_can_be_canceled: 'Noch nicht versendete Mailings können storniert werden'
     or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Tag'
     please_check_highlighted_vcards_on_errors: "Bitte überprüfen Sie die markierten Visitenkarten auf Fehler."
     please_choose: 'Bitte wählen'
@@ -77,6 +87,7 @@ de:
     rename: umbenennen
     replace: ersetzen
     'Replaced Tag %{old_tag} with %{new_tag}': "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
+    reschedule_delivery: 'Versand neu planen'
     salutations:
       mr: Herr
       ms: Frau
@@ -84,24 +95,39 @@ de:
     seperate_tags_with_comma: 'Mehrere Tags mit Komma trennen.'
     seperate_emails_with_comma: 'Die E-Mail-Adressen bitte mit Komma trennen.'
     show_as_plain_text: "Als reinen Text anzeigen"
+    show_contact: Kontakt anzeigen
     show_sent_mailings: "versendete Mailings anzeigen"
+    show_statistics: "Statistiken für %{name} vom %{date}"
     subscribe_form:
       button_label: bestellen
     subscribers_count: 'Anzahl der Abonennten'
+    successfully_canceled_delivery: 'Der Versand wurde storniert'
     successfully_deleted_tag: "Das Tag wurde gelöscht"
     successfully_imported_contacts: "Kontake wurden importiert"
+    successfully_scheduled_mailing: "Das Mailing wurde für den Versand vorbereitet."
+    successfully_rescheduled_mailing: 'Versand wurde neu geplant'
     successfully_updated_newsletter: "Der Newsletter wurde gespeichert."
     successfully_updated_tag: "Das Tag wurde gespeichert"
     signout_form:
       button_label: abbestellen
+    statistics: Statistiken
+    this_mailing_has_not_been_delivered_yet: 'Dieses Mailing wurde noch nie versendet'
+    this_list_shows_all_deliveries: Dies ist eine Liste aller Sendungen dieses Mailings
+    total_recipients_count: Empfänger insgesamt
     tags_get_created_while_tagging_contacts: 'Tags werden automatisch erstellt, sobald Sie es bei einem Kontakt das erste mal verwenden.'
+    without: ohne
     you_can_rename_this_tag: "Sie können dieses Tag umbenennen"
+    you_can_open_statistics_for_delivered_mailings: Für bereits versendete Mailings können Statistiken aufgerufen werden
     you_have_no_contact_groups_yet: 'Sie haben noch keine Empfänger Zielgruppen gebildet'
 
   activerecord:
     attributes:
       acts_as_taggable_on/tag:
         contacts_count: Anzahl der Kontakte
+      alchemy_crm/delivery:
+        deliver_at: Versand planen für
+        delivered?: 'versendet?'
+        recipients_count: Anzahl der Empfänger
       alchemy_crm/mailing:
         subject: Betreff
         recipients_count: Anzahl bisheriger Empfänger

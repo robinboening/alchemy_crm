@@ -1,20 +1,26 @@
 <%- if @deliveries.blank? -%>
-<p class="with_padding">Dieses Mailing wurde noch nie versendet!</p>
+<div class="info with_margin">
+	<%= render_icon('info') %>
+	<%= alchemy_crm_t(:this_mailing_has_not_been_delivered_yet) %>
+</div>
 <%- else -%>
 <div class="with_padding">
 	<div class="info">
 		<%= render_icon('info') %>
-		<p>Dies ist eine Liste aller Sendungen dieses Mailings.</p>
-		<p>Für bereits versendete Mailings können Statistiken aufgerufen werden.</p>
-		<p>Noch nicht versendete Mailings können neu geplant werden, in dem Sie auf das Versanddatum klicken.</p>
+		<h1><%= alchemy_crm_t(:this_list_shows_all_deliveries) %></h1>
+		<ol>
+			<li><%= alchemy_crm_t(:you_can_open_statistics_for_delivered_mailings) %></li>
+			<li><%= alchemy_crm_t(:not_yet_delivered_mailings_can_be_rescheduled) %></li>
+			<li><%= alchemy_crm_t(:not_yet_delivered_mailings_can_be_canceled) %></li>
+		</ol>
 	</div>
 	<div id="deliveries">
 		<table class="list">
 			<tr>
-				<th>Versand geplant für</th>
-				<th class="right">Empfänger</th>
-				<th class="center">versendet?</th>
-				<th class="center">Statistik</th>
+				<th><%= alchemy_crm_t(:delivery_scheduled_at) %></th>
+				<th class="right"><%= translate_model_attribute(:delivery, :recipients_count) %></th>
+				<th class="center"><%= translate_model_attribute(:delivery, :delivered?) %></th>
+				<th class="center"><%= alchemy_crm_t(:statistics) %></th>
 			</tr>
 			<%= render @deliveries %>
 		</table>
