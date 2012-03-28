@@ -55,9 +55,9 @@ module AlchemyCrm
 		# Makes a copy of another mailing.
 		def self.copy(id)
 			source = self.find(id)
-			clone = source.clone
-			clone.name = "#{source.name} (#{::I18n.t(:copy, :scope => :alchemy_crm, :default => 'Copy')})"
-			clone
+			new(source.attributes.merge(
+				"name" => "#{source.name} (#{::I18n.t(:copy, :scope => :alchemy_crm, :default => 'Copy')})"
+			).except("id", "updated_at", "created_at", "sha1", "salt", "page_id"))
 		end
 
 		def next_pending_delivery
@@ -72,7 +72,7 @@ module AlchemyCrm
 			mailing_page = Alchemy::Page.new(
 				:name => "Mailing #{self.name}",
 				:sitemap => false,
-				:page_layout => MAILING_PAGE_LAYOUT_PREFIX + self.newsletter.layout,
+				:page_layout => newsletter.layout,
 				:language => Alchemy::Language.get_default,
 				:parent_id => mailing_root.id
 			)
