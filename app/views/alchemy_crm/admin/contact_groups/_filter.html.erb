@@ -1,13 +1,13 @@
 <div class="filter">
 	<%= select_tag(
 		"contact_group[filters_attributes][#{count}][column]",
-		options_for_select(AlchemyCrm::Contact.filterable_column_names, filter.column),
+		options_for_select(AlchemyCrm::Contact::COLUMN_NAMES, filter.column),
 		:id => "filter_column_#{count}",
 		:class => 'alchemy_selectbox medium'
 	) %>
 	<%= select_tag(
 		"contact_group[filters_attributes][#{count}][operator]",
-		options_for_select(AlchemyCrm::ContactGroupFilter.operators, filter.operator),
+		options_for_select(AlchemyCrm::ContactGroupFilter::OPERATORS, filter.operator),
 		:id => "filter_operator_#{count}",
 		:class => 'alchemy_selectbox short'
 	) %>
@@ -24,7 +24,7 @@
 		<%= link_to_function(
 			render_icon('close small'),
 			"AlchemyCrm.removeContactGroupFilter(this, '#{filter.id}', '#{count}')",
-			:title => 'Filter entfernen'
+			:title => alchemy_crm_t(:remove_filter)
 		) %>
 	</span>
 </div>

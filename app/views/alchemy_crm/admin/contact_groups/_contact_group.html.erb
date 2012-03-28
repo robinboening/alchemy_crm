@@ -14,18 +14,18 @@
 			edit_admin_contact_group_path(contact_group),
 			{
 				:size => '500x255',
-				:title => 'Zielgruppe bearbeiten'
+				:title => alchemy_crm_t(:edit_contact_group)
 			},
 			{
-				:title => 'Zielgruppe bearbeiten',
+				:title => alchemy_crm_t(:edit_contact_group),
 				:class => 'icon group_edit'
 			}
 		) -%>
 		<%= link_to_confirmation_window(
 			'',
-			"Wollen Sie die Zielgruppe wirklich löschen?",
+			alchemy_crm_t(:do_you_really_want_to_delete_this_contact_group?),
 			admin_contact_group_path(contact_group),
-			:title => 'Zielgruppe löschen',
+			:title => alchemy_crm_t(:delete_contact_group),
 			:class => "icon group_delete"
 		) -%>
 	</td>

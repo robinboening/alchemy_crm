@@ -1,7 +1,7 @@
 # encoding: UTF-8
 module AlchemyCrm
 	module Admin
-		class ContactsController < Alchemy::Admin::ResourcesController
+		class ContactsController < AlchemyCrm::Admin::BaseController
 
 			before_filter :load_tags, :only => [:new, :edit]
 
@@ -15,16 +15,16 @@ module AlchemyCrm
 					render :import
 				else
 					if params[:vcard].blank?
-						@errors = build_error_message(::I18n.t(:missing_vcard, :scope => :alchemy_crm))
+						@errors = build_error_message(alchemy_crm_t(:missing_vcard))
 					elsif params[:verified] == "1"
 						@contacts = Contact.new_from_vcard(params[:vcard], true)
 						if @contacts.detect(&:invalid?).nil?
-							flash[:notice] = 'Kontakt(e) wurde(n) importiert.'
+							flash[:notice] = alchemy_crm_t(:successfully_imported_contacts)
 						else
-							@errors = build_error_message("Bitte überprüfen Sie die markierten Visitenkarten auf Fehler.")
+							@errors = build_error_message(alchemy_crm_t(:please_check_highlighted_vcards_on_errors))
 						end
 					else
-						@errors = build_error_message(::I18n.t(:imported_contacts_not_verified, :scope => :alchemy_crm))
+						@errors = build_error_message(alchemy_crm_t(:imported_contacts_not_verified))
 					end
 					render :import_result
 				end
@@ -49,7 +49,7 @@ module AlchemyCrm
 			end
 
 			def build_error_message(message)
-				heading = "<h2>Es sind Fehler beim Importieren aufgetaucht!</h2>".html_safe
+				heading = "<h2>#{alchemy_crm_t(:errors_while_importing)}</h2>".html_safe
 				heading += "<p>#{message}</p>".html_safe
 			end
 

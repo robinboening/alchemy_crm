@@ -1,7 +1,7 @@
 # encoding: UTF-8
 module AlchemyCrm
 	module Admin
-		class DeliveriesController < Alchemy::Admin::BaseController
+		class DeliveriesController < AlchemyCrm::Admin::BaseController
 
 			before_filter :load_mailing, :only => [:index, :new]
 

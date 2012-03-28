@@ -1,7 +1,5 @@
 module AlchemyCrm
 	class BaseController < Alchemy::BaseController
-
-		layout "alchemy/pages"
-
+		include I18nHelpers
 	end
 end

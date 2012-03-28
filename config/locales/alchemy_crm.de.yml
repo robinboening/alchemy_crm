@@ -4,38 +4,120 @@ de:
 
   alchemy_crm:
     "Active Mailing": "Aktives Mailing"
+    add_contact: "Neuer Kontakt"
+    add_contact_group: 'Neue Zielgruppe anlegen'
+    add_filter: 'Filter hinzufügen'
+    add_mailing: 'Neues Mailing'
+    add_newsletter: 'Neuen Newsletter anlegen'
     "New Tag": "Neues Tag"
     "New Tag Created": "Neues Tag wurde erstellt"
     "Send Mailing": "Mailing versenden"
     choose_newsletter_text_is_optional: "Hinweis: Dieser Text ist für die Auswahl mehrerer Newsletter gedacht. Sie können ihn bei nur einem auswählbarem Newsletter weglassen."
+    contact_group_filter_operators:
+      like: enthält
+      not_like: enthält nicht
+      equals: ist
+      equals_not: ist nicht
+    contact_is_disabled_notice: 'Dieser Kontakt hat sich abgemeldet!'
     contact_unknown: "Dieser Kontakt konnte nicht gefunden werden!"
+    contacts_imported_with_errors_notice: Die restlichen Kontakt wurden importiert. Beheben Sie die Fehler an den markierten Kontakten und importieren Sie sie erneut.
+    contacts_tagged_with: 'Kontakte mit diesen Tag(s)'
+    copy: Kopie
+    copy_mailing: Mailing kopieren
+    delete_contact: 'Kontakt löschen'
+    delete_contact_group: 'Zielgruppe löschen'
+    delete_mailing: 'Mailing löschen'
+    delete_newsletter: 'Newsletter löschen'
+    delete_tag: 'Tag löschen'
+    do_you_really_want_to_delete_this_contact?: "Wollen Sie diesen Kontakt wirklich löschen?"
+    do_you_really_want_to_delete_this_contact_group?: "Wollen Sie diese Zielgruppe wirklich löschen?"
+    do_you_really_want_to_delete_this_mailing?: "Wollen Sie dieses Mailing wirklich löschen?"
+    do_you_really_want_to_delete_this_newsletter?: "Wollen Sie diesen Newsletter wirklich löschen?"
+    do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Tag wirklich löschen?"
+    edit_contact: 'Kontakt bearbeiten'
+    edit_contact_group: 'Zielgruppe bearbeiten'
+    edit_mailing: 'Mailing bearbeiten'
+    edit_mailing_content: 'Inhalt bearbeiten'
+    edit_newsletter: 'Newsletter bearbeiten'
+    edit_tag: 'Tag bearbeiten'
+    errors_while_importing: 'Es sind Fehler beim Importieren aufgetaucht!'
+    export_contact: Kontakt exportieren
+    fake_contact_attributes:
+      firstname: Kim
+      lastname: Muster
+      email: kim@muster.de
+      phone: 010-2345678
+      mobile: 0123-45678910
+      address: Straße beim Weg 1
+      zip: 12345
+      city: Stadt
+      organisation: Firma GmbH
+      country: DE
+    filter: 'Verfeinerungs-Filter'
     here: hier
-    import_contacts_verified: "Diese(r) Kontakt(e) wurde(n) über den Erhalt von E-Mails informiert"
+    import_contacts: "Kontakte importieren"
+    import_contacts_verified: "Diese Kontakte wurden über den Erhalt von E-Mails informiert"
     imported_contacts_not_verified: "Bitte bestätigen Sie, dass die Kontakte über den Erhalt von E-Mails informiert wurden."
     import: importieren
+    import_format_notice: 'Sie können eine Visitenkarte (.vcf Datei) mit einem, oder auch mehreren Kontakten importieren.'
+    import_status: Import-Status
     "Import contacts": "Kontakte importieren"
     "Import result": "Importergebnis"
     text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen."
     mail_text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen. Den Bestätigungslink fügen Sie bitte mit %{link} ein."
     mandatory_fields: "*Pflichtfelder"
     missing_vcard: "Bitte laden Sie eine V-Card hoch"
+    newsletter_layout_not_found_notice: 'Es wurde kein Newsletter Layout gefunden. Bitte legen Sie erst eins an.'
+    or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Tag'
+    please_check_highlighted_vcards_on_errors: "Bitte überprüfen Sie die markierten Visitenkarten auf Fehler."
+    please_choose: 'Bitte wählen'
+    please_confirm: Bitte bestätigen
     read_in_browser_notice: "Falls der Newsletter nicht richtig dargestellt wird, klicken Sie bitte %{link}."
+    remove_filter: 'Filter entfernen'
+    rename: umbenennen
+    replace: ersetzen
+    'Replaced Tag %{old_tag} with %{new_tag}': "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
     salutations:
       mr: Herr
       ms: Frau
+    sent_mailings: 'Versendete Mailings'
+    seperate_tags_with_comma: 'Mehrere Tags mit Komma trennen.'
+    seperate_emails_with_comma: 'Die E-Mail-Adressen bitte mit Komma trennen.'
     show_as_plain_text: "Als reinen Text anzeigen"
+    show_sent_mailings: "versendete Mailings anzeigen"
     subscribe_form:
       button_label: bestellen
+    subscribers_count: 'Anzahl der Abonennten'
+    successfully_deleted_tag: "Das Tag wurde gelöscht"
+    successfully_imported_contacts: "Kontake wurden importiert"
+    successfully_updated_newsletter: "Der Newsletter wurde gespeichert."
+    successfully_updated_tag: "Das Tag wurde gespeichert"
     signout_form:
       button_label: abbestellen
+    tags_get_created_while_tagging_contacts: 'Tags werden automatisch erstellt, sobald Sie es bei einem Kontakt das erste mal verwenden.'
+    you_can_rename_this_tag: "Sie können dieses Tag umbenennen"
+    you_have_no_contact_groups_yet: 'Sie haben noch keine Empfänger Zielgruppen gebildet'
 
   activerecord:
     attributes:
+      acts_as_taggable_on/tag:
+        contacts_count: Anzahl der Kontakte
+      alchemy_crm/mailing:
+        subject: Betreff
+        recipients_count: Anzahl bisheriger Empfänger
+        next_delivery_at: Nächster Versand geplant für
+        additional_email_addresses: "zusätzliche E-Mail-Adressen"
+      alchemy_crm/newsletter:
+        public: 'öffentlich?'
+        contacts_count: Empfänger insgesamt
+        subscribers_count: Anzahl der Abonennten 
+        contact_group_contacts_count: Anzahl der Zielgruppenkontakte
+        contact_groups: Zielgruppen
       alchemy_crm/contact:
         salutation: "Anrede*"
         title: Titel
         firstname: "Vorname*"
-        lastname: "Nachname*"
+        lastname: "Name*"
         organisation: Firma
         address: Adresse
         zip: PLZ
@@ -46,6 +128,31 @@ de:
         email: "E-Mail*"
         verified: verifiziert
         disabled: abgemeldet
+        tag_list: Tags
+      alchemy_crm/contact_group:
+        contacts_count: Anzahl der Kontakte
+    errors:
+      models:
+        alchemy_crm/contact:
+          attributes:
+            salutation:
+              blank: "^Bitte wählen Sie eine Anrede aus."
+            firstname:
+              blank: "^Bitte geben Sie einen Vornamen an."
+            lastname:
+              blank: "^Bitte geben Sie einen Namen an."
+            email:
+              blank: "^Bitte geben Sie eine E-Mail Adresse an."
+              taken: "^Diese E-Mail Adresse ist bereits eingetragen."
+              invalid: "^Die E-Mail Adresse ist nicht valide."
+        alchemy_crm/mailing:
+          attributes:
+            newsletter_id:
+              blank: "^Bitte wählen Sie einen Newsletter aus"
+        alchemy_crm/newsletter:
+          attributes:
+            layout:
+              blank: "^Bitte wählen Sie ein Layout aus"
 
   time:
     formats:

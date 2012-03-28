@@ -49,12 +49,12 @@ module AlchemyCrm
 
 		accepts_nested_attributes_for :subscriptions, :allow_destroy => true
 
-		validates_presence_of :salutation, :message => "^Bitte wählen Sie eine Anrede aus.", :unless => proc { skip_validation }
-		validates_presence_of :firstname, :message => "^Bitte geben Sie einen Vornamen an.", :unless => proc { skip_validation }
-		validates_presence_of :lastname, :message => "^Bitte geben Sie einen Namen an."
-		validates_presence_of :email, :message => "^Bitte geben Sie eine E-Mail Adresse an."
-		validates_uniqueness_of :email, :message => "^Diese E-Mail Adresse ist bereits eingetragen."
-		validates_format_of :email, :with => ::Authlogic::Regex.email, :message => "^Die E-Mail Adresse ist nicht valide.", :if => proc { errors[:email].blank? }
+		validates_presence_of :salutation, :unless => proc { skip_validation }
+		validates_presence_of :firstname, :unless => proc { skip_validation }
+		validates_presence_of :lastname
+		validates_presence_of :email
+		validates_uniqueness_of :email
+		validates_format_of :email, :with => ::Authlogic::Regex.email, :if => proc { errors[:email].blank? }
 
 		before_save :update_sha1, :if => proc { email_sha1.blank? || email_changed? }
 
@@ -64,15 +64,15 @@ module AlchemyCrm
 		scope :available, verified.enabled
 
 		COLUMN_NAMES = [
-			["Titel", "title"],
-			["Anrede", "salutation"],
-			["Vorname", "firstname"],
-			["Nachname", "lastname"],
-			["Adresse", "address"],
-			["Postleitzahl", "zip"],
-			["Stadt", "city"],
-			["Land", "country"],
-			["Firma", "organisation"]
+			[::I18n.t(:title, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Title'), "title"],
+			[::I18n.t(:salutation, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Salutation'), "salutation"],
+			[::I18n.t(:firstname, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Firstname'), "firstname"],
+			[::I18n.t(:lastname, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Lastname'), "lastname"],
+			[::I18n.t(:address, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Address'), "address"],
+			[::I18n.t(:zip, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Zipcode'), "zip"],
+			[::I18n.t(:city, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'City'), "city"],
+			[::I18n.t(:country, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Country'), "country"],
+			[::I18n.t(:organisation, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Organisation'), "organisation"]
 		]
 
 		def disable!
@@ -109,18 +109,18 @@ module AlchemyCrm
 
 		def self.fake
 			fake = new(
-				:salutation => 'mr',
-				:title => 'Dr.',
-				:firstname => 'Max',
-				:lastname => 'Mustermann',
-				:email => 'max@mustermann.de',
-				:phone => '040-1234567',
-				:mobile => '0171-1234567',
-				:address => 'Lange Straße 10',
-				:zip => '20000',
-				:city => 'Hamburg',
-				:organisation => 'Musterfirma',
-				:country => 'DE'
+				:salutation => nil,
+				:title => ::I18n.t(:title, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'Dr.'),
+				:firstname => ::I18n.t(:firstname, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'Jon'),
+				:lastname => ::I18n.t(:lastname, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'Doe'),
+				:email => ::I18n.t(:email, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'jon@doe.com'),
+				:phone => ::I18n.t(:phone, :scope => 'alchemy_crm.fake_contact_attributes', :default => '1-1234567'),
+				:mobile => ::I18n.t(:mobile, :scope => 'alchemy_crm.fake_contact_attributes', :default => '123-456789'),
+				:address => ::I18n.t(:address, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'Street 1'),
+				:zip => ::I18n.t(:zip, :scope => 'alchemy_crm.fake_contact_attributes', :default => '10000'),
+				:city => ::I18n.t(:city, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'City'),
+				:organisation => ::I18n.t(:organisation, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'Company inc.'),
+				:country => ::I18n.t(:country, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'US')
 			)
 			fake.readonly!
 			fake

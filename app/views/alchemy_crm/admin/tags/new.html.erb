@@ -1,7 +1,7 @@
 <%= form_for [:admin, @tag], :as => :tag, :url => admin_tags_path, :html => {:id => 'new_tag'}, :remote => true do |form| %>
 	<div class="info">
 		<%= render_icon('info') %>
-		Tags werden automatisch erstellt, sobald Sie es bei einem Kontakt das erste mal verwenden.
+		<%= alchemy_crm_t(:tags_get_created_while_tagging_contacts) %>
 	</div>
 	<div id="errors" style="display: none"></div>
 	<table>

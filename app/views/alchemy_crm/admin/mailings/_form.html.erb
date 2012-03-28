@@ -3,15 +3,15 @@
 	<table>
 		<tr>
 			<td class="label">
-				<%= f.label :newsletter, ("Newsletter") %>
+				<%= f.label :newsletter %>
 			</td>
 			<td class="select">
-				<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, { :prompt => 'Bitte wählen' }, { :class => "alchemy_selectbox long" } %>
+				<%= f.collection_select :newsletter_id, @newsletters, :id, :humanized_name, { :prompt => t('Please choose') }, { :class => "alchemy_selectbox long" } %>
 			</td>
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :name, ("Name") %>
+				<%= f.label :name %>
 			</td>
 			<td class="input">
 				<%= f.text_field :name, :class => "thin_border long" %>
@@ -19,7 +19,7 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :subject, ("Betreff") %>
+				<%= f.label :subject %>
 			</td>
 			<td class="input">
 				<%= f.text_field :subject, :class => "thin_border long" %>
@@ -27,16 +27,16 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :additional_email_addresses, ("zusätzliche Email-Adressen*") %>
+				<%= f.label :additional_email_addresses %>
 			</td>
 			<td class="input">
 				<%= f.text_area :additional_email_addresses, :class => "thin_border long", :style => "height: 4em;" %>
-				<p style="text-align: right"><sup>*Email-Adressen bitte mit Komma getrennt angeben.</sup></p>
+				<p style="text-align: right"><sup><%= alchemy_crm_t(:seperate_emails_with_comma) %></sup></p>
 			</td>
 		</tr>
 		<tr>
 			<td class="submit" colspan="2">
-				<%= f.button "Speichern", :class => "button" %>
+				<%= f.button t(:save), :class => "button" %>
 			</td>
 		</tr>
 	</table>

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 module AlchemyCrm
 	module Admin
-		class MailingsController < Alchemy::Admin::ResourcesController
+		class MailingsController < AlchemyCrm::Admin::BaseController
 
 			before_filter :load_newsletters, :only => [:new, :edit, :copy]
 

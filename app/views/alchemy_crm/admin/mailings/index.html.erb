@@ -10,10 +10,10 @@
 	<%= toolbar_button(
 		:icon => 'mailing_add',
 		:url => new_admin_mailing_path,
-		:title => 'Neues Mailing anlegen',
-		:label => 'Neues Mailing',
+		:title => alchemy_crm_t(:add_mailing),
+		:label => alchemy_crm_t(:add_mailing),
 		:overlay_options => {
-			:title => 'Neues Mailing anlegen',
+			:title => alchemy_crm_t(:add_mailing),
 			:size => '464x270'
 		},
 		:if_permitted_to => [:new, :alchemy_crm_admin_mailings]
@@ -26,11 +26,11 @@
 	<%- unless @mailings.blank? -%>
 	<tr class="legend">
 		<th class="icon"></th>
-		<th class="name">Name</th>
-		<th class="name">Betreff</th>
-		<th style="width: 120px">Newsletter</th>
-		<th class="size" style="width: 120px">bisher verschickt</th>
-		<th class="time">nächster Versand geplant für</th>
+		<th class="name"><%= translate_model_attribute(:mailing, :name) %></th>
+		<th class="name"><%= translate_model_attribute(:mailing, :subject) %></th>
+		<th style="width: 120px"><%= translate_model_attribute(:mailing, :newsletter) %></th>
+		<th class="size" style="width: 120px"><%= translate_model_attribute(:mailing, :recipients_count) %></th>
+		<th class="time"><%= translate_model_attribute(:mailing, :next_delivery_at) %></th>
 		<th class="tools" style="width: 88px"></th>
 	</tr>
 	<%- end -%>

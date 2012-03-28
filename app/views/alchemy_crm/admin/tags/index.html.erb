@@ -9,13 +9,13 @@
 				content_tag('span', '', :class => 'icon tag_add'),
 				new_admin_tag_path,
 				{
-					:title => ::I18n.t('New Tag', :scope => :alchemy_crm),
+					:title => alchemy_crm_t('New Tag'),
 					:size => '310x210'
 				},
-				:title => ::I18n.t('New Tag', :scope => :alchemy_crm),
+				:title => alchemy_crm_t('New Tag'),
 				:class => 'icon_button'
 			) %><br />
-			<label><%= ::I18n.t('New Tag', :scope => :alchemy_crm) %></label>
+			<label><%= alchemy_crm_t('New Tag') %></label>
 		</div>
 	</div>
   <%= render :partial => 'alchemy/admin/partials/search_form' %>
@@ -25,8 +25,8 @@
 <table class="list" id="tag_list">
 	<tr class="legend">
 		<th class="icon"></th>
-		<th class="name">Name</th>
-		<th class="size" style="width: 120px">Anzahl Kontakte</th>
+		<th class="name"><%= ActsAsTaggableOn::Tag.human_attribute_name(:name) %></th>
+		<th class="size" style="width: 120px"><%= ActsAsTaggableOn::Tag.human_attribute_name(:contacts_count) %></th>
 		<th class="tools"></th>
 	</tr>
 	<%= render :partial => 'tag', :collection => @tags %>

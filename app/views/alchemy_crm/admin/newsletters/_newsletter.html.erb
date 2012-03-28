@@ -14,23 +14,29 @@
     <td class="size" style="width: 120px">
         <%= newsletter.contacts_count -%>
     </td>
+    <td class="size" style="width: 120px">
+        <%= newsletter.verified_subscribers.count -%>
+    </td>
+    <td class="size" style="width: 120px">
+        <%= newsletter.verified_contact_group_contacts.length -%>
+    </td>
     <td class="tools">
         <%= link_to_overlay_window(
             content_tag('span', '', :class => 'icon format_edit'),
             edit_admin_newsletter_path(newsletter),
             {
-                :title => 'Newsletter bearbeiten',
+                :title => alchemy_crm_t(:edit_newsletter),
                 :size => '340x220'
             },
             {
-                :title => 'Newsletter bearbeiten'
+                :title => alchemy_crm_t(:edit_newsletter)
             }
         ) -%>
         <%= link_to_confirmation_window(
             content_tag('span', '', :class => 'icon format_delete'),
-            "Wollen Sie diesen Newsletter wirklich löschen?",
+            alchemy_crm_t(:do_you_really_want_to_delete_this_newsletter?),
             admin_newsletter_path(newsletter),
-            :title => 'Newsletter löschen'
+            :title => alchemy_crm_t(:delete_newsletter)
         ) -%>
     </td>
 </tr>

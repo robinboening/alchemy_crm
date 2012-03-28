@@ -3,7 +3,7 @@
 	<table>
 		<tr>
 			<td class="label">
-				<%= f.label :name, "Name" %>
+				<%= f.label :name %>
 			</td>
 			<td class="input">
 				<%= f.text_field :name, :class => "thin_border" %>
@@ -11,15 +11,15 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :layout, "Layout" %>
+				<%= f.label :layout %>
 			</td>
 			<td class="select">
-				<%= f.select :layout, @page_layouts, { :prompt => 'Bitte wählen' }, { :class => 'alchemy_selectbox' } %>
+				<%= f.select :layout, @page_layouts, { :prompt => t('Please choose') }, { :class => 'alchemy_selectbox' } %>
 			</td>
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :public, "Öffentlich" %>
+				<%= f.label :public %>
 			</td>
 			<td class="checkbox">
 				<%= f.check_box :public %>
@@ -27,27 +27,27 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<%= f.label :contact_groups, "Zielgruppen" %>
+				<%= f.label :contact_groups %>
 			</td>
 			<%- if @contact_groups.any? -%>
 			<td class="input">
 					<%= render :partial => "tag_with_radiobutton", :collection => @contact_groups, :locals => {:newsletter_contact_groups => @newsletter.contact_groups} %>
 			<%- else -%>
 			<td class="value">
-				<small>Sie haben noch keine Empfänger Zielgruppen gebildet</small>
+				<small><%= alchemy_crm_t(:you_have_no_contact_groups_yet) %></small>
 			<%- end -%>
 			</td>
 		</tr>
 		<% if @newsletter.verified_subscribers.any? -%>
 		<tr>
 			<td colspan="2" class="headline" style="padding: 0">
-				<p>Über die Website eingetragene Kontakte: <%= @newsletter.verified_subscribers.count %></p>
+				<p><%= alchemy_crm_t(:subscribers_count) %>: <%= @newsletter.verified_subscribers.count %></p>
 			</td>
 		</tr>
 		<% end -%>
 		<tr>
 			<td colspan="2" class="submit">
-				<%= f.button "Speichern", :class => "button" %>
+				<%= f.button t(:save), :class => "button" %>
 			</td>
 		</tr>
 	</table>

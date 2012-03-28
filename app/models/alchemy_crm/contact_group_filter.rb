@@ -3,11 +3,13 @@ module AlchemyCrm
 	class ContactGroupFilter < ActiveRecord::Base
 
 		belongs_to :contact_group
-		@@operators = [["enthält", "LIKE"], ["enthält nicht", "NOT LIKE"], ["ist", "="], ["ist nicht", "!="]]
 
-		def self.operators
-			@@operators
-		end
+		OPERATORS = [
+			[::I18n.t(:like, :scope => 'alchemy_crm.contact_group_filter_operators', :default => 'Contains'), "LIKE"],
+			[::I18n.t(:not_like, :scope => 'alchemy_crm.contact_group_filter_operators', :default => 'Contains not'), "NOT LIKE"],
+			[::I18n.t(:equals, :scope => 'alchemy_crm.contact_group_filter_operators', :default => 'Equals'), "="],
+			[::I18n.t(:equals_not, :scope => 'alchemy_crm.contact_group_filter_operators', :default => 'Equals not'), "!="]
+		]
 
 		def sql_string
 			return "" if column.blank? || operator.blank? || prepared_value.blank?

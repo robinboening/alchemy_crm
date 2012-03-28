@@ -17,11 +17,11 @@
 			'',
 			edit_admin_contact_path(contact),
 			{
-				:title => 'Kontakt bearbeiten',
+				:title => alchemy_crm_t(:edit_contact),
 				:size => '415x560'
 			},
 			{
-				:title => 'Kontakt bearbeiten',
+				:title => alchemy_crm_t(:edit_contact),
 				:class => 'icon contact_edit'
 			}
 		) -%>
@@ -29,15 +29,15 @@
 			'',
 			export_admin_contact_path(contact),
 			{
-				:title => 'Kontakt exportieren',
+				:title => alchemy_crm_t(:export_contact),
 				:class => 'icon contact_export'
 			}
 		) -%>
 		<%= link_to_confirmation_window(
 			"",
-			"Wollen Sie diesen Kontakt wirklich löschen?",
+			alchemy_crm_t(:do_you_really_want_to_delete_this_contact?),
 			admin_contact_path(contact),
-			:title => 'Kontakt löschen',
+			:title => alchemy_crm_t(:delete_contact),
 			:class => 'icon contact_delete'
 		) %>
 	</td>

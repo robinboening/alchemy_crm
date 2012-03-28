@@ -9,8 +9,8 @@ module AlchemyCrm
 		has_many :recipients, :through => :deliveries
 		belongs_to :newsletter
 
-		validates_presence_of :name, :message => "^Bitte geben Sie einen Namen an."
-		validates_presence_of :newsletter_id, :message => "^Bitte wählen Sie einen Newsletter aus.", :on => :create
+		validates_presence_of :name
+		validates_presence_of :newsletter_id, :on => :create
 
 		before_create :set_sha1
 		after_create :create_page
@@ -56,7 +56,7 @@ module AlchemyCrm
 		def self.copy(id)
 			source = self.find(id)
 			clone = source.clone
-			clone.name = "#{source.name} (Kopie)"
+			clone.name = "#{source.name} (#{::I18n.t(:copy, :scope => :alchemy_crm, :default => 'Copy')})"
 			clone
 		end
 

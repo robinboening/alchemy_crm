@@ -12,15 +12,15 @@
 				content_tag('span', '', :class => 'icon group_add'),
 				new_admin_contact_group_path(),
 				{
-					:title => 'Neue Zielgruppe anlegen',
+					:title => alchemy_crm_t(:add_contact_group),
 					:size => '500x255'
 				},
 				{
 					:class => 'icon_button',
-					:title => 'Neue Zielgruppe anlegen'
+					:title => alchemy_crm_t(:add_contact_group)
 				}
 			) -%><br />
-			<label>Neue Zielgruppe</label>
+			<label><%= alchemy_crm_t(:add_contact_group) %></label>
 		</div>
 	</div>
   <%= render :partial => 'alchemy/admin/partials/search_form' %>
@@ -30,8 +30,8 @@
 	<%- unless @contact_groups.blank? -%>
 	<tr>
 		<th class="icon"></th>
-		<th class="name">Name</th>
-		<th class="count" style="width: 120px">Anzahl Kontakte</th>
+		<th class="name"><%= translate_model_attribute(:contact_group, :name) %></th>
+		<th class="count" style="width: 120px"><%= translate_model_attribute(:contact_group, :contacts_count) %></th>
 		<th class="tools" style="width: 40px"></th>
 	</tr>
 	<%- end -%>

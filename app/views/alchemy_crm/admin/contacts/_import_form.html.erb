@@ -4,13 +4,13 @@
 			<td class="label">Datei:</td>
 			<td><%= file_field_tag :vcard %></td>
 			<td class="submit">
-				<%= button_tag ::I18n.t(:import, :scope => :alchemy_crm), :name => nil, :class => 'button' %>
+				<%= button_tag alchemy_crm_t(:import), :name => nil, :class => 'button' %>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="3" style="padding: 0">
 				<%= check_box_tag :verified %>
-				<%= label_tag :verified, ::I18n.t(:import_contacts_verified, :scope => :alchemy_crm) %>
+				<%= label_tag :verified, alchemy_crm_t(:import_contacts_verified) %>
 			</td>
 		</tr>
 	</table>

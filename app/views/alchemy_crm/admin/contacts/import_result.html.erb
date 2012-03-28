@@ -20,7 +20,7 @@
 	:search => false
 ) -%>
 
-<h1><%= ::I18n.t('Import result', :scope => :alchemy_crm) %></h1>
+<h1><%= alchemy_crm_t('Import result') %></h1>
 
 <% if @errors -%>
 
@@ -31,7 +31,7 @@
 <% if @contacts -%>
 <div class="info">
 	<%= render_icon(:info) %>
-	<p>Die restlichen Kontakt wurden importiert. Beheben Sie die Fehler an den markierten Kontakten und laden Sie deren Visitenkarte erneut hoch.</p>
+	<p><%= alchemy_crm_t(:contacts_imported_with_errors_notice) %></p>
 </div>
 <% end -%>
 
@@ -43,9 +43,9 @@
 
 <table>
 	<tr>
-		<th>Name</th>
-		<th>E-Mail</th>
-		<th>Import-Status</th>
+		<th><%= translate_model_attribute(:contact, :name) %></th>
+		<th><%= translate_model_attribute(:contact, :email) %></th>
+		<th><%= alchemy_crm_t(:import_status) %></th>
 	</tr>
 <% @contacts.each do |contact| -%>
 	<tr class="<%= cycle("even", "odd") %><%= contact.invalid? ? ' disabled' : nil -%>">

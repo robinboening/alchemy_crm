@@ -1,10 +1,9 @@
 # encoding: UTF-8
 module AlchemyCrm
 	module Admin
-		class ContactGroupsController < Alchemy::Admin::ResourcesController
+		class ContactGroupsController < AlchemyCrm::Admin::BaseController
 
 			before_filter :load_additional_data, :only => [:new, :edit]
-			helper "AlchemyCrm::Admin::Base"
 
 			def add_filter
 				@contact_group = ContactGroup.find(params[:contact_group_id])

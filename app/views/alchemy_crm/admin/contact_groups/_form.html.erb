@@ -3,7 +3,7 @@
 	<table>
 		<tr>
 			<td class="label">
-				<%= f.label :name, "Name" %>
+				<%= f.label :name %>
 			</td>
 			<td class="input">
 				<%= f.text_field :name, :class => "thin_border", :style => 'margin-right: 24px' %>
@@ -11,7 +11,7 @@
 		</tr>
 		<tr>
 			<td class="label">
-				<label>Kontakte mit diesen Tag(s)</label>
+				<label><%= alchemy_crm_t(:contacts_tagged_with) %></label>
 			</td>
 			<td class="input">
 				<%= render :partial => "tag", :collection => @tags, :locals => {:tags => @contact_group.contact_tags, :name => "contact_group" } %>
@@ -21,14 +21,14 @@
 		<tr>
 			<td colspan="2" style="padding: 0">
 				<div id="filter_container">
-					<h2>Verfeinerungs-Filter</h2>
+					<h2><%= alchemy_crm_t(:filter) %></h2>
 					<%- @contact_group.filters.each_with_index do |filter, i| -%>
 					<%= render :partial => "filter", :object => filter, :locals => {:count => i} %>
 					<%- end -%>
 				</div>
 				<p>
 					<%= link_to(
-						"#{render_icon('create')}Filter hinzufügen".html_safe,
+						render_icon('create') + alchemy_crm_t(:add_filter),
 						add_filter_admin_contact_groups_path(:contact_group_id => @contact_group.id),
 						:method => 'get',
 						:class => 'small button with_icon',
@@ -40,7 +40,7 @@
 		<% end -%>
 		<tr>
 			<td class="submit" colspan="2">
-				<%= f.button "speichern", :class => "button" %>
+				<%= f.button t(:save), :class => "button" %>
 			</td>
 		</tr>
 	</table>

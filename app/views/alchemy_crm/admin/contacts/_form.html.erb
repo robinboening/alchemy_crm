@@ -4,7 +4,7 @@
 <div class="info">
 	<%= render_icon(:info) %>
 	<p>
-		<strong>Dieser Kontakt hat sich abgemeldet!</strong>
+		<strong><%= alchemy_crm_t(:contact_is_disabled_notice) %></strong>
 	</p>
 </div>
 <% end -%>
@@ -12,7 +12,12 @@
 	<tr>
 		<td class="label"><%= f.label :salutation %></td>
 		<td class="select">
-			<%= f.select :salutation, options_for_select([['auswählen', ''], [::I18n.t(:mr, :scope => [:alchemy_crm, :salutations]), :mr], [::I18n.t(:ms, :scope => [:alchemy_crm, :salutations]), :ms]], @contact.salutation), {}, { :class => 'alchemy_selectbox very_short' } %>
+			<%= f.select(:salutation,
+				options_for_select([
+					[t('Please choose'), ''],
+					[alchemy_crm_t(:mr, :scope => 'salutations'), :mr],
+					[alchemy_crm_t(:ms, :scope => 'salutations'), :ms]
+				], @contact.salutation), {}, { :class => 'alchemy_selectbox very_short' }) %>
 		</td>
 		<td class="label right"><%= f.label :title %></td>
 		<td class="input"><%= f.text_field :title, :class => "thin_border medium_long" %></td>
@@ -58,10 +63,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="label"><%= f.label :tag_list, "Tags" %></td>
+		<td class="label"><%= f.label :tag_list %></td>
 		<td colspan="3" class="input">
 			<%= f.autocomplete_field :tag_list, autocomplete_tag_list_admin_contacts_path, :class => "thin_border very_long", 'data-delimiter' => ',' %>
-			<p><small>*Mehrere Tags mit Komma trennen.</small></p>
+			<p><small>*<%= alchemy_crm_t(:seperate_tags_with_comma) %></small></p>
 		</td>
 	</tr>
 	<tr>
@@ -74,7 +79,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="submit" colspan="4"><%= f.button "Speichern", :class => "button" %></td>
+		<td class="submit" colspan="4"><%= f.button t(:save), :class => "button" %></td>
 	</tr>
 </table>
 

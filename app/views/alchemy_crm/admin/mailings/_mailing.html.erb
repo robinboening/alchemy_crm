@@ -3,7 +3,7 @@
 		<%= content_tag('span', '', :class => 'icon mailing') %>
 	</td>
 	<td class="name">
-		<%= link_to mailing.name, {:action => 'edit_content', :id => mailing}, :title => 'bearbeiten' -%>
+		<%= link_to mailing.name, {:action => 'edit_content', :id => mailing}, :title => alchemy_crm_t(:edit_mailing_content) -%>
 	</td>
 	<td class="name">
 		<%= mailing.subject -%>
@@ -24,52 +24,52 @@
 			render_icon('send_mailing'),
 			new_admin_delivery_path(:mailing_id => mailing.id),
 			{
-				:title => ::I18n.t('Send Mailing', :scope => :alchemy_crm),
+				:title => alchemy_crm_t('Send Mailing'),
 				:size => '420x210'
 			},
 			{
-				:title => ::I18n.t('Send Mailing', :scope => :alchemy_crm)
+				:title => alchemy_crm_t('Send Mailing')
 			}
 		) %>
 		<%= link_to_overlay_window(
 			render_icon('delivery'),
 			admin_mailing_deliveries_path(mailing.id),
 			{
-				:title => 'gesendete Mailings',
+				:title => alchemy_crm_t(:sent_mailings),
 				:size => '500x550'
 			},
 			{
-				:title => 'gesendete Mailings anzeigen'
+				:title => alchemy_crm_t(:show_sent_mailings)
 			}
 		) -%>
 		<%= link_to_overlay_window(
 			render_icon('mailing_copy'),
 			copy_admin_mailing_path(mailing),
 			{
-				:title => 'Mailing kopieren',
+				:title => alchemy_crm_t(:copy_mailing),
 				:size => '450x260'
 			},
 			{
-				:title => 'Mailing kopieren'
+				:title => alchemy_crm_t(:copy_mailing)
 			}
 		) -%>
 		<%= link_to_overlay_window(
 			render_icon('mailing_edit'),
 			edit_admin_mailing_path(mailing),
 			{
-				:title => 'Mailing bearbeiten',
+				:title => alchemy_crm_t(:edit_mailing),
 				:size => '450x270'
 			},
 			{
 				:class => 'edit_mailing_button',
-				:title => 'Mailing bearbeiten'
+				:title => alchemy_crm_t(:edit_mailing)
 			}
 		) -%>
 		<%= link_to_confirmation_window(
 			render_icon('mailing_delete'),
-			"Wollen Sie dieses Mailing wirklich löschen?",
+			alchemy_crm_t(:do_you_really_want_to_delete_this_mailing?),
 			admin_mailing_path(mailing),
-			:title => 'Mailing löschen'
+			:title => alchemy_crm_t(:delete_mailing)
 		) -%>
 	</td>
 </tr>

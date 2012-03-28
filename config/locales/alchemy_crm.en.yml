@@ -3,18 +3,23 @@ en:
     "Active Mailing": "Active Mailing"
     "Inhalte wurden übernommen": "Contents transfered"
     choose_newsletter_text_is_optional: "Hint: This text is for choosing from multiple newsletters. You may leave this blank, if only one newsletter is available."
+    contact_is_disabled_notice: 'This contact has unsubscribed!'
     contact_unknown: "This contact could not be found!"
+    contacts_imported_with_errors_notice: All remaining contacts imported. Please resolve the errors from highlighted contacts and import them again.
     here: 'here'
     import_contacts_verified: "These contacts have been informed about that they will receive emails"
     imported_contacts_not_verified: "Please confirm that you have informed the contacts about that they will receive emails."
     import: import
+    import_format_notice: 'You may import a vcard file (.vcf) with a single or with multiple contacts at once.'
     "Import contacts": "Import contacts"
     "Import result": "Import result"
     text_interpolation_notice: "Tip: You can insert the contact's name with %{name}."
     mail_text_interpolation_notice: "Tip: You can insert the contact's name with %{name}. Please insert the confirmation link with %{link}."
     mandatory_fields: "*Mandatory"
     missing_vcard: "Please upload a vcard"
+    newsletter_layout_not_found_notice: 'No newsletter layout found. Please create one.'
     read_in_browser_notice: "If the newsletter does not displays correctly, click %{link}."
+    'Replaced Tag %{old_tag} with %{new_tag}': "Replaced Tag '%{old_tag}' with '%{new_tag}'"
     salutations:
       mr: Mr
       ms: Ms
@@ -30,6 +35,18 @@ en:
         salutation: "Salutation*"
         firstname: "Firstname*"
         lastname: "Lastname*"
+        tag_list: Tags
+        disabled: unsubscribed
+    errors:
+      models:
+        alchemy_crm/mailing:
+          attributes:
+            newsletter_id:
+              blank: "^Please choose a newsletter"
+        alchemy_crm/newsletter:
+          attributes:
+            layout:
+              blank: "^Please choose a layout"
 
   time:
     formats:

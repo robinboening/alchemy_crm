@@ -3,8 +3,10 @@ module AlchemyCrm
 	module Admin
 		class TagsController < Alchemy::Admin::BaseController
 
+			include I18nHelpers
+			helper 'AlchemyCrm::Admin::Base'
+
 			before_filter :load_tag, :only => [:edit, :update, :destroy]
-			helper "AlchemyCrm::Admin::Base"
 
 			def index
 				@tags = ActsAsTaggableOn::Tag.where(
@@ -19,7 +21,7 @@ module AlchemyCrm
 
 			def create
 				@tag = ActsAsTaggableOn::Tag.create(params[:tag])
-				render_errors_or_redirect @tag, admin_tags_path, t('New Tag Created', :scope => 'alchemy_crm')
+				render_errors_or_redirect @tag, admin_tags_path, alchemy_crm_t('New Tag Created')
 			end
 
 			def edit
@@ -31,12 +33,12 @@ module AlchemyCrm
 				if params[:replace]
 					@new_tag = ActsAsTaggableOn::Tag.find(params[:tag][:merge_to])
 					Contact.replace_tag @tag, @new_tag
-					operation_text = "Das Tag '#{@tag.name}' wurde durch das Tag '#{@new_tag.name}' ersetzt"
+					operation_text = alchemy_crm_t('Replaced Tag %{old_tag} with %{new_tag}') % {:old_tag => @tag.name, :new_tag => @new_tag.name}
 					@tag.destroy
 				else
 					@tag.update_attributes(params[:tag])
 					@tag.save
-					operation_text = "Das Tag wurde gespeichert"
+					operation_text = t(:successfully_updated_tag)
 				end
 				render_errors_or_redirect @tag, admin_tags_path, operation_text
 			end
@@ -44,7 +46,7 @@ module AlchemyCrm
 			def destroy
 				if request.delete?
 					@tag.destroy
-					flash[:notice] = "Das Tag wurde gelöscht"
+					flash[:notice] = t(:successfully_deleted_tag)
 				end
 				redirect_to admin_tags_path
 			end

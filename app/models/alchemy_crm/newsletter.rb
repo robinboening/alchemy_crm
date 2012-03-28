@@ -7,8 +7,8 @@ module AlchemyCrm
 		has_many :subscriptions
 		has_many :subscribers, :through => :subscriptions, :uniq => true, :source => :contact
 
-		validates_presence_of :name, :message => "^Bitte geben Sie einen Namen an."
-		validates_presence_of :layout, :message => "^Bitte wählen Sie einen Layout aus."
+		validates_presence_of :name
+		validates_presence_of :layout
 
 		before_destroy :can_delete_mailings?
 
@@ -29,7 +29,7 @@ module AlchemyCrm
 		end
 
 		def humanized_name
-			"#{self.name} (#{self.contacts_count})"
+			"#{name} (#{contacts_count})"
 		end
 
 		def verified_subscribers
@@ -41,7 +41,7 @@ module AlchemyCrm
 		end
 
 		def layout_name
-			NewsletterLayout.display_name_for(self.layout)
+			NewsletterLayout.display_name_for(layout)
 		end
 
 	end
