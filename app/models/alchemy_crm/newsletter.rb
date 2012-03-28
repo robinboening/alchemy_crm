@@ -41,7 +41,7 @@ module AlchemyCrm
 		end
 
 		def layout_name
-			AlchemyCrm::NewsletterLayout.display_name_for(self.layout)
+			NewsletterLayout.display_name_for(self.layout)
 		end
 
 	end

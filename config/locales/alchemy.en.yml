@@ -5,6 +5,7 @@ en:
       newsletter_signup: Newsletter Signup
       newsletter_signout: Newsletter Signout
       newsletter_mails: Newsletter Mails
+      newsletter_layout_standard: Standard
 
     element_names:
       newsletter_signup_form: Newsletter Signup Form

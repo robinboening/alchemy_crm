@@ -18,7 +18,7 @@ module AlchemyCrm
 		end
 
 		def self.display_name_for(name)
-			Alchemy::I18n.t(name, :scope => :newsletter_layout_names, :default => name.camelcase)
+			Alchemy::I18n.t(name, :scope => :page_layout_names, :default => name.to_s.camelcase)
 		end
 
 	end

@@ -6,6 +6,7 @@ de:
       newsletter_signup: Newsletter Anmeldung
       newsletter_signout: Newsletter Abmeldung
       newsletter_mails: Newsletter E-Mails
+      newsletter_layout_standard: Standard
 
     element_names:
       newsletter_signup_form: Newsletter Anmeldeformular

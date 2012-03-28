@@ -8,8 +8,8 @@
     <td style="width: 120px">
         <%= newsletter.layout_name %>
     </td>
-    <td>
-        <%= newsletter.public ? 'ja' : 'nein' -%>
+    <td class="center">
+        <%= render_icon(newsletter.public?) -%>
     </td>
     <td class="size" style="width: 120px">
         <%= newsletter.contacts_count -%>
