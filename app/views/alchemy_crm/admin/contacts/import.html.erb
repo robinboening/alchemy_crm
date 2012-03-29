@@ -1,30 +1,33 @@
-<%- content_for(:javascript_includes) do -%>
-	<%= javascript_include_tag "alchemy_crm/scripts.js" %>
-<%- end -%>
+<%= form_tag import_admin_contacts_path, :remote => request.xhr?, :multipart => true, :class => 'contact_import' do %>
 
-<%- content_for(:stylesheets) do -%>
-	<%= stylesheet_link_tag('alchemy_crm/styles') %>
-<%- end -%>
+	<div class="info">
+		<%= render_icon('info') %>
+		<h1><%= alchemy_crm_t(:headline, :scope => 'import_format_notice') %></h1>
+		<ul>
+			<li><%= alchemy_crm_t(:vcf_format, :scope => 'import_format_notice') %></li>
+			<li><%= alchemy_crm_t(:csv_format, :scope => 'import_format_notice') %></li>
+		</ul>
+	</div>
 
-<% toolbar(
-	:buttons => [
-		{
-			:icon => :close,
-			:label => t(:cancel),
-			:url => alchemy_crm.admin_contacts_path,
-			:title => t(:cancel),
-			:overlay => false,
-			:if_permitted_to => [:index, :alchemy_crm_admin_contacts]
-		}
-	],
-	:search => false
-) -%>
+	<div id="errors" style="display: none"></div>
 
-<h1><%= ::I18n.t('Import contacts', :scope => :alchemy_crm) %></h1>
+	<table>
+		<tr>
+			<td class="label"><%= label_tag :file, alchemy_crm_t(:file) %></td>
+			<td><%= file_field_tag :file %></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<%= check_box_tag :verified %>
+				<%= label_tag :verified, alchemy_crm_t(:import_contacts_verified) %>
+			</td>
+		</tr>
+		<tr>
+			<td class="submit" colspan="2">
+				<%= button_tag alchemy_crm_t(:import), :name => nil, :class => 'button' %>
+			</td>
+		</tr>
+	</table>
 
-<div class="info">
-	<%= render_icon('info') %>
-	<p><%= alchemy_crm_t(:import_format_notice) %></p>
-</div>
-
-<%= render "import_form" %>
+<% end %>

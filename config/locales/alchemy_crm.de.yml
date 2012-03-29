@@ -22,10 +22,11 @@ de:
       equals_not: ist nicht
     contact_is_disabled_notice: 'Dieser Kontakt hat sich abgemeldet!'
     contact_unknown: "Dieser Kontakt konnte nicht gefunden werden!"
-    contacts_imported_with_errors_notice: Die restlichen Kontakt wurden importiert. Beheben Sie die Fehler an den markierten Kontakten und importieren Sie sie erneut.
+    contacts_imported_with_errors_notice: Beheben Sie die aufgelisteten Fehler und importieren Sie sie erneut.
     contacts_tagged_with: 'Kontakte mit diesen Tag(s)'
     copy: Kopie
     copy_mailing: Mailing kopieren
+    '%{count} contacts imported successfully': '%{count} Kontakt(e) wurden erfolgreich importiert'
     count_of_bounced_emails: Davon sind nicht angekommen
     count_of_recipients_that_clicked_a_link: Davon haben auf einen Link geklickt
     count_of_recipients_that_received_the_email: 'Davon haben die E-Mail geöffnet'
@@ -47,7 +48,9 @@ de:
     edit_mailing_content: 'Inhalt bearbeiten'
     edit_newsletter: 'Newsletter bearbeiten'
     edit_tag: 'Tag bearbeiten'
+    errors: Fehler
     errors_while_importing: 'Es sind Fehler beim Importieren aufgetaucht!'
+    errors_while_importing_contacts: 'Diese Kontakte konnten auf Grund von Fehlern nicht importiert werden:'
     export_contact: Kontakt exportieren
     fake_contact_attributes:
       firstname: Kim
@@ -60,19 +63,27 @@ de:
       city: Stadt
       organisation: Firma GmbH
       country: DE
+    file: Datei
     filter: 'Verfeinerungs-Filter'
     here: hier
+    ignore_first_row: 'Erste Zeile auslassen (Titelzeile)'
     import_contacts: "Kontakte importieren"
     import_contacts_verified: "Diese Kontakte wurden über den Erhalt von E-Mails informiert"
     imported_contacts_not_verified: "Bitte bestätigen Sie, dass die Kontakte über den Erhalt von E-Mails informiert wurden."
     import: importieren
-    import_format_notice: 'Sie können eine Visitenkarte (.vcf Datei) mit einem, oder auch mehreren Kontakten importieren.'
+    import_contacts_from_csv_file: 'Kontakte aus CSV Datei importieren'
+    import_format_notice:
+      headline: 'Sie können folgende Formate importieren:'
+      vcf_format: 'Eine digitale Visitenkarte (.vcf Datei) mit einem, oder auch mehreren Kontakten'
+      csv_format: 'Eine kommaseparierte Datei (.csv Datei) mit einer Liste von Kontakten'
     import_status: Import-Status
     "Import contacts": "Kontakte importieren"
     "Import result": "Importergebnis"
+    invalid_file_type: Falscher Dateityp
     text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen."
     mail_text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen. Den Bestätigungslink fügen Sie bitte mit %{link} ein."
     mandatory_fields: "*Pflichtfelder"
+    map_columns: 'Bitte überprüfen Sie, ob die Zuordnung der Spalten übereinstimmt. Andernfalls wählen Sie bitte das passende Feld aus der Liste aus.'
     missing_vcard: "Bitte laden Sie eine V-Card hoch"
     newsletter_layout_not_found_notice: 'Es wurde kein Newsletter Layout gefunden. Bitte legen Sie erst eins an.'
     none: 'Keine'

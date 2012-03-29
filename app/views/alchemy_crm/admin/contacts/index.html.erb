@@ -24,7 +24,10 @@
 			:label => alchemy_crm_t(:import_contacts),
 			:url => alchemy_crm.import_admin_contacts_path,
 			:title => alchemy_crm_t(:import_contacts),
-			:overlay => false,
+			:overlay_options => {
+				:title => alchemy_crm_t(:import_contacts),
+				:size => '400x300'
+			},
 			:if_permitted_to => [:import, :alchemy_crm_admin_contacts]
 		}
 	]

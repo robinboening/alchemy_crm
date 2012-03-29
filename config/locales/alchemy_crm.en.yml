@@ -4,10 +4,14 @@ en:
     choose_newsletter_text_is_optional: "Hint: This text is for choosing from multiple newsletters. You may leave this blank, if only one newsletter is available."
     contact_is_disabled_notice: 'This contact has unsubscribed!'
     contact_unknown: "This contact could not be found!"
-    contacts_imported_with_errors_notice: All remaining contacts imported. Please resolve the errors from highlighted contacts and import them again.
+    contacts_imported_with_errors_notice: Please resolve the errors from highlighted contacts and import them again.
     import_contacts_verified: "These contacts have been informed about that they will receive emails"
     imported_contacts_not_verified: "Please confirm that you have informed the contacts about that they will receive emails."
-    import_format_notice: 'You may import a vcard file (.vcf) with a single or with multiple contacts at once.'
+    import_format_notice:
+      headline: 'You can import following formats:'
+      vcf_format: 'A vcard file (.vcf) with a single contact or with multiple contacts'
+      csv_format: 'A comma seperated file (.csv) with a list of contacts'
+    import_format_notice: 'You may import '
     text_interpolation_notice: "Tip: You can insert the contact's name with %{name}."
     mail_text_interpolation_notice: "Tip: You can insert the contact's name with %{name}. Please insert the confirmation link with %{link}."
     mandatory_fields: "*Mandatory"

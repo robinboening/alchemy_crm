@@ -2,6 +2,8 @@
 de:
   alchemy:
 
+    continue: weiter
+
     page_layout_names:
       newsletter_signup: Newsletter Anmeldung
       newsletter_signout: Newsletter Abmeldung

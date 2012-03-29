@@ -1,0 +1,62 @@
+<%- content_for(:javascript_includes) do -%>
+	<%= javascript_include_tag "alchemy_crm/scripts.js" %>
+<%- end -%>
+
+<%- content_for(:stylesheets) do -%>
+	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+<%- end -%>
+
+<% toolbar(
+	:buttons => [
+		{
+			:icon => :close,
+			:label => t(:cancel),
+			:url => alchemy_crm.admin_contacts_path,
+			:title => t(:cancel),
+			:overlay => false,
+			:if_permitted_to => [:index, :alchemy_crm_admin_contacts]
+		}
+	],
+	:search => false
+) -%>
+
+<h1><%= alchemy_crm_t(:import_contacts_from_csv_file) %></h1>
+
+<div class="info">
+	<%= render_icon('info') %>
+	<p><%= alchemy_crm_t(:map_columns) %></p>
+</div>
+
+<%= form_tag nil, :id => 'map_fields_form', :method => :post do -%>
+	<%= hidden_field_tag :filename, @mapper.filename %>
+	<table class="list">
+		<tr>
+			<%- header = @raw_data.first -%>
+			<%- header.size.times do |column_index| -%>
+			<th>
+				<%= select_tag("fields[#{column_index + 1}]", options_for_select(
+					@mapper.map_fields,
+					@mapper.map_fields[header[column_index]]
+				), :include_blank => true, :class => 'alchemy_selectbox medium') %>
+			</th>
+			<%- end -%>
+		</tr>
+		<%- @raw_data[0..5].each do |row| -%>
+		<tr class="<%= cycle('even', 'odd') -%>">
+		 	<%- row.each do |column| -%>
+			<td><%= h(column) -%></td>
+			<%- end -%>
+		</tr>
+		<%- end -%>
+	</table>
+	<div class="with_padding">
+		<p>
+			<%= check_box_tag 'ignore_first_row', '1', true %>
+			<%= label_tag 'ignore_first_row', alchemy_crm_t(:ignore_first_row) %>
+		</p>
+	</div>
+	<div class="action">
+		<%= hidden_field_tag :verified, params[:verified] %>
+		<%= button_tag alchemy_crm_t(:import), :name => nil, :class => 'button' %>
+	</div>
+<%- end -%>

@@ -3,6 +3,25 @@ module AlchemyCrm
 	module Admin
 		class ContactsController < AlchemyCrm::Admin::BaseController
 
+			include CSVMagic::ControllerActions
+
+			csv_magic_config(
+				:mapping => {
+					Contact.human_attribute_name(:salutation).gsub(/\*$/, '') => :salutation,
+					Contact.human_attribute_name(:title)                      => :title,
+					Contact.human_attribute_name(:firstname).gsub(/\*$/, '')  => :firstname,
+					Contact.human_attribute_name(:lastname).gsub(/\*$/, '')   => :lastname,
+					Contact.human_attribute_name(:email).gsub(/\*$/, '')      => :email,
+					Contact.human_attribute_name(:organisation)               => :organisation,
+					Contact.human_attribute_name(:address)                    => :address,
+					Contact.human_attribute_name(:zip)                        => :zip,
+					Contact.human_attribute_name(:city)                       => :city,
+					Contact.human_attribute_name(:country)                    => :country,
+					Contact.human_attribute_name(:phone)                      => :phone,
+					Contact.human_attribute_name(:mobile)                     => :mobile
+				}
+			)
+
 			before_filter :load_tags, :only => [:new, :edit]
 
 			def new
@@ -11,22 +30,21 @@ module AlchemyCrm
 			end
 
 			def import
-				if request.get?
-					render :import
-				else
-					if params[:vcard].blank?
-						@errors = build_error_message(alchemy_crm_t(:missing_vcard))
-					elsif params[:verified] == "1"
-						@contacts = Contact.new_from_vcard(params[:vcard], true)
-						if @contacts.detect(&:invalid?).nil?
-							flash[:notice] = alchemy_crm_t(:successfully_imported_contacts)
+				if request.post?
+					if params[:verified] == "1"
+						if params[:fields] || !(params[:file].content_type =~ /csv/i).nil?
+							handle_csv_post_request
+						elsif !(params[:file].content_type =~ /vcard|directory/i).nil?
+							handle_vcf_post_request
 						else
-							@errors = build_error_message(alchemy_crm_t(:please_check_highlighted_vcards_on_errors))
+							flash[:error] = alchemy_crm_t(:invalid_file_type)
+							redirect_to admin_contacts_path
 						end
 					else
-						@errors = build_error_message(alchemy_crm_t(:imported_contacts_not_verified))
+						@error = build_error_message(alchemy_crm_t(:imported_contacts_not_verified))
 					end
-					render :import_result
+				else
+					render :layout => !request.xhr?
 				end
 			end
 
@@ -49,8 +67,44 @@ module AlchemyCrm
 			end
 
 			def build_error_message(message)
-				heading = "<h2>#{alchemy_crm_t(:errors_while_importing)}</h2>".html_safe
-				heading += "<p>#{message}</p>".html_safe
+				heading = "<h1>#{alchemy_crm_t(:errors_while_importing)}</h1>".html_safe
+				message = "<p>#{message}</p>".html_safe
+				heading + message
+			end
+
+			def create_resource_items_from_csv(*args)
+				@csv_import_errors = []
+				@contacts = []
+				reader = CSVMagic::Reader.new(params)
+				reader.each do |row|
+					@contacts << contact = Contact.new(row)
+					contact.verified = true
+					contact.skip_validation = true
+					unless contact.save
+						@csv_import_errors.push [contact, contact.errors]
+					end
+				end
+				@valid_contacts = @contacts.select(&:valid?) 
+				reader.remove_file if @csv_import_errors.empty?
+			end
+
+			def render_csv_import_form
+				render 'import'
+			end
+
+			def handle_vcf_post_request
+				if params[:file].blank?
+					@errors = build_error_message(alchemy_crm_t(:missing_vcard))
+				else
+					@contacts = Contact.new_from_vcard(params[:file], true)
+					if @contacts.detect(&:invalid?).nil?
+						flash[:notice] = alchemy_crm_t(:successfully_imported_contacts)
+					else
+						@errors = build_error_message(alchemy_crm_t(:please_check_highlighted_vcards_on_errors))
+					end
+				end
+				@valid_contacts = @contacts.select(&:valid?) || []
+				render :vcf_import_result
 			end
 
 		end

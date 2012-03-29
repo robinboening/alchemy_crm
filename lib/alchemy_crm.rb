@@ -3,6 +3,7 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
 	require 'localized_country_select'
 	require 'rails3-jquery-autocomplete'
 	require 'vcard'
+	require 'csv_magic'
 	require 'digest/sha1'
 	require 'delayed_job_active_record'
 	require 'alchemy_cms'

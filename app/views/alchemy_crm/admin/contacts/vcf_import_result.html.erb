@@ -6,48 +6,29 @@
 	<%= stylesheet_link_tag('alchemy_crm/styles') %>
 <%- end -%>
 
-<% toolbar(
-	:buttons => [
-		{
-			:icon => :close,
-			:label => t(:cancel),
-			:url => alchemy_crm.admin_contacts_path,
-			:title => t(:cancel),
-			:overlay => false,
-			:if_permitted_to => [:index, :alchemy_crm_admin_contacts]
-		}
-	],
-	:search => false
-) -%>
-
 <h1><%= alchemy_crm_t('Import result') %></h1>
 
+<% if @valid_contacts.any? -%>
+<div class="flash notice" style="margin: 8px 0">
+	<%= render_icon('true') %>
+	<%= alchemy_crm_t('%{count} contacts imported successfully') % {:count => @valid_contacts.length} %>
+</div>
+<% end -%>
+
 <% if @errors -%>
-
-<div id="errors">
-	<%= @errors %>
-</div>
-
-<% if @contacts -%>
-<div class="info">
-	<%= render_icon(:info) %>
-	<p><%= alchemy_crm_t(:contacts_imported_with_errors_notice) %></p>
+<div class="flash error" style="margin: 8px 0">
+	<%= render_icon('error') %><%= @errors %>
 </div>
 <% end -%>
 
-<%= render "import_form" %>
-
-<% end -%>
-
 <% if @contacts -%>
-
 <table>
 	<tr>
 		<th><%= translate_model_attribute(:contact, :name) %></th>
-		<th><%= translate_model_attribute(:contact, :email) %></th>
+		<th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
 		<th><%= alchemy_crm_t(:import_status) %></th>
 	</tr>
-<% @contacts.each do |contact| -%>
+	<% @contacts.each do |contact| -%>
 	<tr class="<%= cycle("even", "odd") %><%= contact.invalid? ? ' disabled' : nil -%>">
 		<td><%= contact.fullname %></td>
 		<td><%= contact.email %></td>
@@ -59,7 +40,10 @@
 			<% end -%>
 		</td>
 	</tr>
-<% end -%>
+	<% end -%>
 </table>
-
 <% end -%>
+
+<p style="margin: 8px 0">
+	<%= link_to t(:continue), admin_contacts_path, :class => 'button' %>
+</p>
