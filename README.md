@@ -1,26 +1,36 @@
-Alchemy CRM Module *(2.0.alpha)*
-===============================
+Alchemy CRM Module
+==================
+
+Building and sending Newsletters has never been easier!
 
 About
 -----
 
-This branch of the Alchemy CRM is a newsletter module for Alchemy CMS 2.1.
-For more Information please visit [http://alchemy-cms.com](http://alchemy-cms.com)
+A fully featured CRM / Newsletter and Mailings Module for Alchemy CMS.
 
-**CAUTION: This branch is not stable. Please do not use it in productive environments.**
+For more Information please visit [http://alchemy-cms.com](http://alchemy-cms.com)
 
 Install
 -------
 
-1. Put this line into your projects `Gemfile`:
+1. Install Alchemy CMS:
 
-        gem "alchemy_crm", :git => 'git://github.com/magiclabs/alchemy_crm', :branch => 'rails31'
+http://guides.alchemy-cms.com/getting_started.html
 
-2. Update your bundle:
+2. Put this line into your projects `Gemfile`:
+
+        # Gemfile
+        gem "alchemy_crm", :git => 'git://github.com/magiclabs/alchemy_crm'
+
+Or install it via Rubygems:
+
+        $ gem install alchemy_crm
+
+3. Update your bundle:
 
         $ bundle
 
-3. Mount the Alchemy CRM Engine into your app:
+4. Mount the Alchemy CRM Engine into your app:
 
         # config/routes.rb
         ...
@@ -29,12 +39,12 @@ Install
 
     NOTE: It is **strongly** recommended to mount this module before you mount Alchemy CMS
 
-4. Copy the migrations into your app and migrate the database:
+5. Copy the migrations into your app and migrate the database:
 
         $ rake alchemy_crm:install:migrations
         $ rake db:migrate
 
-5. Seed the database:
+6. Seed the database:
 
     1. Put this line into your projects `db/seeds.rb` file:
         
@@ -44,7 +54,7 @@ Install
 
             $ rake db:seed
 
-6. Generate files and folders:
+7. Generate files and folders:
 
     1. Run scaffold generator
 
@@ -57,19 +67,16 @@ Install
 Resources
 ---------
 
-* Homepage: <http://alchemy-cms.com>
-* Wiki: <http://wiki.alchemy-cms.com>
-* Issue-Tracker: <http://issues.alchemy-cms.com>
+* Homepage: <https://github.com/magiclabs/alchemy_crm>
+* Issue-Tracker: <https://github.com/magiclabs/alchemy_crm/issues>
 * Sourcecode: <https://github.com/magiclabs/alchemy_crm>
 
 Authors
 ---------
 
-* Carsten Fregin: <https://github.com/cfregin>
 * Thomas von Deyen: <https://github.com/tvdeyen>
-* Robin Böning: <https://github.com/robinboening>
 
 License
 -------
 
-* MIT: <https://raw.github.com/magiclabs/alchemy_crm/rails31/MIT-LICENSE>
+* BSD: <https://raw.github.com/magiclabs/alchemy_crm/LICENSE>

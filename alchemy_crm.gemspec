@@ -5,8 +5,8 @@ Gem::Specification.new do |gem|
 
 	gem.authors       = ["Thomas von Deyen"]
 	gem.email         = ["tvd@magiclabs.de"]
-	gem.description   = %q{A CRM module for Alchemy CMS with Newsletters, Contacts, Mailings.}
-	gem.summary       = %q{A CRM module for Alchemy CMS}
+	gem.description   = %q{A fully featured CRM / Newsletter and Mailings Module for Alchemy CMS. Building and sending Newsletters has never been easier!}
+	gem.summary       = %q{A fully featured CRM / Newsletter and Mailings Module for Alchemy CMS.}
 	gem.homepage      = "http://alchemy-cms.com"
 	gem.license       = 'BSD New'
 
@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
 	gem.require_paths = ["lib"]
 	gem.version       = AlchemyCrm::VERSION
 
-	gem.add_dependency 'alchemy_cms', ["~> 2.1.6"]
+	gem.add_dependency 'alchemy_cms', ["~> 2.1.7"]
 	gem.add_dependency 'vcard', ['~> 0.1.1']
 	gem.add_dependency 'csv_magic', ['~> 0.2.2']
 	gem.add_dependency 'delayed_job_active_record', ["~> 0.3.2"]
