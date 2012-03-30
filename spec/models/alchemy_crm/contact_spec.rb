@@ -4,7 +4,7 @@ module AlchemyCrm
 	describe Contact do
 
 		before(:all) do
-			@contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
+			@contact = Contact.create!({:email => 'jon@doe.com', :title => 'Dr.', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
 		end
 
 		describe '.create' do
@@ -50,6 +50,50 @@ module AlchemyCrm
 
 				it "should not update salt" do
 					@contact.email_salt.should == @salt
+				end
+
+			end
+
+		end
+
+		describe '#interpolation_name_value' do
+
+			before(:each) do
+				@contact.update_attributes!(:firstname => 'Jon')
+			end
+
+			context "not given a name_with_title value in the config" do
+
+				before(:each) do
+					Config.stub!(:get).and_return(nil)
+				end
+
+				it "should return the default value." do
+					@contact.interpolation_name_value.should == "Mr Dr. Jon Doe"
+				end
+
+			end
+
+			context "given a valid method name in the config" do
+
+				before(:each) do
+					Config.stub!(:get).and_return('name_with_title')
+				end
+
+				it "should return the correct value." do
+					@contact.interpolation_name_value.should == "Dr. Jon Doe"
+				end
+
+			end
+
+			context "given not a valid method name in the config" do
+
+				before(:each) do
+					Config.stub!(:get).and_return('password')
+				end
+
+				it "should return the default value." do
+					@contact.interpolation_name_value.should == "Mr Dr. Jon Doe"
 				end
 
 			end

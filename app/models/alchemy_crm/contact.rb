@@ -75,6 +75,8 @@ module AlchemyCrm
 			[::I18n.t(:organisation, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Organisation'), "organisation"]
 		]
 
+		INTERPOLATION_NAME_METHODS = %w(fullname name_with_title firstname lastname name email)
+
 		def disable!
 			update_attributes({
 				:verified => false,
@@ -83,6 +85,8 @@ module AlchemyCrm
 			subscriptions.destroy_all
 		end
 
+		# Returns a full name
+		# Salutation + Title + Firstname + Lastname
 		def fullname
 			if lastname.present? || firstname.present?
 				"#{translated_salutation} #{name_with_title}".squeeze(" ")
@@ -91,19 +95,42 @@ module AlchemyCrm
 			end
 		end
 
+		# Translated salutation
+		# 
+		# Translate the saluations in your +config/LOCALE.yml+
+		# 
+		#   alchemy_crm:
+		#     salutations:
+		#       mr: 
+		#       ms: 
+		# 
 		def translated_salutation
 			::I18n.t(salutation, :scope => [:alchemy_crm, :salutations], :default => salutation.to_s.capitalize)
 		end
 
+		# Returns the name and title
+		# Title + Firstname + Lastname
 		def name_with_title
 			"#{title} #{name}".squeeze(" ")
 		end
 
+		# Returns the name ot email, if no name is present
+		# Firstname + Lastname, or email
 		def name
 			if lastname.present? || firstname.present?
 				"#{firstname} #{lastname}".squeeze(" ")
 			else
 				email
+			end
+		end
+
+		# Uses the +config['name_interpolation_method']+ to return the value for emails and forms %{name} interpolations.
+		def interpolation_name_value
+			name_interpolation_method = Config.get(:name_interpolation_method)
+			if name_interpolation_method.present? && INTERPOLATION_NAME_METHODS.include?(name_interpolation_method.to_s) && self.respond_to?(name_interpolation_method.to_sym)
+				self.send(name_interpolation_method.to_sym)
+			else
+				fullname
 			end
 		end
 

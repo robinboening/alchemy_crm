@@ -1,10 +1,10 @@
 <% if @contact_signed_out -%>
 
-<%= raw element.ingredient('signed_out_text') % {:name => @contact.fullname} %>
+<%= raw element.ingredient('signed_out_text') % {:name => @contact.interpolation_name_value} %>
 
 <% elsif @contact_disabled -%>
 
-<%= raw element.ingredient('disabled_text') % {:name => @contact.fullname} %>
+<%= raw element.ingredient('disabled_text') % {:name => @contact.interpolation_name_value} %>
 
 <% else -%>
 

@@ -1,0 +1,21 @@
+# mail from
+mail_from: mail@example.com
+
+# sending mails in chunks of
+send_mails_in_chunks_of: 200
+
+# sending mail chunks every x minute
+send_mail_chunks_every: 5
+
+# Specify the method that is used to interpolate the %{name} in newsletter mails and forms.
+# 
+# === Available methods:
+# 
+# * +fullname+
+# * +name_with_title+
+# * +firstname+
+# * +lastname+
+# * +name+
+# * +email+
+# 
+name_interpolation_method: fullname
