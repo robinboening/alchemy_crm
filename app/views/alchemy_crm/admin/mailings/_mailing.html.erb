@@ -16,7 +16,7 @@
 	</td>
 	<td class="time">
 		<%- if mailing.next_pending_delivery -%>
-		<%= mailing.next_pending_delivery.deliver_at.nil? ? '' : l(mailing.next_pending_delivery.deliver_at) -%>
+		<%= mailing.next_pending_delivery.deliver_at.nil? ? '' : l(mailing.next_pending_delivery.deliver_at, :format => :short) -%>
 		<%- end -%>
 	</td>
 	<td class="tools">
