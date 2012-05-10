@@ -3,7 +3,7 @@ module AlchemyCrm
 
 		default :from => AlchemyCrm::Config.get(:mail_from)
 
-		helper "AlchemyCrm::Mailings"
+		helper "AlchemyCrm::Mailings", "Application"
 		helper_method :logged_in?, :configuration
 
 		# Renders the email sent to the mailing recipient
@@ -17,8 +17,8 @@ module AlchemyCrm
 			@contact = @recipient.contact || Contact.new_from_recipient(@recipient)
 
 			mail(:to => @recipient.mail_to, :subject => mailing.subject) do |format|
-				format.html { render("layouts/alchemy_crm/mailings.html") }
 				format.text { render("layouts/alchemy_crm/mailings.text") }
+				format.html { render("layouts/alchemy_crm/mailings.html") }
 			end
 		end
 

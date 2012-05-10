@@ -1,16 +1,7 @@
 <tr class="delivery <%= cycle('even', 'odd') %>">
 	<td>
-		<%- if delivery.delivered? -%>
 		<%= l(delivery.deliver_at, :format => :deliveries) %>
-		<%- else -%>
-		<%= link_to_overlay_window(
-			l(delivery.deliver_at, :format => :deliveries),
-			edit_admin_delivery_path(delivery),
-			{
-				:title => alchemy_crm_t(:reschedule_delivery),
-				:size => '420x210'
-			}
-		) %>
+		<%- unless delivery.delivered? -%>
 		<%= link_to_confirmation_window(
 			render_icon('destroy'),
 			alchemy_crm_t(:do_you_want_to_cancel_the_delivery?),

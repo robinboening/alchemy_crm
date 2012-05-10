@@ -174,7 +174,7 @@ module AlchemyCrm
 			else
 				port = request.port != 80 ? request.port : nil
 			end
-			[protocol, current_host, port ? ":#{port}" : nil].join
+			[protocol, current_host, port ? ":#{port}" : nil].compact.join
 		end
 
 		def current_language
