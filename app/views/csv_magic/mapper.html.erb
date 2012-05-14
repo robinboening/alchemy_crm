@@ -36,7 +36,7 @@
       <th>
         <%= select_tag("fields[#{column_index + 1}]", options_for_select(
           @mapper.map_fields,
-          @mapper.map_fields[header[column_index]]
+          header[column_index].to_s.to_sym
         ), :include_blank => true, :class => 'alchemy_selectbox medium') %>
       </th>
       <%- end -%>
