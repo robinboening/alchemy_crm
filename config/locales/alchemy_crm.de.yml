@@ -79,7 +79,7 @@ de:
     import_status: Import-Status
     "Import contacts": "Kontakte importieren"
     "Import result": "Importergebnis"
-    invalid_file_type: Falscher Dateityp
+    invalid_file_type: 'Falscher Dateityp: %{mime_type}'
     text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen."
     mail_text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen. Den Bestätigungslink fügen Sie bitte mit %{link} ein."
     mandatory_fields: "*Pflichtfelder"
