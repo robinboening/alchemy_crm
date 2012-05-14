@@ -38,7 +38,7 @@ module AlchemyCrm
 				else
 					@tag.update_attributes(params[:tag])
 					@tag.save
-					operation_text = t(:successfully_updated_tag)
+					operation_text = alchemy_crm_t(:successfully_updated_tag)
 				end
 				render_errors_or_redirect @tag, admin_tags_path, operation_text
 			end
@@ -46,9 +46,10 @@ module AlchemyCrm
 			def destroy
 				if request.delete?
 					@tag.destroy
-					flash[:notice] = t(:successfully_deleted_tag)
+					flash[:notice] = alchemy_crm_t(:successfully_deleted_tag)
 				end
-				redirect_to admin_tags_path
+				@redirect_url = admin_tags_path
+				render :action => :redirect
 			end
 
 		private
