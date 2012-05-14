@@ -11,68 +11,68 @@
 <% else -%>
 
 <%= form_for [alchemy_crm, @contact ||= AlchemyCrm::Contact.new], :url => alchemy_crm.signup_contacts_path do |form| %>
-	<% if flash[:notice].present? -%>
-	<p class="flash notice"><%= flash[:notice] %></p>
-	<% end -%>
-	<%= form.error_messages %>
-	<table>
-		<tr>
-			<td class="label"><%= form.label :salutation %></td>
-			<td class="input" colspan="3">
-				<%= form.radio_button :salutation, :mr, :required => true %>
-				<%= form.label :salutation_mr, ::I18n.t(:mr, :scope => 'alchemy_crm.salutations', :default => 'Mr') %>
-				<%= form.radio_button :salutation, :ms, :required => true %>
-				<%= form.label :salutation_ms, ::I18n.t(:ms, :scope => 'alchemy_crm.salutations', :default => 'Ms') %>
-			</td>
-		</tr>
-		<tr>
-			<td class="label"><%= form.label :firstname %></td>
-			<td class="input" colspan="3"><%= form.text_field :firstname, :class => 'text_field', :required => true %></td>
-		</tr>
-		<tr>
-			<td class="label"><%= form.label :lastname %></td>
-			<td class="input" colspan="3"><%= form.text_field :lastname, :class => 'text_field', :required => true %></td>
-		</tr>
-		<tr>
-			<td class="label"><%= form.label :email %></td>
-			<td class="input" colspan="3"><%= form.email_field :email, :class => 'text_field', :required => true %></td>
-		</tr>
-		<tr>
-			<td class="label"><%= form.label :address %></td>
-			<td class="input" colspan="3"><%= form.text_field :address, :class => 'text_field' %></td>
-		</tr>
-		<tr>
-			<td class="label"><%= form.label :zip %></td>
-			<td class="input short"><%= form.text_field :zip, :class => 'text_field' %></td>
-			<td class="label short"><%= form.label :city %></td>
-			<td class="input medium"><%= form.text_field :city, :class => 'text_field' %></td>
-		</tr>
-		<tr>
-			<td class="label"><%= form.label :phone %></td>
-			<td class="input" colspan="3"><%= form.text_field :phone, :class => 'text_field' %></td>
-		</tr>
-		<tr>
-			<td colspan="4">
-				<%= render_essence_view_by_name element, 'choose_newsletter_text' %>
-				<% if @newsletters.length == 1 -%>
-					<%= hidden_field_tag "contact[subscriptions_attributes][0][newsletter_id]", @newsletters.first.id %>
-				<% else -%>
-					<% @newsletters.each_with_index do |newsletter, idx| -%>
-					<p>
-						<%= check_box_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.id, @contact.subscriptions.detect { |ns| ns.newsletter_id == newsletter.id } %>
-						<%= label_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.name %>
-					</p>
-					<% end -%>
-				<% end -%>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="4" class="submit">
-				<%= form.button ::I18n.t('subscribe_form.button_label', :scope => :alchemy_crm), :name => nil %>
-			</td>
-		</tr>
-	</table>
-	<p class="mandatory_fields_notice"><%= ::I18n.t(:mandatory_fields, :scope => :alchemy_crm) %></p>
+  <% if flash[:notice].present? -%>
+  <p class="flash notice"><%= flash[:notice] %></p>
+  <% end -%>
+  <%= form.error_messages %>
+  <table>
+    <tr>
+      <td class="label"><%= form.label :salutation %></td>
+      <td class="input" colspan="3">
+        <%= form.radio_button :salutation, :mr, :required => true %>
+        <%= form.label :salutation_mr, ::I18n.t(:mr, :scope => 'alchemy_crm.salutations', :default => 'Mr') %>
+        <%= form.radio_button :salutation, :ms, :required => true %>
+        <%= form.label :salutation_ms, ::I18n.t(:ms, :scope => 'alchemy_crm.salutations', :default => 'Ms') %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label"><%= form.label :firstname %></td>
+      <td class="input" colspan="3"><%= form.text_field :firstname, :class => 'text_field', :required => true %></td>
+    </tr>
+    <tr>
+      <td class="label"><%= form.label :lastname %></td>
+      <td class="input" colspan="3"><%= form.text_field :lastname, :class => 'text_field', :required => true %></td>
+    </tr>
+    <tr>
+      <td class="label"><%= form.label :email %></td>
+      <td class="input" colspan="3"><%= form.email_field :email, :class => 'text_field', :required => true %></td>
+    </tr>
+    <tr>
+      <td class="label"><%= form.label :address %></td>
+      <td class="input" colspan="3"><%= form.text_field :address, :class => 'text_field' %></td>
+    </tr>
+    <tr>
+      <td class="label"><%= form.label :zip %></td>
+      <td class="input short"><%= form.text_field :zip, :class => 'text_field' %></td>
+      <td class="label short"><%= form.label :city %></td>
+      <td class="input medium"><%= form.text_field :city, :class => 'text_field' %></td>
+    </tr>
+    <tr>
+      <td class="label"><%= form.label :phone %></td>
+      <td class="input" colspan="3"><%= form.text_field :phone, :class => 'text_field' %></td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <%= render_essence_view_by_name element, 'choose_newsletter_text' %>
+        <% if @newsletters.length == 1 -%>
+          <%= hidden_field_tag "contact[subscriptions_attributes][0][newsletter_id]", @newsletters.first.id %>
+        <% else -%>
+          <% @newsletters.each_with_index do |newsletter, idx| -%>
+          <p>
+            <%= check_box_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.id, @contact.subscriptions.detect { |ns| ns.newsletter_id == newsletter.id } %>
+            <%= label_tag "contact[subscriptions_attributes][#{idx}][newsletter_id]", newsletter.name %>
+          </p>
+          <% end -%>
+        <% end -%>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4" class="submit">
+        <%= form.button ::I18n.t('subscribe_form.button_label', :scope => :alchemy_crm), :name => nil %>
+      </td>
+    </tr>
+  </table>
+  <p class="mandatory_fields_notice"><%= ::I18n.t(:mandatory_fields, :scope => :alchemy_crm) %></p>
 <% end %>
 
 <% end -%>

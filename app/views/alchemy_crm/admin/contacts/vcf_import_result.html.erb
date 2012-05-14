@@ -1,49 +1,49 @@
 <%- content_for(:javascript_includes) do -%>
-	<%= javascript_include_tag "alchemy_crm/scripts.js" %>
+  <%= javascript_include_tag "alchemy_crm/scripts.js" %>
 <%- end -%>
 
 <%- content_for(:stylesheets) do -%>
-	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+  <%= stylesheet_link_tag('alchemy_crm/styles') %>
 <%- end -%>
 
 <h1><%= alchemy_crm_t('Import result') %></h1>
 
 <% if @valid_contacts.any? -%>
 <div class="flash notice" style="margin: 8px 0">
-	<%= render_icon('true') %>
-	<%= alchemy_crm_t('%{count} contacts imported successfully') % {:count => @valid_contacts.length} %>
+  <%= render_icon('true') %>
+  <%= alchemy_crm_t('%{count} contacts imported successfully') % {:count => @valid_contacts.length} %>
 </div>
 <% end -%>
 
 <% if @errors -%>
 <div class="flash error" style="margin: 8px 0">
-	<%= render_icon('error') %><%= @errors %>
+  <%= render_icon('error') %><%= @errors %>
 </div>
 <% end -%>
 
 <% if @contacts -%>
 <table>
-	<tr>
-		<th><%= translate_model_attribute(:contact, :name) %></th>
-		<th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
-		<th><%= alchemy_crm_t(:import_status) %></th>
-	</tr>
-	<% @contacts.each do |contact| -%>
-	<tr class="<%= cycle("even", "odd") %><%= contact.invalid? ? ' disabled' : nil -%>">
-		<td><%= contact.fullname %></td>
-		<td><%= contact.email %></td>
-		<td>
-			<% if contact.valid? -%>
-			<%= render_icon(:true) %>
-			<% else -%>
-			<%= contact.errors.full_messages.join('<br>') %>
-			<% end -%>
-		</td>
-	</tr>
-	<% end -%>
+  <tr>
+    <th><%= translate_model_attribute(:contact, :name) %></th>
+    <th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
+    <th><%= alchemy_crm_t(:import_status) %></th>
+  </tr>
+  <% @contacts.each do |contact| -%>
+  <tr class="<%= cycle("even", "odd") %><%= contact.invalid? ? ' disabled' : nil -%>">
+    <td><%= contact.fullname %></td>
+    <td><%= contact.email %></td>
+    <td>
+      <% if contact.valid? -%>
+      <%= render_icon(:true) %>
+      <% else -%>
+      <%= contact.errors.full_messages.join('<br>') %>
+      <% end -%>
+    </td>
+  </tr>
+  <% end -%>
 </table>
 <% end -%>
 
 <p style="margin: 8px 0">
-	<%= link_to t(:continue), admin_contacts_path, :class => 'button' %>
+  <%= link_to t(:continue), admin_contacts_path, :class => 'button' %>
 </p>

@@ -1,11 +1,11 @@
 <html>
-    <body>
-        <%= @element.content_by_name("email_text").ingredient % {
-            :link => link_to(
-                url = verify_mailing_url(@contact.email_sha1, :host => @server, :newsletter_ids => @newsletter_ids, :element_id => @element.id),
-                url
-            ),
-            :name => @contact.fullname
-        } %>
-    </body>
+  <body>
+    <%= @element.content_by_name("email_text").ingredient % {
+      :link => link_to(
+        url = verify_mailing_url(@contact.email_sha1, :host => @server, :newsletter_ids => @newsletter_ids, :element_id => @element.id),
+        url
+      ),
+      :name => @contact.fullname
+    } %>
+  </body>
 </html>

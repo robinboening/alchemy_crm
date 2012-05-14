@@ -1,16 +1,16 @@
 <table class="newsletter_article" cellpadding="0" cellspacing="0" border="0" width="100%"<%= element_preview_code(element) -%>>
-	<tr>
-		<% if element.has_ingredient?(:image) -%>
-		<td width="240" valign="top" style="padding-right: 10px">
-			<%= render_essence_view_by_name(element, 'image', {:image_size => '240x160', :crop => true}, {:style => "outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block"}) %>
-		</td>
-		<% end -%>
-		<td valign="top">
-			<h2><%= render_essence_view_by_name(element, 'headline') %></h2>
-			<%= render_essence_view_by_name(element, 'text') %>
-			<% if element.has_ingredient?('link') -%>
-				<%= tracked_link_tag ::I18n.t(:more), element.ingredient('link') %>
-			<% end -%>
-		</td>
-	</tr>
+  <tr>
+    <% if element.has_ingredient?(:image) -%>
+    <td width="240" valign="top" style="padding-right: 10px">
+      <%= render_essence_view_by_name(element, 'image', {:image_size => '240x160', :crop => true}, {:style => "outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block"}) %>
+    </td>
+    <% end -%>
+    <td valign="top">
+      <h2><%= render_essence_view_by_name(element, 'headline') %></h2>
+      <%= render_essence_view_by_name(element, 'text') %>
+      <% if element.has_ingredient?('link') -%>
+        <%= tracked_link_tag ::I18n.t(:more), element.ingredient('link') %>
+      <% end -%>
+    </td>
+  </tr>
 </table>

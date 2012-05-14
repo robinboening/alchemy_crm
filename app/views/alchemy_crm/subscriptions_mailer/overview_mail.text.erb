@@ -1,7 +1,7 @@
 <%= @element.ingredient("email_text") % { 
   :link => destroy_contact_url(
-      :token => @contact.email_sha1,
-      :element_id => @element.id
+    :token => @contact.email_sha1,
+    :element_id => @element.id
   ),
   :name => @contact.fullname 
 } %>

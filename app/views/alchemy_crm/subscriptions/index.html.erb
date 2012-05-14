@@ -7,16 +7,16 @@
 <% if @contact.nil? -%>
 
 <%= form_tag alchemy_crm.overview_subscriptions_path do %>
-	<%= label_tag :email, translate_model_attribute(:contact, :email) %>
-	<%= email_field_tag :email %>
-	<%= submit_tag alchemy_crm_t('Send subscriptions overview', :name => nil) %>
+  <%= label_tag :email, translate_model_attribute(:contact, :email) %>
+  <%= email_field_tag :email %>
+  <%= submit_tag alchemy_crm_t('Send subscriptions overview', :name => nil) %>
 <% end -%>
 
 <% else -%>
 
 <% @contact.subscriptions.each do |subscription| -%>
 <ul id="newsletter_subscriptions">
-	<li><%= subscription.newsletter.name %></li>
+  <li><%= subscription.newsletter.name %></li>
 </ul>
 <% end -%>
 

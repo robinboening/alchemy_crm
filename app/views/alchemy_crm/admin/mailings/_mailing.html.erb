@@ -1,75 +1,75 @@
 <tr class="<%= cycle('even', 'odd') %>">
-	<td class="icon">
-		<%= content_tag('span', '', :class => 'icon mailing') %>
-	</td>
-	<td class="name">
-		<%= link_to mailing.name, {:action => 'edit_content', :id => mailing}, :title => alchemy_crm_t(:edit_mailing_content) -%>
-	</td>
-	<td class="name">
-		<%= mailing.subject -%>
-	</td>
-	<td>
-		<%= mailing.newsletter.blank? ? '' : mailing.newsletter.name -%>
-	</td>
-	<td class="size">
-		<%= mailing.recipients.count -%>
-	</td>
-	<td class="time">
-		<%- if mailing.next_pending_delivery -%>
-		<%= mailing.next_pending_delivery.deliver_at.nil? ? '' : l(mailing.next_pending_delivery.deliver_at, :format => :short) -%>
-		<%- end -%>
-	</td>
-	<td class="tools">
-		<%= link_to_overlay_window(
-			render_icon('send_mailing'),
-			new_admin_delivery_path(:mailing_id => mailing.id),
-			{
-				:title => alchemy_crm_t('Send Mailing'),
-				:size => '420x210'
-			},
-			{
-				:title => alchemy_crm_t('Send Mailing')
-			}
-		) %>
-		<%= link_to_overlay_window(
-			render_icon('delivery'),
-			admin_mailing_deliveries_path(mailing.id),
-			{
-				:title => alchemy_crm_t(:sent_mailings),
-				:size => '500x550'
-			},
-			{
-				:title => alchemy_crm_t(:show_sent_mailings)
-			}
-		) -%>
-		<%= link_to_overlay_window(
-			render_icon('mailing_copy'),
-			copy_admin_mailing_path(mailing),
-			{
-				:title => alchemy_crm_t(:copy_mailing),
-				:size => '450x260'
-			},
-			{
-				:title => alchemy_crm_t(:copy_mailing)
-			}
-		) -%>
-		<%= link_to_overlay_window(
-			render_icon('mailing_edit'),
-			edit_admin_mailing_path(mailing),
-			{
-				:title => alchemy_crm_t(:edit_mailing),
-				:size => '450x270'
-			},
-			{
-				:class => 'edit_mailing_button',
-				:title => alchemy_crm_t(:edit_mailing)
-			}
-		) -%>
-		<%= link_to_confirmation_window(
-			render_icon('mailing_delete'),
-			alchemy_crm_t(:do_you_really_want_to_delete_this_mailing?),
-			admin_mailing_path(mailing),
-			:title => alchemy_crm_t(:delete_mailing)
-		) -%>
-	</td>
+  <td class="icon">
+    <%= content_tag('span', '', :class => 'icon mailing') %>
+  </td>
+  <td class="name">
+    <%= link_to mailing.name, {:action => 'edit_content', :id => mailing}, :title => alchemy_crm_t(:edit_mailing_content) -%>
+  </td>
+  <td class="name">
+    <%= mailing.subject -%>
+  </td>
+  <td>
+    <%= mailing.newsletter.blank? ? '' : mailing.newsletter.name -%>
+  </td>
+  <td class="size">
+    <%= mailing.recipients.count -%>
+  </td>
+  <td class="time">
+    <%- if mailing.next_pending_delivery -%>
+    <%= mailing.next_pending_delivery.deliver_at.nil? ? '' : l(mailing.next_pending_delivery.deliver_at, :format => :short) -%>
+    <%- end -%>
+  </td>
+  <td class="tools">
+    <%= link_to_overlay_window(
+      render_icon('send_mailing'),
+      new_admin_delivery_path(:mailing_id => mailing.id),
+      {
+        :title => alchemy_crm_t('Send Mailing'),
+        :size => '420x210'
+      },
+      {
+        :title => alchemy_crm_t('Send Mailing')
+      }
+    ) %>
+    <%= link_to_overlay_window(
+      render_icon('delivery'),
+      admin_mailing_deliveries_path(mailing.id),
+      {
+        :title => alchemy_crm_t(:sent_mailings),
+        :size => '500x550'
+      },
+      {
+        :title => alchemy_crm_t(:show_sent_mailings)
+      }
+    ) -%>
+    <%= link_to_overlay_window(
+      render_icon('mailing_copy'),
+      copy_admin_mailing_path(mailing),
+      {
+        :title => alchemy_crm_t(:copy_mailing),
+        :size => '450x260'
+      },
+      {
+        :title => alchemy_crm_t(:copy_mailing)
+      }
+    ) -%>
+    <%= link_to_overlay_window(
+      render_icon('mailing_edit'),
+      edit_admin_mailing_path(mailing),
+      {
+        :title => alchemy_crm_t(:edit_mailing),
+        :size => '450x270'
+      },
+      {
+        :class => 'edit_mailing_button',
+        :title => alchemy_crm_t(:edit_mailing)
+      }
+    ) -%>
+    <%= link_to_confirmation_window(
+      render_icon('mailing_delete'),
+      alchemy_crm_t(:do_you_really_want_to_delete_this_mailing?),
+      admin_mailing_path(mailing),
+      :title => alchemy_crm_t(:delete_mailing)
+    ) -%>
+  </td>
 </tr>

@@ -1,30 +1,30 @@
 <div class="filter">
-	<%= select_tag(
-		"contact_group[filters_attributes][#{count}][column]",
-		options_for_select(AlchemyCrm::Contact::COLUMN_NAMES, filter.column),
-		:id => "filter_column_#{count}",
-		:class => 'alchemy_selectbox medium'
-	) %>
-	<%= select_tag(
-		"contact_group[filters_attributes][#{count}][operator]",
-		options_for_select(AlchemyCrm::ContactGroupFilter::OPERATORS, filter.operator),
-		:id => "filter_operator_#{count}",
-		:class => 'alchemy_selectbox short'
-	) %>
-	<%= text_field_tag(
-		"contact_group[filters_attributes][#{count}][value]",
-		filter.value,
-		:class => 'thin_border',
-		:id => "filter_value_#{count}"
-	) %>
-	<%- unless filter.new_record? -%>
-	<input type="hidden" value="<%= filter.id %>" name="contact_group[filters_attributes][<%= count %>][id]" />
-	<%- end -%>
-	<span class="remove_filter">
-		<%= link_to_function(
-			render_icon('close small'),
-			"AlchemyCrm.removeContactGroupFilter(this, '#{filter.id}', '#{count}')",
-			:title => alchemy_crm_t(:remove_filter)
-		) %>
-	</span>
+  <%= select_tag(
+    "contact_group[filters_attributes][#{count}][column]",
+    options_for_select(AlchemyCrm::Contact::COLUMN_NAMES, filter.column),
+    :id => "filter_column_#{count}",
+    :class => 'alchemy_selectbox medium'
+  ) %>
+  <%= select_tag(
+    "contact_group[filters_attributes][#{count}][operator]",
+    options_for_select(AlchemyCrm::ContactGroupFilter::OPERATORS, filter.operator),
+    :id => "filter_operator_#{count}",
+    :class => 'alchemy_selectbox short'
+  ) %>
+  <%= text_field_tag(
+    "contact_group[filters_attributes][#{count}][value]",
+    filter.value,
+    :class => 'thin_border',
+    :id => "filter_value_#{count}"
+  ) %>
+  <%- unless filter.new_record? -%>
+  <input type="hidden" value="<%= filter.id %>" name="contact_group[filters_attributes][<%= count %>][id]" />
+  <%- end -%>
+  <span class="remove_filter">
+    <%= link_to_function(
+      render_icon('close small'),
+      "AlchemyCrm.removeContactGroupFilter(this, '#{filter.id}', '#{count}')",
+      :title => alchemy_crm_t(:remove_filter)
+    ) %>
+  </span>
 </div>

@@ -1,44 +1,44 @@
 <%- content_for(:javascript_includes) do -%>
-	<%= javascript_include_tag "alchemy_crm/scripts.js" %>
+  <%= javascript_include_tag "alchemy_crm/scripts.js" %>
 <%- end -%>
 
 <%- content_for(:stylesheets) do -%>
-	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+  <%= stylesheet_link_tag('alchemy_crm/styles') %>
 <%- end -%>
 
 <% if @valid_contacts.present? -%>
 <div class="flash notice" style="margin: 8px 0">
-	<%= render_icon('true') %>
-	<%= alchemy_crm_t('%{count} contacts imported successfully') % {:count => @valid_contacts.length} %>
+  <%= render_icon('true') %>
+  <%= alchemy_crm_t('%{count} contacts imported successfully') % {:count => @valid_contacts.length} %>
 </div>
 <% end -%>
 
 <h1><%= alchemy_crm_t(:errors_while_importing_contacts) %></h1>
 
 <div class="info">
-	<%= render_icon('info') %>
-	<p><%= alchemy_crm_t(:contacts_imported_with_errors_notice) %></p>
+  <%= render_icon('info') %>
+  <p><%= alchemy_crm_t(:contacts_imported_with_errors_notice) %></p>
 </div>
 
 <table class="list" style="margin-bottom: 1em">
-	<tr>
-		<th><%= translate_model_attribute(:contact, :name).gsub(/\*$/, '') %></th>
-		<th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
-		<th><%= alchemy_crm_t(:errors) %></th>
-	</tr>
-	<% @csv_import_errors.each do |error| -%>
-	<tr class="<%= cycle("even", "odd") -%>">
-		<td><%= error.first.fullname -%></td>
-		<td><%= error.first.email -%></td>
-		<td>
-			<% error[1].full_messages.each do |message| -%>
-			<p><%= message -%></p>
-			<% end -%>
-		</td>
-	</tr>
-	<% end -%>
+  <tr>
+    <th><%= translate_model_attribute(:contact, :name).gsub(/\*$/, '') %></th>
+    <th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
+    <th><%= alchemy_crm_t(:errors) %></th>
+  </tr>
+  <% @csv_import_errors.each do |error| -%>
+  <tr class="<%= cycle("even", "odd") -%>">
+    <td><%= error.first.fullname -%></td>
+    <td><%= error.first.email -%></td>
+    <td>
+      <% error[1].full_messages.each do |message| -%>
+      <p><%= message -%></p>
+      <% end -%>
+    </td>
+  </tr>
+  <% end -%>
 </table>
 
 <p>
-	<%= link_to t(:continue), admin_contacts_path, :class => 'button' %>
+  <%= link_to t(:continue), admin_contacts_path, :class => 'button' %>
 </p>

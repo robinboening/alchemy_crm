@@ -1,51 +1,51 @@
 <% content_for(:javascript_includes) do -%>
-	<%= javascript_include_tag "alchemy_crm/scripts.js" %>
+  <%= javascript_include_tag "alchemy_crm/scripts.js" %>
 <% end -%>
 
 <% content_for(:stylesheets) do -%>
-	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+  <%= stylesheet_link_tag('alchemy_crm/styles') %>
 <% end -%>
 
 <% toolbar(
-	:buttons => [
-		{
-			:icon => "contact_add",
-			:label => alchemy_crm_t(:add_contact),
-			:url => alchemy_crm.new_admin_contact_path,
-			:title => alchemy_crm_t(:add_contact),
-			:overlay_options => {
-				:title => alchemy_crm_t(:add_contact),
-				:size => '415x560'
-			},
-			:if_permitted_to => [:new, :alchemy_crm_admin_contacts]
-		},
-		{
-			:icon => :contact_import,
-			:label => alchemy_crm_t(:import_contacts),
-			:url => alchemy_crm.import_admin_contacts_path,
-			:title => alchemy_crm_t(:import_contacts),
-			:overlay_options => {
-				:title => alchemy_crm_t(:import_contacts),
-				:size => '400x300'
-			},
-			:if_permitted_to => [:import, :alchemy_crm_admin_contacts]
-		}
-	]
+  :buttons => [
+    {
+      :icon => "contact_add",
+      :label => alchemy_crm_t(:add_contact),
+      :url => alchemy_crm.new_admin_contact_path,
+      :title => alchemy_crm_t(:add_contact),
+      :overlay_options => {
+        :title => alchemy_crm_t(:add_contact),
+        :size => '415x560'
+      },
+      :if_permitted_to => [:new, :alchemy_crm_admin_contacts]
+    },
+    {
+      :icon => :contact_import,
+      :label => alchemy_crm_t(:import_contacts),
+      :url => alchemy_crm.import_admin_contacts_path,
+      :title => alchemy_crm_t(:import_contacts),
+      :overlay_options => {
+        :title => alchemy_crm_t(:import_contacts),
+        :size => '400x300'
+      },
+      :if_permitted_to => [:import, :alchemy_crm_admin_contacts]
+    }
+  ]
 ) %>
 
 <table class="list">
-	<%- unless @contacts.blank? -%>
-	<tr>
-		<th class="icon"></th>
-		<th class="name" style="width: 180px"><%= translate_model_attribute(:contact, :lastname).gsub(/\*$/, '') %></th>
-		<th class="name" style="width: 180px"><%= translate_model_attribute(:contact, :firstname).gsub(/\*$/, '') %></th>
-		<th class="name"><%= translate_model_attribute(:contact, :organisation) %></th>
-		<th class="name"><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
-		<th class="name"><%= translate_model_attribute(:contact, :tags) %></th>
-		<th class="center"><%= translate_model_attribute(:contact, :verified) %></th>
-		<th class="tools" style="width: 60px"></th>
-	</tr>
-	<%- end -%>
-	<%= render @contacts %>
+  <%- unless @contacts.blank? -%>
+  <tr>
+    <th class="icon"></th>
+    <th class="name" style="width: 180px"><%= translate_model_attribute(:contact, :lastname).gsub(/\*$/, '') %></th>
+    <th class="name" style="width: 180px"><%= translate_model_attribute(:contact, :firstname).gsub(/\*$/, '') %></th>
+    <th class="name"><%= translate_model_attribute(:contact, :organisation) %></th>
+    <th class="name"><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
+    <th class="name"><%= translate_model_attribute(:contact, :tags) %></th>
+    <th class="center"><%= translate_model_attribute(:contact, :verified) %></th>
+    <th class="tools" style="width: 60px"></th>
+  </tr>
+  <%- end -%>
+  <%= render @contacts %>
 </table>
 <%= render 'alchemy/admin/partials/pagination_links', :items => @contacts, :scope => alchemy_crm %>

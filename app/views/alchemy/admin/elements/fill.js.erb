@@ -1,13 +1,13 @@
 (function($) {
-	<% @target_contents.each do |tc| %>
-		$("#<%= tc.form_field_id %>").val('<%= escape_javascript(content.ingredient) %>');
-		<% if content.essence_type == "EssenceRichtext" %>
-			tinymce.get('<%= tc.form_field_id %>').load();
-		<% end %>
-	<% end %>
-	$('#<%= @content.form_field_id(:url) %>').val('<%= @params %>');
-	Alchemy.setElementDirty('#element_<%= @element.id %>')
-	Alchemy.PreviewWindow.refresh();
-	Alchemy.closeCurrentWindow();
-	Alchemy.growl('<%=t("Inhalte wurden übernommen", :scope => "alchemy_crm") %>');
+  <% @target_contents.each do |tc| %>
+    $("#<%= tc.form_field_id %>").val('<%= escape_javascript(content.ingredient) %>');
+    <% if content.essence_type == "EssenceRichtext" %>
+      tinymce.get('<%= tc.form_field_id %>').load();
+    <% end %>
+  <% end %>
+  $('#<%= @content.form_field_id(:url) %>').val('<%= @params %>');
+  Alchemy.setElementDirty('#element_<%= @element.id %>')
+  Alchemy.PreviewWindow.refresh();
+  Alchemy.closeCurrentWindow();
+  Alchemy.growl('<%=t("Inhalte wurden übernommen", :scope => "alchemy_crm") %>');
 })(jQuery);

@@ -1,89 +1,89 @@
 require 'spec_helper'
 
 module AlchemyCrm
-	describe MailingsController do
+  describe MailingsController do
 
-		describe '#show' do
+    describe '#show' do
 
-			before(:each) do
-				@newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'newsletter_layout_standard')
-				@mailing = Mailing.create!(:name => 'Mailing', :newsletter => @newsletter)
-			end
+      before(:each) do
+        @newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'newsletter_layout_standard')
+        @mailing = Mailing.create!(:name => 'Mailing', :newsletter => @newsletter)
+      end
 
-			context "receiving an id" do
+      context "receiving an id" do
 
-				before(:each) do
-					get :show, {:id => @mailing.id, :use_route => :alchemy_crm}
-				end
+        before(:each) do
+          get :show, {:id => @mailing.id, :use_route => :alchemy_crm}
+        end
 
-				it "should have a recipient" do
-					assigns(:recipient).should_not be(nil)
-				end
+        it "should have a recipient" do
+          assigns(:recipient).should_not be(nil)
+        end
 
-				it "should have a fake contact" do
-					assigns(:contact).email.should == Contact.fake.email
-				end
+        it "should have a fake contact" do
+          assigns(:contact).email.should == Contact.fake.email
+        end
 
-			end
+      end
 
-			context "receiving a hash and email from recipient with contact" do
+      context "receiving a hash and email from recipient with contact" do
 
-				before(:each) do
-					@contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
-					@recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
-					@delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
-					get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
-				end
+        before(:each) do
+          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
+          @recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
+          @delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
+          get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
+        end
 
-				it "should assign recipient" do
-					assigns(:recipient).should == @recipient
-				end
+        it "should assign recipient" do
+          assigns(:recipient).should == @recipient
+        end
 
-				it "should assign contact from recipient" do
-					assigns(:contact).should == @contact
-				end
+        it "should assign contact from recipient" do
+          assigns(:contact).should == @contact
+        end
 
-			end
+      end
 
-			context "receiving a hash and email from recipient without contact" do
+      context "receiving a hash and email from recipient without contact" do
 
-				before(:each) do
-					@recipient = Recipient.create!(:email => 'foo@baz.org')
-					@delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
-					get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
-				end
+        before(:each) do
+          @recipient = Recipient.create!(:email => 'foo@baz.org')
+          @delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
+          get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
+        end
 
-				it "should assign recipient" do
-					assigns(:recipient).should == @recipient
-				end
+        it "should assign recipient" do
+          assigns(:recipient).should == @recipient
+        end
 
-				it "should assign new contact from recipients email" do
-					assigns(:contact).should be_a_new(Contact)
-					assigns(:contact).email.should == "foo@baz.org"
-				end
+        it "should assign new contact from recipients email" do
+          assigns(:contact).should be_a_new(Contact)
+          assigns(:contact).email.should == "foo@baz.org"
+        end
 
-			end
+      end
 
-			context "rendering" do
+      context "rendering" do
 
-				render_views
+        render_views
 
-				before(:each) do
-					@contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
-					@recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
-					@delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
-					@language_root = Alchemy::Page.create!(:name => 'Language Root', :page_layout => 'standard', :language => Alchemy::Language.get_default, :parent_id => Alchemy::Page.root.id)
-					@unsubscribe_page = Alchemy::Page.create!(:name => 'Unsubscribe Page', :page_layout => 'newsletter_signout', :parent_id => @language_root.id, :language => Alchemy::Language.get_default)
-				end
+        before(:each) do
+          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
+          @recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
+          @delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
+          @language_root = Alchemy::Page.create!(:name => 'Language Root', :page_layout => 'standard', :language => Alchemy::Language.get_default, :parent_id => Alchemy::Page.root.id)
+          @unsubscribe_page = Alchemy::Page.create!(:name => 'Unsubscribe Page', :page_layout => 'newsletter_signout', :parent_id => @language_root.id, :language => Alchemy::Language.get_default)
+        end
 
-				it "should render the view." do
-					lambda {
-						get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
-					}.should_not raise_error
-				end
+        it "should render the view." do
+          lambda {
+            get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
+          }.should_not raise_error
+        end
 
-			end
+      end
 
-		end
-	end
+    end
+  end
 end

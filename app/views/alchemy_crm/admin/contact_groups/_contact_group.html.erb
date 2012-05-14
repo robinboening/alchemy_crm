@@ -1,32 +1,32 @@
 <tr class="<%= cycle('even', 'odd') %> filterable">
-	<td class="icon">
-		<%= render_icon 'group' -%>
-	</td>
-	<td class="name">
-		<%= contact_group.name -%>
-	</td>
-	<td class="count">
-		<%= contact_group.contacts.count %>
-	</td>
-	<td class="tools">
-		<%= link_to_overlay_window(
-			"",
-			edit_admin_contact_group_path(contact_group),
-			{
-				:size => '500x255',
-				:title => alchemy_crm_t(:edit_contact_group)
-			},
-			{
-				:title => alchemy_crm_t(:edit_contact_group),
-				:class => 'icon group_edit'
-			}
-		) -%>
-		<%= link_to_confirmation_window(
-			'',
-			alchemy_crm_t(:do_you_really_want_to_delete_this_contact_group?),
-			admin_contact_group_path(contact_group),
-			:title => alchemy_crm_t(:delete_contact_group),
-			:class => "icon group_delete"
-		) -%>
-	</td>
+  <td class="icon">
+    <%= render_icon 'group' -%>
+  </td>
+  <td class="name">
+    <%= contact_group.name -%>
+  </td>
+  <td class="count">
+    <%= contact_group.contacts.count %>
+  </td>
+  <td class="tools">
+    <%= link_to_overlay_window(
+      "",
+      edit_admin_contact_group_path(contact_group),
+      {
+        :size => '500x255',
+        :title => alchemy_crm_t(:edit_contact_group)
+      },
+      {
+        :title => alchemy_crm_t(:edit_contact_group),
+        :class => 'icon group_edit'
+      }
+    ) -%>
+    <%= link_to_confirmation_window(
+      '',
+      alchemy_crm_t(:do_you_really_want_to_delete_this_contact_group?),
+      admin_contact_group_path(contact_group),
+      :title => alchemy_crm_t(:delete_contact_group),
+      :class => "icon group_delete"
+    ) -%>
+  </td>
 </tr>

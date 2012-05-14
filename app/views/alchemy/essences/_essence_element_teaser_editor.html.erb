@@ -1,31 +1,31 @@
 <div class="content_editor" id="<%= content_dom_id(content) %>">
-	<%- if options[:show_link_text] -%>
-	<label>Link Text</label>
-	<%= text_field_tag(
-		"contents[content_#{content.id}][text]",
-		content.essence.text,
-		:id => "content_#{content.id}_text",
-		:class => "thin_border text_long"
-	) %>
-	<%- end -%>
-	<%= hidden_field_tag "contents[content_#{content.id}][url]", content.essence.url, :id => "content_#{content.id}_url" %>
-	<%= hidden_field_tag "contents[content_#{content.id}][title]", content.essence.title, :id => "content_#{content.id}_title" %>
-	<div style="overflow: hidden; margin: 4px 0; line-height: 25px">
-		<p>
-			Mit einem Element aus dem CMS verknüpfen:
-			<%= link_to_overlay_window(
-				render_icon('fill_from_element'),
-				teasable_elements_path(:content_id => content.id),
-				{
-					:title => 'Element aus dem CMS wählen',
-					:size => '450x500'
-				},
-				{
-					:class => 'icon_button',
-					:title => 'Element aus dem CMS wählen',
-					:style => 'float: right'
-				}
-			) -%>
-		</p>
-	</div>
+  <%- if options[:show_link_text] -%>
+  <label>Link Text</label>
+  <%= text_field_tag(
+    "contents[content_#{content.id}][text]",
+    content.essence.text,
+    :id => "content_#{content.id}_text",
+    :class => "thin_border text_long"
+  ) %>
+  <%- end -%>
+  <%= hidden_field_tag "contents[content_#{content.id}][url]", content.essence.url, :id => "content_#{content.id}_url" %>
+  <%= hidden_field_tag "contents[content_#{content.id}][title]", content.essence.title, :id => "content_#{content.id}_title" %>
+  <div style="overflow: hidden; margin: 4px 0; line-height: 25px">
+    <p>
+      Mit einem Element aus dem CMS verknüpfen:
+      <%= link_to_overlay_window(
+        render_icon('fill_from_element'),
+        teasable_elements_path(:content_id => content.id),
+        {
+          :title => 'Element aus dem CMS wählen',
+          :size => '450x500'
+        },
+        {
+          :class => 'icon_button',
+          :title => 'Element aus dem CMS wählen',
+          :style => 'float: right'
+        }
+      ) -%>
+    </p>
+  </div>
 </div>

@@ -1,54 +1,54 @@
 <%= form_for [:admin, @newsletter], :class => "with_padding", :remote => true do |f| %>
-	<div id="errors" style="display: none"></div>
-	<table>
-		<tr>
-			<td class="label">
-				<%= f.label :name %>
-			</td>
-			<td class="input">
-				<%= f.text_field :name, :class => "thin_border" %>
-			</td>
-		</tr>
-		<tr>
-			<td class="label">
-				<%= f.label :layout %>
-			</td>
-			<td class="select">
-				<%= f.select :layout, @page_layouts, { :prompt => t('Please choose') }, { :class => 'alchemy_selectbox' } %>
-			</td>
-		</tr>
-		<tr>
-			<td class="label">
-				<%= f.label :public %>
-			</td>
-			<td class="checkbox">
-				<%= f.check_box :public %>
-			</td>
-		</tr>
-		<tr>
-			<td class="label">
-				<%= f.label :contact_groups %>
-			</td>
-			<%- if @contact_groups.any? -%>
-			<td class="input">
-					<%= render :partial => "tag_with_radiobutton", :collection => @contact_groups, :locals => {:newsletter_contact_groups => @newsletter.contact_groups} %>
-			<%- else -%>
-			<td class="value">
-				<small><%= alchemy_crm_t(:you_have_no_contact_groups_yet) %></small>
-			<%- end -%>
-			</td>
-		</tr>
-		<% if @newsletter.verified_subscribers.any? -%>
-		<tr>
-			<td colspan="2" class="headline" style="padding: 0">
-				<p><%= alchemy_crm_t(:subscribers_count) %>: <%= @newsletter.verified_subscribers.count %></p>
-			</td>
-		</tr>
-		<% end -%>
-		<tr>
-			<td colspan="2" class="submit">
-				<%= f.button t(:save), :class => "button" %>
-			</td>
-		</tr>
-	</table>
+  <div id="errors" style="display: none"></div>
+  <table>
+    <tr>
+      <td class="label">
+        <%= f.label :name %>
+      </td>
+      <td class="input">
+        <%= f.text_field :name, :class => "thin_border" %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">
+        <%= f.label :layout %>
+      </td>
+      <td class="select">
+        <%= f.select :layout, @page_layouts, { :prompt => t('Please choose') }, { :class => 'alchemy_selectbox' } %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">
+        <%= f.label :public %>
+      </td>
+      <td class="checkbox">
+        <%= f.check_box :public %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">
+        <%= f.label :contact_groups %>
+      </td>
+      <%- if @contact_groups.any? -%>
+      <td class="input">
+          <%= render :partial => "tag_with_radiobutton", :collection => @contact_groups, :locals => {:newsletter_contact_groups => @newsletter.contact_groups} %>
+      <%- else -%>
+      <td class="value">
+        <small><%= alchemy_crm_t(:you_have_no_contact_groups_yet) %></small>
+      <%- end -%>
+      </td>
+    </tr>
+    <% if @newsletter.verified_subscribers.any? -%>
+    <tr>
+      <td colspan="2" class="headline" style="padding: 0">
+        <p><%= alchemy_crm_t(:subscribers_count) %>: <%= @newsletter.verified_subscribers.count %></p>
+      </td>
+    </tr>
+    <% end -%>
+    <tr>
+      <td colspan="2" class="submit">
+        <%= f.button t(:save), :class => "button" %>
+      </td>
+    </tr>
+  </table>
 <% end %>

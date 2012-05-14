@@ -1,41 +1,41 @@
 <%- content_for(:stylesheets) do -%>
-	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+  <%= stylesheet_link_tag('alchemy_crm/styles') %>
 <%- end -%>
 <%- content_for(:javascript_includes) do -%>
-	<%= javascript_include_tag('alchemy_crm/scripts') %>
+  <%= javascript_include_tag('alchemy_crm/scripts') %>
 <%- end -%>
 
 <%- content_for :toolbar do -%>
-	<div id="toolbar_buttons">
-		<div class="button_with_label">
-			<%= link_to_overlay_window(
-				content_tag('span', '', :class => 'icon group_add'),
-				new_admin_contact_group_path(),
-				{
-					:title => alchemy_crm_t(:add_contact_group),
-					:size => '500x255'
-				},
-				{
-					:class => 'icon_button',
-					:title => alchemy_crm_t(:add_contact_group)
-				}
-			) -%><br />
-			<label><%= alchemy_crm_t(:add_contact_group) %></label>
-		</div>
-	</div>
+  <div id="toolbar_buttons">
+    <div class="button_with_label">
+      <%= link_to_overlay_window(
+        content_tag('span', '', :class => 'icon group_add'),
+        new_admin_contact_group_path(),
+        {
+          :title => alchemy_crm_t(:add_contact_group),
+          :size => '500x255'
+        },
+        {
+          :class => 'icon_button',
+          :title => alchemy_crm_t(:add_contact_group)
+        }
+      ) -%><br />
+      <label><%= alchemy_crm_t(:add_contact_group) %></label>
+    </div>
+  </div>
   <%= render :partial => 'alchemy/admin/partials/search_form' %>
 <%- end -%>
 
 <table class="list" id="group_list">
-	<%- unless @contact_groups.blank? -%>
-	<tr>
-		<th class="icon"></th>
-		<th class="name"><%= translate_model_attribute(:contact_group, :name) %></th>
-		<th class="count" style="width: 120px"><%= translate_model_attribute(:contact_group, :contacts_count) %></th>
-		<th class="tools" style="width: 40px"></th>
-	</tr>
-	<%- end -%>
-	<%= render @contact_groups %>
+  <%- unless @contact_groups.blank? -%>
+  <tr>
+    <th class="icon"></th>
+    <th class="name"><%= translate_model_attribute(:contact_group, :name) %></th>
+    <th class="count" style="width: 120px"><%= translate_model_attribute(:contact_group, :contacts_count) %></th>
+    <th class="tools" style="width: 40px"></th>
+  </tr>
+  <%- end -%>
+  <%= render @contact_groups %>
 </table>
 
 <%= render 'alchemy/admin/partials/pagination_links', :items => @contact_groups, :scope => alchemy_crm %>

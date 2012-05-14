@@ -1,23 +1,23 @@
 # encoding: UTF-8
 module AlchemyCrm
-	module Admin
-		class ContactGroupsController < AlchemyCrm::Admin::BaseController
+  module Admin
+    class ContactGroupsController < AlchemyCrm::Admin::BaseController
 
-			before_filter :load_additional_data, :only => [:new, :edit]
+      before_filter :load_additional_data, :only => [:new, :edit]
 
-			def add_filter
-				@contact_group = ContactGroup.find(params[:contact_group_id])
-				@filter = @contact_group.filters.build
-				@count = @contact_group.filters.length - 1
-			end
+      def add_filter
+        @contact_group = ContactGroup.find(params[:contact_group_id])
+        @filter = @contact_group.filters.build
+        @count = @contact_group.filters.length - 1
+      end
 
-		private
+    private
 
-			def load_additional_data
-				@contacts = Contact.all
-				@tags = ActsAsTaggableOn::Tag.order("name ASC").all
-			end
+      def load_additional_data
+        @contacts = Contact.all
+        @tags = ActsAsTaggableOn::Tag.order("name ASC").all
+      end
 
-		end
-	end
+    end
+  end
 end

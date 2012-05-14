@@ -1,194 +1,194 @@
 <%- content_for(:javascript_includes) do -%>
-	<%= javascript_include_tag "alchemy_crm/scripts.js" %>
+  <%= javascript_include_tag "alchemy_crm/scripts.js" %>
 <%- end -%>
 
 <%- content_for(:stylesheets) do -%>
-	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+  <%= stylesheet_link_tag('alchemy_crm/styles') %>
 <%- end -%>
 
 <%- content_for(:subnav_additions) do -%>
-	<label><%= ::I18n.t('Active Mailing', :scope => :alchemy_crm) %> &raquo;</label>
-	<span class="page_status_and_name">
-		<span class="page_name"><%= @mailing.name %></span>
-	</span>
+  <label><%= ::I18n.t('Active Mailing', :scope => :alchemy_crm) %> &raquo;</label>
+  <span class="page_status_and_name">
+    <span class="page_name"><%= @mailing.name %></span>
+  </span>
 <%- end -%>
 <%- content_for(:toolbar) do -%>
 <div id="toolbar_buttons">
-	<div class="button_with_label">
-		<%= form_tag(
-			alchemy.unlock_admin_page_path(
-				@page,
-				:redirect_to => admin_mailings_path
-			),
-			:onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!') }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'});"
-		) do %>
-			<button class="icon_button" title="<%= t('explain_unlocking') %>">
-				<%= render_icon('close') %>
-			</button>
-			<label><%= t("unlock_page") %></label>
-		<% end %>
-	</div>
-	<div class="button_with_label">
-		<%= link_to_overlay_window(
-			render_icon('mailing_edit'),
-				alchemy_crm.edit_admin_mailing_path(@mailing),
-				{
-					:title => alchemy_crm_t(:edit_mailing),
-					:size => '450x270'
-				},
-				{
-					:class => 'icon_button',
-					:title => alchemy_crm_t(:edit_mailing)
-				}
-		) -%><br />
-		<label><%= alchemy_crm_t(:edit_mailing) %></label>
-	</div>
-	<div class="button_with_label">
-		<%= link_to_overlay_window(
-			render_icon('send_mailing'),
-			alchemy_crm.new_admin_delivery_path(:mailing_id => @mailing.id),
-			{
-				:title => alchemy_crm_t('Send Mailing'),
-				:size => '420x210'
-			},
-			{
-				:title => alchemy_crm_t('Send Mailing'),
-				:class => 'icon_button'
-			}
-		) %>
-		<label><%= alchemy_crm_t('Send Mailing') %></label>
-	</div>
-	<div class="button_with_label">
-		<%= link_to(
-			render_icon('plain_text_view'),
-			alchemy_crm.admin_mailing_path(@mailing, :format => :text),
-			:title => alchemy_crm_t(:show_as_plain_text),
-			:class => 'icon_button',
-			:id => "toggle_preview_frame_button"
-		) %>
-		<label><%= alchemy_crm_t(:show_as_plain_text) %></label>
-	</div>
+  <div class="button_with_label">
+    <%= form_tag(
+      alchemy.unlock_admin_page_path(
+        @page,
+        :redirect_to => admin_mailings_path
+      ),
+      :onsubmit => "return Alchemy.checkPageDirtyness(this, {title: '#{ t('Warning!') }', message: '#{ t('You have unsaved elements on this page. Do you really want to leave this page?') }', okLabel: '#{ t('Yes') }', cancelLabel: '#{ t('No') }'});"
+    ) do %>
+      <button class="icon_button" title="<%= t('explain_unlocking') %>">
+        <%= render_icon('close') %>
+      </button>
+      <label><%= t("unlock_page") %></label>
+    <% end %>
+  </div>
+  <div class="button_with_label">
+    <%= link_to_overlay_window(
+      render_icon('mailing_edit'),
+        alchemy_crm.edit_admin_mailing_path(@mailing),
+        {
+          :title => alchemy_crm_t(:edit_mailing),
+          :size => '450x270'
+        },
+        {
+          :class => 'icon_button',
+          :title => alchemy_crm_t(:edit_mailing)
+        }
+    ) -%><br />
+    <label><%= alchemy_crm_t(:edit_mailing) %></label>
+  </div>
+  <div class="button_with_label">
+    <%= link_to_overlay_window(
+      render_icon('send_mailing'),
+      alchemy_crm.new_admin_delivery_path(:mailing_id => @mailing.id),
+      {
+        :title => alchemy_crm_t('Send Mailing'),
+        :size => '420x210'
+      },
+      {
+        :title => alchemy_crm_t('Send Mailing'),
+        :class => 'icon_button'
+      }
+    ) %>
+    <label><%= alchemy_crm_t('Send Mailing') %></label>
+  </div>
+  <div class="button_with_label">
+    <%= link_to(
+      render_icon('plain_text_view'),
+      alchemy_crm.admin_mailing_path(@mailing, :format => :text),
+      :title => alchemy_crm_t(:show_as_plain_text),
+      :class => 'icon_button',
+      :id => "toggle_preview_frame_button"
+    ) %>
+    <label><%= alchemy_crm_t(:show_as_plain_text) %></label>
+  </div>
 </div>
 <div id="toolbar_buttons_right">
-	<div class="button_with_label" id="show_preview_window">
-		<%= link_to_function(
-			render_icon('preview_window'),
-			"AlchemyCrm.openPreviewWindow()",
-			{
-				:title => t('Show Preview Window'),
-				:class => 'icon_button'
-			}
-		) %><br />
-		<label><%= t('Show Preview Window') %></label>
-	</div>
-	<div class="button_with_label" id="show_element_window">
-		<%= link_to_function(
-			render_icon('element_window'),
-			"AlchemyCrm.openElementsWindow()",
-			{
-				:title => t('Show Elements Window'),
-				:class => 'icon_button'
-			}
-		) %><br />
-		<label><%= t('Show Elements Window') %></label>
-	</div>
+  <div class="button_with_label" id="show_preview_window">
+    <%= link_to_function(
+      render_icon('preview_window'),
+      "AlchemyCrm.openPreviewWindow()",
+      {
+        :title => t('Show Preview Window'),
+        :class => 'icon_button'
+      }
+    ) %><br />
+    <label><%= t('Show Preview Window') %></label>
+  </div>
+  <div class="button_with_label" id="show_element_window">
+    <%= link_to_function(
+      render_icon('element_window'),
+      "AlchemyCrm.openElementsWindow()",
+      {
+        :title => t('Show Elements Window'),
+        :class => 'icon_button'
+      }
+    ) %><br />
+    <label><%= t('Show Elements Window') %></label>
+  </div>
 </div>
 <%- end -%>
 <%- content_for :javascripts do -%>
 <%= tinymce_javascript_tags %>
 <script type="text/javascript" charset="utf-8">
 
-	AlchemyCrm.openPreviewWindow = function() {
-		Alchemy.PreviewWindow.init('<%= alchemy_crm.admin_mailing_path(@mailing) %>', '<%= t("Page Preview") -%>');
-	}
+  AlchemyCrm.openPreviewWindow = function() {
+    Alchemy.PreviewWindow.init('<%= alchemy_crm.admin_mailing_path(@mailing) %>', '<%= t("Page Preview") -%>');
+  }
 
-	AlchemyCrm.openElementsWindow = function() {
-		Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(:page_id => @page.id) -%>', {
-			texts: {
-				title: '<%= t("Elements") -%>',
-				dirtyTitle: '<%= t("Warning!") -%>',
-				dirtyMessage: '<%= t(:element_dirty_close_window_notice) -%>',
-				okLabel: '<%= t("Yes") -%>',
-				cancelLabel: '<%= t("No") -%>'
-			},
-			toolbarButtons: [
-				{
-					title: '<%= t("New Element") -%>',
-					label: '<%= t("New Element") -%>',
-					iconClass: 'new_element',
-					onClick: function() {
-						Alchemy.openWindow(
-							'<%= alchemy.new_admin_element_path(:page_id => @page.id) -%>',
-							'<%= t("New Element") -%>',
-							'320',
-							'120',
-							false,
-							true,
-							true
-						);
-					}
-				},
-				{
-					title: '<%= t("Clipboard") -%>',
-					label: '<%= t("Show clipboard") -%>',
-					iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" -%>',
-					buttonId: 'clipboard_button',
-					onClick: function() {
-						Alchemy.openWindow(
-							'<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") -%>',
-							'<%= t("Clipboard") -%>',
-							'380',
-							'270',
-							false,
-							true,
-							true
-						);
-					}
-				},
-				{
-					title: '<%= t("Show trash") -%>',
-					label: '<%= t("Show trash") -%>',
-					iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" -%>',
-					buttonId: 'element_trash_button',
-					onClick: function() {
-						Alchemy.openTrashWindow(<%= @page.id %>, '<%= t("Trash") -%>');
-					}
-				}
-			]
-		}, function() {
-			Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
-			Alchemy.ElementEditorSelector.init();
-			Alchemy.SelectBox('.element_editor select');
-			Alchemy.Tinymce.init(function() {
-				Alchemy.ElementDirtyObserver('#element_area');
-			});
-			jQuery('#cells').tabs();
-			jQuery('#cells').tabs('paging', { follow: true, followOnSelect: true } );
-		});
-	}
+  AlchemyCrm.openElementsWindow = function() {
+    Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(:page_id => @page.id) -%>', {
+      texts: {
+        title: '<%= t("Elements") -%>',
+        dirtyTitle: '<%= t("Warning!") -%>',
+        dirtyMessage: '<%= t(:element_dirty_close_window_notice) -%>',
+        okLabel: '<%= t("Yes") -%>',
+        cancelLabel: '<%= t("No") -%>'
+      },
+      toolbarButtons: [
+        {
+          title: '<%= t("New Element") -%>',
+          label: '<%= t("New Element") -%>',
+          iconClass: 'new_element',
+          onClick: function() {
+            Alchemy.openWindow(
+              '<%= alchemy.new_admin_element_path(:page_id => @page.id) -%>',
+              '<%= t("New Element") -%>',
+              '320',
+              '120',
+              false,
+              true,
+              true
+            );
+          }
+        },
+        {
+          title: '<%= t("Clipboard") -%>',
+          label: '<%= t("Show clipboard") -%>',
+          iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" -%>',
+          buttonId: 'clipboard_button',
+          onClick: function() {
+            Alchemy.openWindow(
+              '<%= alchemy.admin_clipboard_path(:remarkable_type => "elements") -%>',
+              '<%= t("Clipboard") -%>',
+              '380',
+              '270',
+              false,
+              true,
+              true
+            );
+          }
+        },
+        {
+          title: '<%= t("Show trash") -%>',
+          label: '<%= t("Show trash") -%>',
+          iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" -%>',
+          buttonId: 'element_trash_button',
+          onClick: function() {
+            Alchemy.openTrashWindow(<%= @page.id %>, '<%= t("Trash") -%>');
+          }
+        }
+      ]
+    }, function() {
+      Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
+      Alchemy.ElementEditorSelector.init();
+      Alchemy.SelectBox('.element_editor select');
+      Alchemy.Tinymce.init(function() {
+        Alchemy.ElementDirtyObserver('#element_area');
+      });
+      jQuery('#cells').tabs();
+      jQuery('#cells').tabs('paging', { follow: true, followOnSelect: true } );
+    });
+  }
 
-	jQuery(document).ready(function($) {
-		var texts = {
-			title: '<%= t("Warning!") %>',
-			message: '<%= t(:element_dirty_page_leave_warning) %>',
-			okLabel: '<%= t("Yes") %>',
-			cancelLabel: '<%= t("No") %>'
-		};
-		$('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
-			var not_dirty = Alchemy.checkPageDirtyness(this, texts);
-			if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
-			return not_dirty;
-		});
-		Alchemy.PageLeaveObserver(texts);
-		AlchemyCrm.openElementsWindow();
-		AlchemyCrm.openPreviewWindow();
+  jQuery(document).ready(function($) {
+    var texts = {
+      title: '<%= t("Warning!") %>',
+      message: '<%= t(:element_dirty_page_leave_warning) %>',
+      okLabel: '<%= t("Yes") %>',
+      cancelLabel: '<%= t("No") %>'
+    };
+    $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
+      var not_dirty = Alchemy.checkPageDirtyness(this, texts);
+      if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
+      return not_dirty;
+    });
+    Alchemy.PageLeaveObserver(texts);
+    AlchemyCrm.openElementsWindow();
+    AlchemyCrm.openPreviewWindow();
 
-		$('#toggle_preview_frame_button').on('click', function(e) {
-			e.preventDefault();
-			AlchemyCrm.togglePreviewFrame(this, '<%= alchemy_crm.admin_mailing_path(@mailing, :format => :text) -%>', '<%= alchemy_crm.admin_mailing_path(@mailing) -%>');
-			return false;
-		});
-	});
+    $('#toggle_preview_frame_button').on('click', function(e) {
+      e.preventDefault();
+      AlchemyCrm.togglePreviewFrame(this, '<%= alchemy_crm.admin_mailing_path(@mailing, :format => :text) -%>', '<%= alchemy_crm.admin_mailing_path(@mailing) -%>');
+      return false;
+    });
+  });
 
 </script>
 <%- end -%>

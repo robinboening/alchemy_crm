@@ -1,4 +1,4 @@
 <%= @element.content_by_name("text").essence.stripped_body % { 
-    :link => alchemy_crm.disable_contact_url(:token => @contact.email_sha1),
-    :name => @contact.fullname 
+  :link => alchemy_crm.disable_contact_url(:token => @contact.email_sha1),
+  :name => @contact.fullname 
 } rescue "" %>

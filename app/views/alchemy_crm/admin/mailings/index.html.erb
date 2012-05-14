@@ -1,39 +1,39 @@
 <%- content_for(:stylesheets) do -%>
-	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+  <%= stylesheet_link_tag('alchemy_crm/styles') %>
 <%- end -%>
 <%- content_for(:javascript_includes) do -%>
-	<%= javascript_include_tag('alchemy_crm/scripts') %>
+  <%= javascript_include_tag('alchemy_crm/scripts') %>
 <%- end -%>
 
 <%- content_for :toolbar do -%>
 <div id="toolbar_buttons">
-	<%= toolbar_button(
-		:icon => 'mailing_add',
-		:url => new_admin_mailing_path,
-		:title => alchemy_crm_t(:add_mailing),
-		:label => alchemy_crm_t(:add_mailing),
-		:overlay_options => {
-			:title => alchemy_crm_t(:add_mailing),
-			:size => '464x270'
-		},
-		:if_permitted_to => [:new, :alchemy_crm_admin_mailings]
-	) %>
+  <%= toolbar_button(
+    :icon => 'mailing_add',
+    :url => new_admin_mailing_path,
+    :title => alchemy_crm_t(:add_mailing),
+    :label => alchemy_crm_t(:add_mailing),
+    :overlay_options => {
+      :title => alchemy_crm_t(:add_mailing),
+      :size => '464x270'
+    },
+    :if_permitted_to => [:new, :alchemy_crm_admin_mailings]
+  ) %>
 </div>
 <%= render 'alchemy/admin/partials/search_form' %>
 <%- end -%>
 
 <table class="list">
-	<%- unless @mailings.blank? -%>
-	<tr class="legend">
-		<th class="icon"></th>
-		<th class="name"><%= translate_model_attribute(:mailing, :name) %></th>
-		<th class="name"><%= translate_model_attribute(:mailing, :subject) %></th>
-		<th style="width: 120px"><%= translate_model_attribute(:mailing, :newsletter) %></th>
-		<th class="size" style="width: 120px"><%= translate_model_attribute(:mailing, :recipients_count) %></th>
-		<th class="time"><%= translate_model_attribute(:mailing, :next_delivery_at) %></th>
-		<th class="tools" style="width: 88px"></th>
-	</tr>
-	<%- end -%>
-	<%= render @mailings %>
+  <%- unless @mailings.blank? -%>
+  <tr class="legend">
+    <th class="icon"></th>
+    <th class="name"><%= translate_model_attribute(:mailing, :name) %></th>
+    <th class="name"><%= translate_model_attribute(:mailing, :subject) %></th>
+    <th style="width: 120px"><%= translate_model_attribute(:mailing, :newsletter) %></th>
+    <th class="size" style="width: 120px"><%= translate_model_attribute(:mailing, :recipients_count) %></th>
+    <th class="time"><%= translate_model_attribute(:mailing, :next_delivery_at) %></th>
+    <th class="tools" style="width: 88px"></th>
+  </tr>
+  <%- end -%>
+  <%= render @mailings %>
 </table>
 <%= render 'alchemy/admin/partials/pagination_links', :items => @mailings %>

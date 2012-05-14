@@ -2,85 +2,85 @@
 <div id="errors" style="display:none"></div>
 <% if @contact.disabled? -%>
 <div class="info">
-	<%= render_icon(:info) %>
-	<p>
-		<strong><%= alchemy_crm_t(:contact_is_disabled_notice) %></strong>
-	</p>
+  <%= render_icon(:info) %>
+  <p>
+    <strong><%= alchemy_crm_t(:contact_is_disabled_notice) %></strong>
+  </p>
 </div>
 <% end -%>
 <table id="contact">
-	<tr>
-		<td class="label"><%= f.label :salutation %></td>
-		<td class="select">
-			<%= f.select(:salutation,
-				options_for_select([
-					[t('Please choose'), ''],
-					[alchemy_crm_t(:mr, :scope => 'salutations'), :mr],
-					[alchemy_crm_t(:ms, :scope => 'salutations'), :ms]
-				], @contact.salutation), {}, { :class => 'alchemy_selectbox very_short' }) %>
-		</td>
-		<td class="label right"><%= f.label :title %></td>
-		<td class="input"><%= f.text_field :title, :class => "thin_border medium_long" %></td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :firstname %></td>
-		<td colspan="3" class="input"><%= f.text_field :firstname, :class => "thin_border very_long" %></td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :lastname %></td>
-		<td colspan="3" class="input"><%= f.text_field :lastname, :class => "thin_border very_long" %></td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :organisation %></td>
-		<td colspan="3" class="input"><%= f.text_field :organisation, :class => "thin_border very_long" %></td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :email %></td>
-		<td colspan="3" class="input"><%= f.text_field :email, :class => "thin_border very_long" %></td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :phone %></td>
-		<td colspan="3" class="input"><%= f.text_field :phone, :class => "thin_border very_long" %></td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :mobile %></td>
-		<td colspan="3" class="input"><%= f.text_field :mobile, :class => "thin_border very_long" %></td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :address %></td>
-		<td colspan="3" class="input"><%= f.text_field :address, :class => "thin_border very_long" %></td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :zip %></td>
-		<td class="input"><%= f.text_field :zip, :class => "thin_border short" %></td>
-		<td class="label right"><%= f.label :city %></td>
-		<td class="input"><%= f.text_field :city, :class => "thin_border medium_long" %></td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :country %></td>
-		<td colspan="3" class="input">
-			<%= f.country_select :country, {}, {:include_blank => t('Please choose')}, {:class => "alchemy_selectbox very_long"} %>
-		</td>
-	</tr>
-	<tr>
-		<td class="label"><%= f.label :tag_list %></td>
-		<td colspan="3" class="input">
-			<%= f.autocomplete_field :tag_list, autocomplete_tag_list_admin_contacts_path, :class => "thin_border very_long", 'data-delimiter' => ',' %>
-			<p><small>*<%= alchemy_crm_t(:seperate_tags_with_comma) %></small></p>
-		</td>
-	</tr>
-	<tr>
-		<td class="label">Status</td>
-		<td class="checkbox" colspan="3">
-			<%= f.check_box :verified %>
-			<%= f.label :verified %>
-			<%= f.check_box :disabled %>
-			<%= f.label :disabled %>
-		</td>
-	</tr>
-	<tr>
-		<td class="submit" colspan="4"><%= f.button t(:save), :class => "button" %></td>
-	</tr>
+  <tr>
+    <td class="label"><%= f.label :salutation %></td>
+    <td class="select">
+      <%= f.select(:salutation,
+        options_for_select([
+          [t('Please choose'), ''],
+          [alchemy_crm_t(:mr, :scope => 'salutations'), :mr],
+          [alchemy_crm_t(:ms, :scope => 'salutations'), :ms]
+        ], @contact.salutation), {}, { :class => 'alchemy_selectbox very_short' }) %>
+    </td>
+    <td class="label right"><%= f.label :title %></td>
+    <td class="input"><%= f.text_field :title, :class => "thin_border medium_long" %></td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :firstname %></td>
+    <td colspan="3" class="input"><%= f.text_field :firstname, :class => "thin_border very_long" %></td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :lastname %></td>
+    <td colspan="3" class="input"><%= f.text_field :lastname, :class => "thin_border very_long" %></td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :organisation %></td>
+    <td colspan="3" class="input"><%= f.text_field :organisation, :class => "thin_border very_long" %></td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :email %></td>
+    <td colspan="3" class="input"><%= f.text_field :email, :class => "thin_border very_long" %></td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :phone %></td>
+    <td colspan="3" class="input"><%= f.text_field :phone, :class => "thin_border very_long" %></td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :mobile %></td>
+    <td colspan="3" class="input"><%= f.text_field :mobile, :class => "thin_border very_long" %></td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :address %></td>
+    <td colspan="3" class="input"><%= f.text_field :address, :class => "thin_border very_long" %></td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :zip %></td>
+    <td class="input"><%= f.text_field :zip, :class => "thin_border short" %></td>
+    <td class="label right"><%= f.label :city %></td>
+    <td class="input"><%= f.text_field :city, :class => "thin_border medium_long" %></td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :country %></td>
+    <td colspan="3" class="input">
+      <%= f.country_select :country, {}, {:include_blank => t('Please choose')}, {:class => "alchemy_selectbox very_long"} %>
+    </td>
+  </tr>
+  <tr>
+    <td class="label"><%= f.label :tag_list %></td>
+    <td colspan="3" class="input">
+      <%= f.autocomplete_field :tag_list, autocomplete_tag_list_admin_contacts_path, :class => "thin_border very_long", 'data-delimiter' => ',' %>
+      <p><small>*<%= alchemy_crm_t(:seperate_tags_with_comma) %></small></p>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">Status</td>
+    <td class="checkbox" colspan="3">
+      <%= f.check_box :verified %>
+      <%= f.label :verified %>
+      <%= f.check_box :disabled %>
+      <%= f.label :disabled %>
+    </td>
+  </tr>
+  <tr>
+    <td class="submit" colspan="4"><%= f.button t(:save), :class => "button" %></td>
+  </tr>
 </table>
 
 <% end %>

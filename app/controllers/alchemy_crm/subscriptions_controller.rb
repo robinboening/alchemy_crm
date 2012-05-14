@@ -1,57 +1,57 @@
 # Caution: Not yet implemmented!
 module AlchemyCrm
-	class SubscriptionsController < AlchemyCrm::BaseController
-		include I18nHelpers
-		before_filter :load_contact, :except => :deliver_subscriptions_overview
+  class SubscriptionsController < AlchemyCrm::BaseController
+    include I18nHelpers
+    before_filter :load_contact, :except => :deliver_subscriptions_overview
 
-		def index
-			@page = Alchemy::Page.find_by_page_layout('newsletter_views')
-			@root_page = @page.get_language_root
-			render :template => 'alchemy/pages/show', :layout => layout_for_page
-		end
+    def index
+      @page = Alchemy::Page.find_by_page_layout('newsletter_views')
+      @root_page = @page.get_language_root
+      render :template => 'alchemy/pages/show', :layout => layout_for_page
+    end
 
-		def new
+    def new
 
-		end
+    end
 
-		def create
-			
-		end
+    def create
+      
+    end
 
-		def edit
+    def edit
 
-		end
+    end
 
-		def update
-			
-		end
+    def update
+      
+    end
 
-		def destroy
-			@subscription = @contact.subscriptions.find(params[:subscription_id])
-			@subscription.destroy
-			flash[:notice] = alchemy_crm_t(:subscription_destroyed)
-			@page = Alchemy::Page.find_by_page_layout('newsletter_views')
-			@root_page = @page.get_language_root
-			render :template => 'alchemy/pages/show', :layout => layout_for_page
-		end
+    def destroy
+      @subscription = @contact.subscriptions.find(params[:subscription_id])
+      @subscription.destroy
+      flash[:notice] = alchemy_crm_t(:subscription_destroyed)
+      @page = Alchemy::Page.find_by_page_layout('newsletter_views')
+      @root_page = @page.get_language_root
+      render :template => 'alchemy/pages/show', :layout => layout_for_page
+    end
 
-		def overview
-			@contact = Contact.find_by_email(params[:email])
-			if @contact
-				SubscriptionsMailer.overview_mail.deliver(@contact, @element)
-				flash[:notice] = alchemy_crm_t(:send_subscriptions_overview_via_email)
-				redirect_to :index
-			else
-				flash[:error] = alchemy_crm_t(:no_subscriber_found)
-				render :index
-			end
-		end
-		
-	private
+    def overview
+      @contact = Contact.find_by_email(params[:email])
+      if @contact
+        SubscriptionsMailer.overview_mail.deliver(@contact, @element)
+        flash[:notice] = alchemy_crm_t(:send_subscriptions_overview_via_email)
+        redirect_to :index
+      else
+        flash[:error] = alchemy_crm_t(:no_subscriber_found)
+        render :index
+      end
+    end
+    
+  private
 
-		def load_contact
-			@contact = Contact.find_by_email_sha1(params[:token])
-		end
+    def load_contact
+      @contact = Contact.find_by_email_sha1(params[:token])
+    end
 
-	end
+  end
 end

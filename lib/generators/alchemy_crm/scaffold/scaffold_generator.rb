@@ -5,7 +5,7 @@ module AlchemyCrm
     class ScaffoldGenerator < ::Rails::Generators::Base
       desc "This generator generates the Alchemy CRM scaffold."
       source_root File.expand_path('files', File.dirname(__FILE__))
-      
+
       def create_newsletter_scaffold
 
         empty_directory "#{Rails.root}/app/views/alchemy/newsletter_layouts"
@@ -20,7 +20,7 @@ module AlchemyCrm
         append_file "#{Rails.root}/config/alchemy/page_layouts.yml", YAML.load_file(File.expand_path('files/page_layouts.yml', File.dirname(__FILE__))).to_yaml.gsub(/^^-{3}\s{2}/, "\n# These page layouts are added by the Alchemy CRM module.\n\n")
 
       end
-      
+
     end
   end
 end

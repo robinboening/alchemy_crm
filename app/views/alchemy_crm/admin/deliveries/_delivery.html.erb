@@ -1,32 +1,32 @@
 <tr class="delivery <%= cycle('even', 'odd') %>">
-	<td>
-		<%= l(delivery.deliver_at, :format => :deliveries) %>
-		<%- unless delivery.delivered? -%>
-		<%= link_to_confirmation_window(
-			render_icon('destroy'),
-			alchemy_crm_t(:do_you_want_to_cancel_the_delivery?),
-			admin_delivery_path(delivery),
-			:title => alchemy_crm_t(:cancel_delivery)
-		) -%>
-		<%- end -%>
-	</td>
-	<td class="right">
-		<%= delivery.recipients.count %>
-	</td>
-	<td class="center">
-		<%= render_icon(delivery.delivered?) %>
-	</td>
-	<td class="center">
-		<%- if delivery.delivered? -%>
-		<%= link_to_overlay_window(
-			render_icon('statistics'),
-			admin_delivery_path(delivery),
-			{
-				:title => alchemy_crm_t(:show_statistics) % {:name => delivery.mailing.name, :date => l(delivery.delivered_at)},
-				:size => '540x400',
-				:modal => false
-			}
-		) %>
-		<%- end -%>
-	</td>
+  <td>
+    <%= l(delivery.deliver_at, :format => :deliveries) %>
+    <%- unless delivery.delivered? -%>
+    <%= link_to_confirmation_window(
+      render_icon('destroy'),
+      alchemy_crm_t(:do_you_want_to_cancel_the_delivery?),
+      admin_delivery_path(delivery),
+      :title => alchemy_crm_t(:cancel_delivery)
+    ) -%>
+    <%- end -%>
+  </td>
+  <td class="right">
+    <%= delivery.recipients.count %>
+  </td>
+  <td class="center">
+    <%= render_icon(delivery.delivered?) %>
+  </td>
+  <td class="center">
+    <%- if delivery.delivered? -%>
+    <%= link_to_overlay_window(
+      render_icon('statistics'),
+      admin_delivery_path(delivery),
+      {
+        :title => alchemy_crm_t(:show_statistics) % {:name => delivery.mailing.name, :date => l(delivery.delivered_at)},
+        :size => '540x400',
+        :modal => false
+      }
+    ) %>
+    <%- end -%>
+  </td>
 </tr>

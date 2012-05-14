@@ -1,9 +1,9 @@
 <%- if @page_layouts.blank? -%>
 <div class="with_padding">
-	<div class="info">
-		<%= render_icon('info') %>
-		<%= alchemy_crm_t(:newsletter_layout_not_found_notice) %>
-	</div>	
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= alchemy_crm_t(:newsletter_layout_not_found_notice) %>
+  </div>  
 </div>
 <%- else -%>
 <%= render :partial => "form" %>

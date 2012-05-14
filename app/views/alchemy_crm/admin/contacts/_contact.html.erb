@@ -1,44 +1,44 @@
 <tr class="<%= cycle('even', 'odd') %><%= contact.disabled? ? ' disabled' : nil %>">
-	<td class="icon">
-		<%= content_tag('span', '', :class => 'icon contact') %>
-	</td>
-	<td class="name" style="width: 180px">
-		<%= contact.lastname %>
-	</td>
-	<td class="name" style="width: 180px">
-		<%= contact.firstname %>
-	</td>
-	<td class="name"><%= contact.organisation %></td>
-	<td class="email"><%= contact.email %></td>
-	<td class="tags"><%= contact.tag_list %></td>
-	<td class="center"><%= render_icon contact.verified? && !contact.disabled %></td>
-	<td class="tools">
-		<%= link_to_overlay_window(
-			'',
-			edit_admin_contact_path(contact),
-			{
-				:title => alchemy_crm_t(:edit_contact),
-				:size => '415x560'
-			},
-			{
-				:title => alchemy_crm_t(:edit_contact),
-				:class => 'icon contact_edit'
-			}
-		) -%>
-		<%= link_to(
-			'',
-			export_admin_contact_path(contact),
-			{
-				:title => alchemy_crm_t(:export_contact),
-				:class => 'icon contact_export'
-			}
-		) -%>
-		<%= link_to_confirmation_window(
-			"",
-			alchemy_crm_t(:do_you_really_want_to_delete_this_contact?),
-			admin_contact_path(contact),
-			:title => alchemy_crm_t(:delete_contact),
-			:class => 'icon contact_delete'
-		) %>
-	</td>
+  <td class="icon">
+    <%= content_tag('span', '', :class => 'icon contact') %>
+  </td>
+  <td class="name" style="width: 180px">
+    <%= contact.lastname %>
+  </td>
+  <td class="name" style="width: 180px">
+    <%= contact.firstname %>
+  </td>
+  <td class="name"><%= contact.organisation %></td>
+  <td class="email"><%= contact.email %></td>
+  <td class="tags"><%= contact.tag_list %></td>
+  <td class="center"><%= render_icon contact.verified? && !contact.disabled %></td>
+  <td class="tools">
+    <%= link_to_overlay_window(
+      '',
+      edit_admin_contact_path(contact),
+      {
+        :title => alchemy_crm_t(:edit_contact),
+        :size => '415x560'
+      },
+      {
+        :title => alchemy_crm_t(:edit_contact),
+        :class => 'icon contact_edit'
+      }
+    ) -%>
+    <%= link_to(
+      '',
+      export_admin_contact_path(contact),
+      {
+        :title => alchemy_crm_t(:export_contact),
+        :class => 'icon contact_export'
+      }
+    ) -%>
+    <%= link_to_confirmation_window(
+      "",
+      alchemy_crm_t(:do_you_really_want_to_delete_this_contact?),
+      admin_contact_path(contact),
+      :title => alchemy_crm_t(:delete_contact),
+      :class => 'icon contact_delete'
+    ) %>
+  </td>
 </tr>

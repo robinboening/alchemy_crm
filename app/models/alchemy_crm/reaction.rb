@@ -1,9 +1,9 @@
 module AlchemyCrm
-	class Reaction < ActiveRecord::Base
+  class Reaction < ActiveRecord::Base
 
-		belongs_to :recipient
-		belongs_to :page
-		belongs_to :element
+    belongs_to :recipient
+    belongs_to :page
+    belongs_to :element
 
-	end
+  end
 end

@@ -1,6 +1,6 @@
 <span style="float:left"><%= check_box_tag name + "[contact_tag_list][]", tag.name, tags.include?(tag), :id => tag.name + "_contact_tag_list" %>
-	<label for="<%= tag.name + "_contact_tag_list" %>" class="tag">
-		<%= tag.name %>
-		<%= contact_count_from_tag(tag) %>
-	</label>
+  <label for="<%= tag.name + "_contact_tag_list" %>" class="tag">
+    <%= tag.name %>
+    <%= contact_count_from_tag(tag) %>
+  </label>
 </span>

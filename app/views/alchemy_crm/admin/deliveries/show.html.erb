@@ -1,66 +1,66 @@
 <div id="delivery" class="with_padding" style="padding: 8px">
-    <div class="recipient_group">
-        <h2><%= alchemy_crm_t(:total_recipients_count) %>: <span style="float: right"><%= @recipients.length %></span></h2>
+  <div class="recipient_group">
+    <h2><%= alchemy_crm_t(:total_recipients_count) %>: <span style="float: right"><%= @recipients.length %></span></h2>
+  </div>
+  
+  <div class="recipient_group">
+    <h2><%= alchemy_crm_t(:count_of_recipients_that_received_the_email) %>: <span style="float: right"><%= @read.length %></span></h2>
+    <p><%= link_to_function(alchemy_crm_t(:details), "$('#read').toggle()", :class => 'button small no-spinner') %></p>
+    <div class="recipients" id="read" style="display: none">
+      <%- if @read.blank? -%>
+      <p style="font-style: italic"><%= alchemy_crm_t(:none) %></p>
+      <%- else -%>
+      <table class="recipients_table">
+        <tr>
+          <th><%= translate_model_attribute(:contact, :name) %></th>
+          <th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
+        </tr>
+        <tr>
+          <%= render :partial => 'recipient', :collection => @read, :locals => {:reactions => false, :bounced => false} %>
+        </tr>
+      </table>
+      <%- end -%>
     </div>
-    
-    <div class="recipient_group">
-        <h2><%= alchemy_crm_t(:count_of_recipients_that_received_the_email) %>: <span style="float: right"><%= @read.length %></span></h2>
-        <p><%= link_to_function(alchemy_crm_t(:details), "$('#read').toggle()", :class => 'button small no-spinner') %></p>
-        <div class="recipients" id="read" style="display: none">
-            <%- if @read.blank? -%>
-            <p style="font-style: italic"><%= alchemy_crm_t(:none) %></p>
-            <%- else -%>
-            <table class="recipients_table">
-                <tr>
-                    <th><%= translate_model_attribute(:contact, :name) %></th>
-                    <th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
-                </tr>
-                <tr>
-                    <%= render :partial => 'recipient', :collection => @read, :locals => {:reactions => false, :bounced => false} %>
-                </tr>
-            </table>
-            <%- end -%>
-        </div>
+  </div>
+  
+  <div class="recipient_group">
+    <h2><%= alchemy_crm_t(:count_of_recipients_that_clicked_a_link) %>: <span style="float: right"><%= @reacted.length %></span></h2>
+    <p><%= link_to_function(alchemy_crm_t(:details), "$('#reacted').toggle()", :class => 'button small no-spinner') %></p>
+    <div class="recipients" id="reacted" style="display: none">
+      <%- if @reacted.blank? -%>
+      <p style="font-style: italic"><%= alchemy_crm_t(:none) %></p>
+      <%- else -%>
+      <table class="recipients_table">
+        <tr>
+          <th><%= translate_model_attribute(:contact, :name) %></th>
+          <th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
+          <th><%= alchemy_crm_t(:clicked_links) %></th>
+        </tr>
+        <tr>
+          <%= render :partial => 'recipient', :collection => @reacted, :locals => {:reactions => true, :bounced => false} %>
+        </tr>
+      </table>
+      <%- end -%>
     </div>
-    
-    <div class="recipient_group">
-        <h2><%= alchemy_crm_t(:count_of_recipients_that_clicked_a_link) %>: <span style="float: right"><%= @reacted.length %></span></h2>
-        <p><%= link_to_function(alchemy_crm_t(:details), "$('#reacted').toggle()", :class => 'button small no-spinner') %></p>
-        <div class="recipients" id="reacted" style="display: none">
-            <%- if @reacted.blank? -%>
-            <p style="font-style: italic"><%= alchemy_crm_t(:none) %></p>
-            <%- else -%>
-            <table class="recipients_table">
-                <tr>
-                    <th><%= translate_model_attribute(:contact, :name) %></th>
-                    <th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
-                    <th><%= alchemy_crm_t(:clicked_links) %></th>
-                </tr>
-                <tr>
-                    <%= render :partial => 'recipient', :collection => @reacted, :locals => {:reactions => true, :bounced => false} %>
-                </tr>
-            </table>
-            <%- end -%>
-        </div>
+  </div>
+  
+  <div class="recipient_group">
+    <h2><%= alchemy_crm_t(:count_of_bounced_emails) %>: <span style="float: right"><%= @bounced.length %></span></h2>
+    <p><%= link_to_function(alchemy_crm_t(:details), "$('#bounced').toggle()", :class => 'button small no-spinner') %></p>
+    <div class="recipients" id="bounced" style="display: none">
+      <%- if @bounced.blank? -%>
+      <p style="font-style: italic"><%= alchemy_crm_t(:none) %></p>
+      <%- else -%>
+      <table class="recipients_table">
+        <tr>
+          <th><%= translate_model_attribute(:contact, :name) %></th>
+          <th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
+        </tr>
+        <tr>
+          <%= render :partial => 'recipient', :collection => @bounced, :locals => {:reactions => false, :bounced => true} %>
+        </tr>
+      </table>
+      <%- end -%>
     </div>
-    
-    <div class="recipient_group">
-        <h2><%= alchemy_crm_t(:count_of_bounced_emails) %>: <span style="float: right"><%= @bounced.length %></span></h2>
-        <p><%= link_to_function(alchemy_crm_t(:details), "$('#bounced').toggle()", :class => 'button small no-spinner') %></p>
-        <div class="recipients" id="bounced" style="display: none">
-            <%- if @bounced.blank? -%>
-            <p style="font-style: italic"><%= alchemy_crm_t(:none) %></p>
-            <%- else -%>
-            <table class="recipients_table">
-                <tr>
-                    <th><%= translate_model_attribute(:contact, :name) %></th>
-                    <th><%= translate_model_attribute(:contact, :email).gsub(/\*$/, '') %></th>
-                </tr>
-                <tr>
-                    <%= render :partial => 'recipient', :collection => @bounced, :locals => {:reactions => false, :bounced => true} %>
-                </tr>
-            </table>
-            <%- end -%>
-        </div>
-    </div>
+  </div>
 </div>

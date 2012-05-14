@@ -1,28 +1,28 @@
 <%- if @deliveries.blank? -%>
 <div class="info with_margin">
-	<%= render_icon('info') %>
-	<%= alchemy_crm_t(:this_mailing_has_not_been_delivered_yet) %>
+  <%= render_icon('info') %>
+  <%= alchemy_crm_t(:this_mailing_has_not_been_delivered_yet) %>
 </div>
 <%- else -%>
 <div class="with_padding">
-	<div class="info">
-		<%= render_icon('info') %>
-		<h1><%= alchemy_crm_t(:this_list_shows_all_deliveries) %></h1>
-		<ol>
-			<li><%= alchemy_crm_t(:you_can_open_statistics_for_delivered_mailings) %></li>
-			<li><%= alchemy_crm_t(:not_yet_delivered_mailings_can_be_canceled) %></li>
-		</ol>
-	</div>
-	<div id="deliveries">
-		<table class="list">
-			<tr>
-				<th><%= alchemy_crm_t(:delivery_scheduled_at) %></th>
-				<th class="right"><%= translate_model_attribute(:delivery, :recipients_count) %></th>
-				<th class="center"><%= translate_model_attribute(:delivery, :delivered?) %></th>
-				<th class="center"><%= alchemy_crm_t(:statistics) %></th>
-			</tr>
-			<%= render @deliveries %>
-		</table>
-	</div>
+  <div class="info">
+    <%= render_icon('info') %>
+    <h1><%= alchemy_crm_t(:this_list_shows_all_deliveries) %></h1>
+    <ol>
+      <li><%= alchemy_crm_t(:you_can_open_statistics_for_delivered_mailings) %></li>
+      <li><%= alchemy_crm_t(:not_yet_delivered_mailings_can_be_canceled) %></li>
+    </ol>
+  </div>
+  <div id="deliveries">
+    <table class="list">
+      <tr>
+        <th><%= alchemy_crm_t(:delivery_scheduled_at) %></th>
+        <th class="right"><%= translate_model_attribute(:delivery, :recipients_count) %></th>
+        <th class="center"><%= translate_model_attribute(:delivery, :delivered?) %></th>
+        <th class="center"><%= alchemy_crm_t(:statistics) %></th>
+      </tr>
+      <%= render @deliveries %>
+    </table>
+  </div>
 </div>
 <%- end -%>

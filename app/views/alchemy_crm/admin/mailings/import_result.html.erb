@@ -1,23 +1,23 @@
 <%- content_for(:javascript_includes) do -%>
-	<%= javascript_include_tag "alchemy_crm/scripts.js" %>
+  <%= javascript_include_tag "alchemy_crm/scripts.js" %>
 <%- end -%>
 
 <%- content_for(:stylesheets) do -%>
-	<%= stylesheet_link_tag('alchemy_crm/styles') %>
+  <%= stylesheet_link_tag('alchemy_crm/styles') %>
 <%- end -%>
 
 <% toolbar(
-	:buttons => [
-		{
-			:icon => :close,
-			:label => t(:cancel),
-			:url => alchemy_crm.admin_contacts_path,
-			:title => t(:cancel),
-			:overlay => false,
-			:if_permitted_to => [:index, :alchemy_crm_admin_contacts]
-		}
-	],
-	:search => false
+  :buttons => [
+    {
+      :icon => :close,
+      :label => t(:cancel),
+      :url => alchemy_crm.admin_contacts_path,
+      :title => t(:cancel),
+      :overlay => false,
+      :if_permitted_to => [:index, :alchemy_crm_admin_contacts]
+    }
+  ],
+  :search => false
 ) -%>
 
 <% if @errors -%>
@@ -28,10 +28,10 @@
 
 <table>
 <% @contacts.each do |contact| -%>
-	<tr>
-		<td><%= contact.fullname %></td>
-		<td><%= contact.email %></td>
-		<td><%= contact.errors.full_messages %></td>
-	</tr>
+  <tr>
+    <td><%= contact.fullname %></td>
+    <td><%= contact.email %></td>
+    <td><%= contact.errors.full_messages %></td>
+  </tr>
 <% end -%>
 </table>

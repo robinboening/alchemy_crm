@@ -1,40 +1,40 @@
 <tr class="recipient">
-    <td>
-        <%= if recipient.contact.blank?
-                "<i>#{alchemy_crm_t(:without)}</i>".html_safe
-            else
-                link_to(recipient.contact.fullname.blank? ? "<i>#{alchemy_crm_t(:without)}</i>".html_safe : recipient.contact.fullname, admin_contacts_path(:query => recipient.contact.email), :title => alchemy_crm_t(:show_contact))
-            end
-        %>
-    </td>
-    <td>
-        <%= recipient.email %>
-    </td>
-    <%- if reactions -%>
-    <td>
-        <%- recipient.reactions.each do |reaction| -%>
-            <%= reaction.url %><br />
-        <%- end -%>
-    </td>
+  <td>
+    <%= if recipient.contact.blank?
+        "<i>#{alchemy_crm_t(:without)}</i>".html_safe
+      else
+        link_to(recipient.contact.fullname.blank? ? "<i>#{alchemy_crm_t(:without)}</i>".html_safe : recipient.contact.fullname, admin_contacts_path(:query => recipient.contact.email), :title => alchemy_crm_t(:show_contact))
+      end
+    %>
+  </td>
+  <td>
+    <%= recipient.email %>
+  </td>
+  <%- if reactions -%>
+  <td>
+    <%- recipient.reactions.each do |reaction| -%>
+      <%= reaction.url %><br />
     <%- end -%>
-    <%- if bounced -%>
-    <td>
-        <%- if recipient.contact -%>
-        <%= link_to_overlay_window(
-			alchemy_crm_t(:edit_contact),
-			edit_admin_contact_path(recipient.contact),
-			{
-				:title => alchemy_crm_t(:edit_contact),
-				:size => '415x560'
-			},
-			{
-				:title => alchemy_crm_t(:edit_contact),
-				:class => 'button with_icon edit'
-			}
-		) -%>
-		<%- else -%>
-		&nbsp;
-		<%- end -%>
-    </td>
+  </td>
+  <%- end -%>
+  <%- if bounced -%>
+  <td>
+    <%- if recipient.contact -%>
+    <%= link_to_overlay_window(
+      alchemy_crm_t(:edit_contact),
+      edit_admin_contact_path(recipient.contact),
+      {
+        :title => alchemy_crm_t(:edit_contact),
+        :size => '415x560'
+      },
+      {
+        :title => alchemy_crm_t(:edit_contact),
+        :class => 'button with_icon edit'
+      }
+    ) -%>
+    <%- else -%>
+    &nbsp;
     <%- end -%>
+  </td>
+  <%- end -%>
 </tr>
