@@ -68,9 +68,9 @@ module AlchemyCrm
 
 		def create_page
 			mailing_root = Alchemy::Page.find_by_name('Alchemy CRM Rootpage')
-			raise "Alchemy CRM Rootpage not found. Did you seed the database?" if mailing_root.blank?
+			raise "Alchemy CRM root page not found. Did you seed the database?" if mailing_root.blank?
 			mailing_page = Alchemy::Page.new(
-				:name => "Mailing #{self.name}",
+				:name => "Mailing #{name}",
 				:sitemap => false,
 				:page_layout => newsletter.layout,
 				:language => Alchemy::Language.get_default,
@@ -80,7 +80,7 @@ module AlchemyCrm
 				self.page = mailing_page
 				save
 			else
-				raise "Error while creating Mailingpage: #{mailing_page.errors.full_messages}"
+				raise "Error while creating mailing page: #{mailing_page.errors.full_messages.join(' ')}"
 			end
 		end
 

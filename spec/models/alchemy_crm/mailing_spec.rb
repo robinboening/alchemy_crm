@@ -4,7 +4,7 @@ module AlchemyCrm
 	describe Mailing do
 
 		before(:all) do
-			@mailing = Mailing.new(:name => 'Mailing', :additional_email_addresses => "jim@family.com, jon@doe.com, jane@family.com, \n")
+			@mailing = Mailing.new(:name => 'Baz Mailing', :additional_email_addresses => "jim@family.com, jon@doe.com, jane@family.com, \n")
 			@newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'newsletter_layout_standard')
 			@mailing.newsletter = @newsletter
 			@mailing.save!
@@ -57,6 +57,10 @@ module AlchemyCrm
 				@mailing.page.page_layout.should == "newsletter_layout_standard"
 			end
 
+		end
+
+		after(:all) do
+			@mailing.destroy
 		end
 
 	end

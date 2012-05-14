@@ -3,12 +3,12 @@ require 'spec_helper'
 module AlchemyCrm
 	describe Delivery do
 
-		before(:each) do
+		before(:all) do
 			@emails = ["jim@family.com", "jon@doe.com", "jane@family.com", "john@gmail.com", "jaja@binks.com", "lulu@fame.org"]
 			@mailing = Mailing.create!(
-				:name => 'Mailing',
+				:name => 'Foo Mailing',
 				:additional_email_addresses => @emails.join(', '),
-				:newsletter => Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
+				:newsletter => Newsletter.create!(:name => 'Newsletter', :layout => "#{Mailing::MAILING_PAGE_LAYOUT_PREFIX}standard")
 			)
 			@delivery = Delivery.create!(:mailing => @mailing)
 			@recipients = @delivery.recipients
@@ -49,6 +49,10 @@ module AlchemyCrm
 
 			end
 
+		end
+
+		after(:all) do
+			@mailing.destroy
 		end
 
 	end
