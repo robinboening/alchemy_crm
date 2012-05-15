@@ -32,13 +32,10 @@ module AlchemyCrm
       def import
         if request.post?
           if params[:verified] == "1"
-            if params[:fields] || !(params[:file].content_type =~ /csv|plain|comma-separated-values/i).nil?
-              handle_csv_post_request
-            elsif !(params[:file].content_type =~ /vcard|directory/i).nil?
+            if params[:file] && !(params[:file].content_type =~ /vcard|directory/i).nil?
               handle_vcf_post_request
             else
-              flash[:error] = alchemy_crm_t(:invalid_file_type) % {:mime_type => params[:file].content_type}
-              redirect_to admin_contacts_path
+              handle_csv_post_request
             end
           else
             @error = build_error_message(alchemy_crm_t(:imported_contacts_not_verified))
@@ -84,7 +81,7 @@ module AlchemyCrm
             @csv_import_errors.push [contact, contact.errors]
           end
         end
-        @valid_contacts = @contacts.select(&:valid?) 
+        @valid_contacts = @contacts.select(&:valid?)
         reader.remove_file if @csv_import_errors.empty?
       end
 
