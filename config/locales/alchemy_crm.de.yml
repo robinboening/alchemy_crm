@@ -26,7 +26,7 @@ de:
     contacts_tagged_with: 'Kontakte mit diesen Tag(s)'
     copy: Kopie
     copy_mailing: Mailing kopieren
-    '%{count} contacts imported successfully': '%{count} Kontakt(e) wurden erfolgreich importiert'
+    '%{count} contacts imported successfully': '%{count} Kontakt(e) wurde(n) erfolgreich importiert'
     count_of_bounced_emails: Davon sind nicht angekommen
     count_of_recipients_that_clicked_a_link: Davon haben auf einen Link geklickt
     count_of_recipients_that_received_the_email: 'Davon haben die E-Mail geöffnet'
@@ -87,6 +87,7 @@ de:
     missing_vcard: "Bitte laden Sie eine V-Card hoch"
     newsletter_layout_not_found_notice: 'Es wurde kein Newsletter Layout gefunden. Bitte legen Sie erst eins an.'
     none: 'Keine'
+    no_contacts_imported: "Es konnten keine Kontake importiert werden."
     not_yet_delivered_mailings_can_be_rescheduled: 'Noch nicht versendete Mailings können neu geplant werden, in dem Sie auf das Versanddatum klicken'
     not_yet_delivered_mailings_can_be_canceled: 'Noch nicht versendete Mailings können storniert werden'
     or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Tag'

@@ -21,7 +21,7 @@
 </div>
 <% end -%>
 
-<% if @contacts -%>
+<% if @contacts.any? -%>
 <table>
   <tr>
     <th><%= translate_model_attribute(:contact, :name) %></th>
@@ -42,8 +42,10 @@
   </tr>
   <% end -%>
 </table>
+<% else -%>
+<p><%= alchemy_crm_t(:no_contacts_imported) %></p>
 <% end -%>
 
-<p style="margin: 8px 0">
+<p style="margin: 8px 0; height: 25px">
   <%= link_to t(:continue), admin_contacts_path, :class => 'button' %>
 </p>

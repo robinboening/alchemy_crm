@@ -32,10 +32,10 @@ module AlchemyCrm
       def import
         if request.post?
           if params[:verified] == "1"
-            if params[:file] && !(params[:file].content_type =~ /vcard|directory/i).nil?
-              handle_vcf_post_request
-            else
+            if params[:fields] || (params[:file] && !is_vcard_file?(params[:file]))
               handle_csv_post_request
+            else
+              handle_vcf_post_request
             end
           else
             @error = build_error_message(alchemy_crm_t(:imported_contacts_not_verified))
@@ -94,7 +94,9 @@ module AlchemyCrm
           @errors = build_error_message(alchemy_crm_t(:missing_vcard))
         else
           @contacts = Contact.new_from_vcard(params[:file], true)
-          if @contacts.detect(&:invalid?).nil?
+          if @contacts.empty?
+            flash[:error] = alchemy_crm_t(:no_contacts_imported)
+          elsif @contacts.detect(&:invalid?).nil?
             flash[:notice] = alchemy_crm_t(:successfully_imported_contacts)
           else
             @errors = build_error_message(alchemy_crm_t(:please_check_highlighted_vcards_on_errors))
@@ -102,6 +104,12 @@ module AlchemyCrm
         end
         @valid_contacts = @contacts.select(&:valid?) || []
         render :vcf_import_result
+      end
+
+      def is_vcard_file?(file)
+        content = file.read
+        file.rewind
+        content.starts_with?("BEGIN:VCARD")
       end
 
     end
