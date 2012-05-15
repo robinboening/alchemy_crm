@@ -16,7 +16,7 @@ module AlchemyCrm
       :address,
       :zip,
       :city,
-      :organisation,
+      :company,
       :country,
       :subscriptions_attributes
     )
@@ -32,7 +32,7 @@ module AlchemyCrm
       :address,
       :zip,
       :city,
-      :organisation,
+      :company,
       :country,
       :subscriptions_attributes,
       :verified,
@@ -72,7 +72,7 @@ module AlchemyCrm
       [::I18n.t(:zip, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Zipcode'), "zip"],
       [::I18n.t(:city, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'City'), "city"],
       [::I18n.t(:country, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Country'), "country"],
-      [::I18n.t(:organisation, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Organisation'), "organisation"]
+      [::I18n.t(:company, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Company'), "company"]
     ]
 
     INTERPOLATION_NAME_METHODS = %w(fullname name_with_title firstname lastname name email)
@@ -96,14 +96,14 @@ module AlchemyCrm
     end
 
     # Translated salutation
-    # 
+    #
     # Translate the saluations in your +config/LOCALE.yml+
-    # 
+    #
     #   alchemy_crm:
     #     salutations:
-    #       mr: 
-    #       ms: 
-    # 
+    #       mr:
+    #       ms:
+    #
     def translated_salutation
       ::I18n.t(salutation, :scope => [:alchemy_crm, :salutations], :default => salutation.to_s.capitalize)
     end
@@ -146,7 +146,7 @@ module AlchemyCrm
         :address => ::I18n.t(:address, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'Street 1'),
         :zip => ::I18n.t(:zip, :scope => 'alchemy_crm.fake_contact_attributes', :default => '10000'),
         :city => ::I18n.t(:city, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'City'),
-        :organisation => ::I18n.t(:organisation, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'Company inc.'),
+        :company => ::I18n.t(:company, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'Company inc.'),
         :country => ::I18n.t(:country, :scope => 'alchemy_crm.fake_contact_attributes', :default => 'US')
       )
       fake.readonly!
@@ -209,7 +209,7 @@ module AlchemyCrm
       contacts = []
       ::Vpim::Vcard.decode(vcard).each do |card|
         remapped_attributes = {
-          :organisation => card.org.blank? ? nil : card.org.first,
+          :company => card.org.blank? ? nil : card.org.first,
           :lastname => card.name.blank? ? nil : card.name.family,
           :firstname => card.name.blank? ? nil : card.name.given,
           :title => card.name.blank? ? nil : card.name.prefix,
@@ -246,7 +246,7 @@ module AlchemyCrm
           addr.locality = city
           addr.country = country
         end
-        maker.org = organisation
+        maker.org = company
       end
       vcf = File.new(Rails.root.to_s + "/tmp/#{fullname}.vcf", "w")
       vcf.write(card.encode)

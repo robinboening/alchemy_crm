@@ -12,7 +12,7 @@ module AlchemyCrm
           Contact.human_attribute_name(:firstname).gsub(/\*$/, '')  => :firstname,
           Contact.human_attribute_name(:lastname).gsub(/\*$/, '')   => :lastname,
           Contact.human_attribute_name(:email).gsub(/\*$/, '')      => :email,
-          Contact.human_attribute_name(:organisation)               => :organisation,
+          Contact.human_attribute_name(:company)                    => :company,
           Contact.human_attribute_name(:address)                    => :address,
           Contact.human_attribute_name(:zip)                        => :zip,
           Contact.human_attribute_name(:city)                       => :city,

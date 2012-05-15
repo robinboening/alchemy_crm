@@ -61,7 +61,7 @@ de:
       address: Straße beim Weg 1
       zip: 12345
       city: Stadt
-      organisation: Firma GmbH
+      company: Firma GmbH
       country: DE
     file: Datei
     filter: 'Verfeinerungs-Filter'
@@ -147,7 +147,7 @@ de:
       alchemy_crm/newsletter:
         public: 'öffentlich?'
         contacts_count: Empfänger insgesamt
-        subscribers_count: Anzahl der Abonennten 
+        subscribers_count: Anzahl der Abonennten
         contact_group_contacts_count: Anzahl der Zielgruppenkontakte
         contact_groups: Zielgruppen
       alchemy_crm/contact:
@@ -155,7 +155,7 @@ de:
         title: Titel
         firstname: "Vorname*"
         lastname: "Name*"
-        organisation: Firma
+        company: Firma
         address: Adresse
         zip: PLZ
         city: Ort
