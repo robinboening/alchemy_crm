@@ -45,13 +45,11 @@ module AlchemyCrm
     has_many :newsletters, :through => :subscriptions, :uniq => true
     has_many :recipients
 
-    attr_accessor :skip_validation
-
     accepts_nested_attributes_for :subscriptions, :allow_destroy => true
 
-    validates_presence_of :salutation, :unless => proc { skip_validation }
-    validates_presence_of :firstname, :unless => proc { skip_validation }
-    validates_presence_of :lastname
+    Config.get(:additional_contact_validations).each do |field|
+      validates_presence_of field.to_sym
+    end
     validates_presence_of :email
     validates_uniqueness_of :email
     validates_format_of :email, :with => ::Authlogic::Regex.email, :if => proc { errors[:email].blank? }
@@ -222,10 +220,7 @@ module AlchemyCrm
           :mobile => card.telephones.detect { |t| t.location.include?("cell") }.to_s,
           :verified => true
         }
-        contact = Contact.new(remapped_attributes, :as => :admin)
-        contact.skip_validation = true
-        contact.save
-        contacts << contact
+        contacts << Contact.create(remapped_attributes, :as => :admin)
       end
       contacts
     end

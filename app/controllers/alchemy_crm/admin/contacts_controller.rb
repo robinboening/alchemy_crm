@@ -76,7 +76,6 @@ module AlchemyCrm
         reader.each do |row|
           @contacts << contact = Contact.new(row)
           contact.verified = true
-          contact.skip_validation = true
           unless contact.save
             @csv_import_errors.push [contact, contact.errors]
           end

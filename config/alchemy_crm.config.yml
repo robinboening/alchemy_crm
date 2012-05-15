@@ -8,14 +8,18 @@ send_mails_in_chunks_of: 200
 send_mail_chunks_every: 5
 
 # Specify the method that is used to interpolate the %{name} in newsletter mails and forms.
-# 
+#
 # === Available methods:
-# 
+#
 # * +fullname+
 # * +name_with_title+
 # * +firstname+
 # * +lastname+
 # * +name+
 # * +email+
-# 
+#
 name_interpolation_method: fullname
+
+# Specify additional attributes to validate for presence on a contact.
+# NOTE: Email will be always validated.
+additional_contact_validations: [salutation, firstname, lastname]
