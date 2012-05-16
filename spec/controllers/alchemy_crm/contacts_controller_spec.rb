@@ -118,7 +118,7 @@ module AlchemyCrm
       context "receiving an email for verified contact" do
 
         before(:each) do
-          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
+          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true})
         end
 
         it "should deliver signout mail." do
@@ -146,7 +146,7 @@ module AlchemyCrm
     describe '#disable' do
 
       before(:all) do
-        @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
+        @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true})
       end
 
       context "receiving hash from existing contact" do

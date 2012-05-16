@@ -4,7 +4,7 @@ module AlchemyCrm
   describe Contact do
 
     before(:all) do
-      @contact = Contact.create!({:email => 'jon@doe.com', :title => 'Dr.', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
+      @contact = Contact.create!({:email => 'jon@doe.com', :title => 'Dr.', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true})
     end
 
     describe '.create' do

@@ -29,7 +29,7 @@ module AlchemyCrm
       context "receiving a hash and email from recipient with contact" do
 
         before(:each) do
-          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
+          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true})
           @recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
           @delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
           get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
@@ -69,7 +69,7 @@ module AlchemyCrm
         render_views
 
         before(:each) do
-          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true}, :as => :admin)
+          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true})
           @recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
           @delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
           @language_root = Alchemy::Page.create!(:name => 'Language Root', :page_layout => 'standard', :language => Alchemy::Language.get_default, :parent_id => Alchemy::Page.root.id)

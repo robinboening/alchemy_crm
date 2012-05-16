@@ -62,7 +62,7 @@ module AlchemyCrm
       update_attributes({
         :verified => false,
         :disabled => true
-      }, :as => :admin)
+      })
       subscriptions.destroy_all
     end
 
