@@ -7,18 +7,19 @@ module AlchemyCrm
 
       csv_magic_config(
         :mapping => {
-          Contact.human_attribute_name(:salutation).gsub(/\*$/, '') => :salutation,
-          Contact.human_attribute_name(:title)                      => :title,
-          Contact.human_attribute_name(:firstname).gsub(/\*$/, '')  => :firstname,
-          Contact.human_attribute_name(:lastname).gsub(/\*$/, '')   => :lastname,
-          Contact.human_attribute_name(:email).gsub(/\*$/, '')      => :email,
-          Contact.human_attribute_name(:company)                    => :company,
-          Contact.human_attribute_name(:address)                    => :address,
-          Contact.human_attribute_name(:zip)                        => :zip,
-          Contact.human_attribute_name(:city)                       => :city,
-          Contact.human_attribute_name(:country)                    => :country,
-          Contact.human_attribute_name(:phone)                      => :phone,
-          Contact.human_attribute_name(:mobile)                     => :mobile
+          Contact.clean_human_attribute_name(:salutation)  => :salutation,
+          Contact.clean_human_attribute_name(:title)       => :title,
+          Contact.clean_human_attribute_name(:firstname)   => :firstname,
+          Contact.clean_human_attribute_name(:lastname)    => :lastname,
+          Contact.clean_human_attribute_name(:email)       => :email,
+          Contact.clean_human_attribute_name(:company)     => :company,
+          Contact.clean_human_attribute_name(:address)     => :address,
+          Contact.clean_human_attribute_name(:zip)         => :zip,
+          Contact.clean_human_attribute_name(:city)        => :city,
+          Contact.clean_human_attribute_name(:country)     => :country,
+          Contact.clean_human_attribute_name(:phone)       => :phone,
+          Contact.clean_human_attribute_name(:mobile)      => :mobile,
+          Contact.human_attribute_name(:tag_list)          => :tag_list
         }
       )
 

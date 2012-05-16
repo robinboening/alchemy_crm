@@ -18,27 +18,10 @@ module AlchemyCrm
       :city,
       :company,
       :country,
-      :subscriptions_attributes
-    )
-
-    attr_accessible(
-      :salutation,
-      :title,
-      :firstname,
-      :lastname,
-      :email,
-      :phone,
-      :mobile,
-      :address,
-      :zip,
-      :city,
-      :company,
-      :country,
       :subscriptions_attributes,
       :verified,
       :disabled,
-      :tag_list,
-      :as => :admin
+      :tag_list
     )
 
     has_many :subscriptions, :dependent => :destroy
@@ -194,6 +177,10 @@ module AlchemyCrm
       self.subscriptions.inject(true){|acc, s| acc = s.verified? && acc; acc}
     end
 
+    def self.clean_human_attribute_name(attrb)
+      human_attribute_name(attrb).gsub(/\*$/, '')
+    end
+
     def self.new_from_recipient(recipient)
       raise "No recipient found!" if recipient.nil?
       contact = new(:email => recipient.email, :lastname => recipient.email)
@@ -220,7 +207,7 @@ module AlchemyCrm
           :mobile => card.telephones.detect { |t| t.location.include?("cell") }.to_s,
           :verified => true
         }
-        contacts << Contact.create(remapped_attributes, :as => :admin)
+        contacts << Contact.create(remapped_attributes)
       end
       contacts
     end
