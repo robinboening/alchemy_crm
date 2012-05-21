@@ -21,7 +21,8 @@ module AlchemyCrm
       :subscriptions_attributes,
       :verified,
       :disabled,
-      :tag_list
+      :tag_list,
+      :as => :admin
     )
 
     has_many :subscriptions, :dependent => :destroy
@@ -34,7 +35,7 @@ module AlchemyCrm
       validates_presence_of field.to_sym
     end
     validates_presence_of :email
-    validates_uniqueness_of :email
+    validates_uniqueness_of :email, :if => proc { email.present? }
     validates_format_of :email, :with => ::Authlogic::Regex.email, :if => proc { errors[:email].blank? }
 
     before_save :update_sha1, :if => proc { email_sha1.blank? || email_changed? }
