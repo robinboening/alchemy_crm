@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 # Specify your gem's dependencies in alchemy_crm.gemspec
 gemspec
 
+gem "alchemy_cms", :github => "magiclabs/alchemy_cms"
+
 group :development do
   if !ENV["CI"]
     gem 'guard-spork'
