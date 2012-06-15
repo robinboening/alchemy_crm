@@ -34,6 +34,6 @@
     <th class="tools" style="width: 88px"></th>
   </tr>
   <%- end -%>
-  <%= render @mailings %>
+  <%= render :partial => "alchemy_crm/admin/mailings/mailing", :collection => @mailings %>
 </table>
 <%= render 'alchemy/admin/partials/pagination_links', :items => @mailings %>

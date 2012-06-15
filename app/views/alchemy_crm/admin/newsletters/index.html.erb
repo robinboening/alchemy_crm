@@ -36,7 +36,7 @@
     <th class="tools" style="width: 44px"></th>
   </tr>
   <%- end -%>
-  <%= render @newsletters %>
+  <%= render :partial => "alchemy_crm/admin/newsletters/newsletter", :collection => @newsletters %>
 </table>
 
 <%= render 'alchemy/admin/partials/pagination_links', :items => @newsletters, :scope => alchemy_crm %>

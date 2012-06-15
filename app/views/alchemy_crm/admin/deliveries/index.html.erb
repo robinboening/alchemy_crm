@@ -21,7 +21,7 @@
         <th class="center"><%= translate_model_attribute(:delivery, :delivered?) %></th>
         <th class="center"><%= alchemy_crm_t(:statistics) %></th>
       </tr>
-      <%= render @deliveries %>
+      <%= render :partial => "alchemy_crm/admin/deliveries/delivery", :collection => @deliveries %>
     </table>
   </div>
 </div>

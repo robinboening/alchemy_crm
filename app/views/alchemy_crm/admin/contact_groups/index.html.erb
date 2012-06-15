@@ -35,7 +35,7 @@
     <th class="tools" style="width: 40px"></th>
   </tr>
   <%- end -%>
-  <%= render @contact_groups %>
+  <%= render :partial => "alchemy_crm/admin/contact_groups/contact_group", :collection => @contact_groups %>
 </table>
 
 <%= render 'alchemy/admin/partials/pagination_links', :items => @contact_groups, :scope => alchemy_crm %>
