@@ -2,6 +2,15 @@
 module AlchemyCrm
   class Mailing < ActiveRecord::Base
 
+    attr_accessible(
+      :newsletter_id,
+      :name,
+      :subject,
+      :additional_email_addresses,
+      :creator_id,
+      :updater_id
+    )
+
     MAILING_PAGE_LAYOUT_PREFIX = "newsletter_layout_"
 
     belongs_to :page, :dependent => :destroy, :class_name => 'Alchemy::Page'

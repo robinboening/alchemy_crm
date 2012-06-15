@@ -5,7 +5,7 @@ module AlchemyCrm
 
     acts_as_taggable
 
-    ACCESSIBLE_ATTRIBUTES = [
+    attr_accessible(
       :salutation,
       :title,
       :firstname,
@@ -22,10 +22,7 @@ module AlchemyCrm
       :verified,
       :disabled,
       :tag_list
-    ]
-
-    attr_accessible(*ACCESSIBLE_ATTRIBUTES)
-    attr_accessible(*ACCESSIBLE_ATTRIBUTES, :as => :admin)
+    )
 
     has_many :subscriptions, :dependent => :destroy
     has_many :newsletters, :through => :subscriptions, :uniq => true

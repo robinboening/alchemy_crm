@@ -2,6 +2,12 @@
 module AlchemyCrm
   class Delivery < ActiveRecord::Base
 
+    attr_accessible(
+      :mailing_id,
+      :deliver_at,
+      :mailing
+    )
+
     attr_accessor :chunk_delay
 
     belongs_to :mailing

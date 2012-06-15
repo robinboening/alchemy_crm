@@ -28,7 +28,7 @@ module AlchemyCrm
       end
 
       def update
-        @mailing.update_attributes(params[:mailing], :as => current_user.role.to_sym)
+        @mailing.update_attributes(params[:mailing])
         render_errors_or_redirect(
           @mailing,
           :back,

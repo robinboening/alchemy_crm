@@ -2,6 +2,13 @@
 module AlchemyCrm
   class Newsletter < ActiveRecord::Base
 
+    attr_accessible(
+      :name,
+      :layout,
+      :public,
+      :contact_group_ids
+    )
+
     has_and_belongs_to_many :contact_groups, :join_table => 'alchemy_contact_groups_newsletters'
     has_many :mailings
     has_many :subscriptions

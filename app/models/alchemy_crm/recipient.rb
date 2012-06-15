@@ -1,6 +1,11 @@
 module AlchemyCrm
   class Recipient < ActiveRecord::Base
 
+    attr_accessible(
+      :email,
+      :contact
+    )
+
     belongs_to :delivery
     belongs_to :contact
     has_many :reactions

@@ -2,6 +2,12 @@
 module AlchemyCrm
   class ContactGroupFilter < ActiveRecord::Base
 
+    attr_accessible(
+      :column,
+      :operator,
+      :value
+    )
+
     belongs_to :contact_group
 
     OPERATORS = [

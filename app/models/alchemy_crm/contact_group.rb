@@ -2,6 +2,12 @@
 module AlchemyCrm
   class ContactGroup < ActiveRecord::Base
 
+    attr_accessible(
+      :name,
+      :contact_tag_list,
+      :filters_attributes
+    )
+
     acts_as_taggable_on :contact_tags
 
     has_many :filters, :dependent => :destroy, :class_name => "AlchemyCrm::ContactGroupFilter"
