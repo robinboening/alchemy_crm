@@ -1,6 +1,8 @@
 Alchemy CRM Module
 ==================
 
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_crm.png?branch=2.0-stable)](http://travis-ci.org/magiclabs/alchemy_crm)
+
 Building and sending Newsletters has never been easier!
 
 About
@@ -20,7 +22,7 @@ http://guides.alchemy-cms.com/getting_started.html
 2. Put this line into your projects `Gemfile`:
 
         # Gemfile
-        gem "alchemy_crm", :git => 'git://github.com/magiclabs/alchemy_crm'
+        gem "alchemy_crm", :git => 'git://github.com/magiclabs/alchemy_crm', :branch => '2.0-stable'
 
 Or install it via Rubygems:
 
@@ -47,7 +49,7 @@ Or install it via Rubygems:
 6. Seed the database:
 
     1. Put this line into your projects `db/seeds.rb` file:
-        
+
             AlchemyCrm::Seeder.seed!
 
     2. And run this rake task:
