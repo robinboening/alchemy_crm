@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rails3-jquery-autocomplete', ['~> 1.0.4']
   gem.add_dependency "magic-localized_country_select", ["~> 0.2.0"]
 
-  gem.add_development_dependency 'rspec-rails', ["~> 2.8.0"]
-  gem.add_development_dependency 'sqlite3', ["~> 1.3.5"]
+  gem.add_development_dependency(%q<rspec-rails>)
+  gem.add_development_dependency(%q<sqlite3>)
 
 end
