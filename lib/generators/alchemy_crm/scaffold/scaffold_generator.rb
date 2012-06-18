@@ -16,8 +16,8 @@ module AlchemyCrm
         copy_file "newsletters.text.erb", "#{Rails.root}/app/views/layouts/alchemy/newsletters.text.erb"
         copy_file "newsletter_layouts.yml", "#{Rails.root}/config/alchemy/newsletter_layouts.yml"
 
-        append_file "#{Rails.root}/config/alchemy/elements.yml", YAML.load_file(File.expand_path('files/elements.yml', File.dirname(__FILE__))).to_yaml.gsub(/^-{3}\s{2}/, "\n# These elements are added by the Alchemy CRM module.\n\n")
-        append_file "#{Rails.root}/config/alchemy/page_layouts.yml", YAML.load_file(File.expand_path('files/page_layouts.yml', File.dirname(__FILE__))).to_yaml.gsub(/^^-{3}\s{2}/, "\n# These page layouts are added by the Alchemy CRM module.\n\n")
+        append_file "#{Rails.root}/config/alchemy/elements.yml", File.open(File.expand_path('files/elements.yml', File.dirname(__FILE__))).read
+        append_file "#{Rails.root}/config/alchemy/page_layouts.yml", File.open(File.expand_path('files/page_layouts.yml', File.dirname(__FILE__))).read
 
       end
 
