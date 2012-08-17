@@ -20,12 +20,20 @@ module AlchemyCrm
 
     def contacts_count
       return 0 if contacts.blank?
-      contacts.length
+      contacts.count
     end
 
     # get all uniq contacts from my contact groups
     def verified_contact_group_contacts
-      contact_groups.collect { |contact_group| contact_group.contacts.available }.flatten.uniq
+      contacts = Contact.tagged_with(contact_groups.collect(&:contact_tags).flatten.uniq, :any => true)
+      if contact_groups_filter_strings.present?
+        contacts = contacts.where(contact_groups_filter_strings.join(" OR "))
+      end
+      contacts.available
+    end
+
+    def contact_groups_filter_strings
+      contact_groups.collect(&:filters_sql_string).delete_if(&:blank?)
     end
 
     def humanized_name

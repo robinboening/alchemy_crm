@@ -15,7 +15,8 @@ module AlchemyCrm
     end
 
     def filters_sql_string
-      filters.map(&:sql_string).join(' AND ')
+      return "" if filters.blank?
+      "(#{filters.map(&:sql_string).join(' AND ')})"
     end
 
     def humanized_name
