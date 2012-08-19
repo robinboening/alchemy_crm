@@ -20,11 +20,11 @@ module AlchemyCrm
 
     # get all uniq contacts from my contact groups
     def verified_contact_group_contacts
-      contacts = Contact.tagged_with(contact_groups.collect(&:contact_tags).flatten.uniq, :any => true)
+      contacts = Contact.available.tagged_with(contact_groups.collect(&:contact_tags).flatten.uniq, :any => true)
       if contact_groups_filter_strings.present?
         contacts = contacts.where(contact_groups_filter_strings.join(" OR "))
       end
-      contacts.available
+      contacts
     end
 
     def contact_groups_filter_strings
