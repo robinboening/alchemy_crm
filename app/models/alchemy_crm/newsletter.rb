@@ -15,12 +15,7 @@ module AlchemyCrm
     scope :subscribables, where(:public => true)
 
     def contacts
-      (verified_contact_group_contacts + verified_subscribers).uniq
-    end
-
-    def contacts_count
-      return 0 if contacts.blank?
-      contacts.count
+      Contact.where("#{n.verified_contact_group_contacts.to_sql} UNION #{n.verified_subscribers.to_sql}")
     end
 
     # get all uniq contacts from my contact groups
