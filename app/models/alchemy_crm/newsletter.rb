@@ -15,7 +15,12 @@ module AlchemyCrm
     scope :subscribables, where(:public => true)
 
     def contacts
-      Contact.where("#{n.verified_contact_group_contacts.to_sql} UNION #{n.verified_subscribers.to_sql}")
+      Contact.find_by_sql("(#{verified_contact_group_contacts.to_sql}) UNION (#{verified_subscribers.to_sql})".gsub(/SELECT DISTINCT alchemy_crm_contacts\.\*/, 'SELECT `alchemy_crm_contacts`.*'))
+    end
+
+    def contacts_count
+      # All sequel count statement is far too slow
+      contacts.length
     end
 
     # get all uniq contacts from my contact groups
@@ -25,6 +30,10 @@ module AlchemyCrm
         contacts = contacts.where(contact_groups_filter_strings.join(" OR "))
       end
       contacts
+    end
+
+    def verified_contact_group_contacts_count
+      verified_contact_group_contacts.count(:distinct => true)
     end
 
     def contact_groups_filter_strings
@@ -37,6 +46,10 @@ module AlchemyCrm
 
     def verified_subscribers
       subscribers.available.includes(:subscriptions).where(:alchemy_crm_subscriptions => {:verified => true, :wants => true})
+    end
+
+    def verified_subscribers_count
+      verified_subscribers.count(:distinct => true)
     end
 
     def can_delete_mailings?
