@@ -11,7 +11,7 @@ module AlchemyCrm
       @page = Alchemy::Page.create!(:name => 'Newsletter Mails', :page_layout => 'newsletter_mails', :parent_id => @language_root.id, :language => @language_root.language)
       @contact = Contact.create!(:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr')
       @newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
-      @subscription = Subscription.create!(:contact => @contact, :newsletter => @newsletter, :verified => true, :wants => true)
+      @subscription = Subscription.create!(:contact => @contact, :newsletter => @newsletter, :wants => true)
     end
 
     describe '#signup_mail' do

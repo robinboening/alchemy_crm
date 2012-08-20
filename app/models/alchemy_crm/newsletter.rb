@@ -45,7 +45,7 @@ module AlchemyCrm
     end
 
     def verified_subscribers
-      subscribers.available.includes(:subscriptions).where(:alchemy_crm_subscriptions => {:verified => true, :wants => true})
+      subscribers.available.includes(:subscriptions).where(:alchemy_crm_subscriptions => {:wants => true})
     end
 
     def verified_subscribers_count

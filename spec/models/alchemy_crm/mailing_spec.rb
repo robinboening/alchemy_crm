@@ -32,7 +32,7 @@ module AlchemyCrm
         @verified_contact = Contact.new(:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr')
         @verified_contact.verified = true
         @verified_contact.save!
-        @subscription = Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :verified => true, :wants => true)
+        @subscription = Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :wants => true)
       end
 
       it "should return all contacts from additional email addresses and newsletter contacts" do

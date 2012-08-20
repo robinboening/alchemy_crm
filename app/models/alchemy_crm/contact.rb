@@ -200,10 +200,6 @@ module AlchemyCrm
       contact
     end
 
-    def all_subscriptions_verified?
-      self.subscriptions.inject(true){|acc, s| acc = s.verified? && acc; acc}
-    end
-
     def self.clean_human_attribute_name(attrb)
       human_attribute_name(attrb).gsub(/\*$/, '')
     end

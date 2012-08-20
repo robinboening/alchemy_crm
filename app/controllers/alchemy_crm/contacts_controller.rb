@@ -39,9 +39,6 @@ module AlchemyCrm
         else
           @subscriptions = @contact.subscriptions
         end
-        @subscriptions.each do |subscription|
-          subscription.update_attribute(:verified, true)
-        end
         @page = @element.page
         @root_page = @page.get_language_root
         render :template => 'alchemy/pages/show'
