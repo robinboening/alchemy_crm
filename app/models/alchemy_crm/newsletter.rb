@@ -14,32 +14,6 @@ module AlchemyCrm
 
     scope :subscribables, where(:public => true)
 
-    def contacts
-      Contact.find_by_sql("(#{verified_contact_group_contacts.to_sql}) UNION (#{verified_subscribers.to_sql})".gsub(/SELECT DISTINCT alchemy_crm_contacts\.\*/, 'SELECT `alchemy_crm_contacts`.*'))
-    end
-
-    def contacts_count
-      # All sequel count statement is far too slow
-      contacts.length
-    end
-
-    # get all uniq contacts from my contact groups
-    def verified_contact_group_contacts
-      contacts = Contact.available.tagged_with(contact_groups.collect(&:contact_tags).flatten.uniq, :any => true)
-      if contact_groups_filter_strings.present?
-        contacts = contacts.where(contact_groups_filter_strings.join(" OR "))
-      end
-      contacts
-    end
-
-    def verified_contact_group_contacts_count
-      verified_contact_group_contacts.count(:distinct => true)
-    end
-
-    def contact_groups_filter_strings
-      contact_groups.collect(&:filters_sql_string).delete_if(&:blank?)
-    end
-
     def humanized_name
       "#{name} (#{contacts_count})"
     end
@@ -47,10 +21,12 @@ module AlchemyCrm
     def verified_subscribers
       subscribers.available.includes(:subscriptions).where(:alchemy_crm_subscriptions => {:wants => true})
     end
+    alias_method :contacts, :verified_subscribers
 
     def verified_subscribers_count
       verified_subscribers.count(:distinct => true)
     end
+    alias_method :contacts_count, :verified_subscribers_count
 
     def can_delete_mailings?
       raise "Cannot delete Newsletter because of referencing Mailings with IDs (#{mailings.collect(&:id).join(", ")})" if(mailings.length != 0)
