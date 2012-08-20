@@ -61,39 +61,12 @@ module AlchemyCrm
 
       end
 
-      context "receiving hash from existing contact and newsletter ids" do
-
-        before(:each) do
-          @subscription = Subscription.create!(:contact => @contact, :newsletter => @newsletter)
-          @newsletter_ids = @contact.subscriptions.collect(&:newsletter_id)
-          post :verify, {:token => @contact.email_sha1, :newsletter_ids => @newsletter_ids, :use_route => :alchemy_crm}
-        end
-
-        it "should verify all subscriptions from contact." do
-          @contact.subscriptions.where(:verified => true).collect(&:newsletter_id).should == @newsletter_ids
-        end
-
-      end
-
       context "receiving hash from not existing contact" do
 
         it "should raise routing error." do
           lambda {
             post :verify, {:token => 'f4k3h4ckh4sh', :use_route => :alchemy_crm}
           }.should raise_error(ActionController::RoutingError)
-        end
-
-      end
-
-      context "not receiving any newsletter_ids" do
-
-        before(:each) do
-          @subscription = Subscription.create!(:contact => @contact, :newsletter => @newsletter)
-          post :verify, {:token => @contact.email_sha1, :use_route => :alchemy_crm}
-        end
-
-        it "should verify all subscriptions from contact." do
-          @contact.subscriptions.where(:verified => true).count.should == @contact.subscriptions.count
         end
 
       end

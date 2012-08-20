@@ -6,7 +6,7 @@ module AlchemyCrm
     before(:each) do
       @newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
       @verified_contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true})
-      @subscription = Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :verified => true, :wants => true)
+      @subscription = Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :wants => true)
       @contact = Contact.create!(:email => 'jon_2@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr')
       @father = Contact.create!({:email => 'father@family.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :tag_list => 'father', :verified => true})
       @mother = Contact.create!({:email => 'mother@family.com', :firstname => 'Jane', :lastname => 'Doe', :salutation => 'ms', :tag_list => 'mother', :verified => true})
