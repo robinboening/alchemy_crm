@@ -3,8 +3,10 @@ require 'spec_helper'
 module AlchemyCrm
   describe Contact do
 
+    let(:contact_group) { ContactGroup.create!({:name => 'foobazers', :contact_tag_list => 'foo, baz'}) }
+
     before(:all) do
-      @contact = Contact.create!({:email => 'jon@doe.com', :title => 'Dr.', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true})
+      @contact = Contact.create!({:email => 'jon@doe.com', :title => 'Dr.', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true, :tag_list => 'foo, bar'})
     end
 
     describe '.create' do
@@ -12,6 +14,26 @@ module AlchemyCrm
       it "should set email_salt and email_sha1 for new records" do
         @contact.email_sha1.should_not be_nil
         @contact.email_salt.should_not be_nil
+      end
+
+      context "with tags from existing contact group that belongs to a newsletter" do
+
+        it "should subscribe contact to the newsletter" do
+          pending#@contact.subscriptions.should_not be_empty
+        end
+
+      end
+
+    end
+
+    describe '#contact_groups' do
+
+      before do
+        contact_group
+      end
+
+      it "should return a contact_groups collection" do
+        @contact.contact_groups.should include(contact_group)
       end
 
     end
@@ -94,6 +116,27 @@ module AlchemyCrm
 
         it "should return the default value." do
           @contact.interpolation_name_value.should == "Mr Dr. Jon Doe"
+        end
+
+      end
+
+    end
+
+    context "after_save filter" do
+
+      context "#update_subscriptions" do
+
+        before do
+          contact_group
+        end
+
+        it "sould add a subscription if contact matches contact_groups criteria" do
+          @contact.subscriptions.should_not be_empty
+        end
+
+        it "sould remove a subscription if contact does not match contact_groups criteria any more" do
+          @contact.update_attributes(:tag_list => "")
+          @contact.subscriptions.should_not be_empty
         end
 
       end
