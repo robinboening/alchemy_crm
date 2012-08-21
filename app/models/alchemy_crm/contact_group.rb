@@ -10,6 +10,14 @@ module AlchemyCrm
 
     accepts_nested_attributes_for :filters, :allow_destroy => true
 
+    scope :with_matching_filters, lambda { |attributes|
+      attributes_filters = []
+      attributes.delete_if { |k, v| !Contact::FILTERABLE_ATTRIBUTES.include?(k) }.each do |k, v|
+        attributes_filters << ContactGroupFilter.operator_where_string(k, v)
+      end
+      includes(:filters).where(["#{attributes_filters.join(' OR ')} AND 1=?", 1])
+    }
+
     def contacts
       Contact.tagged_with(self.contact_tags, :any => true).where(filters_sql_string)
     end

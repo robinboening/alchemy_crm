@@ -59,6 +59,8 @@ module AlchemyCrm
       [::I18n.t(:company, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Company'), "company"]
     ]
 
+    FILTERABLE_ATTRIBUTES = COLUMN_NAMES.collect { |a| a[1] }
+
     INTERPOLATION_NAME_METHODS = %w(fullname name_with_title firstname lastname name email)
 
     def disable!
@@ -116,6 +118,10 @@ module AlchemyCrm
       else
         fullname
       end
+    end
+
+    def contact_groups
+      (ContactGroup.tagged_with(self.tag_list, :any => true) + ContactGroup.with_matching_filters(self.attributes)).uniq
     end
 
     def self.fake
