@@ -4,6 +4,11 @@ module AlchemyCrm
   describe Contact do
 
     let(:contact_group) { ContactGroup.create!({:name => 'foobazers', :contact_tag_list => 'foo, baz'}) }
+    let(:jons) { ContactGroup.create!({:name => 'jons'}) }
+    let(:jons_letter) { Newsletter.create!(:name => "jons_letter", :layout => "standard") }
+    let(:newsletter) { Newsletter.create!(:name => "News", :layout => "standard") }
+    let(:unverified_contact) { Contact.create!({:email => 'hacker@h4ck3r.com', :firstname => 'Erwin', :lastname => 'Evil', :salutation => 'mr', :verified => false, :tag_list => 'foo, bar'}) }
+    let(:disabled_contact) { Contact.create!({:email => 'tester@test.com', :firstname => 'Peter', :lastname => 'Nameless', :salutation => 'mr', :verified => true, :disabled => true, :tag_list => 'foo, bar'}) }
 
     before(:all) do
       @contact = Contact.create!({:email => 'jon@doe.com', :title => 'Dr.', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true, :tag_list => 'foo, bar'})
@@ -16,14 +21,6 @@ module AlchemyCrm
         @contact.email_salt.should_not be_nil
       end
 
-      context "with tags from existing contact group that belongs to a newsletter" do
-
-        it "should subscribe contact to the newsletter" do
-          pending#@contact.subscriptions.should_not be_empty
-        end
-
-      end
-
     end
 
     describe '#contact_groups' do
@@ -32,8 +29,126 @@ module AlchemyCrm
         contact_group
       end
 
-      it "should return a contact_groups collection" do
-        @contact.contact_groups.should include(contact_group)
+      context "with matching tags" do
+
+        it "should return a contact_groups from tags" do
+          @contact.contact_groups.should include(contact_group)
+        end
+
+      end
+
+      context "with matching filters" do
+
+        context "where filter operator is '='" do
+
+          before do
+            jons.filters.create(:column => "firstname", :operator => "=", :value => "Jon")
+          end
+
+          it "should return a contact_groups from filters" do
+            @contact.contact_groups.should include(contact_group)
+            @contact.contact_groups.should include(jons)
+          end
+
+        end
+
+        context "where filter operator is '!='" do
+
+          before do
+            jons.filters.create(:column => "firstname", :operator => "!=", :value => "Jon")
+          end
+
+          it "should return a contact_groups from filters" do
+            @contact.contact_groups.should include(contact_group)
+            @contact.contact_groups.should_not include(jons)
+          end
+
+        end
+
+        context "where filter operator is 'LIKE'" do
+
+          before do
+            jons.filters.create(:column => "firstname", :operator => "LIKE", :value => "on")
+          end
+
+          it "should return a contact_groups from filters" do
+            @contact.contact_groups.should include(contact_group)
+            @contact.contact_groups.should include(jons)
+          end
+
+        end
+
+        context "where filter operator is 'NOT LIKE'" do
+
+          before do
+            jons.filters.create(:column => "firstname", :operator => "NOT LIKE", :value => "on")
+          end
+
+          it "should return a contact_groups from filters" do
+            @contact.contact_groups.should include(contact_group)
+            @contact.contact_groups.should_not include(jons)
+          end
+
+        end
+
+      end
+
+    end
+
+    describe 'scopes' do
+
+      before :all do
+        unverified_contact
+        disabled_contact
+        newsletter
+      end
+
+      describe '.verified' do
+
+        it "should return all verified contacts only" do
+          Contact.verified.should == [@contact, disabled_contact]
+        end
+
+      end
+
+      describe '.disabled' do
+
+        it "should return all disabled contacts only" do
+          Contact.disabled.should == [disabled_contact]
+        end
+
+      end
+
+      describe '.available' do
+
+        it "should return all verified and not disabled contacts only" do
+          Contact.available.should == [@contact]
+        end
+
+      end
+
+      describe '.subscribed_to' do
+
+        it "should return all contacts that are subscribed to given newsletter" do
+          @contact.subscriptions.create!({:newsletter_id => newsletter.id})
+          Contact.subscribed_to(newsletter).should == [@contact]
+        end
+
+      end
+
+      describe '.not_subscribed_to' do
+
+        it "should return all contacts not subscribed to given newsletter" do
+          @contact.subscriptions.create!({:newsletter_id => newsletter.id})
+          Contact.not_subscribed_to(newsletter).should == [unverified_contact, disabled_contact]
+        end
+
+      end
+
+      after :all do
+        unverified_contact.destroy
+        disabled_contact.destroy
+        newsletter.destroy
       end
 
     end
@@ -122,21 +237,92 @@ module AlchemyCrm
 
     end
 
-    context "after_save filter" do
+    describe "#contact_groups_newsletters" do
+
+      before do
+        contact_group.newsletters << jons_letter
+        contact_group.save
+      end
+
+      it "should return all newsletters from contact_groups" do
+        @contact.contact_groups_newsletters.should include(jons_letter)
+      end
+
+    end
+
+    describe "after_save" do
 
       context "#update_subscriptions" do
 
         before do
-          contact_group
+          contact_group.newsletters << jons_letter
+          contact_group.save
+          @contact.subscriptions.destroy_all
+          @contact.save
+          @contact.subscriptions.reload
         end
 
-        it "sould add a subscription if contact matches contact_groups criteria" do
-          @contact.subscriptions.should_not be_empty
+        context "if contact matches contact_groups criteria" do
+
+          it "should subscribe the newsletter" do
+            @contact.subscriptions.collect(&:newsletter).should include(jons_letter)
+          end
+
+          it "subscription should have the contact_group_id" do
+            @contact.subscriptions.collect(&:contact_group_id).should include(contact_group.id)
+            @contact.subscriptions.collect(&:contact_group_id).should_not include('')
+          end
+
         end
 
-        it "sould remove a subscription if contact does not match contact_groups criteria any more" do
-          @contact.update_attributes(:tag_list => "")
-          @contact.subscriptions.should_not be_empty
+        context "if contact does not match contact_groups criteria" do
+
+          before do
+            @contact.update_attributes(:tag_list => "")
+            @contact.subscriptions.reload
+          end
+
+          it "should unsubscribe newsletter" do
+            @contact.subscriptions.collect(&:newsletter).should_not include(jons_letter)
+          end
+
+          after do
+            @contact.update_attributes(:tag_list => "foo, bar")
+          end
+
+        end
+
+        context "if contact is unverified" do
+
+          it "should remove all subscriptions" do
+            @contact.subscriptions.collect(&:newsletter).should include(jons_letter)
+            @contact.update_attributes(:verified => false)
+            @contact.subscriptions.should be_empty
+          end
+
+          after do
+            @contact.update_attributes(:verified => true)
+          end
+
+        end
+
+        context "if subscription was made by user/admin directly" do
+
+          before do
+            @contact.subscriptions.create(:newsletter => newsletter)
+          end
+
+          it "should have no contact_group" do
+            @contact.subscriptions.detect { |s| s.newsletter == newsletter }.contact_group_id.should == nil
+          end
+
+          it "should not remove the subscription" do
+            @contact.update_attributes(:tag_list => "")
+            @contact.subscriptions.reload
+            @contact.subscriptions.collect(&:newsletter).should include(newsletter)
+            @contact.update_attributes(:tag_list => "foo, bar")
+          end
+
         end
 
       end

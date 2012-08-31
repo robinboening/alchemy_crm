@@ -41,7 +41,26 @@ module AlchemyCrm
     validates_format_of :email, :with => ::Authlogic::Regex.email, :if => proc { errors[:email].blank? }
 
     before_save :update_sha1, :if => proc { email_sha1.blank? || email_changed? }
+    after_save :update_subscriptions
 
+    scope :subscribed_to, lambda { |newsletter|
+      joins(:subscriptions).where(:alchemy_crm_subscriptions => {
+        :newsletter_id => newsletter.class.name == "AlchemyCrm::Newsletter" ? newsletter.id : newsletter.collect(&:id)
+      })
+    }
+    scope :not_subscribed_to, lambda { |newsletter|
+      contacts = self.scoped
+      if newsletter.class.name == "AlchemyCrm::Newsletter"
+        contacts = contacts.where("
+          alchemy_crm_subscriptions.contact_id IS NULL
+          OR
+          (select count(*) from alchemy_crm_subscriptions where alchemy_crm_subscriptions.newsletter_id=#{newsletter.id}) = 0
+        ")
+      else
+        contacts = contacts.where("alchemy_crm_subscriptions.contact_id IS NULL OR alchemy_crm_subscriptions.newsletter_id NOT IN(#{newsletter.collect(&:id).join(',')})")
+      end
+      contacts.includes(:subscriptions)
+    }
     scope :verified, where(:verified => true)
     scope :disabled, where(:disabled => true)
     scope :enabled, where(:disabled => false)
@@ -145,7 +164,7 @@ module AlchemyCrm
     end
 
     def contact_groups
-      (ContactGroup.tagged_with(self.tag_list, :any => true) + ContactGroup.with_matching_filters(self.attributes)).uniq
+      ContactGroup.find_by_sql("#{ContactGroup.tagged_with(self.tag_list, :any => true).to_sql} UNION #{ContactGroup.with_matching_filters(self.attributes).to_sql}")
     end
 
     def self.fake
@@ -264,7 +283,54 @@ module AlchemyCrm
       vcf.close
     end
 
+    def contact_groups_newsletters
+      return [] if contact_groups.blank?
+      contact_groups.collect(&:newsletters).flatten.uniq
+    end
+
+    # Subscribes to given newsletters
+    def subscribe(newsletter, contact_group_id=nil)
+      subscriptions.create(:newsletter => newsletter, :contact_group_id => contact_group_id)
+    end
+
+    # Destroys all subscriptions for given newsletter
+    def unsubscribe(newsletter)
+      if newsletter.class.name == "AlchemyCrm::Newsletter"
+        subscriptions.find_by_newsletter_id(newsletter.id).destroy
+      else
+        subscriptions.where(:newsletter_id => newsletter.collect(&:id)).destroy_all
+      end
+    end
+
   private
+
+    # Creates subscriptions depending on contact´s contact_groups. Also deletes useless subscriptions.
+    def update_subscriptions
+      destroy_unused_subscriptions
+      create_new_subscriptions if verified? && !disabled? && contact_groups_newsletters.any?
+    end
+
+    def create_new_subscriptions
+      contact_groups_newsletters.each do |newsletter|
+        if !subscriptions.collect(&:newsletter_id).include?(newsletter.id)
+          contact_group = (contact_groups & newsletter.contact_groups).first
+          subscribe(newsletter, contact_group.id)
+        end
+      end
+    end
+
+    def destroy_unused_subscriptions
+      if !verified? || disabled?
+        subscriptions.destroy_all
+        return
+      end
+      subscriptions.each do |subscription|
+        next if subscription.contact_group_id.blank?
+        if !contact_groups_newsletters.collect(&:id).include?(subscription.newsletter_id)
+          subscription.destroy
+        end
+      end
+    end
 
     def update_sha1
       salt = email_salt || [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
