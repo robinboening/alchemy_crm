@@ -38,10 +38,10 @@
       <%- end -%>
       </td>
     </tr>
-    <% if @newsletter.verified_subscribers.any? -%>
+    <% if @newsletter.subscribers.any? -%>
     <tr>
       <td colspan="2" class="headline" style="padding: 0">
-        <p><%= alchemy_crm_t(:subscribers_count) %>: <%= @newsletter.verified_subscribers.count %></p>
+        <p><%= alchemy_crm_t(:subscribers_count) %>: <%= @newsletter.subscribers.count %></p>
       </td>
     </tr>
     <% end -%>

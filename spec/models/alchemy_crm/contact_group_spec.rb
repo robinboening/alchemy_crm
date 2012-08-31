@@ -3,9 +3,11 @@ require 'spec_helper'
 module AlchemyCrm
   describe ContactGroup do
 
-    let(:contact_1) { Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :tag_list => 'father'}) }
-    let(:contact_2) { Contact.create!({:email => 'jane@smith.com', :firstname => 'Jane', :lastname => 'Smith', :salutation => 'ms', :tag_list => 'mother'}) }
+    let(:contact_1) { Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true, :tag_list => 'father'}) }
+    let(:contact_2) { Contact.create!({:email => 'jane@smith.com', :firstname => 'Jane', :lastname => 'Smith', :salutation => 'ms', :verified => true, :tag_list => 'mother'}) }
     let(:contact_group) { ContactGroup.create!(:name => 'Family', :contact_tag_list => 'father, mother, son') }
+    let(:newsletter) { Newsletter.create!(:name => 'Newsletter', :layout => 'standard') }
+    let(:newsletter_2) { Newsletter.create!(:name => 'Newsletter', :layout => 'standard') }
 
     before(:each) do
       contact_1

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120820140152) do
+ActiveRecord::Schema.define(:version => 20120823101225) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -174,7 +174,8 @@ ActiveRecord::Schema.define(:version => 20120820140152) do
   create_table "alchemy_crm_subscriptions", :force => true do |t|
     t.integer "contact_id"
     t.integer "newsletter_id"
-    t.boolean "wants",         :default => true
+    t.boolean "wants",            :default => true
+    t.integer "contact_group_id"
   end
 
   add_index "alchemy_crm_subscriptions", ["contact_id", "newsletter_id"], :name => "contact_newsletter_index", :unique => true
