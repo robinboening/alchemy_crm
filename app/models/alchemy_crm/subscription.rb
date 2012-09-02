@@ -5,6 +5,8 @@ module AlchemyCrm
     belongs_to :newsletter
     belongs_to :contact_group
 
+    validates_presence_of :contact_id, :newsletter_id
+
     after_create :increment_newsletters_subscription_counter_caches, :if => proc {|s| s.newsletter.present? }
     after_destroy :decrement_newsletters_subscription_counter_caches, :if => proc {|s| s.newsletter.present? }
 
