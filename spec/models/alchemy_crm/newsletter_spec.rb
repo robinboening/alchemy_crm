@@ -96,5 +96,10 @@ module AlchemyCrm
 
     end
 
+    after(:all) do
+      @verified_contact.destroy
+      @newsletter.destroy
+    end
+
   end
 end
