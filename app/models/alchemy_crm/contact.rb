@@ -49,17 +49,8 @@ module AlchemyCrm
       })
     }
     scope :not_subscribed_to, lambda { |newsletter|
-      contacts = self.scoped
-      if newsletter.class.name == "AlchemyCrm::Newsletter"
-        contacts = contacts.where("
-          alchemy_crm_subscriptions.contact_id IS NULL
-          OR
-          (select count(*) from alchemy_crm_subscriptions where alchemy_crm_subscriptions.newsletter_id=#{newsletter.id}) = 0
-        ")
-      else
-        contacts = contacts.where("alchemy_crm_subscriptions.contact_id IS NULL OR alchemy_crm_subscriptions.newsletter_id NOT IN(#{newsletter.collect(&:id).join(',')})")
-      end
-      contacts.includes(:subscriptions)
+      contacts = self.scoped.includes(:subscriptions)
+      contacts.where("alchemy_crm_contacts.id NOT IN(SELECT alchemy_crm_subscriptions.contact_id FROM alchemy_crm_subscriptions) OR (SELECT COUNT(*) FROM alchemy_crm_subscriptions WHERE alchemy_crm_subscriptions.newsletter_id=#{newsletter.id}) = 0")
     }
     scope :verified, where(:verified => true)
     scope :disabled, where(:disabled => true)
