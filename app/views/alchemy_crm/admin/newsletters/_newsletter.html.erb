@@ -12,13 +12,13 @@
         <%= render_icon(newsletter.public?) -%>
     </td>
     <td class="size" style="width: 120px">
-        <%= newsletter.subscriptions.count -%>
+        <%= newsletter.subscriptions_count -%>
     </td>
     <td class="size" style="width: 120px">
-        <%= newsletter.user_subscriptions.count -%>
+        <%= newsletter.user_subscriptions_count -%>
     </td>
     <td class="size" style="width: 120px">
-        <%= newsletter.contact_group_subscriptions.count -%>
+        <%= newsletter.contact_group_subscriptions_count -%>
     </td>
     <td class="tools">
         <%= link_to_overlay_window(
