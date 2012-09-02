@@ -30,8 +30,12 @@ module AlchemyCrm
       Contact.available.joins(:taggings).where(:taggings => {:tag_id => self.contact_tags.collect(&:id)}).where(filters_sql_string)
     end
 
+    def contact_ids
+      contacts.select("alchemy_crm_contacts.id")
+    end
+
     def contacts_count
-      contacts.uniq.count
+      contact_ids.uniq.count
     end
 
     def filters_sql_string
@@ -40,7 +44,7 @@ module AlchemyCrm
     end
 
     def humanized_name
-      "#{self.name} (#{self.contacts.length})"
+      "#{self.name} (#{self.contact_ids.length})"
     end
 
     def subscribe_contacts_to_newsletter(newsletter)
