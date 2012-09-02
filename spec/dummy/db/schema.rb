@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823101225) do
+ActiveRecord::Schema.define(:version => 20120902082326) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -130,11 +130,14 @@ ActiveRecord::Schema.define(:version => 20120823101225) do
   create_table "alchemy_crm_newsletters", :force => true do |t|
     t.string   "name"
     t.string   "layout"
-    t.boolean  "public",     :default => false
+    t.boolean  "public",                            :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "subscriptions_count",               :default => 0
+    t.integer  "user_subscriptions_count",          :default => 0
+    t.integer  "contact_group_subscriptions_count", :default => 0
   end
 
   create_table "alchemy_crm_reactions", :force => true do |t|

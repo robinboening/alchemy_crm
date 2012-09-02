@@ -16,7 +16,7 @@ module AlchemyCrm
     scope :subscribables, where(:public => true)
 
     def humanized_name
-      "#{name} (#{contacts_count})"
+      "#{name} (#{subscriptions_count})"
     end
 
     def verified_subscribers
@@ -24,21 +24,8 @@ module AlchemyCrm
     end
     alias_method :contacts, :verified_subscribers
 
-    def verified_subscribers_count
-      verified_subscribers.count(:distinct => true)
-    end
-    alias_method :contacts_count, :verified_subscribers_count
-
     def can_delete_mailings?
       raise "Cannot delete Newsletter because of referencing Mailings with IDs (#{mailings.collect(&:id).join(", ")})" if(mailings.length != 0)
-    end
-
-    def user_subscriptions
-      subscriptions.where(:alchemy_crm_subscriptions => {:contact_group_id => nil})
-    end
-
-    def contact_group_subscriptions
-      subscriptions.where("alchemy_crm_subscriptions.contact_group_id IS NOT NULL")
     end
 
     def layout_name
@@ -50,6 +37,7 @@ module AlchemyCrm
     def update_subscriptions
       destroy_unused_subscriptions
       create_new_subscriptions
+      update_subscriptions_counter_cache_columns
     end
 
     # Creates subscriptions for all contacts of associated contact_groups
@@ -70,6 +58,28 @@ module AlchemyCrm
           "DELETE FROM alchemy_crm_subscriptions WHERE newsletter_id = '#{self.id}' AND (contact_group_id NOT IN(#{contact_groups.collect(&:id).join(',')}))"
         )
       end
+    end
+
+    # Updates all subscription counter caches
+    def update_subscriptions_counter_cache_columns
+      update_column(:subscriptions_count, calculate_subscriptions_count)
+      update_column(:user_subscriptions_count, calculate_user_subscriptions_count)
+      update_column(:contact_group_subscriptions_count, calculate_contact_group_subscriptions_count)
+    end
+
+    # Recalculates counter cache for all subscriptions
+    def calculate_subscriptions_count
+      verified_subscribers.select("alchemy_crm_contacts.id").count(:distinct => true)
+    end
+
+    # Recalculates counter cache for subscriptions created by user
+    def calculate_user_subscriptions_count
+      subscriptions.select("alchemy_crm_subscriptions.id").where(:alchemy_crm_subscriptions => {:contact_group_id => nil}).count(:distinct => true)
+    end
+
+    # Recalculates counter cache for subscriptions associated with contact_group
+    def calculate_contact_group_subscriptions_count
+      subscriptions.select("alchemy_crm_subscriptions.id").where("alchemy_crm_subscriptions.contact_group_id IS NOT NULL").count(:distinct => true)
     end
 
   end
