@@ -11,6 +11,8 @@ module AlchemyCrm
 
     accepts_nested_attributes_for :filters, :allow_destroy => true
 
+    after_save :calculate_contacts_count
+
     scope :with_matching_filters, lambda { |attributes|
       attributes_filters = []
       attributes.delete_if { |k, v| !Contact::FILTERABLE_ATTRIBUTES.include?(k) }.each do |k, v|
@@ -30,25 +32,23 @@ module AlchemyCrm
       Contact.available.joins(:taggings).where(:taggings => {:tag_id => self.contact_tags.collect(&:id)}).where(filters_sql_string)
     end
 
-    def contact_ids
-      contacts.select("alchemy_crm_contacts.id")
-    end
-
-    def contacts_count
-      contact_ids.uniq.count
-    end
-
     def filters_sql_string
       return "" if filters.blank?
       "(#{filters.map(&:sql_string).join(' AND ')})"
     end
 
     def humanized_name
-      "#{self.name} (#{self.contact_ids.length})"
+      "#{self.name} (#{self.contacts_count})"
     end
 
     def subscribe_contacts_to_newsletter(newsletter)
       Subscription.mass_create(newsletter, contacts.not_subscribed_to(newsletter).uniq, self.id)
+    end
+
+  private
+
+    def calculate_contacts_count
+      update_column(:contacts_count, contacts.select("alchemy_crm_contacts.id").count(:distinct => true))
     end
 
   end

@@ -327,6 +327,36 @@ module AlchemyCrm
 
       end
 
+      describe "#update_contact_groups_contacts_count" do
+
+        context "if there is a new contact_group matching" do
+
+          before :each do
+            @new_contact_group = ContactGroup.create!({:name => 'lucky fellows', :contact_tag_list => 'yay'})
+          end
+
+          it "should increment the contacts_count attribute of the contact_group" do
+            @new_contact_group.contacts_count.should == 0
+            @contact.update_attributes(:tag_list => "foo, bar, yay")
+            @new_contact_group.reload
+            @new_contact_group.contacts_count.should == 1
+          end
+
+        end
+
+        context "if a contact_group is not matching anymore" do
+
+          it "should decrement the contacts_count of the contact_group" do
+            contact_group.contacts_count.should == 1
+            @contact.update_attributes(:tag_list => "")
+            contact_group.reload
+            contact_group.contacts_count.should == 0
+          end
+
+        end
+
+      end
+
     end
 
     after(:all) do
