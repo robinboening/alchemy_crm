@@ -41,7 +41,8 @@ module AlchemyCrm
     validates_format_of :email, :with => ::Authlogic::Regex.email, :if => proc { errors[:email].blank? }
 
     before_save :update_sha1, :if => proc { email_sha1.blank? || email_changed? }
-    after_save :update_subscriptions
+    before_save :memorize_contact_groups
+    after_save :update_subscriptions, :update_contact_groups_contacts_count
 
     scope :subscribed_to, lambda { |newsletter|
       joins(:subscriptions).where(:alchemy_crm_subscriptions => {
@@ -154,8 +155,8 @@ module AlchemyCrm
       end
     end
 
-    def contact_groups
-      ContactGroup.find_by_sql("#{ContactGroup.tagged_with(self.tag_list, :any => true).to_sql} UNION #{ContactGroup.with_matching_filters(self.attributes).to_sql}")
+    def contact_groups(tags=self.tag_list)
+      ContactGroup.find_by_sql("#{ContactGroup.tagged_with(tags, :any => true).to_sql} UNION #{ContactGroup.with_matching_filters(self.attributes).to_sql}")
     end
 
     def self.fake
@@ -321,6 +322,26 @@ module AlchemyCrm
           subscription.destroy
         end
       end
+    end
+
+    # memorizes the old contact_groups before saving
+    # After save we can remember these and can compare the contact_groups
+    def memorize_contact_groups
+      @memorized_contact_groups = contact_groups(cached_tag_list_change.try(:first))
+    end
+
+    # Updates the contact_group´s contacts_count
+    def update_contact_groups_contacts_count
+      new_contact_groups = contact_groups - @memorized_contact_groups
+      removed_contact_groups = @memorized_contact_groups - contact_groups
+
+      new_contact_groups.each do |cg|
+        cg.update_column(:contacts_count, cg.contacts_count + 1)
+      end
+      removed_contact_groups.each do |cg|
+        cg.update_column(:contacts_count, cg.contacts_count - 1)
+      end
+
     end
 
     def update_sha1

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120902082326) do
+ActiveRecord::Schema.define(:version => 20120902163755) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20120902082326) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.text     "cached_contact_tag_list"
+    t.integer  "contacts_count",          :default => 0
   end
 
   create_table "alchemy_crm_contacts", :force => true do |t|
