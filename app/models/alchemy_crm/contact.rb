@@ -135,6 +135,10 @@ module AlchemyCrm
       ContactGroup.find_by_sql("#{ContactGroup.tagged_with(tags, :any => true).to_sql} UNION #{ContactGroup.with_matching_filters(self.attributes).to_sql}")
     end
 
+    def mail_to
+      "#{name_with_title} <#{email}>"
+    end
+
     def self.fake
       fake = new(
         :salutation => nil,
