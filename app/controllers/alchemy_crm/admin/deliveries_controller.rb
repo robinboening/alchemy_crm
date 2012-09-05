@@ -66,7 +66,7 @@ module AlchemyCrm
       def destroy
         @delivery = Delivery.find(params[:id])
         @delivery.destroy
-        render :js => "window.location.replace('#{admin_mailings_path}'); Alchemy.growl('#{successfully_canceled_delivery}')"
+        render :js => "window.location.replace('#{admin_mailings_path}'); Alchemy.growl('#{t(:successfully_canceled_delivery)}')"
       end
 
     private
