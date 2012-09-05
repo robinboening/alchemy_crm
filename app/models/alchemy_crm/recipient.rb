@@ -11,7 +11,7 @@ module AlchemyCrm
     before_create :set_sha1
 
     def mail_to
-      contact.nil? ? email : "#{contact.name_with_title} <#{email}>"
+      contact.nil? ? email : contact.mail_to
     end
 
     def reads!
