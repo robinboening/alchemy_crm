@@ -6,7 +6,7 @@ module AlchemyCrm
 
     belongs_to :page, :dependent => :destroy, :class_name => 'Alchemy::Page'
     has_many :deliveries, :dependent => :destroy
-    has_many :recipients, :through => :deliveries
+    has_many :recipients
     belongs_to :newsletter
 
     validates_presence_of :name
@@ -15,30 +15,30 @@ module AlchemyCrm
     before_create :set_sha1
     after_create :create_page
 
-    # Returns all contacts found via newsletter.
-    def newsletter_contacts
-      return [] if newsletter.blank?
-      newsletter.contacts
+    def subscriber_ids
+      @subscriber_ids ||= Subscription.where(:newsletter_id => self.newsletter_id).select(:contact_id).collect(&:contact_id)
     end
 
-    # Returns all contacts found via newsletter contacts and additional email addresses.
-    def contacts
-      (newsletter_contacts + contacts_from_additional_email_addresses).uniq
+    def subscribers(column_selects="alchemy_crm_contacts.id")
+      Contact.scoped.where(:id => subscriber_ids).select(column_selects.to_s)
     end
 
-    def contacts_count
-      return 0 if contacts.blank?
-      contacts.count
+    def newsletter_subscriptions_count
+      @subscriptions_count ||= newsletter.subscriptions_count
     end
 
-    def contacts_not_having_email_yet
-      return contacts if recipients.empty?
-      contacts.select { |c| !recipients.collect(&:email).include?(c.email) }
+    def recipients_contact_ids
+      @recipients_contact_ids ||= recipients.select(:contact_id).collect(&:contact_id)
     end
 
-    # Returns a list of all email addresses for contacts that have not got any email yet.
-    def emails
-      contacts_not_having_email_yet.collect(&:email)
+    def contact_ids_not_recieved_email_yet
+      subscriber_ids - recipients_contact_ids
+    end
+
+    def subscribers_count_not_recieved_email_yet
+      return newsletter_subscriptions_count if recipients.empty?
+      return 0 if subscriber_ids.blank?
+      (contact_ids_not_recieved_email_yet).count
     end
 
     # Return a list of email addresses from additional_email_addresses field.
@@ -50,6 +50,11 @@ module AlchemyCrm
     # Returns a list of contacts found or initialized by email address from additional_email_addresses field.
     def contacts_from_additional_email_addresses
       additional_emails.collect{ |email| Contact.find_or_initialize_by_email(:email => email) }
+    end
+
+    def recipients_count
+      return 0 if deliveries.empty?
+      deliveries.select(:emails_sent).collect(&:emails_sent).inject(:+)
     end
 
     # Makes a copy of another mailing.

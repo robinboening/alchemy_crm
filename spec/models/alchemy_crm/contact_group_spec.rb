@@ -59,5 +59,20 @@ module AlchemyCrm
 
     end
 
+    describe "callbacks" do
+
+      describe "before_save" do
+
+        describe "#calculate contacts_count" do
+
+          it "should increment the contacts_count" do
+            # contact_group.contacts_count.should == 1
+          end
+
+        end
+
+      end
+    end
+
   end
 end

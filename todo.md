@@ -12,16 +12,17 @@
 
 * Update contacts counter_cache column
 
+## E-Mail delivering
+
+
 ## Misc
 
-* Fix not_subscribed_to scope on Contact.
+* Do we really need the :wants attribute on subscription? (If a user dont want to get a newsletter, he needs no subscription.)
 
-* Fix not_associated_with scope on ContactGroup. Looks correct but sometimes it gives wrong results.
+* When a user subscribes to a newsletter, the subscription will not be created because he is not verified. We need to create the subscription when the user verifies his contact.
 
 ## SQL Indexes
 
 * alchemy_crm_contacts: verfied + disabled => available
-
-* * alchemy_crm_contacts: cached_tag_list
 
 * on contact_group_id column on alchemy_crm_subscriptions
