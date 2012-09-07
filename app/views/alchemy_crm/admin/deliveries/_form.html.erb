@@ -11,19 +11,20 @@
     </tr>
     <tr>
       <td class="label"><%= f.label :recipients, 'Empfänger:' %></td>
-      <td><%= @delivery.new_record? ? @mailing.contacts_not_having_email_yet.count : @delivery.recipients.count %> (<%= link_to_function "Empfänger anzeigen", "jQuery('#all_contacts').toggle(); AlchemyCrm.toggleLabel(this, 'Empfänger ausblenden', 'Empfänger anzeigen')" ,:class => "" %>)</td>
+      <td><%= @mailing.subscribers_count_not_recieved_email_yet %></td>
     </tr>
+    <% if @mailing.additional_emails.any? -%>
     <tr>
-      <td></td>
+      <td class="label">Zusätzliche Empfänger</td>
       <td>
-        <ul id="all_contacts" style="display: none">
-          <% emails = @delivery.new_record? ? @mailing.emails : @delivery.recipients.collect(&:email) -%>
-          <%- emails.each do |email| -%>
+        <ul id="additional_contacts">
+          <%- @mailing.additional_emails.each do |email| -%>
           <li class="<%= cycle("even", "odd") -%>"><%= email %></li>
           <%- end -%>
         </ul>
       </td>
     </tr>
+    <% end -%>
     <tr>
       <td class="label">
         <%= f.label :deliver_at, "versenden am" %>
@@ -45,7 +46,7 @@
 <% end %>
 <script type="text/javascript" charset="utf-8">
   (function($) {
-    
+
     $('input.datepicker').datepicker({
       dateFormat: 'dd.mm.yy',
       dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
@@ -60,6 +61,6 @@
         $('#delivery_deliver_at_3i').val(dateparts[0]);
       }
     });
-    
+
   })(jQuery);
 </script>

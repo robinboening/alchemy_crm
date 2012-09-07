@@ -12,25 +12,30 @@
     <%= mailing.newsletter.blank? ? '' : mailing.newsletter.name -%>
   </td>
   <td class="size">
-    <%= mailing.recipients.count -%>
+    <%= mailing.subscribers_count_not_recieved_email_yet -%>
+  </td>
+  <td class="size">
+    <%= mailing.recipients_count -%>
   </td>
   <td class="time">
     <%- if mailing.next_pending_delivery -%>
     <%= mailing.next_pending_delivery.deliver_at.nil? ? '' : l(mailing.next_pending_delivery.deliver_at, :format => :short) -%>
     <%- end -%>
   </td>
-  <td class="tools">
-    <%= link_to_overlay_window(
-      render_icon('send_mailing'),
-      new_admin_delivery_path(:mailing_id => mailing.id),
-      {
-        :title => alchemy_crm_t('Send Mailing'),
-        :size => '420x210'
-      },
-      {
-        :title => alchemy_crm_t('Send Mailing')
-      }
-    ) %>
+  <td class="tools right">
+    <% if mailing.subscribers_count_not_recieved_email_yet > 0 && !mailing.next_pending_delivery %>
+      <%= link_to_overlay_window(
+        render_icon('send_mailing'),
+        new_admin_delivery_path(:mailing_id => mailing.id),
+        {
+          :title => alchemy_crm_t('Send Mailing'),
+          :size => '480x210'
+        },
+        {
+          :title => alchemy_crm_t('Send Mailing')
+        }
+      ) %>
+    <%- end -%>
     <%= link_to_overlay_window(
       render_icon('delivery'),
       admin_mailing_deliveries_path(mailing.id),
