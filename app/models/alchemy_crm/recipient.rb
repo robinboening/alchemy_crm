@@ -40,11 +40,11 @@ module AlchemyCrm
       recipient
     end
 
-    def self.mass_create(contacts, delivery)
+    def self.mass_create(contacts, delivery_id)
       sql_values = []
       contacts.each do |contact|
         salt = self.generate_salt
-        sql_values << ["('#{contact.email}', #{delivery.id}, #{contact.id}, NOW(), '#{self.generate_sha1(salt)}', '#{salt}')"]
+        sql_values << ["('#{contact.email}', #{delivery_id}, #{contact.id}, NOW(), '#{self.generate_sha1(salt)}', '#{salt}')"]
       end
       if sql_values.any?
         ActiveRecord::Base.connection.execute(

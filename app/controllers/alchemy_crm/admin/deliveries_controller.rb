@@ -35,7 +35,7 @@ module AlchemyCrm
         @delivery = Delivery.new(params[:delivery])
         @mailing = @delivery.mailing = Mailing.find(params[:delivery][:mailing_id])
         if @delivery.save
-          @delivery.send_chunks(
+          @delivery.start!(
             :language_id => session[:language_id],
             :protocol => request.protocol,
             :host => request.host,
