@@ -6,7 +6,7 @@ module AlchemyCrm
 
     belongs_to :page, :dependent => :destroy, :class_name => 'Alchemy::Page'
     has_many :deliveries, :dependent => :destroy
-    has_many :recipients
+    has_many :recipients, :through => :deliveries
     belongs_to :newsletter
 
     validates_presence_of :name
