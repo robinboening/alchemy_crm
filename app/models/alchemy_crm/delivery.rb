@@ -7,10 +7,12 @@ module AlchemyCrm
     belongs_to :mailing
     has_many :recipients, :dependent => :destroy
 
-    after_create :create_recipients
-
     scope :delivered, where("`alchemy_crm_deliveries`.`delivered_at` IS NOT NULL")
     scope :pending, where("`alchemy_crm_deliveries`.`delivered_at` IS NULL")
+
+    def self.settings(name)
+      AlchemyCrm::Config.get(name)
+    end
 
     def delivered?
       !self.delivered_at.nil?
@@ -26,15 +28,12 @@ module AlchemyCrm
 
     # Sending mails in chunks.
     def send_chunks(options={})
-      raise "No Mailing Given" if mailing.blank?
       @chunk_counter = 0
       chunk_count.times do |i|
         send_mail_chunk(options)
         @chunk_counter = i
       end
-      update_column(:delivered_at, Time.now)
     end
-    handle_asynchronously :send_chunks, :run_at => proc { |m| m.deliver_at || Time.now }
 
     # Send the mail chunk via delayed_job and waiting some time before next is enqueued
     def send_mail_chunk(options)
@@ -46,22 +45,20 @@ module AlchemyCrm
     end
     handle_asynchronously :send_mail_chunk, :run_at => proc { |m| (m.chunk_counter * m.class.settings(:send_mail_chunks_every)).minutes.from_now }
 
-    def self.settings(name)
-      AlchemyCrm::Config.get(name)
-    end
-
-  private
-
     # Handles creation of Recipients for Delivery.
-    # This is called before the Delivery is created.
     def create_recipients
-      mailing.contact_ids_not_recieved_email_yet.each_slice(1000) do |contact_ids|
-        mailing.subscribers.where(:id => contact_ids).select("id,email").each_slice(1000) do |subscribers_collection|
-          Recipient.mass_create(subscribers_collection, self)
-        end
+      # The ids collection could be very big, so splitting it into smaller parts will not break the mysql connection
+      mailing.contact_ids_not_recieved_email_yet.each_slice(5000) do |contact_ids|
+        Recipient.mass_create(Contact.where(:id => contact_ids).select("id,email"), self.id)
       end
     end
-    handle_asynchronously :create_recipients
+
+    def start!(options={})
+      create_recipients
+      send_chunks(options)
+      update_column(:delivered_at, Time.now)
+    end
+    handle_asynchronously :start!, :run_at => proc { |m| m.deliver_at || Time.now }
 
   end
 end

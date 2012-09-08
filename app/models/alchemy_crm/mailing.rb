@@ -19,7 +19,7 @@ module AlchemyCrm
       @subscriber_ids ||= Subscription.where(:newsletter_id => self.newsletter_id).select(:contact_id).collect(&:contact_id)
     end
 
-    def subscribers(column_selects="alchemy_crm_contacts.id")
+    def subscribers(column_selects = "alchemy_crm_contacts.id")
       Contact.scoped.where(:id => subscriber_ids).select(column_selects.to_s)
     end
 
