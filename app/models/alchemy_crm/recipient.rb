@@ -44,11 +44,11 @@ module AlchemyCrm
       sql_values = []
       contacts.each do |contact|
         salt = self.generate_salt
-        sql_values << ["('#{contact.email}', #{delivery.id}, #{delivery.mailing_id}, #{contact.id}, NOW(), '#{self.generate_sha1(salt)}', '#{salt}')"]
+        sql_values << ["('#{contact.email}', #{delivery.id}, #{contact.id}, NOW(), '#{self.generate_sha1(salt)}', '#{salt}')"]
       end
       if sql_values.any?
         ActiveRecord::Base.connection.execute(
-          "INSERT INTO #{self.table_name} (email, delivery_id, mailing_id, contact_id, created_at, sha1, salt) VALUES #{sql_values.join(", ")}"
+          "INSERT INTO #{self.table_name} (email, delivery_id, contact_id, created_at, sha1, salt) VALUES #{sql_values.join(", ")}"
         )
       end
     end
