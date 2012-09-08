@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120906181848) do
+ActiveRecord::Schema.define(:version => 20120904001234) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -168,7 +168,6 @@ ActiveRecord::Schema.define(:version => 20120906181848) do
     t.datetime "updated_at"
     t.string   "sha1"
     t.string   "salt"
-    t.integer  "mailing_id"
   end
 
   add_index "alchemy_crm_recipients", ["contact_id"], :name => "index_alchemy_crm_recipients_on_contact_id"
