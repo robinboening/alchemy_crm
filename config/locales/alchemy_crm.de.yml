@@ -113,6 +113,7 @@ de:
     subscribe_form:
       button_label: bestellen
     subscribers_count: 'Anzahl der Abonennten'
+    subscribers_count_not_recieved_email_yet: Erreichbare Empfänger
     successfully_canceled_delivery: 'Der Versand wurde storniert'
     successfully_deleted_tag: "Das Tag wurde gelöscht"
     successfully_imported_contacts: "Kontake wurden importiert"
@@ -142,7 +143,7 @@ de:
         recipients_count: Anzahl der Empfänger
       alchemy_crm/mailing:
         subject: Betreff
-        recipients_count: Anzahl bisheriger Empfänger
+        recipients_count: Erreichte Empfänger
         next_delivery_at: Nächster Versand geplant für
         additional_email_addresses: "zusätzliche E-Mail-Adressen"
       alchemy_crm/newsletter:
