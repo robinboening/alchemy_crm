@@ -56,16 +56,16 @@ module AlchemyCrm
   private
 
     def set_sha1
-      self.salt = self.send(:generate_salt)
-      self.sha1 = self.send(:generate_sha1)
+      self.salt = self.class.generate_salt
+      self.sha1 = self.class.generate_sha1(self.salt)
     end
 
     def self.generate_salt
       [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
     end
 
-    def self.generate_sha1(s=self.salt)
-      Digest::SHA1.hexdigest(Time.now.to_i.to_s + s)
+    def self.generate_sha1(salt)
+      Digest::SHA1.hexdigest(Time.now.to_i.to_s + salt)
     end
 
   end
