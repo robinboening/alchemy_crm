@@ -42,7 +42,7 @@ module AlchemyCrm
     end
 
     def subscribe_contacts_to_newsletter(newsletter)
-      Subscription.mass_create(newsletter, contacts.not_subscribed_to(newsletter).uniq, self.id)
+      Subscription.mass_create(newsletter, contacts.not_subscribed_to(newsletter).select("alchemy_crm_contacts.id").uniq, self.id)
     end
 
   private
