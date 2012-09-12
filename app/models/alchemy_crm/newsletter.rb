@@ -32,6 +32,13 @@ module AlchemyCrm
       NewsletterLayout.display_name_for(layout)
     end
 
+    # Updates all subscription counter caches
+    def update_subscriptions_counter_cache_columns
+      update_column(:subscriptions_count, calculate_subscriptions_count)
+      update_column(:user_subscriptions_count, calculate_user_subscriptions_count)
+      update_column(:contact_group_subscriptions_count, calculate_contact_group_subscriptions_count)
+    end
+
   private
 
     def update_subscriptions
@@ -58,13 +65,6 @@ module AlchemyCrm
           "DELETE FROM alchemy_crm_subscriptions WHERE newsletter_id = '#{self.id}' AND (contact_group_id NOT IN(#{contact_groups.collect(&:id).join(',')}))"
         )
       end
-    end
-
-    # Updates all subscription counter caches
-    def update_subscriptions_counter_cache_columns
-      update_column(:subscriptions_count, calculate_subscriptions_count)
-      update_column(:user_subscriptions_count, calculate_user_subscriptions_count)
-      update_column(:contact_group_subscriptions_count, calculate_contact_group_subscriptions_count)
     end
 
     # Recalculates counter cache for all subscriptions
