@@ -11,7 +11,7 @@ module AlchemyCrm
 
     accepts_nested_attributes_for :filters, :allow_destroy => true
 
-    after_save :calculate_contacts_count
+    after_save :calculate_contacts_count, :update_subscriptions
 
     scope :with_matching_filters, lambda { |attributes|
       attributes_filters = []
@@ -20,7 +20,6 @@ module AlchemyCrm
       end
       joins(:filters).where(["#{attributes_filters.join(' OR ')} AND 1=?", 1])
     }
-
 
     # Returns all non unique contacts.
     #
@@ -53,6 +52,42 @@ module AlchemyCrm
 
     def calculate_contacts_count
       update_column(:contacts_count, contacts.select("alchemy_crm_contacts.id").count(:distinct => true))
+    end
+
+    def update_subscriptions
+      destroy_unused_subscriptions
+      create_new_subscriptions
+      update_newsletters_subscriptions_counter_cache_columns
+    end
+
+    def destroy_unused_subscriptions
+      if contacts_count == 0
+        self.class.connection.execute(
+          "DELETE FROM alchemy_crm_subscriptions WHERE contact_group_id = '#{self.id}'"
+        )
+        return
+      end
+      subscriptions = Subscription.where(:contact_group_id => self.id)
+      subscriptions = subscriptions.where("alchemy_crm_subscriptions.contact_id NOT IN(#{contact_ids.join(',')})")
+      subscription_ids = subscriptions.select("alchemy_crm_subscriptions.id").all.collect(&:id)
+      if subscription_ids.any?
+        self.class.connection.execute(
+          "DELETE FROM alchemy_crm_subscriptions WHERE id IN(#{subscription_ids.join(',')})"
+        )
+      end
+    end
+
+    def create_new_subscriptions
+      return if contacts_count == 0
+      newsletters.select(:id).each do |newsletter|
+        subscribe_contacts_to_newsletter(newsletter)
+      end
+    end
+
+    def update_newsletters_subscriptions_counter_cache_columns
+      newsletters.each do |newsletter|
+        newsletter.update_subscriptions_counter_cache_columns
+      end
     end
 
   end
