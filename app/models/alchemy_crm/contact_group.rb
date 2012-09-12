@@ -32,6 +32,10 @@ module AlchemyCrm
       @contacts ||= Contact.available.joins(:taggings).where(:taggings => {:tag_id => self.contact_tags.collect(&:id)}).where(filters_sql_string)
     end
 
+    def contact_ids
+      @contact_ids ||= contacts.select("alchemy_crm_contacts.id").uniq.collect(&:id)
+    end
+
     def filters_sql_string
       return "" if filters.blank?
       "(#{filters.map(&:sql_string).join(' AND ')})"
