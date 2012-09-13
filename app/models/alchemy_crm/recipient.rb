@@ -3,7 +3,11 @@ module AlchemyCrm
 
     attr_accessible(
       :email,
-      :contact
+      :contact,
+      :reacted,
+      :reacted_at,
+      :read,
+      :read_at
     )
 
     belongs_to :delivery
@@ -37,7 +41,8 @@ module AlchemyCrm
 
     def self.new_from_contact(contact)
       raise "No contact given!" if contact.nil?
-      recipient = new(:contact => contact, :email => contact.email, :sha1 => Digest::SHA1.hexdigest(Time.now.to_i.to_s))
+      recipient = new(:contact => contact, :email => contact.email)
+      recipient.sha1 = Digest::SHA1.hexdigest(Time.now.to_i.to_s)
       recipient.readonly!
       recipient
     end

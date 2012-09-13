@@ -24,7 +24,7 @@ module AlchemyCrm
         helper.render_newsletter_layout.should =~ /<h1>Newsletter/
       end
 
-      it "should render the newsletter layout in plain text" do
+      it "should render the newsletter layout in plain text", :focus => true do
         helper.stub!(:render_elements).and_return("")
         helper.stub!(:configuration).and_return(true)
         helper.request.format = :text

@@ -3,17 +3,19 @@ require 'spec_helper'
 module AlchemyCrm
   describe MailingsController do
 
-    describe '#show' do
+    let(:mailing)          { FactoryGirl.create(:mailing) }
+    let(:contact)          { delivery.recipients.first.contact }
+    let(:delivery)         { FactoryGirl.create(:delivery, :mailing => mailing) }
+    let(:recipient)        { delivery.recipients.first }
+    let(:language_root)    { FactoryGirl.create(:language_root_page) }
+    let(:unsubscribe_page) { FactoryGirl.create(:unsubscribe_page) }
 
-      before(:each) do
-        @newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'newsletter_layout_standard')
-        @mailing = Mailing.create!(:name => 'Mailing', :newsletter => @newsletter)
-      end
+    describe '#show' do
 
       context "receiving an id" do
 
-        before(:each) do
-          get :show, {:id => @mailing.id, :use_route => :alchemy_crm}
+        before do
+          get :show, {:id => mailing.id, :use_route => :alchemy_crm}
         end
 
         it "should have a recipient" do
@@ -28,33 +30,30 @@ module AlchemyCrm
 
       context "receiving a hash and email from recipient with contact" do
 
-        before(:each) do
-          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true})
-          @recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
-          @delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
-          get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
+        before do
+          get :show, {:m => mailing.sha1, :r => recipient.sha1, :use_route => :alchemy_crm}
         end
 
         it "should assign recipient" do
-          assigns(:recipient).should == @recipient
+          assigns(:recipient).should == recipient
         end
 
         it "should assign contact from recipient" do
-          assigns(:contact).should == @contact
+          assigns(:contact).should == contact
         end
 
       end
 
       context "receiving a hash and email from recipient without contact" do
 
-        before(:each) do
-          @recipient = Recipient.create!(:email => 'foo@baz.org')
-          @delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
-          get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
+        before do
+          recipient.contact = nil
+          recipient.save
+          get :show, {:m => mailing.sha1, :r => recipient.sha1, :use_route => :alchemy_crm}
         end
 
         it "should assign recipient" do
-          assigns(:recipient).should == @recipient
+          assigns(:recipient).should == recipient
         end
 
         it "should assign new contact from recipients email" do
@@ -68,17 +67,14 @@ module AlchemyCrm
 
         render_views
 
-        before(:each) do
-          @contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true})
-          @recipient = Recipient.create!(:email => 'foo@baz.org', :contact => @contact)
-          @delivery = Delivery.create!(:recipients => [@recipient], :mailing => @mailing)
-          @language_root = Alchemy::Page.create!(:name => 'Language Root', :page_layout => 'standard', :language => Alchemy::Language.get_default, :parent_id => Alchemy::Page.root.id)
-          @unsubscribe_page = Alchemy::Page.create!(:name => 'Unsubscribe Page', :page_layout => 'newsletter_signout', :parent_id => @language_root.id, :language => Alchemy::Language.get_default)
+        before do
+          language_root
+          unsubscribe_page
         end
 
         it "should render the view." do
           lambda {
-            get :show, {:m => @mailing.sha1, :r => @recipient.sha1, :use_route => :alchemy_crm}
+            get :show, {:m => mailing.sha1, :r => recipient.sha1, :use_route => :alchemy_crm}
           }.should_not raise_error
         end
 

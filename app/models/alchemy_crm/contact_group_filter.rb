@@ -5,7 +5,8 @@ module AlchemyCrm
     attr_accessible(
       :column,
       :operator,
-      :value
+      :value,
+      :contact_group
     )
 
     belongs_to :contact_group

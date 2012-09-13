@@ -16,7 +16,7 @@ module AlchemyCrm
     #
     def render_newsletter_layout(options={})
       options = {:format => 'html'}.update(options)
-      render :partial => "alchemy/newsletter_layouts/#{@page.page_layout.downcase.gsub(Regexp.new(Mailing::MAILING_PAGE_LAYOUT_PREFIX), '')}", :format => options[:format]
+      render :partial => "alchemy/newsletter_layouts/#{@page.page_layout.downcase.gsub(Regexp.new(Mailing::MAILING_PAGE_LAYOUT_PREFIX), '')}", :formats => options[:format]
     end
 
     # Renders the tracking image that records the receivement of the mailing inside the mail client.

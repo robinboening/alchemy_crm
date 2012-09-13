@@ -3,6 +3,7 @@ module AlchemyCrm
   class Mailing < ActiveRecord::Base
 
     attr_accessible(
+      :newsletter,
       :newsletter_id,
       :name,
       :subject,

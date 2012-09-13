@@ -9,18 +9,18 @@ def configure
 
   require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
-  require 'database_cleaner'
-  DatabaseCleaner.strategy = :truncation
-
   require "rails/test_help"
   require "rspec/rails"
   require "email_spec"
+  require 'factory_girl'
 
   ActionMailer::Base.delivery_method = :test
   ActionMailer::Base.perform_deliveries = true
   ActionMailer::Base.default_url_options[:host] = "test.com"
 
   Rails.backtrace_cleaner.remove_silencers!
+  # Disable rails loggin for faster IO. Remove this if you want to have a test.log
+  Rails.logger.level = 4
 
   # Load support files
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
@@ -36,23 +36,20 @@ def configure
     config.use_transactional_fixtures = true
     # == Mock Framework
     config.mock_with :rspec
+    # Make sure the database is clean and ready for test
+    config.before(:suite) do
+      truncate_all_tables
+      Alchemy::Seeder.seed!
+      AlchemyCrm::Seeder.seed!
+    end
   end
 
-end
+  Alchemy::PageLayout.add('name' => 'standard', 'elements' => 'all')
 
-def seed
-  # This code will be run each time you run your specs.
-  DatabaseCleaner.clean
-
-  # Seed the database
-  Alchemy::Seeder.seed!
-  AlchemyCrm::Seeder.seed!
 end
 
 if defined?(Spork)
-  Spork.prefork  { configure }
-  Spork.each_run { seed }
+  Spork.prefork { configure }
 else
   configure
-  seed
 end
