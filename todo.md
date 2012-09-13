@@ -4,25 +4,18 @@
 
 * Perhaps: Asynchronous creation of subscriptions
 
-## after saving ContactGroup
+## Current Signout function
 
-* Adding subscriptions after saving contact_groups
+* should use Subscription removing
 
-* Remove subscriptions after saving contact_groups
+## Specs
 
-* Update contacts counter_cache column
+* sqlite3 throws ugly error for manually used insert statements. (see Subscription.mass_create and also Recipient.mass_create)
 
-## E-Mail delivering
+## Investigations
 
+* Why not creating Recipients for additional email adresses? Everyone who recieves an email is a recipient. Currently we are sending mails to recipients only, so additional email addresses will be ignored.
 
 ## Misc
 
-* Do we really need the :wants attribute on subscription? (If a user dont want to get a newsletter, he needs no subscription.)
-
 * When a user subscribes to a newsletter, the subscription will not be created because he is not verified. We need to create the subscription when the user verifies his contact.
-
-## SQL Indexes
-
-* alchemy_crm_contacts: verfied + disabled => available
-
-* on contact_group_id column on alchemy_crm_subscriptions
