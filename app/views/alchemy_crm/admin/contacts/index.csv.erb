@@ -1,0 +1,7 @@
+<%- csv = CSV.generate(:col_sep => ";", :row_sep => "\r\n") do |csv| -%>
+  <%- csv << AlchemyCrm::Contact::COLUMN_NAMES.collect(&:first) -%>
+  <%- @contacts.each do |contact| -%>
+    <%- csv << AlchemyCrm::Contact::SEARCHABLE_ATTRIBUTES.map { |a| contact.send(a) } -%>
+  <%- end -%>
+<%- end -%>
+<%= csv %>

@@ -47,16 +47,34 @@ module AlchemyCrm
     scope :enabled, where(:disabled => false)
     scope :available, verified.enabled
 
+    SEARCHABLE_ATTRIBUTES = [
+      "salutation",
+      "title",
+      "firstname",
+      "lastname",
+      "company",
+      "address",
+      "zip",
+      "city",
+      "country",
+      "email",
+      "phone",
+      "mobile"
+    ]
+
     COLUMN_NAMES = [
-      [::I18n.t(:title, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Title'), "title"],
       [::I18n.t(:salutation, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Salutation'), "salutation"],
+      [::I18n.t(:title, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Title'), "title"],
       [::I18n.t(:firstname, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Firstname'), "firstname"],
       [::I18n.t(:lastname, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Lastname'), "lastname"],
+      [::I18n.t(:company, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Company'), "company"],
       [::I18n.t(:address, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Address'), "address"],
       [::I18n.t(:zip, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Zipcode'), "zip"],
       [::I18n.t(:city, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'City'), "city"],
       [::I18n.t(:country, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Country'), "country"],
-      [::I18n.t(:company, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Company'), "company"]
+      [::I18n.t(:email, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Email'), "email"],
+      [::I18n.t(:phone, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Phone'), "phone"],
+      [::I18n.t(:mobile, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => 'Mobile'), "mobile"]
     ]
 
     INTERPOLATION_NAME_METHODS = %w(fullname name_with_title firstname lastname name email)

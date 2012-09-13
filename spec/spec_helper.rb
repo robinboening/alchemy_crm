@@ -15,6 +15,10 @@ def configure
   require "rails/test_help"
   require "rspec/rails"
   require "email_spec"
+  require 'factory_girl'
+
+  require 'authlogic/test_case'
+  include Authlogic::TestCase
 
   ActionMailer::Base.delivery_method = :test
   ActionMailer::Base.perform_deliveries = true

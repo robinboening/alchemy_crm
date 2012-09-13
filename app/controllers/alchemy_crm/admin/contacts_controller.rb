@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 module AlchemyCrm
   module Admin
     class ContactsController < AlchemyCrm::Admin::BaseController
@@ -24,6 +25,25 @@ module AlchemyCrm
       )
 
       before_filter :load_tags, :only => [:new, :edit]
+
+      def index
+        if params[:query].blank?
+          @contacts = Contact.scoped
+        else
+          search_terms = ActiveRecord::Base.sanitize("%#{params[:query]}%")
+          @contacts = Contact.where(Contact::SEARCHABLE_ATTRIBUTES.map { |attribute|
+            "#{Contact.table_name}.#{attribute} LIKE #{search_terms}"
+          }.join(" OR "))
+        end
+        respond_to do |format|
+          format.html {
+            @contacts = @contacts.page(params[:page] || 1).per(per_page_value_for_screen_size)
+          }
+          format.csv {
+            send_data render_to_string, :content_type => 'text/csv', :disposition => 'attachment', :filename => "contacts-#{Time.now.strftime('%Y-%m-%d_%H-%M')}.csv"
+          }
+        end
+      end
 
       def new
         @contact = Contact.new(:country => ::I18n.locale.to_s.upcase)
