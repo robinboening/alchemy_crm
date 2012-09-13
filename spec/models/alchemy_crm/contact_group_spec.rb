@@ -63,10 +63,13 @@ module AlchemyCrm
 
       describe "before_save" do
 
-        describe "#calculate contacts_count" do
+        describe "#calculate_contacts_count" do
 
-          it "should increment the contacts_count" do
-            # contact_group.contacts_count.should == 1
+          it "should decrement the contacts_count" do
+            count = contact_group.contacts_count
+            contact_1.tag_list = ""
+            contact_group.save
+            contact_group.contacts_count.should == count-1
           end
 
         end
