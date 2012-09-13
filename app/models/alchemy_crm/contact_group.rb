@@ -28,7 +28,7 @@ module AlchemyCrm
     #
     # CAUTION: Can contain duplicates. Always use it with #uniq
     def contacts
-      @contacts ||= Contact.available.joins(:taggings).where(:taggings => {:tag_id => self.contact_tags.collect(&:id)}).where(filters_sql_string)
+      Contact.available.joins(:taggings).where(:taggings => {:tag_id => self.contact_tags.collect(&:id)}).where(filters_sql_string)
     end
 
     def contact_ids
