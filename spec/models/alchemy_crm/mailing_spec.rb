@@ -26,17 +26,15 @@ module AlchemyCrm
 
     end
 
-    describe "#contacts" do
+    describe "#subscribers" do
 
       before(:each) do
-        @verified_contact = Contact.new(:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr')
-        @verified_contact.verified = true
-        @verified_contact.save!
+        @verified_contact = Contact.create(:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true)
         @subscription = Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :wants => true)
       end
 
-      it "should return all contacts from additional email addresses and newsletter contacts" do
-        @mailing.contacts.collect(&:email).should == ["jon@doe.com", "jim@family.com", "jane@family.com"]
+      it "should return all subscribers from associated newsletter" do
+        @mailing.subscribers("alchemy_crm_contacts.email").collect(&:email).should == ["jon@doe.com"]
       end
 
     end
