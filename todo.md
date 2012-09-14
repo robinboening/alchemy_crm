@@ -16,6 +16,10 @@
 
 * Rebase alchemy_crm v2.0 into this branch.
 
+* Signout must be viewed.
+
+* Signup process must be viewed.
+
 ## Investigations
 
 * Why not creating Recipients for additional email adresses? Everyone who receives an email is a recipient. Currently we are sending mails to recipients only, so additional email addresses will be ignored.
