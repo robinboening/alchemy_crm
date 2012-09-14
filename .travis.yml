@@ -8,5 +8,5 @@ branches:
   only:
     - 2.0-stable
 before_script:
-  - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:schema:load'"
+  - "sh -c 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:setup'"
 script: "bundle exec rspec spec"

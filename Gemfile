@@ -12,7 +12,6 @@ group :development do
 end
 
 group :test do
-  gem 'sqlite3'
   gem "database_cleaner"
   gem 'email_spec'
   gem 'factory_girl'
