@@ -33,7 +33,7 @@
     {
       :icon => :file_download,
       :label => alchemy_crm_t(:export_contacts),
-      :url => alchemy_crm.admin_contacts_path(:format => :csv),
+      :url => alchemy_crm.admin_contacts_path(:format => :csv, :query => params[:query]),
       :title => alchemy_crm_t(:export_contacts),
       :overlay => false,
       :loading_indicator => false,

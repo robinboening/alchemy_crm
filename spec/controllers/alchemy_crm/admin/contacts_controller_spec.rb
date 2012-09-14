@@ -8,7 +8,7 @@ module AlchemyCrm
     describe 'csv rendering' do
 
       let(:contact) { FactoryGirl.create(:contact) }
-      let(:jane)    { FactoryGirl.create(:contact, :salutation => 'mrs', :firstname => 'Jane', :email => 'jane@doe.com') }
+      let(:jane)    { FactoryGirl.create(:contact, :salutation => 'ms', :firstname => 'Jane', :email => 'jane@doe.com') }
 
       before do
         activate_authlogic
@@ -25,6 +25,11 @@ module AlchemyCrm
       it "csv file should contain translated headers" do
         get :index, :format => 'csv', :use_route => :alchemy_crm
         response.body.should match /Firstname/
+      end
+
+      it "csv file should contain translated salutation" do
+        get :index, :format => 'csv', :use_route => :alchemy_crm
+        response.body.should match /Mr/
       end
 
       it "contacts shouldn't be paginated" do

@@ -1,7 +1,7 @@
-<%- csv = CSV.generate(:col_sep => ";", :row_sep => "\r\n") do |csv| -%>
-  <%- csv << AlchemyCrm::Contact::COLUMN_NAMES.collect(&:first) -%>
+<%- csv = CSV.generate(:col_sep => ";", :row_sep => "\r\n", :force_quotes => true) do |csv| -%>
+  <%- csv << @columns.map { |h| ::I18n.t(h, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => h.humanize) } -%>
   <%- @contacts.each do |contact| -%>
-    <%- csv << AlchemyCrm::Contact::SEARCHABLE_ATTRIBUTES.map { |a| contact.send(a) } -%>
+    <%- csv << @columns.map { |a| value = contact.send(a).to_s.strip; a == 'salutation' && !value.blank? ? ::I18n.t(value.to_sym, :scope => 'alchemy_crm.salutations', :default => value) : value } -%>
   <%- end -%>
 <%- end -%>
-<%= csv %>
+<%=raw csv %>

@@ -40,6 +40,7 @@ module AlchemyCrm
             @contacts = @contacts.page(params[:page] || 1).per(per_page_value_for_screen_size)
           }
           format.csv {
+            @columns = AlchemyCrm::Contact::EXPORTABLE_COLUMNS
             send_data render_to_string, :content_type => 'text/csv', :disposition => 'attachment', :filename => "contacts-#{Time.now.strftime('%Y-%m-%d_%H-%M')}.csv"
           }
         end
