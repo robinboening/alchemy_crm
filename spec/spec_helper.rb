@@ -42,6 +42,8 @@ def configure
     config.mock_with :rspec
   end
 
+  Alchemy::PageLayout.add('name' => 'standard', 'elements' => 'all')
+
 end
 
 def seed
