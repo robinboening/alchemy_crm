@@ -10,7 +10,7 @@ module AlchemyCrm
 
     before_create :set_sha1
 
-    scope :not_recieved_email, where(:message_id => nil)
+    scope :not_received_email, where(:message_id => nil)
     scope :got_email, where("alchemy_crm_recipients.message_id IS NOT NULL")
 
     def mail_to

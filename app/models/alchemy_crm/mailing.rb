@@ -31,14 +31,14 @@ module AlchemyCrm
       @recipients_contact_ids ||= recipients.select(:contact_id).collect(&:contact_id)
     end
 
-    def contact_ids_not_recieved_email_yet
+    def contact_ids_not_received_email_yet
       subscriber_ids - recipients_contact_ids
     end
 
-    def subscribers_count_not_recieved_email_yet
+    def subscribers_count_not_received_email_yet
       return newsletter_subscriptions_count if recipients.empty?
       return 0 if subscriber_ids.blank?
-      contact_ids_not_recieved_email_yet.count
+      contact_ids_not_received_email_yet.count
     end
 
     # Return a list of email addresses from additional_email_addresses field.
