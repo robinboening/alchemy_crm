@@ -59,7 +59,13 @@ module AlchemyCrm
       "country",
       "email",
       "phone",
-      "mobile"
+      "mobile",
+      "cached_tag_list"
+    ]
+
+    EXPORTABLE_COLUMNS = SEARCHABLE_ATTRIBUTES + [
+      "verified",
+      "disabled"
     ]
 
     COLUMN_NAMES = [
