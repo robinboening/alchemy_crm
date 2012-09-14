@@ -52,6 +52,7 @@ de:
     errors_while_importing: 'Es sind Fehler beim Importieren aufgetaucht!'
     errors_while_importing_contacts: 'Diese Kontakte konnten auf Grund von Fehlern nicht importiert werden:'
     export_contact: Kontakt exportieren
+    export_contacts: Kontakte exportieren
     fake_contact_attributes:
       firstname: Kim
       lastname: Muster

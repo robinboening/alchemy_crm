@@ -29,6 +29,15 @@
         :size => '400x300'
       },
       :if_permitted_to => [:import, :alchemy_crm_admin_contacts]
+    },
+    {
+      :icon => :file_download,
+      :label => alchemy_crm_t(:export_contacts),
+      :url => alchemy_crm.admin_contacts_path(:format => :csv),
+      :title => alchemy_crm_t(:export_contacts),
+      :overlay => false,
+      :loading_indicator => false,
+      :if_permitted_to => [:index, :alchemy_crm_admin_contacts]
     }
   ]
 ) %>
