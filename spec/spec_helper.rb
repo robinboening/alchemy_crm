@@ -15,6 +15,7 @@ def configure
   require "rails/test_help"
   require "rspec/rails"
   require "email_spec"
+  require 'factory_girl'
 
   ActionMailer::Base.delivery_method = :test
   ActionMailer::Base.perform_deliveries = true
@@ -37,6 +38,8 @@ def configure
     # == Mock Framework
     config.mock_with :rspec
   end
+
+  Alchemy::PageLayout.add('name' => 'standard', 'elements' => 'all')
 
 end
 
