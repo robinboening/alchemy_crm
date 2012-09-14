@@ -104,6 +104,7 @@ de:
     salutations:
       mr: Herr
       ms: Frau
+      mrs: Frau
     sent_mailings: 'Versendete Mailings'
     seperate_tags_with_comma: 'Mehrere Tags mit Komma trennen.'
     seperate_emails_with_comma: 'Die E-Mail-Adressen bitte mit Komma trennen.'
@@ -153,10 +154,10 @@ de:
         contact_group_contacts_count: Anzahl der Zielgruppenkontakte
         contact_groups: Zielgruppen
       alchemy_crm/contact:
-        salutation: "Anrede*"
+        salutation: Anrede
         title: Titel
-        firstname: "Vorname*"
-        lastname: "Name*"
+        firstname: Vorname
+        lastname: Name
         company: Firma
         address: Adresse
         zip: PLZ
@@ -164,10 +165,11 @@ de:
         country: Land
         phone: Telefon
         mobile: Mobil
-        email: "E-Mail*"
+        email: E-Mail
         verified: verifiziert
         disabled: abgemeldet
         tag_list: Tags
+        cached_tag_list: Tags
       alchemy_crm/contact_group:
         contacts_count: Anzahl der Kontakte
     errors:

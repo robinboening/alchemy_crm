@@ -23,6 +23,7 @@ en:
     salutations:
       mr: Mr
       ms: Ms
+      mrs: Mrs
     show_as_plain_text: "Show as plain text"
     show_statistics: "Statistics for %{name} from %{date}"
     subscribe_form:
@@ -33,10 +34,8 @@ en:
   activerecord:
     attributes:
       alchemy_crm/contact:
-        salutation: "Salutation*"
-        firstname: "Firstname*"
-        lastname: "Lastname*"
         tag_list: Tags
+        cached_tag_list: Tags
         disabled: unsubscribed
     errors:
       models:
