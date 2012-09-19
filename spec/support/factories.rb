@@ -19,7 +19,7 @@ FactoryGirl.define do
   factory :contact, :class => 'AlchemyCrm::Contact' do
     email       'jon@doe.com'
     firstname   { email.split('@').first.humanize }
-    lastname    { email.split('@').first.split('.').first.humanize }
+    lastname    { email.split('@')[1].split('.').first.humanize }
     salutation  'mr'
 
     factory :verified_contact do

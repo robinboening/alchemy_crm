@@ -7,7 +7,8 @@ module AlchemyCrm
 
       let(:mailing)          { FactoryGirl.create(:mailing) }
       let(:element)          { mailing.page.elements.first }
-      let(:recipient)        { mailing.recipients.first }
+      let(:verified_contact) { FactoryGirl.create(:verified_contact) }
+      let(:recipient)        { FactoryGirl.create(:recipient, :contact => verified_contact, :email => verified_contact.email) }
       let(:language_root)    { FactoryGirl.create(:language_root_page) }
       let(:unsubscribe_page) { FactoryGirl.create(:unsubscribe_page) }
       let(:email)            { MailingsMailer.build(mailing, recipient, {:host => ActionMailer::Base.default_url_options[:host], :language_id => Alchemy::Language.get_default.id}).deliver }
@@ -32,7 +33,7 @@ module AlchemyCrm
       end
 
       it "should deliver to recipient's email." do
-        email.should deliver_to(recipient.email)
+        email.should deliver_to("Jon Doe <jon@doe.com>")
       end
 
       it "should have mailing's subject." do
@@ -43,4 +44,3 @@ module AlchemyCrm
 
   end
 end
-
