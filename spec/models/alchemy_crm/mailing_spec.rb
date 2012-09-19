@@ -3,38 +3,67 @@ require 'spec_helper'
 module AlchemyCrm
   describe Mailing do
 
-    before(:all) do
-      @mailing = Mailing.new(:name => 'Baz Mailing', :additional_email_addresses => "jim@family.com, jon@doe.com, jane@family.com, \n")
-      @newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'newsletter_layout_standard')
-      @mailing.newsletter = @newsletter
-      @mailing.save!
-    end
+    let(:newsletter)       { FactoryGirl.create(:newsletter) }
+    let(:mailing)          { FactoryGirl.create(:mailing, :newsletter => newsletter) }
+    let(:verified_contact) { FactoryGirl.create(:verified_contact) }
+    let(:delivery)         { FactoryGirl.create(:delivery, :mailing => mailing) }
+    let(:recipients)       { delivery.recipients.create!(:contact => verified_contact, :email => verified_contact.email) }
 
     describe "#additional_emails" do
 
       it "should return an array with email adresses" do
-        @mailing.additional_emails.should == ["jim@family.com", "jon@doe.com", "jane@family.com"]
-      end
-
-    end
-
-    describe "#contacts_from_additional_email_addresses" do
-
-      it "should return an array of contacts" do
-        @mailing.contacts_from_additional_email_addresses.collect(&:email).should == ["jim@family.com", "jon@doe.com", "jane@family.com"]
+        mailing.additional_emails.should == ["jim@family.com", "jon@doe.com", "jane@family.com"]
       end
 
     end
 
     describe "#subscribers" do
 
-      before(:each) do
-        @verified_contact = Contact.create(:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true)
-        @subscription = Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :wants => true)
-      end
+      let(:subscription)     { Subscription.create!(:contact => verified_contact, :newsletter => newsletter, :wants => true) }
+
+      before { subscription }
 
       it "should return all subscribers from associated newsletter" do
-        @mailing.subscribers("alchemy_crm_contacts.email").collect(&:email).should == ["jon@doe.com"]
+        mailing.subscribers("alchemy_crm_contacts.email").collect(&:email).should == ["jon@doe.com"]
+      end
+
+    end
+
+    describe '#subscriber_ids' do
+
+      let(:emails)        { ["jim@family.com", "jon@doe.com", "jane@family.com", "john@gmail.com", "jaja@binks.com", "lulu@fame.org"] }
+      let(:subscriptions) { emails.map { |email| Subscription.create!(:contact => FactoryGirl.create(:contact, :email => email), :newsletter => newsletter) } }
+
+      before { subscriptions }
+
+      it "should return ids from subscribers" do
+        mailing.subscriber_ids.should == subscriptions.collect(&:id)
+      end
+
+    end
+
+    describe '#recipients_contact_ids' do
+
+      before { recipients }
+
+      it "should return contact ids from recipients" do
+        mailing.recipients_contact_ids.should == delivery.recipients.collect(&:contact_id)
+      end
+
+    end
+
+    describe '#contact_ids_not_received_email_yet' do
+
+      let(:new_subscriber) { FactoryGirl.create(:verified_contact, :email => 'jane@miller.com') }
+
+      before do
+        newsletter.subscriptions.create(:contact => verified_contact)
+        recipients
+        newsletter.subscriptions.create(:contact => new_subscriber)
+      end
+
+      it "should return ids from contacts that are not recipients yet" do
+        mailing.contact_ids_not_received_email_yet.should == [new_subscriber.id]
       end
 
     end
@@ -42,8 +71,8 @@ module AlchemyCrm
     describe '#before_create' do
 
       it "should set sha1 and salt" do
-        @mailing.sha1.should_not be_nil
-        @mailing.salt.should_not be_nil
+        mailing.sha1.should_not be_nil
+        mailing.salt.should_not be_nil
       end
 
     end
@@ -51,14 +80,10 @@ module AlchemyCrm
     describe '#after_create' do
 
       it "should create a page with correct page layout" do
-        @mailing.page.should be_an_instance_of(Alchemy::Page)
-        @mailing.page.page_layout.should == "newsletter_layout_standard"
+        mailing.page.should be_an_instance_of(Alchemy::Page)
+        mailing.page.page_layout.should == "newsletter_layout_standard"
       end
 
-    end
-
-    after(:all) do
-      @mailing.destroy
     end
 
   end
