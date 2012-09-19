@@ -308,7 +308,7 @@ module AlchemyCrm
 
     def create_new_subscriptions
       contact_groups_newsletters.each do |newsletter|
-        if !subscriptions.collect(&:newsletter_id).include?(newsletter.id)
+        if !subscriptions.all.collect(&:newsletter_id).include?(newsletter.id)
           contact_group = (contact_groups & newsletter.contact_groups).first
           subscribe(newsletter, contact_group.id)
         end

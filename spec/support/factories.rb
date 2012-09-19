@@ -13,13 +13,13 @@ FactoryGirl.define do
 
   factory :recipient, :class => 'AlchemyCrm::Recipient' do
     email  'foo@baz.org'
-    contact { FactoryGirl.create :verified_contact }
+    contact { FactoryGirl.create :verified_contact, :email => email }
   end
 
   factory :contact, :class => 'AlchemyCrm::Contact' do
     email       'jon@doe.com'
-    firstname   'Jon'
-    lastname    'Doe'
+    firstname   { email.split('@').first.humanize }
+    lastname    { email.split('@').first.split('.').first.humanize }
     salutation  'mr'
 
     factory :verified_contact do

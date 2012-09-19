@@ -3,12 +3,12 @@ require 'spec_helper'
 module AlchemyCrm
   describe Contact do
 
-    let(:contact_group) { ContactGroup.create!({:name => 'foobazers', :contact_tag_list => 'foo, baz'}) }
-    let(:jons) { ContactGroup.create!({:name => 'jons'}) }
-    let(:jons_letter) { Newsletter.create!(:name => "jons_letter", :layout => "standard") }
-    let(:newsletter) { Newsletter.create!(:name => "News", :layout => "standard") }
+    let(:contact_group)      { ContactGroup.create!({:name => 'foobazers', :contact_tag_list => 'foo, baz'}) }
+    let(:jons)               { ContactGroup.create!({:name => 'jons'}) }
+    let(:jons_letter)        { Newsletter.create!(:name => "jons_letter", :layout => "standard") }
+    let(:newsletter)         { Newsletter.create!(:name => "News", :layout => "standard") }
     let(:unverified_contact) { Contact.create!({:email => 'hacker@h4ck3r.com', :firstname => 'Erwin', :lastname => 'Evil', :salutation => 'mr', :verified => false, :tag_list => 'foo, bar'}) }
-    let(:disabled_contact) { Contact.create!({:email => 'tester@test.com', :firstname => 'Peter', :lastname => 'Nameless', :salutation => 'mr', :verified => true, :disabled => true, :tag_list => 'foo, bar'}) }
+    let(:disabled_contact)   { Contact.create!({:email => 'tester@test.com', :firstname => 'Peter', :lastname => 'Nameless', :salutation => 'mr', :verified => true, :disabled => true, :tag_list => 'foo, bar'}) }
 
     before(:all) do
       @contact = Contact.create!({:email => 'jon@doe.com', :title => 'Dr.', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true, :tag_list => 'foo, bar'})
