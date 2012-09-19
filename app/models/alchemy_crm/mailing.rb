@@ -16,7 +16,7 @@ module AlchemyCrm
     after_create :create_page
 
     def subscriber_ids
-      @subscriber_ids ||= Subscription.where(:newsletter_id => self.newsletter_id).select(:contact_id).collect(&:contact_id)
+      Subscription.where(:newsletter_id => self.newsletter_id).select(:contact_id).collect(&:contact_id)
     end
 
     def subscribers(column_selects = "alchemy_crm_contacts.id")
@@ -24,11 +24,11 @@ module AlchemyCrm
     end
 
     def newsletter_subscriptions_count
-      @subscriptions_count ||= newsletter.subscriptions_count
+      newsletter.subscriptions_count
     end
 
     def recipients_contact_ids
-      @recipients_contact_ids ||= recipients.select(:contact_id).collect(&:contact_id)
+      recipients.select(:contact_id).collect(&:contact_id)
     end
 
     def contact_ids_not_received_email_yet

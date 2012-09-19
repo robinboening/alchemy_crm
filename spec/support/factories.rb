@@ -28,7 +28,6 @@ FactoryGirl.define do
   end
 
   factory :delivery, :class => 'AlchemyCrm::Delivery' do
-    recipients { [FactoryGirl.create(:recipient)] }
     mailing    { FactoryGirl.create(:mailing) }
   end
 

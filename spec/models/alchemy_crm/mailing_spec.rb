@@ -32,12 +32,12 @@ module AlchemyCrm
     describe '#subscriber_ids' do
 
       let(:emails)        { ["jim@family.com", "jon@doe.com", "jane@family.com", "john@gmail.com", "jaja@binks.com", "lulu@fame.org"] }
-      let(:subscriptions) { emails.map { |email| Subscription.create!(:contact => FactoryGirl.create(:contact, :email => email), :newsletter => newsletter) } }
+      let(:subscriptions) { emails.map { |email| Subscription.create!(:contact => FactoryGirl.create(:verified_contact, :email => email), :newsletter => newsletter) } }
 
       before { subscriptions }
 
       it "should return ids from subscribers" do
-        mailing.subscriber_ids.should == subscriptions.collect(&:id)
+        mailing.subscriber_ids.sort.should == subscriptions.collect(&:contact_id)
       end
 
     end
@@ -52,14 +52,14 @@ module AlchemyCrm
 
     end
 
-    describe '#contact_ids_not_received_email_yet' do
+    describe '#contact_ids_not_received_email_yet', :focus => true do
 
       let(:new_subscriber) { FactoryGirl.create(:verified_contact, :email => 'jane@miller.com') }
 
       before do
-        newsletter.subscriptions.create(:contact => verified_contact)
+        Subscription.create!(:contact_id => verified_contact.id, :newsletter_id => newsletter.id)
         recipients
-        newsletter.subscriptions.create(:contact => new_subscriber)
+        Subscription.create!(:contact_id => new_subscriber.id, :newsletter_id => newsletter.id)
       end
 
       it "should return ids from contacts that are not recipients yet" do
