@@ -76,6 +76,9 @@ module AlchemyCrm
       mailing.pending_subscriber_ids_and_emails_hash.each_slice(5000) do |subscriber_ids_and_emails|
         Recipient.mass_create(self.id, subscriber_ids_and_emails)
       end
+      if mailing.additional_emails.any?
+        Recipient.mass_create(self.id, mailing.additional_emails.map { |email| [email, nil] })
+      end
     end
 
   end

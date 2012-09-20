@@ -34,8 +34,11 @@ FactoryGirl.define do
   factory :mailing, :class => 'AlchemyCrm::Mailing' do
     name                       'Mailing'
     subject                    'News Mailing'
-    additional_email_addresses "jim@family.com, jon@doe.com, jane@family.com, \n"
     newsletter                 { FactoryGirl.create :newsletter }
+
+    factory :mailing_with_additional_email_addresses do
+      additional_email_addresses "jim@family.com, jon@doe.com, jane@family.com, \n"
+    end
   end
 
   factory :newsletter, :class => 'AlchemyCrm::Newsletter' do

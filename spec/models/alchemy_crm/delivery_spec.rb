@@ -29,16 +29,29 @@ module AlchemyCrm
         MailingsMailer.stub!(:build).and_return(OpenStruct.new(:deliver => OpenStruct.new(:message_id => 1)))
       end
 
-      it "should create recipients from mailings recipients" do
+      it "should create recipients from mailings subscribers" do
         delivery.start!
         delivery.recipients.all.first.should be_an_instance_of(Recipient)
-        delivery.recipients.count.should == mailing.recipients.count
+        delivery.recipients.count.should == mailing.subscribers.count
+      end
+
+      context 'with mailing having additional email adresses' do
+
+        let(:mailing)  { FactoryGirl.create(:mailing_with_additional_email_addresses) }
+        let(:delivery) { FactoryGirl.create(:delivery, :mailing => mailing) }
+
+        it "should create recipients from additional email adresses" do
+          delivery.start!
+          delivery.recipients.all.first.should be_an_instance_of(Recipient)
+          delivery.recipients.count.should == mailing.additional_emails.count
+        end
+
       end
 
       context "with mailing having former deliveries" do
 
-        let(:more_emails)     { %w(tim@struppi.de mickey@mouse.com) }
-        let(:new_delivery)    { FactoryGirl.create(:delivery, :mailing => mailing) }
+        let(:more_emails)  { %w(tim@struppi.de mickey@mouse.com) }
+        let(:new_delivery) { FactoryGirl.create(:delivery, :mailing => mailing) }
 
         before do
           delivery.start!

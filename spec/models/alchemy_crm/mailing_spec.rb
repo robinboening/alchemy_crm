@@ -4,7 +4,7 @@ module AlchemyCrm
   describe Mailing do
 
     let(:newsletter)       { FactoryGirl.create(:newsletter) }
-    let(:mailing)          { FactoryGirl.create(:mailing, :newsletter => newsletter) }
+    let(:mailing)          { FactoryGirl.create(:mailing_with_additional_email_addresses, :newsletter => newsletter) }
     let(:verified_contact) { FactoryGirl.create(:verified_contact) }
     let(:delivery)         { FactoryGirl.create(:delivery, :mailing => mailing) }
     let(:recipients)       { delivery.recipients.create!(:contact => verified_contact, :email => verified_contact.email) }
