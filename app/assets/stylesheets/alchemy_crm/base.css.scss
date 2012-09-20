@@ -53,6 +53,8 @@ span.icon.tag_add {
 span.icon.tag {
   background: image-url('alchemy_crm/tag-icons.png') 0 0;
   margin-right: 0;
+  padding: 0;
+
 }
 
 a.icon.tag_edit {
@@ -264,6 +266,57 @@ div.tag_list {
   overflow: auto;
 }
 
+td#contact_group_tags {
+  text-align: left;
+
+  span.tag {
+    margin: 0 8px 8px 0;
+    display: inline-block;
+    background-color: #ddd;
+    padding: 4px 12px;
+    border-radius: 10px;
+    line-height: 1;
+  }
+
+  ul.tags {
+    max-height: 10em;
+    padding: 1px;
+    margin: 0;
+    margin-top: 2px;
+    overflow: auto;
+    text-align: left;
+    list-style-type: none;
+
+    li {
+      background-color: white;
+      padding: 4px;
+      margin: 0;
+
+      &.odd {
+        background-color: #eaf3f9;
+      }
+    }
+  }
+
+  .js_filter_field_box {
+    float: none;
+    margin: 0;
+
+    .js_filter_field {
+      width: 260px;
+      border-radius: 3px;
+      -o-border-radius: 3px;
+      -ms-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+    }
+
+    label {
+      display: none
+    }
+  }
+}
+
 .tag_with_radio_button input, .tag_with_radio_button label.tag {
   padding: 0;
   width: auto;
@@ -393,7 +446,7 @@ a.send_mailing_button:hover {
 }
 
 span.tag {
-  margin-right: 12px;
+  margin-right: 4px;
   float: left;
 }
 

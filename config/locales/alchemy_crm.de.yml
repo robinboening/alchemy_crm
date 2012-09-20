@@ -9,6 +9,8 @@ de:
     add_filter: 'Filter hinzufügen'
     add_mailing: 'Neues Mailing'
     add_newsletter: 'Neuen Newsletter anlegen'
+    add_or_remove_tags: 'Tags hinzufügen oder entfernen'
+    already_chosen_tags: 'Bereits gewählte Tags'
     "New Tag": "Neues Tag"
     "New Tag Created": "Neues Tag wurde erstellt"
     "Send Mailing": "Mailing versenden"

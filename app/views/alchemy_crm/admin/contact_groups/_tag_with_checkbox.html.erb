@@ -1,0 +1,7 @@
+<li class="<%= cycle('even', 'odd') %>" name="<%= tag_with_checkbox.name.downcase %>">
+  <%= check_box_tag name + "[contact_tag_list][]", tag_with_checkbox.name, tags.include?(tag_with_checkbox), :id => tag_with_checkbox.name + "_contact_tag_list" %>
+  <label for="<%= tag_with_checkbox.name + "_contact_tag_list" %>" class="tag">
+    <%= tag_with_checkbox.name %>
+    <%= contact_count_from_tag(tag_with_checkbox) %>
+  </label>
+</li>

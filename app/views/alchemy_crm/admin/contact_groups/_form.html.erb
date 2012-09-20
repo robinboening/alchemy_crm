@@ -6,15 +6,25 @@
         <%= f.label :name %>
       </td>
       <td class="input">
-        <%= f.text_field :name, :class => "thin_border", :style => 'margin-right: 24px' %>
+        <%= f.text_field :name, :class => "thin_border very_long" %>
       </td>
     </tr>
     <tr>
       <td class="label">
         <label><%= alchemy_crm_t(:contacts_tagged_with) %></label>
       </td>
-      <td class="input">
-        <%= render :partial => "tag", :collection => @tags, :locals => {:tags => @contact_group.contact_tags, :name => "contact_group" } %>
+      <td class="input" id="contact_group_tags">
+        <% if @contact_group.contact_tags.any? %>
+        <h3><%= alchemy_crm_t(:already_chosen_tags) %></h3>
+        <p class="chosen_tags">
+          <%= render :partial => "tag", :collection => @contact_group.contact_tags %>
+        </p>
+        <% end %>
+        <h3><%= alchemy_crm_t(:add_or_remove_tags) %></h3>
+        <%= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list li')" %>
+        <ul id="tag_list" class="tags">
+          <%= render :partial => "tag_with_checkbox", :collection => @tags, :locals => {:tags => @contact_group.contact_tags, :name => "contact_group" } %>
+        </ul>
       </td>
     </tr>
     <% unless @contact_group.new_record? -%>
