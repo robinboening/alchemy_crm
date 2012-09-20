@@ -116,7 +116,7 @@ de:
     show_statistics: "Statistiken für %{name} vom %{date}"
     subscribe_form:
       button_label: bestellen
-    subscribers_count: 'Anzahl der Abonennten'
+    subscribers_count: 'Anzahl der Abonnenten'
     pending_subscribers_count: Ausstehende Empfänger
     successfully_canceled_delivery: 'Der Versand wurde storniert'
     successfully_deleted_tag: "Das Tag wurde gelöscht"
@@ -153,7 +153,7 @@ de:
       alchemy_crm/newsletter:
         public: 'öffentlich?'
         contacts_count: Empfänger insgesamt
-        subscribers_count: Anzahl der Abonennten
+        subscribers_count: Anzahl der Abonnenten
         contact_group_contacts_count: Anzahl der Zielgruppenkontakte
         contact_groups: Zielgruppen
       alchemy_crm/contact:
