@@ -28,7 +28,7 @@ en:
     show_statistics: "Statistics for %{name} from %{date}"
     subscribe_form:
       button_label: subscribe
-    subscribers_count_not_received_email_yet: reachable subscribers
+    pending_subscribers_count: Pending subscribers
     signout_form:
       button_label: unsubscribe
 

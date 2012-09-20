@@ -73,8 +73,8 @@ module AlchemyCrm
     # Slices the contact ids collection into smaller parts. So it will not break the mysql connection.
     #
     def create_recipients
-      mailing.contact_ids_not_received_email_yet.each_slice(5000) do |contact_ids|
-        Recipient.mass_create(Contact.where(:id => contact_ids).select("id,email"), self.id)
+      mailing.pending_subscriber_ids_and_emails_hash.each_slice(5000) do |subscriber_ids_and_emails|
+        Recipient.mass_create(self.id, subscriber_ids_and_emails)
       end
     end
 

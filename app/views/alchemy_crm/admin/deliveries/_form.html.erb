@@ -11,7 +11,7 @@
     </tr>
     <tr>
       <td class="label"><%= f.label :recipients, 'Empfänger:' %></td>
-      <td><%= @mailing.subscribers_count_not_received_email_yet %></td>
+      <td><%= @mailing.pending_subscribers_count %></td>
     </tr>
     <% if @mailing.additional_emails.any? -%>
     <tr>

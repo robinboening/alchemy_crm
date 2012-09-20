@@ -40,11 +40,19 @@ module AlchemyCrm
       recipient
     end
 
-    def self.mass_create(contacts, delivery_id)
+    # Mass creates recipients in an much more efficient way then ActiveRecord does.
+    #
+    # The second argument has to be a hash with an email adress as key and a contact id (or nil, if no contact is associated) as value.
+    #
+    # === Example
+    #
+    #   Recipient.mass_create(1, {'jon@doe.com' => 1, 'jane@doe.com' => nil})
+    #
+    def self.mass_create(delivery_id, emails_n_contact_ids = {})
       sql_values = []
-      contacts.each do |contact|
+      emails_n_contact_ids.each do |email, contact_id|
         salt = self.generate_salt
-        sql_values << ["('#{contact.email}', #{delivery_id}, #{contact.id}, NOW(), '#{self.generate_sha1(salt)}', '#{salt}')"]
+        sql_values << ["('#{email}', #{delivery_id}, #{contact_id.nil? ? 'NULL' : contact_id}, NOW(), '#{self.generate_sha1(salt)}', '#{salt}')"]
       end
       if sql_values.any?
         ActiveRecord::Base.connection.execute(

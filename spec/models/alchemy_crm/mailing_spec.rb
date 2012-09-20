@@ -42,6 +42,20 @@ module AlchemyCrm
 
     end
 
+    describe '#pending_subscriber_ids_and_emails_hash' do
+
+      let(:emails)        { ["jim@family.com", "jon@doe.com"] }
+      let(:contacts)      { [] }
+      let(:subscriptions) { emails.map { |email| contact = FactoryGirl.create(:verified_contact, :email => email); Subscription.create!(:contact => contact, :newsletter => newsletter); contacts << contact } }
+
+      before { subscriptions }
+
+      it "should return a hash of subscriber emails as keys with contact id as value" do
+        mailing.pending_subscriber_ids_and_emails_hash.should == {'jim@family.com' => contacts[0].id, 'jon@doe.com' => contacts[1].id}
+      end
+
+    end
+
     describe '#recipients_contact_ids' do
 
       before { recipients }
@@ -52,7 +66,7 @@ module AlchemyCrm
 
     end
 
-    describe '#contact_ids_not_received_email_yet', :focus => true do
+    describe '#pending_subscriber_ids' do
 
       let(:new_subscriber) { FactoryGirl.create(:verified_contact, :email => 'jane@miller.com') }
 
@@ -63,7 +77,7 @@ module AlchemyCrm
       end
 
       it "should return ids from contacts that are not recipients yet" do
-        mailing.contact_ids_not_received_email_yet.should == [new_subscriber.id]
+        mailing.pending_subscriber_ids.should == [new_subscriber.id]
       end
 
     end

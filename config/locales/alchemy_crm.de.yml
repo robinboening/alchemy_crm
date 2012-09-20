@@ -115,7 +115,7 @@ de:
     subscribe_form:
       button_label: bestellen
     subscribers_count: 'Anzahl der Abonennten'
-    subscribers_count_not_received_email_yet: Erreichbare Empfänger
+    pending_subscribers_count: Ausstehende Empfänger
     successfully_canceled_delivery: 'Der Versand wurde storniert'
     successfully_deleted_tag: "Das Tag wurde gelöscht"
     successfully_imported_contacts: "Kontake wurden importiert"
