@@ -58,7 +58,7 @@ module AlchemyCrm
 
     # Sends the mail chunk via delayed_job and waiting some time before next is enqueued
     def send_mail_chunk(options)
-      recipients.not_received_email.limit(mail_count_per_chunk).offset(self.emails_sent).each do |recipient|
+      recipients.pending.limit(mail_count_per_chunk).offset(self.emails_sent).each do |recipient|
         mail = MailingsMailer.build(mailing, recipient, options).deliver
         update_column(:emails_sent, self.emails_sent + 1)
         recipient.update_column(:message_id, mail.message_id)
