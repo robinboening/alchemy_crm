@@ -10,7 +10,11 @@
   </td>
   <td class="name"><%= contact.company %></td>
   <td class="email"><%= contact.email %></td>
-  <td class="tags"><%= contact.tag_list %></td>
+  <td class="tags">
+    <%- contact.tags.each do |tag| -%>
+      <%= content_tag(:span, tag.name, :class => 'tag') %>
+    <%- end -%>
+  </td>
   <td class="center"><%= render_icon contact.verified? && !contact.disabled %></td>
   <td class="tools">
     <%= link_to_overlay_window(

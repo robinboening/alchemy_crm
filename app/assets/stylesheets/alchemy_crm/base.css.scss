@@ -1,119 +1,4 @@
-span.icon.mailing_add {
-  background: image-url('alchemy_crm/mailing-icons.png') -48px 0;
-}
-
-span.icon.mailing {
-  background: image-url('alchemy_crm/mailing-icons.png') 0 0;
-}
-
-span.icon.mailing_copy {
-  background: image-url('alchemy_crm/mailing-icons.png') -80px 0;
-}
-
-span.icon.mailing_edit {
-  background: image-url('alchemy_crm/mailing-icons.png') -32px 0;
-}
-
-span.icon.mailing_delete {
-  background: image-url('alchemy_crm/mailing-icons.png') -16px 0;
-}
-
-span.icon.delivery {
-  background: image-url('alchemy_crm/mailing-icons.png') -64px 0;
-}
-
-span.icon.group_add {
-  background: image-url('alchemy_crm/group-icons.png') -48px 0;
-}
-
-span.icon.send_mailing {
-  background: image-url('alchemy_crm/mailing-icons.png') -96px 0;
-}
-
-span.icon.plain_text_view {
-  background-position: -448px -136px;
-}
-
-span.icon.group {
-  background: image-url('alchemy_crm/group-icons.png') 0 0;
-}
-
-a.icon.group_edit {
-  background: image-url('alchemy_crm/group-icons.png') -32px 0;
-}
-
-a.icon.group_delete {
-  background: image-url('alchemy_crm/group-icons.png') -16px 0;
-}
-
-span.icon.tag_add {
-  background: image-url('alchemy_crm/tag-icons.png') -48px 0;
-}
-
-span.icon.tag {
-  background: image-url('alchemy_crm/tag-icons.png') 0 0;
-  margin-right: 0;
-  padding: 0;
-
-}
-
-a.icon.tag_edit {
-  background: image-url('alchemy_crm/tag-icons.png') -32px 0;
-}
-
-a.icon.tag_delete {
-  background: image-url('alchemy_crm/tag-icons.png') -16px 0;
-}
-
-span.icon.contact_add {
-  background: image-url('alchemy_crm/contact-icons.png') -48px 0;
-}
-
-span.icon.contact {
-  background: image-url('alchemy_crm/contact-icons.png') 0 0;
-}
-
-a.icon.contact_export {
-  background: image-url('alchemy_crm/contact-icons.png') -64px 0;
-}
-
-span.icon.contact_import {
-  background: image-url('alchemy_crm/contact-icons.png') -80px 0;
-}
-
-a.icon.contact_delete {
-  background: image-url('alchemy_crm/contact-icons.png') -16px 0;
-}
-
-a.icon.contact_edit {
-  background: image-url('alchemy_crm/contact-icons.png') -32px 0;
-}
-
-span.icon.format_add {
-  background: image-url('alchemy_crm/newsletter-icons.png') -48px 0;
-}
-
-span.icon.format {
-  background: image-url('alchemy_crm/newsletter-icons.png') 0 0;
-}
-
-span.icon.format_delete {
-  background: image-url('alchemy_crm/newsletter-icons.png') -16px 0;
-}
-
-span.icon.format_edit {
-  background: image-url('alchemy_crm/newsletter-icons.png') -32px 0;
-}
-
-span.icon.fill_from_element {
-  background: image-url('alchemy/icons.png') -256px -40px;
-}
-
-span.icon.statistics {
-  background-image: image-url('alchemy_crm/statistic.png');
-  width: 18px;
-  height: 18px;
-}
+@import '_mixins';
 
 div.deliveries {
   padding: 8px;
@@ -268,15 +153,6 @@ div.tag_list {
 
 td#contact_group_tags {
   text-align: left;
-
-  span.tag {
-    margin: 0 8px 8px 0;
-    display: inline-block;
-    background-color: #ddd;
-    padding: 4px 12px;
-    border-radius: 10px;
-    line-height: 1;
-  }
 
   ul.tags {
     max-height: 10em;
@@ -446,8 +322,13 @@ a.send_mailing_button:hover {
 }
 
 span.tag {
-  margin-right: 4px;
-  float: left;
+  font-size: 10px;
+  margin: 0 8px 4px 0;
+  display: inline-block;
+  background-color: #ddd;
+  padding: 4px 12px;
+  @include border-radius(10px);
+  line-height: 1;
 }
 
 #filter_container {
@@ -522,5 +403,14 @@ td.delivery_time {
   input.thin_border {
     position: relative;
     top: -2px;
+  }
+}
+
+table.list {
+
+  td {
+    vertical-align: top;
+    line-height: 1.5em;
+    padding-bottom: 2px;
   }
 }
