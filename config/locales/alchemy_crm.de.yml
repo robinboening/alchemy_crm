@@ -53,6 +53,7 @@ de:
     errors_while_importing_contacts: 'Diese Kontakte konnten auf Grund von Fehlern nicht importiert werden:'
     export_contact: Kontakt exportieren
     export_contacts: Kontakte exportieren
+    'false': ''
     fake_contact_attributes:
       firstname: Kim
       lastname: Muster
@@ -94,6 +95,7 @@ de:
     or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Tag'
     please_check_highlighted_vcards_on_errors: "Bitte überprüfen Sie die markierten Visitenkarten auf Fehler."
     please_choose: 'Bitte wählen'
+    'Please choose format': 'Bitte wählen Sie ein Format'
     please_confirm: Bitte bestätigen
     read_in_browser_notice: "Falls der Newsletter nicht richtig dargestellt wird, klicken Sie bitte %{link}."
     remove_filter: 'Filter entfernen'
@@ -125,16 +127,21 @@ de:
     signout_form:
       button_label: abbestellen
     statistics: Statistiken
+    tags_get_created_while_tagging_contacts: 'Tags werden automatisch erstellt, sobald Sie es bei einem Kontakt das erste mal verwenden.'
     this_mailing_has_not_been_delivered_yet: 'Dieses Mailing wurde noch nie versendet'
     this_list_shows_all_deliveries: Dies ist eine Liste aller Sendungen dieses Mailings
     total_recipients_count: Empfänger insgesamt
-    tags_get_created_while_tagging_contacts: 'Tags werden automatisch erstellt, sobald Sie es bei einem Kontakt das erste mal verwenden.'
+    'true': 'Ja'
     without: ohne
     you_can_rename_this_tag: "Sie können dieses Tag umbenennen"
     you_can_open_statistics_for_delivered_mailings: Für bereits versendete Mailings können Statistiken aufgerufen werden
     you_have_no_contact_groups_yet: 'Sie haben noch keine Empfänger Zielgruppen gebildet'
 
   activerecord:
+    models:
+      alchemy_crm/contact:
+        one: Kontakt
+        other: Kontakte
     attributes:
       acts_as_taggable_on/tag:
         contacts_count: Anzahl der Kontakte

@@ -1,0 +1,32 @@
+<div class="with_padding">
+  <p><%= alchemy_crm_t('Please choose format') %></p>
+  <table id="export_format">
+    <tr>
+      <td class="submit">
+        <%= link_to(
+          'Excel',
+          alchemy_crm.admin_contacts_path(
+            :format => :xls,
+            :query => params[:query]
+          ),
+          :class => 'button'
+        ) %>
+      </td>
+    </tr>
+    <tr>
+      <td class="submit">
+        <%= link_to(
+          'CSV',
+          alchemy_crm.admin_contacts_path(
+            :format => :csv,
+            :query => params[:query]
+          ),
+          :class => 'button'
+        ) %>
+      </td>
+    </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  $('.button', '#export_format').on('click', Alchemy.closeCurrentWindow);
+</script>

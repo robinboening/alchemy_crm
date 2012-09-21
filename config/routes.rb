@@ -43,6 +43,7 @@ AlchemyCrm::Engine.routes.draw do
     resources :contacts do
       collection do
         get :import
+        get :export
         get :autocomplete_tag_list
         post :import
       end
