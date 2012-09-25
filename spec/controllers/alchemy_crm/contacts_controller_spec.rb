@@ -13,8 +13,8 @@ module AlchemyCrm
       @signup_page = Alchemy::Page.create!(:name => 'Newsletter Signup', :page_layout => 'newsletter_signup', :parent_id => @language_root.id, :language => @language_root.language, :public => true)
       @signout_page = Alchemy::Page.create!(:name => 'Newsletter Signout', :page_layout => 'newsletter_signout', :parent_id => @language_root.id, :language => @language_root.language, :public => true)
       @mail_page = Alchemy::Page.create!(:name => 'Newsletter Mails', :page_layout => 'newsletter_mails', :parent_id => @language_root.id, :language => @language_root.language)
-      @contact_params = {:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr'}
       @newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
+      @contact_params = {:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :subscriptions_attributes => {"0" => {:newsletter_id => @newsletter.id}}}
     end
 
     describe '#signup' do
@@ -25,6 +25,10 @@ module AlchemyCrm
 
       it "should create the contact from params." do
         Contact.find_by_email('jon@doe.com').should_not be_nil
+      end
+
+      it "should subscribe the contact." do
+        Contact.find_by_email('jon@doe.com').subscriptions.should_not be_empty
       end
 
       it "should deliver the signup mail." do
