@@ -1,33 +1,25 @@
 # ToDos:
 
-## After saving Newsletter
+* Signout must be viewed.
 
 * Perhaps: Asynchronous creation of subscriptions??
 
-## Current Signout function
+* Current Signout function should use Subscription removing
 
-* should use Subscription removing
+* pending deliveries has to also count additional emails (??)
 
-## Misc
+* counter cache for tag contacts_count?? -> PR for acts-as-taggable-on
 
-* Signout must be viewed.
-
-* Signup process must be viewed.
-
-## Investigations
-
-* When a user subscribes to a newsletter for the first time, the subscription will probably not created because he is not verified. We need to create the subscription when the user verifies his contact. Do we still know the newsletter the subscription has to be created for?
-
-* pending deliveries has to count also additional emails (??)
-
-* counter cache for tag contacts_count??
-
-* creating subscribers takes still too long
-
-* removing subscriptions is fast!
+* creating subscribers takes still too long, while removing subscriptions is fast!
 
 * sending mails slows down the server. we should check rendering of mails and speed this up if possible.
 
 * opening delivery statistics takes long
 
 * opening mailing index view takes very long
+
+* show subscribed newsletters at contacts index view
+
+* newsletter edit form -> contactgroups select with js filter box like contactgroups form tag select.
+
+* implement subscriptions handling workflow for contacts

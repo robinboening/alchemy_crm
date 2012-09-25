@@ -2,7 +2,8 @@
 module AlchemyCrm
   class SubscriptionsController < AlchemyCrm::BaseController
     include I18nHelpers
-    before_filter :load_contact, :except => :deliver_subscriptions_overview
+
+    before_filter :load_contact, :except => [:index, :overview]
 
     def index
       @page = Alchemy::Page.find_by_page_layout('newsletter_views')
@@ -10,20 +11,12 @@ module AlchemyCrm
       render :template => 'alchemy/pages/show', :layout => layout_for_page
     end
 
-    def new
-
-    end
-
-    def create
-      
-    end
-
     def edit
-
+      # yet to be implemented
     end
 
     def update
-      
+      # yet to be implemented
     end
 
     def destroy
@@ -46,7 +39,7 @@ module AlchemyCrm
         render :index
       end
     end
-    
+
   private
 
     def load_contact
