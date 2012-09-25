@@ -13,6 +13,7 @@ en:
       csv_format: 'A comma seperated file (.csv) with a list of contacts'
     import_format_notice: 'You may import '
     invalid_file_type: 'Invalid file type: %{mime_type}'
+    'false': ''
     text_interpolation_notice: "Tip: You can insert the contact's name with %{name}."
     mail_text_interpolation_notice: "Tip: You can insert the contact's name with %{name}. Please insert the confirmation link with %{link}."
     mandatory_fields: "*Mandatory"
@@ -31,6 +32,7 @@ en:
     pending_subscribers_count: Pending subscribers
     signout_form:
       button_label: unsubscribe
+    'true': 'Yes'
 
   activerecord:
     attributes:

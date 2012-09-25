@@ -1,7 +1,17 @@
-<%- csv = CSV.generate(:col_sep => ";", :row_sep => "\r\n", :force_quotes => true) do |csv| -%>
-  <%- csv << @columns.map { |h| ::I18n.t(h, :scope => 'activerecord.attributes.alchemy_crm/contact', :default => h.humanize) } -%>
-  <%- @contacts.each do |contact| -%>
-    <%- csv << @columns.map { |a| value = contact.send(a).to_s.strip; a == 'salutation' && !value.blank? ? ::I18n.t(value.to_sym, :scope => 'alchemy_crm.salutations', :default => value) : value } -%>
-  <%- end -%>
-<%- end -%>
-<%=raw csv %>
+<% csv = CSV.generate(:col_sep => ";", :row_sep => "\r\n", :force_quotes => true) do |csv| %>
+  <% csv << @columns.map { |h| AlchemyCrm::Contact.human_attribute_name(h) } %>
+  <% @contacts.each do |contact| %>
+    <%
+    csv << @columns.map do |a|
+      value = contact.send(a).to_s.strip
+      if a == 'salutation' && !value.blank?
+        ::I18n.t(value.to_sym, :scope => 'alchemy_crm.salutations', :default => value)
+      elsif !value.blank? && a == 'verified' || a == 'disabled'
+        alchemy_crm_t(value.to_sym)
+      else
+        value
+      end
+    end %>
+  <% end %>
+<% end %>
+<%= raw csv %>

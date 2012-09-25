@@ -33,10 +33,12 @@
     {
       :icon => :file_download,
       :label => alchemy_crm_t(:export_contacts),
-      :url => alchemy_crm.admin_contacts_path(:format => :csv, :query => params[:query]),
+      :url => alchemy_crm.export_admin_contacts_path(:query => params[:query]),
       :title => alchemy_crm_t(:export_contacts),
-      :overlay => false,
-      :loading_indicator => false,
+      :overlay_options => {
+        :title => alchemy_crm_t(:export_contacts),
+        :size => '200x150'
+      },
       :if_permitted_to => [:index, :alchemy_crm_admin_contacts]
     }
   ]

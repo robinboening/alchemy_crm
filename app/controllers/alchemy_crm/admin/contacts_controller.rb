@@ -40,8 +40,10 @@ module AlchemyCrm
             @contacts = @contacts.page(params[:page] || 1).per(per_page_value_for_screen_size)
           }
           format.csv {
-            @columns = AlchemyCrm::Contact::EXPORTABLE_COLUMNS
-            send_data render_to_string, :content_type => 'text/csv', :disposition => 'attachment', :filename => "contacts-#{Time.now.strftime('%Y-%m-%d_%H-%M')}.csv"
+            export_file_as(:csv)
+          }
+          format.xls {
+            export_file_as(:xls)
           }
         end
       end
@@ -68,9 +70,13 @@ module AlchemyCrm
       end
 
       def export
-        @contact = Contact.find(params[:id])
-        @contact.to_vcard
-        send_file("#{Rails.root.to_s}/tmp/#{@contact.fullname}.vcf")
+        if params[:id].present?
+          @contact = Contact.find(params[:id])
+          @contact.to_vcard
+          send_file("#{Rails.root.to_s}/tmp/#{@contact.fullname}.vcf")
+        else
+          render :layout => false
+        end
       end
 
       def autocomplete_tag_list
@@ -131,6 +137,12 @@ module AlchemyCrm
         content = file.read
         file.rewind
         content.starts_with?("BEGIN:VCARD")
+      end
+
+      def export_file_as(format)
+        @columns = AlchemyCrm::Contact::EXPORTABLE_COLUMNS
+        filename = "#{AlchemyCrm::Contact.model_name.human(:count => @contacts.count)}-#{Time.now.strftime('%Y-%m-%d_%H-%M')}"
+        send_data render_to_string, :type => format.to_sym, :filename => "#{filename}.#{format}"
       end
 
     end

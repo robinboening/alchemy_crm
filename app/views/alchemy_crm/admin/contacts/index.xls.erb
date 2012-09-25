@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="<%= AlchemyCrm::Contact.model_name.human(:count => @contacts.count) -%>">
+    <Table>
+      <Row>
+      <% @columns.each do |col| %>
+        <Cell>
+          <Data ss:Type="String"><%= AlchemyCrm::Contact.human_attribute_name(col) %></Data>
+        </Cell>
+      <% end %>
+      </Row>
+    <% @contacts.each do |contact| %>
+      <Row>
+      <% @columns.each do |col| %>
+        <% value = contact.send(col).to_s.strip %>
+        <Cell>
+        <% if col == 'salutation' && !value.blank? %>
+          <Data ss:Type="String"><%= ::I18n.t(value.to_sym, :scope => 'alchemy_crm.salutations', :default => value) %></Data>
+        <% elsif !value.blank? && (col == 'verified' || col == 'disabled') %>
+          <Data ss:Type="String"><%= alchemy_crm_t(value) %></Data>
+        <% else %>
+          <Data ss:Type="String"><%= value %></Data>
+        <% end %>
+        </Cell>
+      <% end %>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
