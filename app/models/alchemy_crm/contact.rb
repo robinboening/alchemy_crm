@@ -184,8 +184,8 @@ module AlchemyCrm
 
     def self.replace_tag(old_tag, new_tag)
       self.tagged_with(old_tag).each do |contact|
-        contact.tags.delete(old_tag)
-        contact.tags << new_tag
+        contact.tag_list.delete(old_tag.name)
+        contact.tag_list << new_tag.name
         contact.save
       end
     end
