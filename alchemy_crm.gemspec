@@ -9,6 +9,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{A fully featured CRM / Newsletter and Mailings Module for Alchemy CMS.}
   gem.homepage      = "http://alchemy-cms.com"
   gem.license       = 'BSD New'
+  gem.required_ruby_version = '>= 1.9.2'
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
@@ -19,7 +20,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'alchemy_cms', ["~> 2.1.12"]
   gem.add_dependency 'vcard', ['~> 0.1.1']
-  gem.add_dependency 'csv_magic', ['~> 0.2.2']
+  gem.add_dependency 'csv_magic', ['~> 0.2.3']
   gem.add_dependency 'delayed_job_active_record', ["~> 0.3.2"]
   gem.add_dependency 'acts-as-taggable-on', ['~> 2.1.0']
   gem.add_dependency 'rails3-jquery-autocomplete', ['~> 1.0.4']
