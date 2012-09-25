@@ -3,22 +3,21 @@ require 'spec_helper'
 module AlchemyCrm
   describe Newsletter do
 
-    let(:contact_group) { ContactGroup.create!({:name => 'foobazers', :contact_tag_list => 'foo, baz'}) }
+    let(:contact_group)    { ContactGroup.create!({:name => 'foobazers', :contact_tag_list => 'foo, baz'}) }
+    let(:newsletter)       { FactoryGirl.create(:newsletter) }
+    let(:verified_contact) { FactoryGirl.create(:verified_contact, :tag_list => 'foo, bar') }
+    let(:subscription)     { Subscription.create!(:contact => verified_contact, :newsletter => newsletter, :contact_group => contact_group, :wants => true) }
 
-    before(:all) do
-      @newsletter = Newsletter.create!(:name => 'Newsletter', :layout => 'standard')
-      @verified_contact = Contact.create!({:email => 'jon@doe.com', :firstname => 'Jon', :lastname => 'Doe', :salutation => 'mr', :verified => true, :tag_list => 'foo, bar'})
-      @subscription = Subscription.create!(:contact => @verified_contact, :newsletter => @newsletter, :wants => true)
-    end
+    before { subscription }
 
     describe "Contacts" do
 
       it "should have collection for all verified subscribers" do
-        @newsletter.verified_subscribers.should == [@verified_contact]
+        newsletter.verified_subscribers.should == [verified_contact]
       end
 
       it "should have collection for all verified contacts" do
-        @newsletter.contacts.should == [@verified_contact]
+        newsletter.contacts.should == [verified_contact]
       end
 
     end
@@ -26,25 +25,19 @@ module AlchemyCrm
     describe "#humanized_name" do
 
       it "should return a string composed of name and contacts count" do
-        @newsletter.humanized_name.should == "Newsletter (1)"
+        newsletter.humanized_name.should == "Newsletter (1)"
       end
 
     end
 
     describe "after_save" do
 
-      # Deleting the old fixtures from the tests above.
-      # We dont need them here.
-      before(:all) do
-        @newsletter.destroy
-      end
-
-      before(:each) do
-        @verified_contact.subscriptions.destroy_all
-        @newsletter = Newsletter.new(:name => 'Newsletter', :layout => 'standard')
-        @newsletter.contact_groups << contact_group
-        @newsletter.save
-        @verified_contact.subscriptions.reload
+      before do
+        verified_contact.subscriptions.destroy_all
+        newsletter = Newsletter.new(:name => 'Newsletter', :layout => 'standard')
+        newsletter.contact_groups << contact_group
+        newsletter.save
+        verified_contact.subscriptions.reload
       end
 
       describe "#update_subscriptions" do
@@ -56,19 +49,19 @@ module AlchemyCrm
             context "and the contact_groups have contacts" do
 
               it "should subscribe all these contacts" do
-                @newsletter.subscribers.should == contact_group.contacts
+                newsletter.subscribers.should == contact_group.contacts
               end
 
               it "should not subscribe unverified contacts" do
-                @verified_contact.update_attributes(:verified => false)
-                @newsletter.subscribers.reload
-                @newsletter.subscribers.should be_empty
+                verified_contact.update_attributes(:verified => false)
+                newsletter.subscribers.reload
+                newsletter.subscribers.should be_empty
               end
 
               it "should not subscribe disabled contacts" do
-                @verified_contact.update_attributes(:disabled => true, :verified => true)
-                @newsletter.subscribers.reload
-                @newsletter.subscribers.should be_empty
+                verified_contact.update_attributes(:disabled => true, :verified => true)
+                newsletter.subscribers.reload
+                newsletter.subscribers.should be_empty
               end
 
             end
@@ -79,26 +72,18 @@ module AlchemyCrm
 
         context "remove subscriptions" do
 
-          before do
-            @subscriptions_to_be_removed = @newsletter.subscriptions
-            @newsletter.contact_groups.delete(contact_group)
-            @newsletter.save
-            @newsletter.subscriptions.reload
-          end
-
           it "should remove all subscriptions for the contacts of contact_groups not associated with the newsletter" do
-            @newsletter.subscriptions.should be_empty
+            newsletter.subscriptions.should_not be_empty
+            newsletter.contact_groups.delete(contact_group)
+            newsletter.save
+            newsletter.subscriptions.reload
+            newsletter.subscriptions.should be_empty
           end
 
         end
 
       end
 
-    end
-
-    after(:all) do
-      @verified_contact.destroy
-      @newsletter.destroy
     end
 
   end
