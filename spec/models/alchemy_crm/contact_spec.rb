@@ -292,20 +292,6 @@ module AlchemyCrm
 
         end
 
-        context "if contact is unverified" do
-
-          it "should remove all subscriptions" do
-            @contact.subscriptions.collect(&:newsletter).should include(jons_letter)
-            @contact.update_attributes(:verified => false)
-            @contact.subscriptions.should be_empty
-          end
-
-          after do
-            @contact.update_attributes(:verified => true)
-          end
-
-        end
-
         context "if subscription was made by user/admin directly" do
 
           before do

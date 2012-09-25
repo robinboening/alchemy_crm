@@ -316,10 +316,6 @@ module AlchemyCrm
     end
 
     def destroy_unused_subscriptions
-      if !verified? || disabled?
-        subscriptions.destroy_all
-        return
-      end
       subscriptions.each do |subscription|
         next if subscription.contact_group_id.blank?
         if !contact_groups_newsletters.collect(&:id).include?(subscription.newsletter_id)
