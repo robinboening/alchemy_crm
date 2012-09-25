@@ -1,6 +1,7 @@
-<span class="tag_with_radio_button" name="<%= radio_tag.name %>">
-  <%= radio_button_tag name + "[merge_to]", radio_tag.id, false, :id => radio_tag.name + "_tag_list", :onclick => "$('tag_replace_button').value = 'ersetzen mit ' + this.parentNode.readAttribute('name')"%>
+<li class="<%= cycle('even', 'odd') %>" name="<%= radio_tag.name.downcase %>">
+  <%= radio_button_tag name + "[merge_to]", radio_tag.id, false, :id => radio_tag.name + "_tag_list" %>
   <label for="<%= radio_tag.name + "_tag_list" %>">
-    <%= radio_tag.name %>&nbsp;<%= contact_count_from_tag(radio_tag) %>
+    <%= radio_tag.name %>
+    <%= contact_count_from_tag(radio_tag) %>
   </label>
-</span>
+</li>

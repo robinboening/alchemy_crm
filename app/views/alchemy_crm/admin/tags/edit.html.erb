@@ -6,7 +6,7 @@
         <%= f.label :name, "Name" %>
       </td>
       <td class="input">
-        <%= f.text_field :name, :class => "thin_border long" %>
+        <%= f.text_field :name, :class => "thin_border very_long" %>
       </td>
     </tr>
     <tr>
@@ -17,24 +17,25 @@
   </table>
 <% end %>
 <% if @tags.any? -%>
-<h2 class="with_padding"><%= alchemy_crm_t(:or_replace_it_with_an_existing_tag) %>:</h2>
-<%= form_for @tag, :as => :tag, :url => {:controller => :tags, :action => "update", :id => @tag.id, :replace => true}, :html => {:method => :put, :style => "clear: both"}, :remote => true do |f| %>
-  <table border="0" cellspacing="4" cellpadding="4" style="width: 100%">
-    <tr>
-      <td class="label medium">
-        <label>Tags</label>
-      </td>
-      <td class="input">
-        <div class="tag_list">
-          <%= render :partial => "radio_tag", :collection => @tags, :locals => {:name => "tag"} %>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" style="text-align: right">
-        <%= f.button alchemy_crm_t(:replace), :class => "button", :id => "tag_replace_button" %>
-      </td>
-    </tr>
-  </table>
+  <h2 class="with_padding"><%= alchemy_crm_t(:or_replace_it_with_an_existing_tag) %>:</h2>
+  <%= form_for @tag, :as => :tag, :url => {:controller => :tags, :action => "update", :id => @tag.id, :replace => true}, :html => {:method => :put, :style => "clear: both"}, :remote => true do |f| %>
+    <table border="0" cellspacing="4" cellpadding="4" style="width: 100%">
+      <tr>
+        <td class="label medium">
+          <label>Tags</label>
+        </td>
+        <td class="input" id="tags_tag_list">
+          <%= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list li')" %>
+          <ul id="tag_list" class="tags">
+            <%= render :partial => "radio_tag", :collection => @tags, :locals => {:name => "tag"} %>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="submit">
+          <%= f.button alchemy_crm_t(:replace), :class => "button", :id => "tag_replace_button" %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
 <% end %>
-<% end -%>
