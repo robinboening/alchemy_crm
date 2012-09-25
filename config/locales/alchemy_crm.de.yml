@@ -145,6 +145,9 @@ de:
       alchemy_crm/contact:
         one: Kontakt
         other: Kontakte
+      alchemy_crm/subscription:
+        one: Abonnenment
+        other: Abonnenments
     attributes:
       acts_as_taggable_on/tag:
         contacts_count: Anzahl der Kontakte
@@ -182,6 +185,11 @@ de:
         cached_tag_list: Tags
       alchemy_crm/contact_group:
         contacts_count: Anzahl der Kontakte
+      alchemy_crm/subscription:
+        contact_id: Kontakt
+        newsletter_id: Newsletter
+        contact_group_id: Zielgruppe
+
     errors:
       models:
         alchemy_crm/contact:
