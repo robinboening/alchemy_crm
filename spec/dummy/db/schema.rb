@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120913060337) do
+ActiveRecord::Schema.define(:version => 20120926113700) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -30,13 +30,6 @@ ActiveRecord::Schema.define(:version => 20120913060337) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "alchemy_contact_groups_newsletters", :id => false, :force => true do |t|
-    t.integer "contact_group_id"
-    t.integer "newsletter_id"
-  end
-
-  add_index "alchemy_contact_groups_newsletters", ["contact_group_id", "newsletter_id"], :name => "contact_group_newsletter_index", :unique => true
 
   create_table "alchemy_contents", :force => true do |t|
     t.string   "name"
@@ -73,6 +66,13 @@ ActiveRecord::Schema.define(:version => 20120913060337) do
     t.text     "cached_contact_tag_list"
     t.integer  "contacts_count",          :default => 0
   end
+
+  create_table "alchemy_crm_contact_groups_newsletters", :id => false, :force => true do |t|
+    t.integer "contact_group_id"
+    t.integer "newsletter_id"
+  end
+
+  add_index "alchemy_crm_contact_groups_newsletters", ["contact_group_id", "newsletter_id"], :name => "contact_group_newsletter_index", :unique => true
 
   create_table "alchemy_crm_contacts", :force => true do |t|
     t.string   "title"
@@ -352,7 +352,7 @@ ActiveRecord::Schema.define(:version => 20120913060337) do
     t.string   "urlname"
     t.string   "title"
     t.string   "language_code"
-    t.boolean  "language_root",    :limit => 255
+    t.integer  "language_root",    :limit => 1
     t.string   "page_layout"
     t.text     "meta_keywords"
     t.text     "meta_description"
@@ -360,15 +360,15 @@ ActiveRecord::Schema.define(:version => 20120913060337) do
     t.integer  "rgt"
     t.integer  "parent_id"
     t.integer  "depth"
-    t.boolean  "visible",                         :default => false
-    t.boolean  "public",                          :default => false
-    t.boolean  "locked",                          :default => false
+    t.boolean  "visible",                       :default => false
+    t.boolean  "public",                        :default => false
+    t.boolean  "locked",                        :default => false
     t.integer  "locked_by"
-    t.boolean  "restricted",                      :default => false
-    t.boolean  "robot_index",                     :default => true
-    t.boolean  "robot_follow",                    :default => true
-    t.boolean  "sitemap",                         :default => true
-    t.boolean  "layoutpage",                      :default => false
+    t.boolean  "restricted",                    :default => false
+    t.boolean  "robot_index",                   :default => true
+    t.boolean  "robot_follow",                  :default => true
+    t.boolean  "sitemap",                       :default => true
+    t.boolean  "layoutpage",                    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"

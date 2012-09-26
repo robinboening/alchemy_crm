@@ -2,7 +2,7 @@
 module AlchemyCrm
   class Newsletter < ActiveRecord::Base
 
-    has_and_belongs_to_many :contact_groups, :join_table => 'alchemy_contact_groups_newsletters'
+    has_and_belongs_to_many :contact_groups, :join_table => 'alchemy_crm_contact_groups_newsletters'
     has_many :mailings
     has_many :subscriptions, :dependent => :destroy
     has_many :subscribers, :through => :subscriptions, :uniq => true, :source => :contact

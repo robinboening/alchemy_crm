@@ -4,7 +4,7 @@ module AlchemyCrm
 
     acts_as_taggable_on :contact_tags
 
-    has_and_belongs_to_many :newsletters, :join_table => 'alchemy_contact_groups_newsletters'
+    has_and_belongs_to_many :newsletters, :join_table => 'alchemy_crm_contact_groups_newsletters'
     has_many :filters, :dependent => :destroy, :class_name => "AlchemyCrm::ContactGroupFilter"
 
     validates_presence_of :name
