@@ -5,7 +5,7 @@ module AlchemyCrm
     acts_as_taggable_on :contact_tags
 
     has_and_belongs_to_many :newsletters, :join_table => 'alchemy_crm_contact_groups_newsletters'
-    has_and_belongs_to_many :contacts, :join_table => 'alchemy_crm_contacts_contact_groups', :uniq => true
+    has_and_belongs_to_many :contacts, :join_table => 'alchemy_crm_contacts_contact_groups'
     has_many :filters, :dependent => :destroy, :class_name => "AlchemyCrm::ContactGroupFilter"
 
     validates_presence_of :name
@@ -32,7 +32,7 @@ module AlchemyCrm
     end
 
     def subscribe_contacts_to_newsletter(newsletter)
-      Subscription.mass_create(newsletter, contacts.not_subscribed_to(newsletter).select("alchemy_crm_contacts.id").uniq, self.id)
+      Subscription.mass_create(newsletter.id, contacts.not_subscribed_to(newsletter).select("alchemy_crm_contacts.id").collect(&:id).uniq, self.id)
     end
 
   private
@@ -55,7 +55,7 @@ module AlchemyCrm
 
     # Returns all unique contact ids from taggings and filters.
     def uniq_contact_ids_from_taggings_and_filters
-      contacts_from_taggings_and_filters.select("DISTINCT alchemy_crm_contacts.id").collect(&:id)
+      contacts_from_taggings_and_filters.select("alchemy_crm_contacts.id").collect(&:id).uniq
     end
 
     # Delete all records that are not valid any more and insert new ones.
