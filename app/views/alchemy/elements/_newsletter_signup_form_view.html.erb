@@ -2,11 +2,11 @@
 
 <% if @contact_signed_up -%>
 
-<%= raw element.ingredient('signed_up_text') % {:name => @contact.interpolation_name_value} %>
+<%= raw element.ingredient('signed_up_text') % {:name => @contact.interpolation_name_value} rescue element.ingredient('signed_up_text').html_safe %>
 
 <% elsif @contact_verified -%>
 
-<%= raw element.ingredient('verified_text') % {:name => @contact.interpolation_name_value} %>
+<%= raw element.ingredient('verified_text') % {:name => @contact.interpolation_name_value} rescue element.ingredient('verified_text').html_safe %>
 
 <% else -%>
 
