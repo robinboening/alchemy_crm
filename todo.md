@@ -14,8 +14,8 @@
 
 * opening mailing index view takes very long
 
-* show subscribed newsletters at contacts index view
-
 * newsletter edit form -> contactgroups select with js filter box like contactgroups form tag select.
 
 * implement subscriptions handling workflow for contacts
+
+* FIX export contact as vcf

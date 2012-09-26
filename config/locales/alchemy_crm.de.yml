@@ -183,6 +183,7 @@ de:
         disabled: abgemeldet
         tag_list: Tags
         cached_tag_list: Tags
+        newsletters: abonnierte Newsletter
       alchemy_crm/contact_group:
         contacts_count: Anzahl der Kontakte
       alchemy_crm/subscription:

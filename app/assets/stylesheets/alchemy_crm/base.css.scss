@@ -329,6 +329,7 @@ span.tag {
   padding: 4px 12px;
   @include border-radius(10px);
   line-height: 1;
+  white-space: nowrap;
 }
 
 #filter_container {

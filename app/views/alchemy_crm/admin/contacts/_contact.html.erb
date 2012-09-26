@@ -15,6 +15,7 @@
       <%= content_tag(:span, tag.name, :class => 'tag') %>
     <%- end -%>
   </td>
+  <td><%= contact.newsletters.collect(&:name).join(', ') %></td>
   <td class="center"><%= render_icon contact.verified? && !contact.disabled %></td>
   <td class="tools">
     <%= link_to_overlay_window(
