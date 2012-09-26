@@ -2,7 +2,7 @@
   <body>
     <%= raw @element.ingredient("text") % {
       :link => link_to(
-        url = alchemy_crm.verify_contact_url(:token => @contact.email_sha1, :newsletter_ids => @newsletter_ids),
+        url = alchemy_crm.verify_contact_url(:token => @contact.email_sha1),
         url
       ),
       :name => @contact.fullname

@@ -3,7 +3,6 @@ module AlchemyCrm
 
     def signup_mail(contact, page)
       @contact = contact
-      @newsletter_ids = @contact.subscriptions.collect(&:newsletter_id)
       @element = page.elements.where(:name => 'newsletter_signup_mail').first
       mail(
         :from => @element.ingredient('mail_from'),

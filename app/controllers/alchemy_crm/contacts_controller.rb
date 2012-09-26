@@ -35,11 +35,6 @@ module AlchemyCrm
       @contact = Contact.find_by_email_sha1(params[:token])
       if @contact
         @contact_verified = @contact.update_attribute(:verified, true)
-        if params[:newsletter_ids]
-          @subscriptions = @contact.subscriptions.where(:newsletter_id => params[:newsletter_ids])
-        else
-          @subscriptions = @contact.subscriptions
-        end
         @page = @element.page
         @root_page = @page.get_language_root
         render :template => 'alchemy/pages/show'

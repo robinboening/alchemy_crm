@@ -33,7 +33,7 @@ module AlchemyCrm
       end
 
       it "should contain a link to the confirmation link" do
-        url_regexp = Regexp.new(Regexp.escape(verify_contact_url(:token => @contact.email_sha1, :host => ActionMailer::Base.default_url_options[:host], :newsletter_ids => @contact.subscriptions.collect(&:newsletter_id))))
+        url_regexp = Regexp.new(Regexp.escape(verify_contact_url(:token => @contact.email_sha1, :host => ActionMailer::Base.default_url_options[:host])))
         @email.should have_body_text(url_regexp)
       end
 
