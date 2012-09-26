@@ -22,6 +22,8 @@
         <% end %>
         <h3><%= alchemy_crm_t(:add_or_remove_tags) %></h3>
         <%= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list li')" %>
+        <%# We need this hidden field to be able to delete the tag list completely %>
+        <%= hidden_field_tag "contact_group[contact_tag_list][]", "", :id => nil %>
         <ul id="tag_list" class="tags">
           <%= render :partial => "tag_with_checkbox", :collection => @tags, :locals => {:tags => @contact_group.contact_tags, :name => "contact_group" } %>
         </ul>

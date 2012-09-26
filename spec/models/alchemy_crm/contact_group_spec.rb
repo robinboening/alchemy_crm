@@ -19,9 +19,11 @@ module AlchemyCrm
 
       context "with filter" do
 
-        before { contact_group.filters.create!(:column => 'lastname', :operator => '=', :value => 'Doe') }
+        before do
+          contact_group.update_attributes(:filters_attributes => {0 => {:column => 'lastname', :operator => '=', :value => 'Doe'}})
+        end
 
-        it "should return correct list of contacts" do
+        it "should return correct list of contacts", :focus => true do
           contact_group.contacts.collect(&:email).should == ["jon@doe.com"]
         end
 
@@ -61,7 +63,21 @@ module AlchemyCrm
 
     describe "callbacks" do
 
-      describe "before_save" do
+      describe 'before_save' do
+
+        describe '#update_contact_ids' do
+
+          it "should update the contacts join table" do
+            contact_group
+            contact_group.contacts.reload
+            contact_group.contacts.should_not be_empty
+          end
+
+        end
+
+      end
+
+      describe "after_save" do
 
         describe "#calculate_contacts_count" do
 
@@ -72,7 +88,7 @@ module AlchemyCrm
             it "should increase the contacts_count" do
               jim
               contact_group.save
-              contact_group.contacts_count.should == @contacts_count+1
+              contact_group.contacts_count.should == @contacts_count + 1
             end
 
           end
@@ -82,7 +98,7 @@ module AlchemyCrm
             it "should decrease the contacts_count" do
               jon.update_attribute(:tag_list, "")
               contact_group.save
-              contact_group.contacts_count.should == @contacts_count-1
+              contact_group.contacts_count.should == @contacts_count - 1
             end
 
           end

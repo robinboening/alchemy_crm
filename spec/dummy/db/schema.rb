@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926113700) do
+ActiveRecord::Schema.define(:version => 20120926120000) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -101,6 +101,13 @@ ActiveRecord::Schema.define(:version => 20120926113700) do
   add_index "alchemy_crm_contacts", ["email"], :name => "index_alchemy_crm_contacts_on_email"
   add_index "alchemy_crm_contacts", ["email_sha1"], :name => "index_alchemy_crm_contacts_on_email_sha1"
   add_index "alchemy_crm_contacts", ["verified", "disabled"], :name => "alchemy_crm_contacts_available_index"
+
+  create_table "alchemy_crm_contacts_contact_groups", :id => false, :force => true do |t|
+    t.integer "contact_id"
+    t.integer "contact_group_id"
+  end
+
+  add_index "alchemy_crm_contacts_contact_groups", ["contact_id", "contact_group_id"], :name => "contacts_contact_groups"
 
   create_table "alchemy_crm_deliveries", :force => true do |t|
     t.string   "name"
