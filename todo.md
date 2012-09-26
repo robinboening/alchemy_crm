@@ -1,10 +1,6 @@
 # ToDos:
 
-* Signout must be viewed.
-
 * Perhaps: Asynchronous creation of subscriptions??
-
-* Current Signout function should use Subscription removing
 
 * pending deliveries has to also count additional emails (??)
 

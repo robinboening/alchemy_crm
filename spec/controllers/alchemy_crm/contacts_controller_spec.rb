@@ -19,20 +19,49 @@ module AlchemyCrm
 
     describe '#signup' do
 
-      before(:each) do
-        post :signup, {:contact => @contact_params, :use_route => :alchemy_crm}
+      context "a new contact" do
+
+        before(:each) do
+          post :signup, {:contact => @contact_params, :use_route => :alchemy_crm}
+        end
+
+        it "should be created from params." do
+          Contact.find_by_email('jon@doe.com').should_not be_nil
+        end
+
+        it "should be subscribed." do
+          Contact.find_by_email('jon@doe.com').subscriptions.should_not be_empty
+        end
+
+        it "should get the signup mail." do
+          ActionMailer::Base.deliveries.collect(&:subject).should include("Signup mail")
+        end
+
       end
 
-      it "should create the contact from params." do
-        Contact.find_by_email('jon@doe.com').should_not be_nil
-      end
+      context "a disabled contact" do
 
-      it "should subscribe the contact." do
-        Contact.find_by_email('jon@doe.com').subscriptions.should_not be_empty
-      end
+        let(:disabled_contact) { FactoryGirl.create(:contact, :disabled => true, :verified => false) }
 
-      it "should deliver the signup mail." do
-        ActionMailer::Base.deliveries.collect(&:subject).should include("Signup mail")
+        before do
+          disabled_contact
+          post :signup, {:contact => @contact_params, :use_route => :alchemy_crm}
+        end
+
+        it "should be enabled." do
+          disabled_contact.reload
+          disabled_contact.disabled.should be_false
+        end
+
+        it "should be subscribed." do
+          disabled_contact.subscriptions.reload
+          disabled_contact.subscriptions.should_not be_empty
+        end
+
+        it "should get the signup mail." do
+          ActionMailer::Base.deliveries.collect(&:subject).should include("Signup mail")
+        end
+
       end
 
     end
@@ -149,7 +178,7 @@ module AlchemyCrm
 
       end
 
-      context "receiving hash from existing contact" do
+      context "contact with subscriptions" do
 
         before(:each) do
           @subscription = Subscription.create!(:contact => @contact, :newsletter => @newsletter)

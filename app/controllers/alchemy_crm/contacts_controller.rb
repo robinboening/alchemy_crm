@@ -15,7 +15,8 @@ module AlchemyCrm
     end
 
     def signup
-      @contact = Contact.new(params[:contact])
+      @contact = Contact.find_or_initialize_by_email(params[:contact])
+      enable_contact if @contact.disabled?
       if @contact.save
         ContactsMailer.signup_mail(
           @contact,
@@ -94,6 +95,15 @@ module AlchemyCrm
 
     def contact_not_found
       raise ActionController::RoutingError.new('Contact Not Found')
+    end
+
+    def enable_contact
+      @contact.disabled = false
+      if params[:contact][:subscriptions_attributes].present?
+        params[:contact][:subscriptions_attributes].each do |i, subscription_attributes|
+          @contact.subscriptions.new(subscription_attributes)
+        end
+      end
     end
 
   end
