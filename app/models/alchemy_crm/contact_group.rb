@@ -37,25 +37,19 @@ module AlchemyCrm
 
   private
 
-    # Returns all non unique contacts from taggings and filters.
-    #
-    # Not using acts_as_taggable_on #tagged_with method, because it's very slow.
-    #
-    # This approach is 100x faster.
-    #
-    # === CAUTION!!
-    #
-    # Can contain duplicates. Always use it together with #uniq
-    #
-    def contacts_from_taggings_and_filters
-      contacts = Contact.available
-      contacts = contacts.joins(:taggings => :tag).where(:tags => {:name => contact_tag_list})
-      contacts = contacts.where(filters_sql_string)
+    # Returns IDs from contacts in this contact group. Speedily. :)
+    def speedy_contact_ids
+      self.class.connection.select_values("SELECT contact_id FROM alchemy_crm_contacts_contact_groups WHERE contact_group_id = #{id}")
     end
 
     # Returns all unique contact ids from taggings and filters.
     def uniq_contact_ids_from_taggings_and_filters
-      contacts_from_taggings_and_filters.select("alchemy_crm_contacts.id").collect(&:id).uniq
+      contacts = Contact.available
+      contacts = contacts.joins(:taggings => :tag).where(:tags => {:name => contact_tag_list})
+      contacts = contacts.where(filters_sql_string)
+      contacts = contacts.select("DISTINCT alchemy_crm_contacts.id")
+
+      self.class.connection.select_values(contacts.to_sql)
     end
 
     # Delete all records that are not valid any more and insert new ones.
@@ -66,7 +60,7 @@ module AlchemyCrm
 
     # Delete all records that we don't need any more from the contacts join table
     def delete_unused_contacts
-      contact_ids_diff = contact_ids - uniq_contact_ids_from_taggings_and_filters
+      contact_ids_diff = speedy_contact_ids - uniq_contact_ids_from_taggings_and_filters
       if contact_ids_diff.present?
         query = "DELETE FROM alchemy_crm_contacts_contact_groups WHERE contact_group_id = #{self.id} AND contact_id IN (#{contact_ids_diff.join(', ')})"
         self.connection.execute(query)
@@ -75,7 +69,7 @@ module AlchemyCrm
 
     # Insert new records in the contacts join table
     def create_new_contacts
-      contact_ids_diff = uniq_contact_ids_from_taggings_and_filters - contact_ids
+      contact_ids_diff = uniq_contact_ids_from_taggings_and_filters - speedy_contact_ids
       if contact_ids_diff.present?
         values = contact_ids_diff.map { |contact_id| "(#{contact_id}, #{self.id})" }
         query = "INSERT INTO alchemy_crm_contacts_contact_groups VALUES #{values.join(', ')}"
@@ -101,7 +95,7 @@ module AlchemyCrm
         return true
       end
       subscriptions = Subscription.where(:contact_group_id => self.id)
-      subscriptions = subscriptions.where("alchemy_crm_subscriptions.contact_id NOT IN(#{contact_ids.join(',')})")
+      subscriptions = subscriptions.where("alchemy_crm_subscriptions.contact_id NOT IN(#{speedy_contact_ids.join(',')})")
       subscription_ids = subscriptions.select("alchemy_crm_subscriptions.id").all.collect(&:id)
       if subscription_ids.any?
         self.class.connection.execute(
