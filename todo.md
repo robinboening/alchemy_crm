@@ -21,3 +21,8 @@
 * implement subscriptions handling workflow for contacts
 
 * FIX export contact as vcf
+
+* Fix import of exported file
+  - exported file has one new line too much
+  - Fix the mapper (columns in dropdowns are english)
+  - Add verified as column to mapper
