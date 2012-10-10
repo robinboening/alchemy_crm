@@ -6,12 +6,6 @@
 
 * counter cache for tag contacts_count?? -> PR for acts-as-taggable-on
 
-* updating contact groups takes very long
- - removing tag with 32k contacts: 11641ms (DISTINCT) / 5528ms (Array#uniq)
- - adding tag with 32k contacts: 27312ms (DISTINCT) / 21447ms (Array#uniq)
-
-* updating newsletters takes very long
-
 * sending mails slows down the server. we should check rendering of mails and speed this up if possible.
 
 * opening delivery statistics takes long
@@ -26,3 +20,13 @@
   - exported file has one new line too much
   - Fix the mapper (columns in dropdowns are english)
   - Add verified as column to mapper
+
+* Check Mailing#show
+  - as anonymous
+  - as contact / recipient
+
+* Check unsubscribe
+
+* contact_group edit form is very slow
+
+* creating lots of subscriptions takes too long
