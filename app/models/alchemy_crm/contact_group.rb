@@ -7,6 +7,7 @@ module AlchemyCrm
     has_and_belongs_to_many :newsletters, :join_table => 'alchemy_crm_contact_groups_newsletters'
     has_and_belongs_to_many :contacts, :join_table => 'alchemy_crm_contacts_contact_groups'
     has_many :filters, :dependent => :destroy, :class_name => "AlchemyCrm::ContactGroupFilter"
+    has_many :subscriptions
 
     validates_presence_of :name
 
@@ -98,10 +99,9 @@ module AlchemyCrm
         )
         return true
       end
-      subscriptions = Subscription.where(:contact_group_id => self.id)
-      subscriptions = subscriptions.where("alchemy_crm_subscriptions.contact_id NOT IN(#{speedy_contact_ids.join(',')})")
-      subscription_ids = subscriptions.select("alchemy_crm_subscriptions.id").all.collect(&:id)
-      if subscription_ids.any?
+      subscriptions = self.subscriptions.where("alchemy_crm_subscriptions.contact_id NOT IN(#{speedy_contact_ids.join(',')})")
+      subscription_ids = self.class.connection.select_values(subscriptions.select("alchemy_crm_subscriptions.id").to_sql)
+      if subscription_ids.present?
         self.class.connection.execute(
           "DELETE FROM alchemy_crm_subscriptions WHERE id IN(#{subscription_ids.join(',')})"
         )

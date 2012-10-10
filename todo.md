@@ -6,8 +6,6 @@
 
 * counter cache for tag contacts_count?? -> PR for acts-as-taggable-on
 
-* sending mails slows down the server. we should check rendering of mails and speed this up if possible.
-
 * opening delivery statistics takes long
 
 * newsletter edit form -> contactgroups select with js filter box like contactgroups form tag select.
@@ -29,4 +27,7 @@
 
 * contact_group edit form is very slow
 
-* creating lots of subscriptions takes too long
+* Fix newsletter#destroy (hangs server if lots of contacts are subscribed)
+  - dependent destroy is surely too slow
+
+* Refactor all .collect(&:id) to much faster id finding
