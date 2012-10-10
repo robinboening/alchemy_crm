@@ -6,6 +6,7 @@ class CreateAlchemyCrmContactsContactGroups < ActiveRecord::Migration
       table.references :contact_group
     end
     add_index :alchemy_crm_contacts_contact_groups, [:contact_id, :contact_group_id], :name => :contacts_contact_groups, :uniq => true
+    AlchemyCrm::ContactGroup.all.map(&:save!)
   end
 
 end
