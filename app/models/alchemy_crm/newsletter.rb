@@ -61,9 +61,12 @@ module AlchemyCrm
           "DELETE FROM alchemy_crm_subscriptions WHERE newsletter_id = '#{self.id}' AND contact_group_id IS NOT NULL"
         )
       else
-        self.class.connection.execute(
-          "DELETE FROM alchemy_crm_subscriptions WHERE newsletter_id = '#{self.id}' AND (contact_group_id NOT IN(#{contact_groups.collect(&:id).join(',')}))"
-        )
+        contact_group_ids = self.class.connection.select_values(contact_groups.select('alchemy_crm_contact_groups.id').to_sql)
+        if contact_group_ids.present?
+          self.class.connection.execute(
+            "DELETE FROM alchemy_crm_subscriptions WHERE newsletter_id = '#{self.id}' AND (contact_group_id NOT IN(#{contact_group_ids.join(',')}))"
+          )
+        end
       end
     end
 
