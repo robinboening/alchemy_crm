@@ -13,7 +13,7 @@ module AlchemyCrm
 
     accepts_nested_attributes_for :filters, :allow_destroy => true
 
-    after_save :update_contacts_join_table, :calculate_contacts_count, :update_subscriptions
+    after_save :update_contacts_join_table, :update_contacts_count, :update_subscriptions
 
     scope :with_matching_filters, lambda { |attributes|
       attributes_filters = []
@@ -40,6 +40,10 @@ module AlchemyCrm
       Subscription.mass_create(newsletter.id, subscriber_ids, self.id)
     end
 
+    def update_contacts_count
+      update_column(:contacts_count, contacts.count)
+    end
+
   private
 
     # Returns IDs from contacts in this contact group. Speedily. :)
@@ -49,12 +53,25 @@ module AlchemyCrm
 
     # Returns all unique contact ids from taggings and filters.
     def uniq_contact_ids_from_taggings_and_filters
-      contacts = Contact.available
-      contacts = contacts.joins(:taggings => :tag).where(:tags => {:name => contact_tag_list})
-      contacts = contacts.where(filters_sql_string)
-      contacts = contacts.select("DISTINCT alchemy_crm_contacts.id")
+      (contact_ids_from_tags + contact_ids_from_filters).uniq
+    end
 
-      self.class.connection.select_values(contacts.to_sql)
+    # Returns returns all ids from contacts that are tag with a tag from contact_tag_list.
+    def contact_ids_from_tags
+      contacts_from_tags = Contact.available.joins(:taggings => :tag).where(:tags => {:name => contact_tag_list})
+      contacts_from_tags = contacts_from_tags.select("DISTINCT alchemy_crm_contacts.id")
+      self.class.connection.select_values(contacts_from_tags.to_sql)
+    end
+
+    # Returns all ids from contacts that are matched by a filter.
+    def contact_ids_from_filters
+      if filters_sql_string.present?
+        contacts_from_filters = Contact.available.where(filters_sql_string)
+        contacts_from_filters = contacts_from_filters.select("DISTINCT alchemy_crm_contacts.id")
+        self.class.connection.select_values(contacts_from_filters.to_sql)
+      else
+        []
+      end
     end
 
     # Delete all records that are not valid any more and insert new ones.
@@ -80,10 +97,6 @@ module AlchemyCrm
         query = "INSERT INTO alchemy_crm_contacts_contact_groups VALUES #{values.join(', ')}"
         self.connection.execute(query)
       end
-    end
-
-    def calculate_contacts_count
-      update_column(:contacts_count, contacts.count)
     end
 
     def update_subscriptions

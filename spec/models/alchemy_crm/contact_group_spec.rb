@@ -20,10 +20,14 @@ module AlchemyCrm
       context "with filter" do
 
         before do
-          contact_group.update_attributes(:filters_attributes => {0 => {:column => 'lastname', :operator => '=', :value => 'Doe'}})
+          contact_group.update_attributes({
+            :contact_tag_list => '',
+            :filters_attributes => {0 => {:column => 'lastname', :operator => '=', :value => 'Doe'}}
+          })
         end
 
-        it "should return correct list of contacts", :focus => true do
+        it "should return only contacts matched by filter" do
+          contact_group.contacts.reload
           contact_group.contacts.collect(&:email).should == ["jon@doe.com"]
         end
 
@@ -96,8 +100,9 @@ module AlchemyCrm
           context "contact leaves contact_group" do
 
             it "should decrease the contacts_count" do
-              jon.update_attribute(:tag_list, "")
-              contact_group.save
+              jon.tag_list = []
+              jon.save!
+              contact_group.save!
               contact_group.contacts_count.should == @contacts_count - 1
             end
 
