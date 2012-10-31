@@ -27,11 +27,13 @@ module AlchemyCrm
 
       before do
         contact_group
+        @contact.contact_groups.reload
       end
 
       context "with matching tags" do
 
         it "should return a contact_groups from tags" do
+          @contact.contact_groups.reload
           @contact.contact_groups.should include(contact_group)
         end
 
@@ -43,10 +45,11 @@ module AlchemyCrm
 
           before do
             jons.filters.create(:column => "firstname", :operator => "=", :value => "Jon")
+            jons.save
+            @contact.contact_groups.reload
           end
 
-          it "should return a contact_groups from filters" do
-            @contact.contact_groups.should include(contact_group)
+          it "should return contact_groups from filters" do
             @contact.contact_groups.should include(jons)
           end
 
@@ -56,10 +59,11 @@ module AlchemyCrm
 
           before do
             jons.filters.create(:column => "firstname", :operator => "!=", :value => "Jon")
+            jons.save
+            @contact.contact_groups.reload
           end
 
           it "should return a contact_groups from filters" do
-            @contact.contact_groups.should include(contact_group)
             @contact.contact_groups.should_not include(jons)
           end
 
@@ -69,10 +73,11 @@ module AlchemyCrm
 
           before do
             jons.filters.create(:column => "firstname", :operator => "LIKE", :value => "on")
+            jons.save
+            @contact.contact_groups.reload
           end
 
           it "should return a contact_groups from filters" do
-            @contact.contact_groups.should include(contact_group)
             @contact.contact_groups.should include(jons)
           end
 
@@ -82,10 +87,11 @@ module AlchemyCrm
 
           before do
             jons.filters.create(:column => "firstname", :operator => "NOT LIKE", :value => "on")
+            jons.save
+            @contact.contact_groups.reload
           end
 
           it "should return a contact_groups from filters" do
-            @contact.contact_groups.should include(contact_group)
             @contact.contact_groups.should_not include(jons)
           end
 
@@ -245,6 +251,7 @@ module AlchemyCrm
       end
 
       it "should return all newsletters from contact_groups" do
+        @contact.contact_groups.reload
         @contact.contact_groups_newsletters.should include(jons_letter)
       end
 
@@ -257,6 +264,7 @@ module AlchemyCrm
         before do
           contact_group.newsletters << jons_letter
           contact_group.save
+          @contact.contact_groups.reload
           @contact.subscriptions.destroy_all
           @contact.save
           @contact.subscriptions.reload
@@ -286,10 +294,6 @@ module AlchemyCrm
             @contact.subscriptions.collect(&:newsletter).should_not include(jons_letter)
           end
 
-          after do
-            @contact.update_attributes(:tag_list => "foo, bar")
-          end
-
         end
 
         context "if subscription was made by user/admin directly" do
@@ -317,15 +321,16 @@ module AlchemyCrm
 
         context "if there is a new contact_group matching" do
 
-          before :each do
+          before do
             @new_contact_group = ContactGroup.create!({:name => 'lucky fellows', :contact_tag_list => 'yay'})
           end
 
           it "should increment the contacts_count attribute of the contact_group" do
-            @new_contact_group.contacts_count.should == 0
-            @contact.update_attributes(:tag_list => "foo, bar, yay")
-            @new_contact_group.reload
-            @new_contact_group.contacts_count.should == 1
+            lambda do
+              @contact.tag_list = "foo, bar, yay"
+              @contact.save!
+              @new_contact_group.reload
+            end.should change(@new_contact_group, :contacts_count).from(0).to(1)
           end
 
         end
@@ -333,10 +338,11 @@ module AlchemyCrm
         context "if a contact_group is not matching anymore" do
 
           it "should decrement the contacts_count of the contact_group" do
-            contact_group.contacts_count.should == 1
-            @contact.update_attributes(:tag_list => "")
-            contact_group.reload
-            contact_group.contacts_count.should == 0
+            lambda do
+              @contact.tag_list = ""
+              @contact.save!
+              contact_group.reload
+            end.should change(contact_group, :contacts_count).from(1).to(0)
           end
 
         end

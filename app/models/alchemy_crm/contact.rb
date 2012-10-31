@@ -27,6 +27,7 @@ module AlchemyCrm
     attr_accessible(*ACCESSIBLE_ATTRIBUTES)
     attr_accessible(*ACCESSIBLE_ATTRIBUTES, :as => :admin)
 
+    has_and_belongs_to_many :contact_groups, :join_table => 'alchemy_crm_contacts_contact_groups'
     has_many :subscriptions, :dependent => :destroy
     has_many :newsletters, :through => :subscriptions, :uniq => true
     has_many :recipients
@@ -41,8 +42,8 @@ module AlchemyCrm
     validates_format_of :email, :with => ::Authlogic::Regex.email, :if => proc { errors[:email].blank? }
 
     before_save :update_sha1, :if => proc { email_sha1.blank? || email_changed? }
-    before_save :memorize_contact_groups
-    after_save :update_subscriptions, :update_contact_groups_contacts_count
+    before_save :memoize_contact_groups
+    after_save :update_contact_groups_join_table, :update_subscriptions, :update_contact_groups_contacts_count
 
     scope :subscribed_to, lambda { |newsletter|
       joins(:subscriptions).where(:alchemy_crm_subscriptions => {
@@ -153,10 +154,6 @@ module AlchemyCrm
       else
         fullname
       end
-    end
-
-    def contact_groups(tags=self.tag_list)
-      ContactGroup.find_by_sql("#{ContactGroup.tagged_with(tags, :any => true).to_sql} UNION #{ContactGroup.with_matching_filters(self.attributes).to_sql}")
     end
 
     def mail_to
@@ -279,14 +276,28 @@ module AlchemyCrm
       vcf.close
     end
 
-    def contact_groups_newsletters
+    # Returns all newsletter ids from contact groups the fast way.
+    def contact_groups_newsletters_ids
       return [] if contact_groups.blank?
-      contact_groups.collect(&:newsletters).flatten.uniq
+      contact_groups = self.contact_groups.select('DISTINCT alchemy_crm_contacts_contact_groups.contact_group_id')
+      contact_group_ids = self.class.connection.select_values(contact_groups.to_sql)
+
+      if contact_group_ids.present?
+        self.class.connection.select_values("SELECT DISTINCT newsletter_id FROM alchemy_crm_contact_groups_newsletters WHERE contact_group_id IN (#{contact_group_ids.join(',')})")
+      else
+        []
+      end
     end
 
-    # Subscribes to given newsletters
-    def subscribe(newsletter, contact_group_id=nil)
-      subscriptions.create(:newsletter => newsletter, :contact_group_id => contact_group_id)
+    # Returns all newsletters from contact groups the fast way.
+    def contact_groups_newsletters
+      return [] if contact_groups_newsletters_ids.blank?
+      Newsletter.find(contact_groups_newsletters_ids)
+    end
+
+    # Subscribes to given newsletter
+    def subscribe(newsletter_id, contact_group_id = nil)
+      subscriptions.create(:newsletter_id => newsletter_id, :contact_group_id => contact_group_id)
     end
 
     # Destroys all subscriptions for given newsletter
@@ -300,17 +311,64 @@ module AlchemyCrm
 
   private
 
+    # Returns IDs from contact groups for this contact. Speedily. :)
+    def speedy_contact_group_ids
+      self.class.connection.select_values("SELECT contact_group_id FROM alchemy_crm_contacts_contact_groups WHERE contact_id = #{id}")
+    end
+
+    # Returns all unique contact group ids from taggings and attributes.
+    def uniq_contact_group_ids_from_taggings_and_attributes
+      (contact_group_ids_from_tags + contact_group_ids_from_attributes).uniq
+    end
+
+    # Returns all contact group ids from tag list
+    def contact_group_ids_from_tags
+      contact_groups_from_tags = ContactGroup.joins(:taggings => :tag).where(:tags => {:name => tag_list})
+      self.class.connection.select_values(contact_groups_from_tags.to_sql)
+    end
+
+    # Returns all contact group ids from attributes
+    def contact_group_ids_from_attributes
+      contact_groups_from_attributes = ContactGroup.with_matching_filters(self.attributes)
+      self.class.connection.select_values(contact_groups_from_attributes.to_sql)
+    end
+
+    # Delete all records that are not valid any more and insert new ones.
+    def update_contact_groups_join_table
+      delete_unused_contact_groups
+      create_new_contact_groups
+    end
+
+    # Delete all records that we don't need any more from the contact groups join table
+    def delete_unused_contact_groups
+      contact_group_ids_diff = speedy_contact_group_ids - uniq_contact_group_ids_from_taggings_and_attributes
+      if contact_group_ids_diff.present?
+        query = "DELETE FROM alchemy_crm_contacts_contact_groups WHERE contact_id = #{self.id} AND contact_group_id IN (#{contact_group_ids_diff.join(', ')})"
+        self.connection.execute(query)
+      end
+    end
+
+    # Insert new records in the contact groups join table
+    def create_new_contact_groups
+      contact_group_ids_diff = uniq_contact_group_ids_from_taggings_and_attributes - speedy_contact_group_ids
+      if contact_group_ids_diff.present?
+        values = contact_group_ids_diff.map { |contact_group_id| "(#{self.id}, #{contact_group_id})" }
+        query = "INSERT INTO alchemy_crm_contacts_contact_groups VALUES #{values.join(', ')}"
+        self.connection.execute(query)
+      end
+    end
+
     # Creates subscriptions depending on contact´s contact_groups. Also deletes useless subscriptions.
     def update_subscriptions
       destroy_unused_subscriptions
-      create_new_subscriptions if verified? && !disabled? && contact_groups_newsletters.any?
+      create_new_subscriptions if verified? && !disabled?
     end
 
     def create_new_subscriptions
       contact_groups_newsletters.each do |newsletter|
         if !subscriptions.all.collect(&:newsletter_id).include?(newsletter.id)
           contact_group = (contact_groups & newsletter.contact_groups).first
-          subscribe(newsletter, contact_group.id)
+          subscribe(newsletter.id, contact_group.try(:id))
         end
       end
     end
@@ -318,35 +376,27 @@ module AlchemyCrm
     def destroy_unused_subscriptions
       subscriptions.each do |subscription|
         next if subscription.contact_group_id.blank?
-        if !contact_groups_newsletters.collect(&:id).include?(subscription.newsletter_id)
+        if !contact_groups_newsletters_ids.include?(subscription.newsletter_id)
           subscription.destroy
         end
       end
     end
 
-    # memorizes the old contact_groups before saving
-    # After save we can remember these and can compare the contact_groups
-    def memorize_contact_groups
-      @memorized_contact_groups = contact_groups(cached_tag_list_change.try(:first))
-    end
-
-    # Updates the contact_group´s contacts_count
     def update_contact_groups_contacts_count
-      new_contact_groups = contact_groups - @memorized_contact_groups
-      removed_contact_groups = @memorized_contact_groups - contact_groups
-
-      new_contact_groups.each do |cg|
-        cg.update_column(:contacts_count, cg.contacts_count + 1)
+      if contact_groups.reload.present?
+        contact_groups.map(&:update_contacts_count)
+      else
+        @memoized_contact_groups.map(&:update_contacts_count)
       end
-      removed_contact_groups.each do |cg|
-        cg.update_column(:contacts_count, cg.contacts_count - 1)
-      end
-
     end
 
     def update_sha1
       salt = email_salt || [Array.new(6){rand(256).chr}.join].pack("m")[0..7]
       self.email_salt, self.email_sha1 = salt, Digest::SHA1.hexdigest(email + salt)
+    end
+
+    def memoize_contact_groups
+      @memoized_contact_groups = contact_groups.reload.clone
     end
 
   end

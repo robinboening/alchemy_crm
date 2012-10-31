@@ -1,7 +1,5 @@
 # ToDos:
 
-* Perhaps: Asynchronous creation of subscriptions??
-
 * pending deliveries has to also count additional emails (??)
 
 * counter cache for tag contacts_count?? -> PR for acts-as-taggable-on
@@ -29,5 +27,3 @@
 
 * Fix newsletter#destroy (hangs server if lots of contacts are subscribed)
   - dependent destroy is surely too slow
-
-* Refactor all .collect(&:id) to much faster id finding
