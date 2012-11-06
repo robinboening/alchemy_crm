@@ -88,7 +88,7 @@ de:
     mail_text_interpolation_notice: "Tip: Sie können den Namen des Kontakts mit %{name} einfügen. Den Bestätigungslink fügen Sie bitte mit %{link} ein."
     mandatory_fields: "*Pflichtfelder"
     map_columns: 'Bitte überprüfen Sie, ob die Zuordnung der Spalten übereinstimmt. Andernfalls wählen Sie bitte das passende Feld aus der Liste aus.'
-    missing_vcard: "Bitte laden Sie eine V-Card hoch"
+    missing_file: "Bitte laden Sie eine Datei hoch"
     newsletter_layout_not_found_notice: 'Es wurde kein Newsletter Layout gefunden. Bitte legen Sie erst eins an.'
     none: 'Keine'
     no_contacts_imported: "Es konnten keine Kontake importiert werden."

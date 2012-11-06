@@ -56,18 +56,18 @@ module AlchemyCrm
       end
 
       def import
-        if request.post?
-          if params[:verified] == "1"
-            if params[:fields] || (params[:file] && !is_vcard_file?(params[:file]))
-              handle_csv_post_request
-            else
-              handle_vcf_post_request
-            end
+        render :layout => !request.xhr?
+      end
+
+      def mass_create
+        if params[:verified] == "1"
+          if params[:filename] || params[:file]
+            handle_file_request
           else
-            @error = build_error_message(alchemy_crm_t(:imported_contacts_not_verified))
+            @error = build_error_message(alchemy_crm_t(:missing_file))
           end
         else
-          render :layout => !request.xhr?
+          @error = build_error_message(alchemy_crm_t(:imported_contacts_not_verified))
         end
       end
 
@@ -99,6 +99,7 @@ module AlchemyCrm
         heading + message
       end
 
+      # TODO: Make this with mass_create
       def create_resource_items_from_csv(*args)
         @csv_import_errors = []
         @contacts = []
@@ -118,18 +119,22 @@ module AlchemyCrm
         render 'import'
       end
 
-      def handle_vcf_post_request
-        if params[:file].blank?
-          @errors = build_error_message(alchemy_crm_t(:missing_vcard))
+      def handle_file_request
+        if params[:fields] || !is_vcard_file?(params[:file])
+          handle_csv_post_request
         else
-          @contacts = Contact.new_from_vcard(params[:file], true)
-          if @contacts.empty?
-            flash[:error] = alchemy_crm_t(:no_contacts_imported)
-          elsif @contacts.detect(&:invalid?).nil?
-            flash[:notice] = alchemy_crm_t(:successfully_imported_contacts)
-          else
-            @errors = build_error_message(alchemy_crm_t(:please_check_highlighted_vcards_on_errors))
-          end
+          handle_vcf_post_request
+        end
+      end
+
+      def handle_vcf_post_request
+        @contacts = Contact.new_from_vcard(params[:file], true)
+        if @contacts.empty?
+          flash[:error] = alchemy_crm_t(:no_contacts_imported)
+        elsif @contacts.detect(&:invalid?).nil?
+          flash[:notice] = alchemy_crm_t(:successfully_imported_contacts)
+        else
+          @errors = build_error_message(alchemy_crm_t(:please_check_highlighted_vcards_on_errors))
         end
         @valid_contacts = @contacts.select(&:valid?) || []
         render :vcf_import_result

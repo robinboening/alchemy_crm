@@ -1,0 +1,32 @@
+<%= form_tag mass_create_admin_contacts_path, :remote => request.xhr?, :multipart => true, :class => 'contact_import' do %>
+  <div class="info">
+    <%= render_icon('info') %>
+    <h1><%= alchemy_crm_t(:headline, :scope => 'import_format_notice') %></h1>
+    <ul>
+      <li><%= alchemy_crm_t(:vcf_format, :scope => 'import_format_notice') %></li>
+      <li><%= alchemy_crm_t(:csv_format, :scope => 'import_format_notice') %></li>
+    </ul>
+  </div>
+
+  <div id="errors" style="display: none"></div>
+
+  <table>
+    <tr>
+      <td class="label"><%= label_tag :file, alchemy_crm_t(:file) %></td>
+      <td><%= file_field_tag :file %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <%= check_box_tag :verified %>
+        <%= label_tag :verified, alchemy_crm_t(:import_contacts_verified) %>
+      </td>
+    </tr>
+    <tr>
+      <td class="submit" colspan="2">
+        <%= button_tag alchemy_crm_t(:import), :name => nil, :class => 'button' %>
+      </td>
+    </tr>
+  </table>
+
+<% end %>

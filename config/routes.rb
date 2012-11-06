@@ -45,7 +45,7 @@ AlchemyCrm::Engine.routes.draw do
         get :import
         get :export
         get :autocomplete_tag_list
-        post :import
+        post :mass_create
       end
       member { get :export }
     end

@@ -17,7 +17,7 @@ en:
     text_interpolation_notice: "Tip: You can insert the contact's name with %{name}."
     mail_text_interpolation_notice: "Tip: You can insert the contact's name with %{name}. Please insert the confirmation link with %{link}."
     mandatory_fields: "*Mandatory"
-    missing_vcard: "Please upload a vcard"
+    missing_file: "Please upload a file"
     newsletter_layout_not_found_notice: 'No newsletter layout found. Please create one.'
     read_in_browser_notice: "If the newsletter does not displays correctly, click %{link}."
     'Replaced Tag %{old_tag} with %{new_tag}': "Replaced Tag '%{old_tag}' with '%{new_tag}'"

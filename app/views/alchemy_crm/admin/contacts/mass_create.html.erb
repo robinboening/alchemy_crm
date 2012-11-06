@@ -1,0 +1,20 @@
+<% toolbar(
+  :buttons => [
+    {
+      :icon => :close,
+      :label => t(:cancel),
+      :url => alchemy_crm.admin_contacts_path,
+      :title => t(:cancel),
+      :overlay => false,
+      :if_permitted_to => [:index, :alchemy_crm_admin_contacts]
+    }
+  ],
+  :search => false
+) %>
+
+<% if @error %>
+<div id="errors">
+  <%= @error %>
+</div>
+<% end %>
+<%= render 'import_form' %>
