@@ -30,7 +30,7 @@ module AlchemyCrm
       end
 
       def update
-        if params[:replace]
+        if params[:replace] && params[:tag]
           @new_tag = ActsAsTaggableOn::Tag.find(params[:tag][:merge_to])
           if Contact.replace_tag(@tag, @new_tag)
             operation_text = alchemy_crm_t('Replaced Tag %{old_tag} with %{new_tag}') % {:old_tag => @tag.name, :new_tag => @new_tag.name}
