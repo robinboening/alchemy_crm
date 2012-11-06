@@ -13,10 +13,10 @@ module AlchemyCrm
 
     def self.operator_where_string(column, value)
       [
-        "(`#{self.table_name}`.`column` = '#{column}' AND `#{self.table_name}`.`operator` = 'LIKE' AND '#{value}' LIKE #{self.concatinated_value_string})",
-        "(`#{self.table_name}`.`column` = '#{column}' AND `#{self.table_name}`.`operator` = 'NOT LIKE' AND '#{value}' NOT LIKE #{self.concatinated_value_string})",
-        "(`#{self.table_name}`.`column` = '#{column}' AND `#{self.table_name}`.`operator` = '=' AND '#{value}' = `#{self.table_name}`.`value`)",
-        "(`#{self.table_name}`.`column` = '#{column}' AND `#{self.table_name}`.`operator` = '!=' AND '#{value}' != `#{self.table_name}`.`value`)"
+        "(`#{table_name}`.`column` = '#{column}' AND `#{table_name}`.`operator` = 'LIKE' AND #{sanitize(value)} LIKE #{concatinated_value_string})",
+        "(`#{table_name}`.`column` = '#{column}' AND `#{table_name}`.`operator` = 'NOT LIKE' AND #{sanitize(value)} NOT LIKE #{concatinated_value_string})",
+        "(`#{table_name}`.`column` = '#{column}' AND `#{table_name}`.`operator` = '=' AND #{sanitize(value)} = `#{table_name}`.`value`)",
+        "(`#{table_name}`.`column` = '#{column}' AND `#{table_name}`.`operator` = '!=' AND #{sanitize(value)} != `#{table_name}`.`value`)"
       ].join(" OR ")
     end
 
