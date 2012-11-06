@@ -20,7 +20,9 @@ module AlchemyCrm
           Contact.clean_human_attribute_name(:country)     => :country,
           Contact.clean_human_attribute_name(:phone)       => :phone,
           Contact.clean_human_attribute_name(:mobile)      => :mobile,
-          Contact.human_attribute_name(:tag_list)          => :tag_list
+          Contact.human_attribute_name(:tag_list)          => :tag_list,
+          Contact.human_attribute_name(:verified)          => :verified,
+          Contact.human_attribute_name(:disabled)          => :disabled
         }
       )
 
