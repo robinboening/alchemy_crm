@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926120000) do
+ActiveRecord::Schema.define(:version => 20121106150021) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -461,6 +461,7 @@ ActiveRecord::Schema.define(:version => 20120926120000) do
     t.datetime "updated_at"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "taggings_count", :default => 0
   end
 
 end
