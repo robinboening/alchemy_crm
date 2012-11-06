@@ -1,42 +1,42 @@
 <tr class="<%= cycle('even', 'odd') %>">
-    <td class="icon">
-        <%= render_icon('format') -%>
-    </td>
-    <td class="name">
-        <%= newsletter.name -%>
-    </td>
-    <td style="width: 120px">
-        <%= newsletter.layout_name %>
-    </td>
-    <td class="center">
-        <%= render_icon(newsletter.public?) -%>
-    </td>
-    <td class="size" style="width: 120px">
-        <%= newsletter.subscriptions_count -%>
-    </td>
-    <td class="size" style="width: 120px">
-        <%= newsletter.user_subscriptions_count -%>
-    </td>
-    <td class="size" style="width: 120px">
-        <%= newsletter.contact_group_subscriptions_count -%>
-    </td>
-    <td class="tools">
-        <%= link_to_overlay_window(
-            content_tag('span', '', :class => 'icon format_edit'),
-            edit_admin_newsletter_path(newsletter),
-            {
-                :title => alchemy_crm_t(:edit_newsletter),
-                :size => '340x220'
-            },
-            {
-                :title => alchemy_crm_t(:edit_newsletter)
-            }
-        ) -%>
-        <%= link_to_confirmation_window(
-            content_tag('span', '', :class => 'icon format_delete'),
-            alchemy_crm_t(:do_you_really_want_to_delete_this_newsletter?),
-            admin_newsletter_path(newsletter),
-            :title => alchemy_crm_t(:delete_newsletter)
-        ) -%>
-    </td>
+  <td class="icon">
+    <%= render_icon('format') -%>
+  </td>
+  <td class="name">
+    <%= newsletter.name -%>
+  </td>
+  <td style="width: 120px">
+    <%= newsletter.layout_name %>
+  </td>
+  <td class="center">
+    <%= render_icon(newsletter.public?) -%>
+  </td>
+  <td class="size" style="width: 120px">
+    <%= newsletter.subscriptions_count -%>
+  </td>
+  <td class="size" style="width: 120px">
+    <%= newsletter.user_subscriptions_count -%>
+  </td>
+  <td class="size" style="width: 120px">
+    <%= newsletter.contact_group_subscriptions_count -%>
+  </td>
+  <td class="tools">
+    <%= link_to_overlay_window(
+      content_tag('span', '', :class => 'icon format_edit'),
+      edit_admin_newsletter_path(newsletter),
+      {
+        :title => alchemy_crm_t(:edit_newsletter),
+        :size => '420x260'
+      },
+      {
+        :title => alchemy_crm_t(:edit_newsletter)
+      }
+    ) -%>
+    <%= link_to_confirmation_window(
+      content_tag('span', '', :class => 'icon format_delete'),
+      alchemy_crm_t(:do_you_really_want_to_delete_this_newsletter?),
+      admin_newsletter_path(newsletter),
+      :title => alchemy_crm_t(:delete_newsletter)
+    ) -%>
+  </td>
 </tr>

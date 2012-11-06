@@ -6,7 +6,7 @@
         <%= f.label :name %>
       </td>
       <td class="input">
-        <%= f.text_field :name, :class => "thin_border" %>
+        <%= f.text_field :name, :class => "thin_border very_long" %>
       </td>
     </tr>
     <tr>
@@ -14,7 +14,7 @@
         <%= f.label :layout %>
       </td>
       <td class="select">
-        <%= f.select :layout, @page_layouts, { :prompt => t('Please choose') }, { :class => 'alchemy_selectbox' } %>
+        <%= f.select :layout, @page_layouts, { :prompt => t('Please choose') }, { :class => 'alchemy_selectbox very_long' } %>
       </td>
     </tr>
     <tr>
@@ -30,21 +30,20 @@
         <%= f.label :contact_groups %>
       </td>
       <%- if @contact_groups.any? -%>
-      <td class="input">
-          <%= render :partial => "tag_with_radiobutton", :collection => @contact_groups, :locals => {:newsletter_contact_groups => @newsletter.contact_groups} %>
+      <td class="input" id="contact_groups">
+        <h3><%= alchemy_crm_t(:add_or_remove_contact_groups) %></h3>
+        <%= js_filter_field :onkeyup => "Alchemy.ListFilter('#tag_list li')" %>
+        <%# We need this hidden field to be able to delete the contact group list completely %>
+        <%= hidden_field_tag "newsletter[contact_group_ids][]", "", :id => nil %>
+        <ul id="tag_list" class="tags">
+          <%= render :partial => "group_with_checkbox", :collection => @contact_groups, :locals => {:newsletter_contact_groups => @newsletter.contact_groups} %>
+        </ul>
       <%- else -%>
       <td class="value">
         <small><%= alchemy_crm_t(:you_have_no_contact_groups_yet) %></small>
       <%- end -%>
       </td>
     </tr>
-    <% if @newsletter.subscribers.any? -%>
-    <tr>
-      <td colspan="2" class="headline" style="padding: 0">
-        <p><%= alchemy_crm_t(:subscribers_count) %>: <%= @newsletter.subscriptions_count %></p>
-      </td>
-    </tr>
-    <% end -%>
     <tr>
       <td colspan="2" class="submit">
         <%= f.button t(:save), :class => "button" %>

@@ -10,6 +10,7 @@ de:
     add_mailing: 'Neues Mailing'
     add_newsletter: 'Neuen Newsletter anlegen'
     add_or_remove_tags: 'Tags hinzufügen oder entfernen'
+    add_or_remove_contact_groups: 'Kontaktgruppen hinzufügen oder entfernen'
     already_chosen_tags: 'Bereits gewählte Tags'
     "New Tag": "Neues Tag"
     "New Tag Created": "Neues Tag wurde erstellt"

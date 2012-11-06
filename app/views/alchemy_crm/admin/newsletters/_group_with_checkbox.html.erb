@@ -1,0 +1,7 @@
+<li class="<%= cycle('even', 'odd') %>" name="<%= group_with_checkbox.name.downcase %>">
+  <%= check_box_tag "newsletter[contact_group_ids][]", group_with_checkbox.id, newsletter_contact_groups.include?(group_with_checkbox), :id => group_with_checkbox.name.downcase + "_contact_group" %>
+  <label for="<%= group_with_checkbox.name.downcase + "_contact_group" %>" class="tag">
+    <%= group_with_checkbox.name %>
+    <small>(<%= group_with_checkbox.contacts_count %>)</small>
+  </label>
+</li>
