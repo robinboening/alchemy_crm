@@ -16,11 +16,13 @@ module AlchemyCrm
     after_save :update_contacts_join_table, :update_contacts_count, :update_subscriptions
 
     scope :with_matching_filters, lambda { |attributes|
+      groups = joins(:filters)
+      return scoped.where('1 = 0') if groups.blank? # early exit so that we don't have to build the filters string
       attributes_filters = []
       attributes.delete_if { |k, v| !Contact::FILTERABLE_ATTRIBUTES.include?(k) }.each do |k, v|
         attributes_filters << ContactGroupFilter.operator_where_string(k, v)
       end
-      joins(:filters).where(["#{attributes_filters.join(' OR ')} AND 1=?", 1])
+      groups.where(attributes_filters.join(' OR '))
     }
 
     def filters_sql_string
