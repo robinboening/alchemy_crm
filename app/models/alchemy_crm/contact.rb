@@ -127,6 +127,7 @@ module AlchemyCrm
     #       ms:
     #
     def translated_salutation
+      return '' if salutation.blank?
       ::I18n.t(salutation, :scope => [:alchemy_crm, :salutations], :default => salutation.to_s.capitalize)
     end
 
