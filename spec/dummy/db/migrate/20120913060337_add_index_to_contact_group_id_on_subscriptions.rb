@@ -1,0 +1,1 @@
+../../../../db/migrate/20120913060337_add_index_to_contact_group_id_on_subscriptions.rb

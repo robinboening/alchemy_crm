@@ -1,0 +1,1 @@
+../../../../db/migrate/20120902082326_add_counter_cache_columns_to_newsletter.rb

@@ -1,0 +1,1 @@
+../../../../db/migrate/20120908145623_add_indexes_to_alchemy_crm_contacts.rb

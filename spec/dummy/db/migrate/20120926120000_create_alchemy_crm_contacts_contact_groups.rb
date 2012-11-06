@@ -1,0 +1,1 @@
+../../../../db/migrate/20120926120000_create_alchemy_crm_contacts_contact_groups.rb

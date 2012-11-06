@@ -1,0 +1,1 @@
+../../../../db/migrate/20120902163755_add_contacts_count_to_contact_group.rb

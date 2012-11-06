@@ -1,0 +1,1 @@
+../../../../db/migrate/20120926113700_rename_contact_groups_newsletters_join_table.rb

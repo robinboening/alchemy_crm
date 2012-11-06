@@ -1,0 +1,1 @@
+../../../../db/migrate/20100708222620_acts_as_taggable_migration.rb

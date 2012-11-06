@@ -1,0 +1,1 @@
+../../../../db/migrate/20111104131912_add_delivered_at_to_sent_mailings.rb

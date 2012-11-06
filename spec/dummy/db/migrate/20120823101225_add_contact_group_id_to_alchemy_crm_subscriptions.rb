@@ -1,0 +1,1 @@
+../../../../db/migrate/20120823101225_add_contact_group_id_to_alchemy_crm_subscriptions.rb

@@ -1,0 +1,1 @@
+../../../../db/migrate/20120306115555_add_disabled_to_alchemy_crm_contacts.rb

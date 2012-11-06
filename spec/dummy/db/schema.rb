@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106150021) do
+ActiveRecord::Schema.define(:version => 20121106171843) do
 
   create_table "alchemy_attachments", :force => true do |t|
     t.string   "name"
@@ -359,7 +359,7 @@ ActiveRecord::Schema.define(:version => 20121106150021) do
     t.string   "urlname"
     t.string   "title"
     t.string   "language_code"
-    t.integer  "language_root",    :limit => 1
+    t.boolean  "language_root"
     t.string   "page_layout"
     t.text     "meta_keywords"
     t.text     "meta_description"
@@ -367,15 +367,15 @@ ActiveRecord::Schema.define(:version => 20121106150021) do
     t.integer  "rgt"
     t.integer  "parent_id"
     t.integer  "depth"
-    t.boolean  "visible",                       :default => false
-    t.boolean  "public",                        :default => false
-    t.boolean  "locked",                        :default => false
+    t.boolean  "visible",          :default => false
+    t.boolean  "public",           :default => false
+    t.boolean  "locked",           :default => false
     t.integer  "locked_by"
-    t.boolean  "restricted",                    :default => false
-    t.boolean  "robot_index",                   :default => true
-    t.boolean  "robot_follow",                  :default => true
-    t.boolean  "sitemap",                       :default => true
-    t.boolean  "layoutpage",                    :default => false
+    t.boolean  "restricted",       :default => false
+    t.boolean  "robot_index",      :default => true
+    t.boolean  "robot_follow",     :default => true
+    t.boolean  "sitemap",          :default => true
+    t.boolean  "layoutpage",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
