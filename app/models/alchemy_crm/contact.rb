@@ -35,7 +35,7 @@ module AlchemyCrm
     end
     validates_presence_of :email
     validates_uniqueness_of :email, :if => proc { email.present? }
-    validates_format_of :email, :with => ::Authlogic::Regex.email, :if => proc { errors[:email].blank? }
+    validates_format_of :email, :with => ::Devise.email_regexp, :if => proc { errors[:email].blank? }
 
     before_save :update_sha1, :if => proc { email_sha1.blank? || email_changed? }
 

@@ -15,7 +15,7 @@ module AlchemyCrm
     has_many :reactions
 
     validates_presence_of :email
-    validates_format_of :email, :with => Authlogic::Regex.email, :if => proc { email.present? }
+    validates_format_of :email, :with => ::Devise.email_regexp, :if => proc { email.present? }
 
     before_create :set_sha1
 
