@@ -20,9 +20,6 @@ navigation:
     - name: Zielgruppen
       controller: alchemy_crm/admin/contact_groups
       action: index
-    - name: Tags
-      controller: alchemy_crm/admin/tags
-      action: index
   nested:
     - controller: alchemy_crm/admin/mailings
       action: edit_content

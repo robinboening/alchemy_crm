@@ -53,7 +53,7 @@ AlchemyCrm::Engine.routes.draw do
       collection { get :add_filter }
     end
 
-    resources :tags, :newsletters
+    resources :newsletters
 
     resources :deliveries
 
