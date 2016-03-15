@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'vcard', ['~> 0.1.1']
   gem.add_dependency 'csv_magic', ['~> 0.3.0']
   gem.add_dependency 'delayed_job_active_record', ["~> 0.3.2"]
-  gem.add_dependency "magic-localized_country_select", ["~> 0.2.0"]
+  gem.add_dependency "magic-localized_country_select", ["~> 0.2.1"]
 
   gem.add_development_dependency(%q<rspec-rails>, ['~> 2.14', '< 2.99'])
   gem.add_development_dependency(%q<sqlite3>)
