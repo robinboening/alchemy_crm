@@ -1,0 +1,1 @@
+../../../../db/migrate/20100708220434_create_mailings.rb

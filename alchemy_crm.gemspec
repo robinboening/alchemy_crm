@@ -2,7 +2,6 @@
 require File.expand_path('../lib/alchemy_crm/version', __FILE__)
 
 Gem::Specification.new do |gem|
-
   gem.authors       = ["Thomas von Deyen"]
   gem.email         = ["tvd@magiclabs.de"]
   gem.description   = %q{A fully featured CRM / Newsletter and Mailings Module for Alchemy CMS. Building and sending Newsletters has never been easier!}
@@ -17,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = AlchemyCrm::VERSION
 
-  gem.add_dependency 'alchemy_cms', ["~> 2.4"]
+  gem.add_dependency 'alchemy_cms', ["~> 2.4", "< 2.7"]
   gem.add_dependency 'vcard', ['~> 0.1.1']
   gem.add_dependency 'csv_magic', ['~> 0.3.0']
   gem.add_dependency 'delayed_job_active_record', ["~> 0.3.2"]
@@ -25,5 +24,4 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency(%q<rspec-rails>, ['~> 2.14', '< 2.99'])
   gem.add_development_dependency(%q<sqlite3>)
-
 end

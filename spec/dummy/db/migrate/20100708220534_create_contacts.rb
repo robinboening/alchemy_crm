@@ -1,0 +1,1 @@
+../../../../db/migrate/20100708220534_create_contacts.rb

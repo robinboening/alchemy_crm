@@ -1,0 +1,1 @@
+../../../../db/migrate/20100708223922_create_essence_element_teasers.rb

@@ -1,6 +1,5 @@
 module AlchemyCrm
   class MailingsMailer < ActionMailer::Base
-
     default :from => AlchemyCrm::Config.get(:mail_from)
 
     helper "AlchemyCrm::Mailings", "Application"

@@ -26,13 +26,16 @@ end
 
 Alchemy::PageLayout.class_eval do
 
-  def self.selectable_layouts(language_id, layoutpage = false)
-    class_variable_get('@@definitions').select do |layout|
-      used = layout["unique"] && has_a_page_this_layout?(layout["name"], language_id)
-      if layoutpage
-        layout["layoutpage"] == true && !used && layout["newsletter"] != true
-      else
-        layout["layoutpage"] != true && !used && layout["newsletter"] != true
+  class << self
+    def selectable_layouts(language_id, layoutpage = false)
+      all.select do |layout|
+        next if layout["hide"]
+        used = layout["unique"] && has_a_page_this_layout?(layout["name"], language_id)
+        if layoutpage
+          layout["layoutpage"] == true && !used && layout["newsletter"] != true
+        else
+          layout["layoutpage"] != true && !used && layout["newsletter"] != true
+        end
       end
     end
   end

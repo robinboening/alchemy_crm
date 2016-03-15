@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dummy</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
+  <%= render_meta_data %>
+  <%= stylesheet_link_tag 'application' %>
 </head>
 <body>
-<h1>Welcome to Alchemy CRM Dummy App</h1>
-<%= yield %>
-
+  <%= yield %>
+  <%= alchemy_preview_mode_code %>
+  <%= alchemy_menu_bar %>
 </body>
 </html>

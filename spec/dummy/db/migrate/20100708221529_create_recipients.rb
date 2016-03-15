@@ -1,0 +1,1 @@
+../../../../db/migrate/20100708221529_create_recipients.rb

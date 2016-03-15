@@ -34,6 +34,7 @@ def configure
     # for testing mails
     config.include(EmailSpec::Helpers)
     config.include(EmailSpec::Matchers)
+    config.include Devise::TestHelpers, :type => :controller
     config.use_transactional_fixtures = true
     # == Mock Framework
     config.mock_with :rspec
@@ -42,6 +43,9 @@ def configure
       truncate_all_tables
       Alchemy::Seeder.seed!
       AlchemyCrm::Seeder.seed!
+    end
+    config.before(:each) do
+      ::I18n.locale = :en
     end
   end
 

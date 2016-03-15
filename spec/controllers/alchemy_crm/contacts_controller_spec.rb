@@ -110,7 +110,7 @@ module AlchemyCrm
 
         it "should display error notice." do
           post :signout, {:email => 'not@know.com', :use_route => :alchemy_crm}
-          flash[:notice].should match(/contact could not be found/)
+          flash[:notice].should match(I18n.t(:contact_unknown, scope: 'alchemy_crm'))
         end
 
       end
@@ -136,7 +136,7 @@ module AlchemyCrm
 
         it "should display error notice." do
           post :signout, {:email => @contact.email, :use_route => :alchemy_crm}
-          flash[:notice].should match(/contact could not be found/)
+          flash[:notice].should match(I18n.t(:contact_unknown, scope: 'alchemy_crm'))
         end
 
       end
